@@ -15,7 +15,7 @@
     }
 
     .bg-yellow { 
-        background-color: #0000;
+        background-color: #ffff00;
     }
 
     .background-1 { 
