@@ -15,11 +15,12 @@
     }
 
     .bg-yellow { 
-        background-color: #ffba08;
+        background-color: #0000;
     }
 
     .background-1 { 
         background-color: #fff9e3;
+        border:black solid 3px;
     }
     
     </style> 
