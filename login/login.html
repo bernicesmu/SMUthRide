@@ -13,25 +13,42 @@
 
         .title{
             color: #4e7570;
+            margin-top: 20px;
+            margin-left: 20px;
         }
         
         .header {
             font-size: 50px;
+            font-weight: bold;
         }
 
         .subheader {
             font-size: 26px;
         }
-        
+    
+
         .login {
-            display:flex;
-            justify-content: end;
-            margin-right: 30px;
+            margin: auto;
+            margin-top: 50px;
+            justify-content: center;
+        }
+
+        .login_form {
+            background-color: #bedad6;
+            border-radius: 30px;
+            padding: 20px;
+            padding-top: 10%;
+            
         }
 
         #login_submit{
-            background-color:#4e7570 ;
+            background-color:#4e7570;
+            font-weight: bold;
+            font-size: 32px;
+            padding-left: 30px;
+            padding-right: 30px;
         }
+        
 
     </style>
 </head>
@@ -42,8 +59,11 @@
     </div>
     <div class="login_pic">
     </div>
-    <div class="login">
-        <div class="login_form">
+    <div class="container row row-cols-2 login">
+        <div class="login_pic col">
+
+        </div>
+        <div class="login_form col col-rows-3">
             <form>
                 <div class="mb-3">
                   <label for="inputName" class="form-label">Username</label>
@@ -54,10 +74,11 @@
                   <input type="password" class="form-control" id="inputPassword" aria-describedby="forgetPwd">
                   <div id="forgetPwd" class="form-text"><a href="###">Forgot Password?</a></div>
                 </div>
-                <button id="login_submit" type="submit" class="btn btn-primary">Login</button>
+                <div class="mx-5"><button id="login_submit" type="submit" class="btn btn-primary">Login</button></div>
             </form>
         </div>
     </div>
+
 
 
 
