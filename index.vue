@@ -20,6 +20,7 @@
 
     .background-1 { 
         background-color: #fff9e3;
+        border:black solid 3px;
     }
     
     </style> 
