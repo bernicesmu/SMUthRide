@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #e3f1ef;
+}
+
+h1 {
+  color: #4e7570;
+}
+
+nav {
+  padding: 3rem 0 3rem;
+  background-color: grey;
+  text-align: center;
+}
+
+.card {
+  background-color: #bedad6;
+  margin: 1rem;
+}
+
+.button {
+  background-color: #4e7570;
+  color: #e3f1ef;
+}/*# sourceMappingURL=main.css.map */
