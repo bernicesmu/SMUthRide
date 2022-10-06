@@ -5,8 +5,7 @@ $dark-blue: #4c86a2;
 $light-blue: #a7c7d6; 
 
 body {
-  background-color: $light-green;
-  color: #1B7B2C;
+  background-color: $light-green !important;
 }
 
 * {
@@ -14,7 +13,7 @@ body {
   padding: 0;
 }
 
-h1 { 
+h1, h2, h3, h4, h5, h6, p { 
   color: $dark-green;
 }
 
@@ -30,6 +29,7 @@ nav {
 }
 
 .button {
-  background-color: $dark-green;
-  color: $light-green;
+  background-color: $dark-green !important;
+  color: $light-green !important;
+  font-weight: 600 !important;
 }
