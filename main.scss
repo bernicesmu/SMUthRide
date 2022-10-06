@@ -8,6 +8,27 @@ body {
   background-color: $light-green !important;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 h1 { 
   color: $dark-green;
+}
+
+nav {
+  padding: 3rem 0 3rem;
+  background-color: grey;
+  text-align: center;
+}
+
+.card {
+  background-color: $medium-green;
+  margin: 1rem;
+}
+
+.button {
+  background-color: $dark-green;
+  color: $light-green;
 }
