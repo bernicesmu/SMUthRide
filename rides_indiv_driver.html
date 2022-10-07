@@ -8,6 +8,12 @@
         margin-bottom: 60px;
         }
 
+        .other-group { 
+            position: relative; 
+            margin-top: -30px;
+            margin-bottom: 60px;
+        }
+
         .text-input {
         font-size: calc(1.275rem + .3vw);
         font-weight: 500;
@@ -43,6 +49,46 @@
         -webkit-transition: 0.2s ease all;
         }
 
+        .other-label { 
+            color: #4e7570; 
+            font-size: 1rem;
+            font-weight: normal;
+            position: absolute;
+            opacity: 0.5;
+            left: 5px;
+            transition: 0.2s ease all;
+        }
+
+        .date-label { 
+            color: #4e7570; 
+            font-size: 1rem;
+            font-weight: normal;
+            position: absolute;
+            opacity: 0.5;
+            left: 5px;
+            top: -30px;
+            transition: 0.2s ease all;
+        }
+
+        .radio-label { 
+            color: #4e7570; 
+            font-size: calc(1.275rem + .3vw);
+            font-weight: 500;
+        }
+
+        .form-check-input { 
+            margin-top: 10px;
+        }
+
+        .datetime-input { 
+            color: black;
+            filter: invert(43%) sepia(18%) saturate(645%) hue-rotate(123deg) brightness(91%) contrast(85%);
+        }
+
+        .number-input { 
+            filter: invert(94%) sepia(11%) saturate(369%) hue-rotate(117deg) brightness(90%) contrast(91%);
+        }
+
         /* active state */
         .text-input:focus ~ .text-label, .text-input:valid ~ .text-label {
         top: -30px;
@@ -59,6 +105,10 @@
         left: 0;
         pointer-events: none;
         opacity: 0.5;
+        }
+
+        .trip { 
+            transition: 0.2 ease all;
         }
 
         /* active state */
@@ -89,15 +139,26 @@
     </style>
 </head>
 <body>
-    <div class="trip text-center my-5">
+    <div class="text-center my-5">
         <h1>Offer a ride</h1>
+    </div>
+    <div class="trip text-center my-5">
+        <h2 class="d-inline" id="location_from">SMU</h2>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#4e7570" class="bi bi-arrow-right align-text-bottom mx-2" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+        </svg>
+        <h2 class="d-inline" id="location_to">Location</h2>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4e7570" class="bi bi-arrow-repeat align-text-top ms-3" viewBox="0 0 16 16" onclick="rotate_location()">
+            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+        </svg>
     </div>
     <div class="content d-flex justify-content-center">
         <form class="d-inline-block">
             <div class="group">      
                 <input type="text" class="text-input" required>
                 <span class="highlight"></span>
-                <label class="text-label">Location address</label>
+                <label class="text-label" id="location_field">Drop off address</label>
             </div>
             <div class="group">      
                 <input type="text" class="text-input" required>
@@ -105,23 +166,64 @@
                 <label class="text-label">Cost per person</label>
             </div>
             <div class="group">      
-                <input type="text" class="text-input" required>
+                <input type="number" class="text-input" required>
                 <span class="highlight"></span>
                 <label class="text-label">Seat capacity per ride</label>
             </div>
-            <div class="group form-check">      
-                <label>Frequency</label><br>
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="frequency-adhoc">
-                <label class="form-check-label" for="frequency-adhoc">Ad-hoc</label><br>
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="frequency-recurring">
-                <label class="form-check-label" for="frequency-recurring">Recurring</label> 
+            <div class="other-group">      
+                <label class="other-label" id="frequency-label">Frequency</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="frequency" id="frequency-adhoc" onclick="frequency_click()">
+                <label class="form-check-label radio-label" for="frequency-adhoc">Ad-hoc</label><br>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="frequency" id="frequency-recurring" onclick="frequency_click()">
+                <label class="form-check-label radio-label" for="frequency-recurring">Recurring</label> 
+                </div>
             </div>
             <div class="group">      
-                <input type="text" class="text-input" required>
+                <input type="date" class="text-input datetime-input" oninput="date_click()" required>
                 <span class="highlight"></span>
-                <label class="text-label">Date and time</label>
+                <label class="date-label" id="date-label">Date</label>
+            </div>
+            <div class="group">      
+                <input type="time" class="text-input datetime-input" oninput="time_click()" required>
+                <span class="highlight"></span>
+                <label class="date-label" id="time-label">Time</label>
             </div>
             <button type="submit" class="btn button d-block mx-auto mt-5 w-100">Get in loser, we're going shopping.</button>
         </form>
     </div>
 </body>
+
+<script>
+    smu_position = "from"
+
+    function frequency_click() { 
+        document.getElementById('frequency-label').style = 'opacity:0.8'
+    }
+
+    function date_click() { 
+        console.log('wefwen')
+        document.getElementById('date-label').style = 'opacity:0.8'
+    }
+
+    function time_click() { 
+        document.getElementById('time-label').style = 'opacity:0.8'
+    }
+
+    function rotate_location() {
+        if (smu_position == "from") { 
+            document.getElementById('location_from').innerHTML = "Location"
+            document.getElementById('location_to').innerHTML = "SMU"
+            document.getElementById('location_field').innerHTML = "Pick up address"
+            smu_position = "to"
+        }
+        else { 
+            document.getElementById('location_from').innerHTML = "SMU"
+            document.getElementById('location_to').innerHTML = "Location"
+            document.getElementById('location_field').innerHTML = "Drop off address"
+            smu_position = "from"
+        }
+    }
+</script>
