@@ -1,0 +1,23 @@
+@import "../../main";
+
+body {
+  background-color: $light-green !important;
+
+}
+
+h1 {
+  color: #4e7570;
+}
+
+.card {
+  border-radius: 15px;
+  background-color: $medium-green;
+  max-width: 251px;
+  max-height: 235px;
+}
+.rounded-circle{
+  width: 60px;
+}
+.badge{
+  background-color: $dark-blue
+}
