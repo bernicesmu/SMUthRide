@@ -6,18 +6,73 @@ body {
 }
 
 h1 {
+
   color: #4e7570;
 }
 
-.card {
+.card-body{
   border-radius: 15px;
   background-color: $medium-green;
-  max-width: 251px;
-  max-height: 235px;
+  min-width: 251px;
+  min-height: 235px;
+  max-width: 300px;
+  max-height: 300px;
+
 }
 .rounded-circle{
   width: 60px;
 }
 .badge{
-  background-color: $dark-blue
+  background-color: $dark-blue;
+
+}
+
+.inputs{
+  position: relative;
+
+}
+input[type=text] {
+  background-color: #bedad6;
+  border-radius: 15px;
+}
+
+input[type=text]:focus {
+  background-color: #bedad6;
+  border-radius: 15px;
+}
+.form-control {
+  text-indent: 15px;
+  background-color: $medium-green;
+  border: none;
+  height: 45px;
+  width: 100%;
+  border: #ffba08 2px solid;
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: $medium-green;
+  border-color: #eee;
+  outline: 0;
+  box-shadow: none;
+  border-bottom: 1px solid blue;
+
+}
+.form-control::placeholder {
+  text-align: center;
+}
+
+.bi-search{
+  position: absolute;
+  top: 12px;
+  left: 8px;
+  color: #b8b9bc;
+}
+.bi-plus-circle-fill{
+  font-size: 3rem;
+  color: $dark-green;
+}
+
+#add_ride{
+  height: 30px;
 }
