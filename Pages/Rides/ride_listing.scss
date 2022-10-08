@@ -2,14 +2,18 @@
 
 body {
   background-color: $light-green !important;
-
 }
 
 h1 {
-
   color: #4e7570;
 }
-
+#listing{
+  background-color: $light-green;
+}
+.card{
+  background-color: $light-green;
+  margin:0 auto
+}
 .card-body{
   border-radius: 15px;
   background-color: $medium-green;
@@ -17,14 +21,22 @@ h1 {
   min-height: 235px;
   max-width: 300px;
   max-height: 300px;
-
+  color: $dark-green;
+  transition: all .2s ease-in-out;
 }
+
+.card-body:hover{
+  transition: all .2s ease-in-out;
+
+  transform: scale(1.1);
+}
+
 .rounded-circle{
   width: 60px;
+  border-color: $dark-green;
 }
 .badge{
   background-color: $dark-blue;
-
 }
 
 .inputs{
@@ -32,13 +44,13 @@ h1 {
 
 }
 input[type=text] {
-  background-color: #bedad6;
+  background-color: $medium-green;
   border-radius: 15px;
 }
 
 input[type=text]:focus {
-  background-color: #bedad6;
-  border-radius: 15px;
+  background-color: $medium-green;
+  border-radius: 15px $dark-green;
 }
 .form-control {
   text-indent: 15px;
@@ -49,15 +61,7 @@ input[type=text]:focus {
   border: #ffba08 2px solid;
 }
 
-.form-control:focus {
-  color: #495057;
-  background-color: $medium-green;
-  border-color: #eee;
-  outline: 0;
-  box-shadow: none;
-  border-bottom: 1px solid blue;
 
-}
 .form-control::placeholder {
   text-align: center;
 }
@@ -66,7 +70,7 @@ input[type=text]:focus {
   position: absolute;
   top: 12px;
   left: 8px;
-  color: #b8b9bc;
+  color: $dark-green;
 }
 .bi-plus-circle-fill{
   font-size: 3rem;
