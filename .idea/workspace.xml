@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="aaf73f13-444c-470c-9e5e-45ade63c3265" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/Pages/Rides/ride_listing.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -11,6 +12,9 @@
       <change beforePath="$PROJECT_DIR$/Pages/Rides/rides.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Pages/Rides/rides.css.map" beforeDir="false" />
     </list>
+=======
+    <list default="true" id="aaf73f13-444c-470c-9e5e-45ade63c3265" name="Changes" comment="" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,6 +65,7 @@
       <updated>1664975503164</updated>
       <workItem from="1664975505641" duration="206000" />
       <workItem from="1664975732315" duration="6844000" />
+      <workItem from="1665210002846" duration="45000" />
     </task>
     <servers />
   </component>
