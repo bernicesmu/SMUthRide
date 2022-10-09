@@ -209,8 +209,7 @@
         </form>
     </div>
 </body>
-
-<script>
+<script type="module" src="index.js">
     smu_position = "from"
 
     function frequency_click() { 
@@ -218,7 +217,6 @@
     }
 
     function date_click() { 
-        console.log('wefwen')
         document.getElementById('date-label').style = 'opacity:0.8'
     }
 
@@ -244,4 +242,6 @@
             smu_position = "from"
         }
     }
+
+    writeUserData(1, "bro", "beriuf@hello.com", "urlefwefrurl.com")
 </script>
