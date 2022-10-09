@@ -20,7 +20,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-function writeUserData(userId, name, email, imageUrl) {
+export function writeUserData(userId, name, email, imageUrl) {
   const db = getDatabase();
   set(ref(db, 'users/' + userId), {
       username: name,
@@ -28,5 +28,3 @@ function writeUserData(userId, name, email, imageUrl) {
       profile_picture : imageUrl
   });
 }
-
-writeUserData(1, "bro", "beriuf@hello.com", "urlefwefrurl.com")
