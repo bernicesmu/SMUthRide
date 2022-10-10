@@ -1,0 +1,108 @@
+<!DOCTYPE html> 
+<head> 
+    <link rel="stylesheet" href="../../../main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style> 
+        .user { 
+            width: 500px;
+        }
+
+        .user-pic { 
+            width: 70px;
+            border-radius: 50%;
+        }
+
+        .username { 
+            font-weight: 300;
+        }
+
+        .degree { 
+            font-weight: 300;
+        }
+
+        .block-placeholder { 
+            background-color: #4e7570;
+            width: 422px;
+            height: 433px;
+        }
+
+        .user-buttons, .user { 
+            width:fit-content;
+            height:fit-content;
+        }
+
+        .content { 
+            text-align: center;
+        }
+
+        .details { 
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="trip text-center my-5">
+        <h1 class="d-inline">SMU</h1>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#4e7570" class="bi bi-arrow-right align-text-bottom mx-2" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+        </svg>
+        <h1 class="d-inline">Location</h1>
+    </div>
+    <div class="content">
+        <div class="map d-inline-block align-middle me-5">
+            <div class="block-placeholder">
+            </div>
+        </div>
+        <div class="details d-inline-block align-middle">
+            <div class="user d-flex">
+                <div class="profilepic d-inline me-2">
+                    <img class="user-pic" src="sample_dp.jpeg">
+                </div>
+                <div class="usertext d-block my-auto">
+                    <div class="userinfo d-flex">
+                        <h4 class="name me-2">James Tan</h4>
+                        <h4 class="username">@username</h4>
+                    </div>
+                    <div class="degree">
+                        <h6 class="degree">Year 2, Information Systems</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="ride my-5 d-inline-block">
+                <div class="address mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#4e7570" class="bi bi-geo-alt align-text-bottom me-2" viewBox="0 0 16 16">
+                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                    <h4 class="d-inline">90 Stamford Road, S(512345)</h4>
+                </div>
+                <div class="cost mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#4e7570" class="bi bi-coin align-text-bottom me-2" viewBox="0 0 16 16">
+                        <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                    </svg>
+                    <h4 class="d-inline">$9 per pax</h4>
+                </div>
+                <div class="capacity mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#4e7570" class="bi bi-car-front align-text-bottom me-2" viewBox="0 0 16 16">
+                        <path d="M4 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM4.862 4.276 3.906 6.19a.51.51 0 0 0 .497.731c.91-.073 2.35-.17 3.597-.17 1.247 0 2.688.097 3.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 10.691 4H5.309a.5.5 0 0 0-.447.276Z"/>
+                        <path fill-rule="evenodd" d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM4.82 3a1.5 1.5 0 0 0-1.379.91l-.792 1.847a1.8 1.8 0 0 1-.853.904.807.807 0 0 0-.43.564L1.03 8.904a1.5 1.5 0 0 0-.03.294v.413c0 .796.62 1.448 1.408 1.484 1.555.07 3.786.155 5.592.155 1.806 0 4.037-.084 5.592-.155A1.479 1.479 0 0 0 15 9.611v-.413c0-.099-.01-.197-.03-.294l-.335-1.68a.807.807 0 0 0-.43-.563 1.807 1.807 0 0 1-.853-.904l-.792-1.848A1.5 1.5 0 0 0 11.18 3H4.82Z"/>
+                    </svg>
+                    <h4 class="d-inline">2 / 4 seats available</h4>
+                </div>
+                <div class="datetime mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#4e7570" class="bi bi-clock align-text-bottom me-2" viewBox="0 0 16 16">
+                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                    </svg>
+                    <h4 class="d-inline">Every Monday, 12pm</h4>
+                </div>
+            </div>
+            <div class="user-buttons">
+                <button type="button" class="btn button btn-lg me-2">Make an offer</button>
+                <button type="button" class="btn button btn-lg">Chat for more</button>
+            </div>
+        </div>
+    </div>
+</body>
