@@ -1,49 +1,30 @@
-<!doctype html>
-<html>
- 
-<head>
-    <title>WebSocket Chat</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="http://code.jquery.com/jquery-3.0.0.slim.min.js"></script>
-</head>
- 
-<body>
-    <form>
-        <div id="name-div">
-            <input id="name" name="name" autocomplete="off" autofocus placeholder="Enter your nickname" />
-            <button>Submit</button>
-        </div>
-        <div id="welcome"></div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Firebase RealTime Chat</title>
+    <link rel="stylesheet" href="./index.css">
+  </head>
+  <body>
+    <header>
+        <h2>Firebase RealTime Chat</h2>
+      </header>
+  
+      <div id="chat">
+        <!-- messages will display here -->
         <ul id="messages"></ul>
-        <div id="input-div">
-            <input id="message" name="message" autocomplete="off" placeholder="Type your message here" />
-            <button>Send</button>
-        </div>
-    </form>
- 
-    <script>
-        websocket = new WebSocket("ws://localhost:8080/");
-        $('form').submit(function() {
-            name = $('#name').val() ? $('#name').val() : 'Anonymous';
-            $('#name-div').hide();
-            $('#welcome').text('Hello ' + name);
-            websocket.send(JSON.stringify({
-                name: name,
-                message: $('#message').val()
-            }));
-            $('#message').focus();
-            $('#message').val('');
-            return false;
-        });
- 
-        websocket.onmessage = function(evt) {
-            $('#messages').append($('<li>').html(evt.data));
-        };
- 
-        websocket.onerror = function(evt) {
-            $('#messages').append($('<li>').text('<span style="color: red;">ERROR:</span> ' + evt.data));
-        };
-    </script>
-</body>
- 
+  
+        <!-- form to send message -->
+        <form id="message-form">
+          <input id="message-input" type="text" />
+          <button id="message-btn" type="submit">Send</button>
+        </form>
+      </div>
+
+    <!-- scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>
