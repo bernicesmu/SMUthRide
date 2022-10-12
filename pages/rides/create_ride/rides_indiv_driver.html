@@ -167,20 +167,20 @@
         </svg>
     </div>
     <div class="content d-flex justify-content-center">
-        <form class="d-inline-block">
+        <form class="d-inline-block" id="rides" method="post">
             <div class="group">      
-                <input type="text" class="text-input" required>
+                <input type="text" class="text-input" name='address' required>
                 <span class="highlight"></span>
                 <label class="text-label" id="location_field">Drop off address</label>
             </div>
             <div class="group" id="cost_group">  
                 <span class="currencyinput" id="dollarsign"></span>    
-                <input type="number" min="0" step="0.1" class="text-input cost-input" oninput="cost_click()" required>
+                <input type="number" name='cost' min="0" step="0.1" class="text-input cost-input" oninput="cost_click()" required>
                 <span class="highlight"></span>
                 <label class="text-label">Cost per person</label>
             </div>
             <div class="group">      
-                <input type="number" min="0" class="text-input" required>
+                <input type="number" name="capacity" min="0" class="text-input" required>
                 <span class="highlight"></span>
                 <label class="text-label">Seat capacity per ride</label>
             </div>
@@ -196,12 +196,12 @@
                 </div>
             </div>
             <div class="group">      
-                <input type="date" class="text-input datetime-input" oninput="date_click()" required>
+                <input type="date" name="date" class="text-input datetime-input" oninput="date_click()" required>
                 <span class="highlight"></span>
                 <label class="date-label" id="date-label">Date</label>
             </div>
             <div class="group">      
-                <input type="time" class="text-input datetime-input" oninput="time_click()" required>
+                <input type="time" name="time" class="text-input datetime-input" oninput="time_click()" required>
                 <span class="highlight"></span>
                 <label class="date-label" id="time-label">Time</label>
             </div>
@@ -210,8 +210,16 @@
     </div>
 </body>
 <script>
-    username = "bob"
-    email = 'bob@hello.com' // this username can be read in the riders_indiv_driver.js file 
+    username = sessionStorage
+    console.log('html', username)
+</script>
+<script>
+    // used to prevent the page from refreshing after submit, because its quite annoying lol
+    var form = document.getElementById("rides"); 
+    function handleForm(event) {     
+        event.preventDefault(); 
+    }  
+    form.addEventListener('submit', handleForm);
 </script>
 <script type="module" src="../../../index.js"></script>
 <script type="module" src="./rides_indiv_driver.js"></script>
@@ -248,4 +256,6 @@
             smu_position = "from"
         }
     }
+
+
 </script>

@@ -20,6 +20,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const db = getDatabase();
 
 export function writeUserData(userId, name, email, imageUrl) {
   const db = getDatabase();
@@ -28,6 +29,18 @@ export function writeUserData(userId, name, email, imageUrl) {
       email: email,
       profile_picture : imageUrl
   });
+}
+
+export function write_ride(username, rideid, address, cost, capacity, frequency, date, time) { 
+  const db = getDatabase();
+  set(ref(db, `rides/${username}/${rideid}`), {
+    address,
+    cost,
+    capacity,
+    frequency,
+    date,
+    time
+  })
 }
 
 export function create_user(email, password) { 
@@ -44,4 +57,4 @@ export function create_user(email, password) {
       console.log(errorCode, errorMessage)
       // ..
   });
-}
+};
