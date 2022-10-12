@@ -12,7 +12,7 @@ header {
     padding-bottom: 30%;
 }
 
-li {
+/* li {
     list-style-type: none;
     margin-bottom: 10px;
     background-color: #6929ca;
@@ -20,7 +20,17 @@ li {
     border-radius: 10px;
     color: white;
     width: 50%;
-}
+} */
+/* 
+.sent {
+    list-style-type: none;
+    margin-bottom: 10px;
+    background-color: #6929ca;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    width: 50%;
+} */
 
 li span {
     font-style: italic;

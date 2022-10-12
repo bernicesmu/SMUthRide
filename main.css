@@ -40,14 +40,14 @@ a:link {
 #messages{
   padding-bottom: 30%;
 }
-
+ 
 li {
   list-style-type: none;
   margin-bottom: 10px;
-  background-color: #6929ca;
+  
   padding: 5px;
   border-radius: 10px;
-  color: white;
+  color: black;
   width: 50%;
 }
 
@@ -61,6 +61,8 @@ li span {
   width: 80%;
   margin: auto;
   background-color: white;
+  border-radius: 20px;
+  padding-top: 30px;
 
 }
 
@@ -85,11 +87,44 @@ button {
 
 .sent {
   text-align: right;
-  background-color: #a79cb3;
+  /* background-color: #a79cb3; */
+  list-style-position: outside;
   margin-left: 50%;
+  word-wrap: break-word;
+  padding-right: 30px;
+  
+  
 }
 
-.sent span {
+.sent p {
   margin-left: 5px;
-  color: #6929ca;
+  color: black;
+  background-color: #4e7570;
+  margin: 0px;
+  
+}
+
+.receive{
+  /* background-color: #6929ca; */
+  
+  list-style-position: outside;
+  padding: 0px;
+  word-wrap: break-word;
+  background-color: #bedad6;
+  
+}
+
+.receive span{
+  color: #4e7570;
+}
+
+p{
+  
+  display: inline-block;
+  border-radius: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: left;
 }
