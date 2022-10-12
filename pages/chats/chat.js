@@ -39,12 +39,13 @@ var firebaseConfig = {
     }
   
   const fetchChat = db.ref("messages/");
+
   
   fetchChat.on("child_added", function (snapshot) {
       const messages = snapshot.val();
       const message = `<li class=${
         username === messages.username ? "sent" : "receive"
-      }><span>${messages.username}: </span>${messages.message}</li>`;
+      }><span><p>${messages.username}: ${messages.message}</p></span></li>`;
       // append the message on the page
       document.getElementById("messages").innerHTML += message;
     });
