@@ -3,10 +3,8 @@ import {write_ride, find_rid} from '../../../index.js'
 document.getElementById('rides').addEventListener('submit', write_ride_local) 
 
 var username = "rferefvc" // to use session management to dynamically retrieve the username
-var rideid = find_rid(username) 
-console.log(rideid)
-
-
+find_rid(username)
+var rideid = parseInt(localStorage.getItem("rideid")) + 1
 
 // writeUserData(1, username, email, "regine.com")
 
