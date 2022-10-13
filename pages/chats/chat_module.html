@@ -1,0 +1,19 @@
+<body> 
+    <form id="usertest">
+        user 1 ID<input type="text" name="user1">
+        <br>
+        user 2 ID<input type="text" name="user2">
+        <br>
+        <button type="submit">submit</button>
+    </form>
+</body>
+<script>
+    // used to prevent the page from refreshing after submit, because its quite annoying lol
+    var form = document.getElementById("usertest"); 
+    function handleForm(event) {     
+        event.preventDefault(); 
+    }  
+    form.addEventListener('submit', handleForm);
+</script>
+<script type="module" src="../../index.js"></script>
+<script type="module" src="./chat_module.js"></script>
