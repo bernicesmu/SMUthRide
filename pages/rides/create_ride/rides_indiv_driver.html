@@ -187,12 +187,12 @@
             <div class="other-group">      
                 <label class="other-label" id="frequency-label">Frequency</label><br>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="frequency" id="frequency-adhoc" onclick="frequency_click()">
-                <label class="form-check-label radio-label" for="frequency-adhoc">Ad-hoc</label><br>
+                    <input class="form-check-input" type="radio" name="frequency" value="adhoc" id="frequency-adhoc" onclick="frequency_click()">
+                    <label class="form-check-label radio-label" for="frequency-adhoc">Ad-hoc</label><br>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="frequency" id="frequency-recurring" onclick="frequency_click()">
-                <label class="form-check-label radio-label" for="frequency-recurring">Recurring</label> 
+                    <input class="form-check-input" type="radio" name="frequency" value="recurring" id="frequency-recurring" onclick="frequency_click()">
+                    <label class="form-check-label radio-label" for="frequency-recurring">Recurring</label> 
                 </div>
             </div>
             <div class="group">      
@@ -209,10 +209,6 @@
         </form>
     </div>
 </body>
-<script>
-    username = sessionStorage
-    console.log('html', username)
-</script>
 <script>
     // used to prevent the page from refreshing after submit, because its quite annoying lol
     var form = document.getElementById("rides"); 
