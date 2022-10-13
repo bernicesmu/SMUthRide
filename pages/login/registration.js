@@ -1,7 +1,6 @@
-import {create_user} from '../../index.js'
+import {writeUserData, create_user} from '../../index.js'
 
 document.getElementById('registration').addEventListener('submit', register_user)
-
 function register_user() { 
     var inputs = document.getElementsByTagName('input')
     var name = inputs.name.value
@@ -23,5 +22,6 @@ function register_user() {
 
     if (valid) { 
         create_user(email, password)
+        writeUserData(username, name, email)
     }
 }

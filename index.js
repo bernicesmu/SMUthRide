@@ -22,12 +22,25 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-export function writeUserData(userId, name, email, imageUrl) {
+export function writeUserData(username, name, email) {
   const db = getDatabase();
-  set(ref(db, 'users/' + userId), {
-      username: name,
+  const users = ref(db, `users`)
+  onValue(users, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data)
+    var uid = 0
+    for (var i of Object.values(data)) { 
+      console.log("i is", i)
+      uid = i.userid
+    }
+    localStorage.setItem("userid", uid)
+  });
+  var str_uid = String(parseInt(localStorage.getItem("userid")) + 1)
+  var latest_uid = "0".repeat(3-str_uid.length) + str_uid 
+  set(ref(db, `users/${username}`), {
+      userid: latest_uid,
+      name: name,
       email: email,
-      profile_picture : imageUrl
   });
 }
 
@@ -46,22 +59,13 @@ export function write_ride(username, rideid, address, cost, capacity, frequency,
 export function find_rid(username) { 
   const db = getDatabase();
   const rides = ref(db, `rides/${username}`)
-  // var final = 'dves'
-  // onValue(rides, (snapshot) => {
-  //   const data = snapshot.val();
-  //   console.log(data)
-  //   var rid = 0
-  //   for (var i of Object.keys(data)) { 
-  //     rid = i 
-  //   }
-  //   console.log(rid)
-  //   final = rid
-  //   return rid
-  // });
-  // console.log("outside", final)
-  rides.on("child_added", function (snapshot) {
-    const messages = snapshot.val();
-    console.log(messages)
+  onValue(rides, (snapshot) => {
+    const data = snapshot.val();
+    var rid = 0
+    for (var i of Object.keys(data)) { 
+      rid = i 
+    }
+    localStorage.setItem("rideid", rid)
   });
 }
 
