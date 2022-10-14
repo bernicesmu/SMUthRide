@@ -1,0 +1,45 @@
+
+<html>
+<head>
+  <title>OneMap2 XYZ (Default)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+  <script src="https://cdn.onemap.sg/leaflet/onemap-leaflet.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>Singapore Map</h1>
+<div id="main">
+  <input type="text" v-model="loc_input">
+  <button v-on:click="send_req()">send</button>
+  <hr>
+  {{results}}
+</div>
+
+<!--<div id='mapdiv' style='height:800px;'></div>-->
+<!--<iframe src="https://www.onemap.gov.sg/minimap/mm.html?mapStyle=Default&zoomLevel=17&latLng=1.319518003,103.8421548&ewt=JTNDcCUzRSUzQ3N0cm9uZyUzRVBsZWFzZSUyMGVudGVyJTIweW91ciUyMFRleHQlMjBpbiUyMHRoZSUyMFBvcHVwJTIwQ3JlYXRvci4lM0MlMkZzdHJvbmclM0UlM0NiciUyMCUyRiUzRSUzQ2ltZyUyMHNyYyUzRCUyMmh0dHBzJTNBJTJGJTJGZG9jcy5vbmVtYXAuc2clMkZpbWFnZXMlMkZsb2dvLnBuZyUyMiUyMCUyRiUzRSUzQ2JyJTIwJTJGJTNFJTNDYnIlMjAlMkYlM0UlM0NhJTIwaHJlZiUzRCUyMmh0dHBzJTNBJTJGJTJGd3d3Lm9uZW1hcC5nb3Yuc2clMkYlMjIlM0VPbmVNYXAlM0MlMkZhJTNFJTNDJTJGcCUzRQ==&popupWidth=200&showPopup=true" height="450" width="450" scrolling="no" frameborder="0" allowfullscreen="allowfullscreen"></iframe>-->
+
+</body>
+<script>
+  const main = Vue.createApp({
+    data() {
+      return {
+        loc_input: '',
+        results:''
+      }
+    },
+
+  methods: {
+    send_req() {
+      let url ='https://developers.onemap.sg/commonapi/search?searchVal='+ this.loc_input +'&returnGeom=Y&getAddrDetails=Y&pageNum=1'
+      axios.get(url).then(response=> {
+        console.log(response.data)
+        this.results = response.data.results
+      })
+    },
+  }
+  })
+  main.mount("#main")
+</script>
+</html>
+
