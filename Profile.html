@@ -11,28 +11,44 @@
             integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
             crossorigin="anonymous"
         />
+<<<<<<< Updated upstream:Profile.html
         <link rel="stylesheet" href="main.css" />
+=======
+        <link rel="stylesheet" href="../../main.css" />
+        <style>
+            .profile-card {
+                min-height: 20rem;
+            }
+
+            .profile-pic {
+                width: 13rem;
+            }
+            .card-text {
+                display: block;
+            }
+        </style>
+>>>>>>> Stashed changes:pages/profile/Profile.html
     </head>
     <body>
         <nav>
             <p>NAVBAR</p>
         </nav>
 
-        <div class="card">
+        <div class="card profile-card">
             <div class="card-body row">
-                <img class="col-2" src="ded.png" alt="profile picture" />
-                <div class="col-3">
+                <img class="col-lg-4 col-md-4 col-sm-12 profile-pic" src="ded.png" alt="profile picture" />
+                <div class="col-lg-4 col-md-4 col-sm-6">
                     <p class="card-text">Tan Ah Gao</p>
                     <p class="card-text">Useless Degree, 2022</p>
                     <a href="#" class="btn button">Change Password</a>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-4 col-md-4 col-sm-6">
                     <p class="card-text">Age: 22</p>
                     <p class="card-text">Birthday: 22/02/2000</p>
                     <p class="card-text">Gender: Male</p>
                 </div>
-                <div class="col-4">
-                    <p class="card-text">Bio</p>
+                <div class="col-lg-12 mx-auto pt-3">
+                    <p class="card-text"><u>Bio</u></p>
                     <p class="card-text">
                         Lorem ipsum dolor sit amet, consectetur adipisicing
                         elit. Cum fugit asperiores modi, autem adipisci quis
@@ -43,9 +59,9 @@
             </div>
         </div>
 
-        <div class="row row-cols-3">
-            <div class="col">
-                <div class="card">
+        <div class="row">
+            <div class="col-12 col-lg-4 col-md-6 col-sm-12">
+                <div class="card profile-card">
                     <div class="card-body">
                         <h5 class="card-title text-center">Hobbies</h5>
                         <p class="card-text">
@@ -59,21 +75,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
+            <div class="col-12 col-lg-4 col-md-6 col-sm-12">
+                <div class="card profile-card">
                     <div class="card-body">
                         <h5 class="card-title text-center">Motivations</h5>
+                        <p class="card-text">
                             <ul class="card-title">
                                 <li>Cycling</li>
                                 <li>Swimming</li>
                                 <li>Darts</li>
                                 <li>Bowling</li>
                             </ul>
+                            
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
+            <div class="col-12 col-lg-4 col-md-6 col-sm-12">
+                <div class="card profile-card">
                     <div class="card-body">
                         <h5 class="card-title text-center">CCA(s)</h5>
                         <p class="card-text">
