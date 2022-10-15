@@ -1,3 +1,5 @@
+
+
 var firebaseConfig = {
     apiKey: "AIzaSyCCVjpCi9lziMF130jj2UtJGiPc0MamUkY",
     authDomain: "wad2-smuth-ride.firebaseapp.com",
@@ -49,3 +51,10 @@ var firebaseConfig = {
       // append the message on the page
       document.getElementById("messages").innerHTML += message;
     });
+
+  
+  function find_chats(user_id){
+    find_chat(user_id)
+
+
+  }

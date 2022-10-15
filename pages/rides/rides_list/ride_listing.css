@@ -36,8 +36,108 @@ a:link {
   color: #bedad6;
 }
 
+#messages {
+  padding-bottom: 30%;
+}
+
+li {
+  list-style-type: none;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 10px;
+  color: black;
+  width: 50%;
+}
+
+li span {
+  font-style: italic;
+  font-weight: bolder;
+  color: #b5b0b9;
+}
+
+#chat {
+  width: 80%;
+  margin: auto;
+  background-color: white;
+  border-radius: 20px;
+  padding-top: 30px;
+}
+
+.fixed-wrapper {
+  position: absolute;
+  width: 500px;
+  left: 700px;
+  top: 0px;
+}
+
+#message-form {
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 70%;
+  background-color: #b7b5b9;
+}
+
+input {
+  width: 70%;
+  height: 30px;
+}
+
+button {
+  width: 25%;
+  height: 38px;
+}
+
+.sent {
+  text-align: right;
+  /* background-color: #a79cb3; */
+  list-style-position: outside;
+  margin-left: 50%;
+  word-wrap: break-word;
+  padding-right: 30px;
+}
+
+.sent p {
+  margin-left: 5px;
+  color: black;
+  background-color: #4e7570;
+  margin: 0px;
+}
+
+.receive {
+  /* background-color: #6929ca; */
+  list-style-position: outside;
+  padding: 0px;
+  word-wrap: break-word;
+  background-color: #bedad6;
+}
+
+.receive span {
+  color: #4e7570;
+}
+
+p {
+  display: inline-block;
+  border-radius: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: left;
+}
+
 #chat {
   background-color: white;
+  width: 70%;
+  position: relative;
+}
+
+#chatroom {
+  background-color: #4c86a2;
+  width: 30%;
+  margin-right: 3%;
+  border-radius: 30px;
 }
 
 body {
@@ -105,6 +205,14 @@ input[type=text]:focus {
   border: #ffba08 2px solid;
 }
 
+.form-control::-moz-placeholder {
+  text-align: center;
+}
+
+.form-control:-ms-input-placeholder {
+  text-align: center;
+}
+
 .form-control::placeholder {
   text-align: center;
 }
@@ -123,6 +231,4 @@ input[type=text]:focus {
 
 #add_ride {
   height: 30px;
-}
-
-/*# sourceMappingURL=ride_listing.css.map */
+}/*# sourceMappingURL=ride_listing.css.map */
