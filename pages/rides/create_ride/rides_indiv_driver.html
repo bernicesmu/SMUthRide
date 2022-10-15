@@ -179,8 +179,8 @@
                 <span class="highlight"></span>
                 <label class="text-label">Cost per person</label>
             </div>
-            <div class="group">      
-                <input type="number" min="0" class="text-input" required>
+            <div class="group">
+                <input type="number" name="capacity" min="0" max="10" class="text-input" required>
                 <span class="highlight"></span>
                 <label class="text-label">Seat capacity per ride</label>
             </div>
@@ -211,6 +211,30 @@
 </body>
 <script>
     username = "amy" // this username can be read in the riders_indiv_driver.js file 
+
+
+    // set min and max dates for calendar
+    const date = new Date();
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    document.getElementsByName("date")[0].min = `${year}-${month}-${day}`;
+    document.getElementsByName("date")[0].max = `${year+1}-${month}-${day}`;
+
+    //set min time for time input
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    document.getElementsByName("time")[0].min = `${hour}:${minute}`;
+    document.getElementsByName("time")[0].value = `${hour}:${minute}`;
+
+    // used to prevent the page from refreshing after submit, because its quite annoying lol
+    var form = document.getElementById("rides"); 
+    function handleForm(event) {     
+        event.preventDefault(); 
+    }  
+    form.addEventListener('submit', handleForm);
+
 </script>
 <script type="module" src="../../../index.js"></script>
 <script type="module" src="./rides_indiv_driver.js"></script>
