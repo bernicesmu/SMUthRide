@@ -33,3 +33,15 @@ nav {
   color: $light-green !important;
   font-weight: 600 !important;
 }
+
+.navbar{
+  background-color: $dark-green;
+}
+
+a:link{
+  color:$medium-green;
+}
+
+#chat{
+  background-color: white;
+}

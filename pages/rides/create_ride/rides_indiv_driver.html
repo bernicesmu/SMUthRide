@@ -177,15 +177,15 @@
         </svg>
     </div>
     <div class="content d-flex justify-content-center">
-        <form class="d-inline-block" id="ride_form">
+        <form class="d-inline-block" id="rides" method="post">
             <div class="group">      
-                <input type="text" class="text-input" required>
+                <input type="text" class="text-input" name='address' required>
                 <span class="highlight"></span>
                 <label class="text-label" id="location_field">Drop off address</label>
             </div>
             <div class="group" id="cost_group">  
                 <span class="currencyinput" id="dollarsign"></span>    
-                <input type="number" min="0" step="0.1" class="text-input cost-input" oninput="cost_click()" required>
+                <input type="number" name='cost' min="0" step="0.1" class="text-input cost-input" oninput="cost_click()" required>
                 <span class="highlight"></span>
                 <label class="text-label">Cost per person</label>
             </div>
@@ -197,12 +197,12 @@
             <div class="other-group">      
                 <label class="other-label" id="frequency-label">Frequency</label><br>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="frequency" id="frequency-adhoc" onclick="frequency_click()">
-                <label class="form-check-label radio-label" for="frequency-adhoc">Ad-hoc</label><br>
+                    <input class="form-check-input" type="radio" name="frequency" value="adhoc" id="frequency-adhoc" onclick="frequency_click()">
+                    <label class="form-check-label radio-label" for="frequency-adhoc">Ad-hoc</label><br>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="frequency" id="frequency-recurring" onclick="frequency_click()">
-                <label class="form-check-label radio-label" for="frequency-recurring">Recurring</label> 
+                    <input class="form-check-input" type="radio" name="frequency" value="recurring" id="frequency-recurring" onclick="frequency_click()">
+                    <label class="form-check-label radio-label" for="frequency-recurring">Recurring</label> 
                 </div>
             </div>
             <div class="group">      
@@ -236,7 +236,7 @@
     document.getElementsByName("date")[0].min = `${year}-${month}-${day}`;
 
 
-    //set min time for time input
+    // set min time for time input
     let hour = date.getHours();
     let minute = date.getMinutes();
     document.getElementsByName("time")[0].min = `${hour}:${minute}`;
@@ -248,7 +248,6 @@
         event.preventDefault(); 
     }  
     form.addEventListener('submit', handleForm);
-
 </script>
 <script type="module" src="../../../index.js"></script>
 <script type="module" src="./rides_indiv_driver.js"></script>
@@ -285,4 +284,6 @@
             smu_position = "from"
         }
     }
+
+
 </script>

@@ -1,92 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SMUth Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <style>
-        body{
-            background-color: #e3f1ef;
-        }
+      *{
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      body {
+        background-color: #e3f1ef;
+      }
 
-        .title{
-            color: #4e7570;
-            margin-top: 20px;
-            margin-left: 20px;
-        }
+      .title {
+        color: #4e7570;
+        margin-top: 20px;
+        margin-left: 20px;
+      }
+
+      /* .header {
+        font-size: 5.5em;
+        font-weight: bold;
+        padding: 0;
+      } */
+
+      #login-header {
+        font-size: 5.5em;
+        font-weight: bold;
+        padding: 0;
+        line-height: 1em;
+        padding-bottom: 0.5em;
+      }
+
+      /* .subheader {
+        font-size: 26px;
+        padding: 0;
+      } */
+
+      #login-subheader {
+        font-size: 26px;
+        padding: 0;
+        padding-top: 0.5em;
+        padding-left: 0.2em;
         
-        .header {
-            font-size: 50px;
-            font-weight: bold;
+      }
+
+      .login {
+        margin: auto;
+        margin-top: 50px;
+        justify-content: center;
+        padding: 1.5em;
+        padding-top: 1em;
+      }
+
+      .login_form {
+        background-image: linear-gradient(45deg, #6cebbe, #e4fde1);
+        background-size: 400%;
+        animation: bg-animation 10s infinite alternate;
+        border-radius: 30px;
+        padding: 20px;
+        padding-top: 10%;
+        position: relative;
+        margin: 0 1.5em;
+      }
+      @keyframes bg-animation {
+        0% {
+          background-position: left;
+        }
+        100% {
+          background-position: right;
+        }
+      }
+
+      /* #login_submit {
+        background-color: #4e7570;
+        font-weight: bold;
+        font-size: 32px;
+        padding-left: 2.1em;
+        padding-right: 2.1em;
+      } */
+
+      /* LOGIN FORM */
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap");
+
+      .center h1 {
+        text-align: center;
+        padding: 20px 0;
+        border-bottom: 1px solid silver;
+      }
+      .center form {
+        padding: 0 40px;
+        box-sizing: border-box;
+      }
+      form .txt_field {
+        position: relative;
+        border-bottom: 2px solid #adadad;
+        margin: 30px 0;
+      }
+      .txt_field input {
+        width: 100%;
+        padding: 0 5px;
+        height: 40px;
+        font-size: 20px;
+        border: none;
+        background: none;
+        outline: none;
+        color:#4e7570;
+        font-weight: 550;
+      }
+      .txt_field label {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        color: #adadad;
+        transform: translateY(-50%);
+        font-size: 18px;
+        pointer-events: none;
+        transition: 0.5s;
+        color: #4e7570;
+      }
+      .txt_field span::before {
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background: #2691d9;
+        transition: 0.5s;
+      }
+      .txt_field input:focus ~ label,
+      .txt_field input:valid ~ label {
+        top: -5px;
+        color: #2691d9;
+      }
+      .txt_field input:focus ~ span::before,
+      .txt_field input:valid ~ span::before {
+        width: 100%;
+      }
+      .pass {
+        margin: -25px 0 20px 5px;
+        text-align: right;
+        color: #a6a6a6;
+        cursor: pointer;
+      }
+      .pass:hover {
+        text-decoration: underline;
+      }
+      input[type="submit"] {
+        width: 100%;
+        height: 50px;
+        border: 1px solid;
+        background: #2691d9;
+        border-radius: 25px;
+        font-size: 18px;
+        color: #e9f4fb;
+        font-weight: 700;
+        cursor: pointer;
+        outline: none;
+      }
+      input[type="submit"]:hover {
+        border-color: #2691d9;
+        transition: 0.5s;
+      }
+      .signup_link {
+        margin: 30px 0;
+        text-align: center;
+        font-size: 16px;
+        color: #666666;
+      }
+      .signup_link a {
+        color: #2691d9;
+        text-decoration: none;
+      }
+      .signup_link a:hover {
+        text-decoration: underline;
+      }
+      /* LOGIN FORM */
+
+      /* ICONS */
+      .user-icon,
+      .password-icon, .user-icon2, .password-icon2{
+        position: absolute;
+        font-size: 2.2em;
+        color: #4e7570;
+      }
+
+      .user-icon {
+        margin-top: 0.4em;
+      }
+
+      .password-icon {
+        margin-top: 2.4em;
+        margin-left: 0.2em;
+      }
+
+      .email-icon {
+        position: absolute;
+        color: #4e7570;
+        font-size: 1.8em;
+        margin-top: 5.7em;
+        margin-left: 0.1em;
+
+      }
+      /* ICONS */
+
+      /* NAV TABS */
+         .nav-link{
+          font-size: 20px;
+          
+         }
+
+         .nav-item {
+          color: #4e7570;
+         }
+      /* NAV TABS */
+
+      /* RESPONSIVE */
+      @media screen and (max-width: 412px) {
+        #login-header {
+          font-size: 3em;
+          text-align: center;
+          justify-content: center;
+          padding-bottom: 0;
+        }
+        #login-subheader {
+          text-align: center;
+          font-size: 24px;
+          padding-top: 0;
+        }
+        .user-icon {
+          margin-top: 0.3em;
         }
 
-        .subheader {
-            font-size: 26px;
+        .password-icon {
+          margin-top: 2.4em;
+          margin-left: 0.1em;
         }
-    
-
-        .login {
-            margin: auto;
-            margin-top: 50px;
-            justify-content: center;
-        }
-
-        .login_form {
-            background-color: #bedad6;
-            border-radius: 30px;
-            padding: 20px;
-            padding-top: 10%;
-            
-        }
-
-        #login_submit{
-            background-color:#4e7570;
-            font-weight: bold;
-            font-size: 32px;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-        
-
+      }
+      /* RESPONSIVE */
     </style>
-</head>
-<body>
-    <div class="title">
-        <div class="header">SMUth Ride</div>
-        <div class="subheader">For smooth ride to and from SMU</div>
-    </div>
-    <div class="login_pic">
-    </div>
-    <div class="container row row-cols-2 login">
-        <div class="login_pic col">
-
+  </head>
+  <body>
+    <img src="" />
+    <div
+      style="
+        width: 100%;
+        height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2">
+        <div class="col content" style="padding-left: 0; padding-right: 2em">
+          <div class="title">
+            <p id="login-header">SMUth Ride</p>
+            <p id="login-subheader">For smooth ride to and from SMU</p>
+          </div>
         </div>
-        <div class="login_form col col-rows-3">
-            <form>
-                <div class="mb-3">
-                  <label for="inputName" class="form-label">Username</label>
-                  <input type="username" class="form-control" id="inputName">
+        <div class="col login-form">
+          <div class="login_form col col-rows-3">
+            <!-- <div class="user-icon">
+              <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            </div>
+            <div class="password-icon">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </div> -->
+            <div class="center">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Login</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Register</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                  <h1>Login</h1>
+                  <div class="user-icon">
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                  </div>
+                  <div class="password-icon">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                  </div>
+                  <form method="post">
+                    <div class="txt_field">
+                      <input type="text" required />
+                      <span></span>
+                      <label>Username</label>
+                    </div>
+                    <div class="txt_field">
+                      <input type="password" required />
+                      <span></span>
+                      <label>Password</label>
+                    </div>
+                    <div class="pass" href="#">Forgot Password?</div>
+                    <div style="margin-bottom:15px;"><input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Remember me</label></div>
+                    <input type="submit" value="Login" />
+                  </form>
                 </div>
-                <div class="mb-3">
-                  <label for="inputPassword" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="inputPassword" aria-describedby="forgetPwd">
-                  <div id="forgetPwd" class="form-text"><a href="###">Forgot Password?</a></div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                  <h1>Register</h1>
+                  <div class="user-icon">
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                  </div>
+                  <div class="user-icon2" style="margin-top:2.5em">
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                  </div>
+                  <div class="email-icon">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                  </div>
+                  <div class="password-icon" style="margin-top:6.5em">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                  </div>
+                  <div class="password-icon2" style="margin-top:8.6em; margin-left:0.2em;">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                  </div>
+                  <form method="post">
+                    <div class="txt_field">
+                      <input type="text" required />
+                      <span></span>
+                      <label>Name</label>
+                    </div>
+                    <div class="txt_field">
+                      <input type="text" required />
+                      <span></span>
+                      <label>Username</label>
+                    </div>
+                    <div class="txt_field">
+                      <input type="text" required />
+                      <span></span>
+                      <label>Email</label>
+                    </div>
+                    <div class="txt_field">
+                      <input type="password" required />
+                      <span></span>
+                      <label>Password</label>
+                    </div>
+                    <div class="txt_field">
+                      <input type="password" required />
+                      <span></span>
+                      <label>Confirm Password</label>
+                    </div>
+                    <input type="submit" value="Register" />
+                    </form>
+                 </div>
                 </div>
-                <div class="mx-5"><button id="login_submit" type="submit" class="btn btn-primary">Login</button></div>
-            </form>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
+    <!-- <div class="login_pic"></div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 login">
+      <div class="login_pic col">
+        <img src="" />
+      </div>
+      <div class="login_form col col-rows-3">
+        <div class="user-icon">
+          <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+        </div>
+        <div class="password-icon">
+          <i class="fa fa-lock" aria-hidden="true"></i>
+        </div>
+        <div class="center">
+          <h1>Login</h1>
+          <form method="post">
+            <div class="txt_field">
+              <input type="text" required />
+              <span></span>
+              <label>Username</label>
+            </div>
+            <div class="txt_field">
+              <input type="password" required />
+              <span></span>
+              <label>Password</label>
+            </div>
+            <div class="pass">Forgot Password?</div>
+            <input type="submit" value="Login" />
+            <div class="signup_link">Not a member? <a href="#">Signup</a></div>
+          </form>
+        </div>
+      </div>
+    </div> -->
 
-
-
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+      integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
+
+<!-- 
+<form>
+    <div class="mb-3">
+      <label for="inputName" class="form-label">Username</label>
+      <input type="username" class="form-control" id="inputName">
+    </div>
+    <div class="mb-3">
+      <label for="inputPassword" class="form-label">Password</label>
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password" aria-describedby="forgetPwd">
+      <div id="forgetPwd" class="form-text"><a href="###">Forgot Password?</a></div>
+    </div>
+    <div class="mx-5"><button id="login_submit" type="submit" class="btn btn-primary">Login</button></div>
+</form> -->
+
