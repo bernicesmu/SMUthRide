@@ -13,7 +13,8 @@ document.getElementById('usertest').addEventListener('submit', create_chatroom)
 console.log("weoufhwef")
 
 
-document.getElementById('g').addEventListener('click', find_chats) 
+document.getElementById('g').addEventListener('click', find_chat) 
+
 
 function create_chatroom() { 
     var inputs = document.getElementsByTagName('input')
@@ -26,5 +27,7 @@ function create_chatroom() {
 
 function find_chats(){
     
-    find_chat()
+    
+    console.log(find_chat())
 }
+

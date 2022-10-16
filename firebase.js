@@ -98,7 +98,7 @@ export function create_user(email, password) {
 export function find_chat(){
   const db = getDatabase()
   const reference = ref(db, 'messages')
-
+  var final_output = []
 // Attach an asynchronous callback to read the data at our posts reference
 onValue(reference, (snapshot) => {
   const data = snapshot.val();
@@ -109,30 +109,55 @@ onValue(reference, (snapshot) => {
   // console.log(values)
   // var thing = values[1][1]
   // console.log(thing.user)
-
-  console.log(values)
+  
+  // console.log(values)
   for(var entry of values){
     let username_array = []
     let chat_id = entry[0]
     let ids = chat_id.split("_")
-    for(var id of ids){
-      if(id == "007"){
+    // for(var id of ids){
+    //   if(id == "007"){
         
-      }
-      else{
-        //get the username...
-        let usernames = ref(db, 'users')
-        onValue(usernames, (snapshot)=>{
-          const user_data = snapshot.val()
-          console.log(user_data)
+    //   }
+    //   else{
+    //     //get the username...
+    //     let usernames = ref(db, 'users')
+    //     onValue(usernames, (snapshot)=>{
+    //       const user_data = snapshot.val()
+    //       console.log(user_data)
 
-            //need the userids properly....
+    //         //need the userids properly....
 
-        })
-      }
+    //     })
+    //   }
+    // }
+    //
+    if(ids.includes("001")){
+        // console.log(entry[1])
+        for(var id of ids){
+          if(id != "001"){
+            username_array.push(id)
+          }
+        }
+        let combine = username_array.join(" ")
+        // console.log(combine)
+        //display
+        final_output.push(combine)
+        // console.log(final_output)
     }
   }
   // if there is no values then create a new chat_room
+  // console.log(final_output)
+  print_users(final_output)
 });
 
+}
+
+export function print_users(list_of_names){
+  let html_string = ""
+  for(var user of list_of_names){
+    html_string+= `<div>${user}</div><hr>`
+  }
+
+  document.getElementById("chatroom").innerHTML = html_string
 }
