@@ -129,8 +129,7 @@ p {
 }
 
 .sub_div {
-  position: -webkit-sticky;
-  position: sticky;
+  position: absolute;
   bottom: 0px;
   width: 100%;
 }

@@ -1,3 +1,4 @@
+import { find_chat } from "../../index.js";
 
 
 
@@ -42,7 +43,7 @@ var firebaseConfig = {
       // create db collection and send in the data
       // need to get your username plus your partner username
       // need to add a new message ID everytime
-      db.ref("messages/" + "001_002" + `/002`).set({
+      db.ref("messages/" + "001_002" + `/1`).set({
         // probably want to have a from and to so that we can identify...if from == username then we display as you sent it. Otherwise, we display as you receiving it
         username,
         message,
@@ -61,4 +62,6 @@ var firebaseConfig = {
       document.getElementById("messages").innerHTML += message;
     });
 
+
+    find_chat()
   

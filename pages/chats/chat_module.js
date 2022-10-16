@@ -1,6 +1,6 @@
-import {create_chat} from '../../firebase.js'
+import {create_chat} from '../../index.js'
 
-import {find_chat} from '../../firebase.js'
+import {find_chat} from '../../index.js'
 
 // Initialize Firebase
 
@@ -13,7 +13,7 @@ document.getElementById('usertest').addEventListener('submit', create_chatroom)
 console.log("weoufhwef")
 
 
-document.getElementById('g').addEventListener('click', find_chat) 
+document.getElementById('g').addEventListener('click', find_chats) 
 
 
 function create_chatroom() { 
