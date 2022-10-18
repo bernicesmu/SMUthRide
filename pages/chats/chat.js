@@ -1,3 +1,10 @@
+import { find_chat } from "../../index.js";
+
+
+
+
+
+
 var firebaseConfig = {
     apiKey: "AIzaSyCCVjpCi9lziMF130jj2UtJGiPc0MamUkY",
     authDomain: "wad2-smuth-ride.firebaseapp.com",
@@ -14,6 +21,8 @@ var firebaseConfig = {
   const username = prompt("Enter username")
   
   document.getElementById("message-form").addEventListener("submit", sendMessage);
+
+ 
   
   function sendMessage(e) {
       e.preventDefault();
@@ -32,7 +41,10 @@ var firebaseConfig = {
         .scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     
       // create db collection and send in the data
-      db.ref("messages/" + timestamp).set({
+      // need to get your username plus your partner username
+      // need to add a new message ID everytime
+      db.ref("messages/" + "001_002" + `/1`).set({
+        // probably want to have a from and to so that we can identify...if from == username then we display as you sent it. Otherwise, we display as you receiving it
         username,
         message,
       });
@@ -49,3 +61,7 @@ var firebaseConfig = {
       // append the message on the page
       document.getElementById("messages").innerHTML += message;
     });
+
+
+    find_chat()
+  
