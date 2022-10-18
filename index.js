@@ -114,50 +114,110 @@ onValue(reference, (snapshot) => {
   for(var entry of values){
     let username_array = []
     let chat_id = entry[0]
-    let ids = chat_id.split("_")
-    // for(var id of ids){
-    //   if(id == "007"){
-        
-    //   }
-    //   else{
-    //     //get the username...
-    //     let usernames = ref(db, 'users')
-    //     onValue(usernames, (snapshot)=>{
-    //       const user_data = snapshot.val()
-    //       console.log(user_data)
+    // let ids = chat_id.split("_")
+  
+  //   if(ids.includes("001")){
+  //       // console.log(entry[1])
+  //       for(var id of ids){
+  //         if(id != "001"){
+  //           username_array.push(id)
+  //         }
+  //       }
+  //       let combine = username_array.join(" ")
+  //       // console.log(combine)
+  //       //display
+  //       final_output.push(combine)
+  //       // console.log(final_output)
+  //   }
+  // }
+  if(chat_id.includes("001")){
+    // console.log(chat_id)
+    
+    let message = find_last_chat_message(chat_id)
+    console.log(message)
+    let other_user = get_name(chat_id,"001")
+    print_user(message,other_user)
 
-    //         //need the userids properly....
-
-    //     })
-    //   }
-    // }
-    //
-    if(ids.includes("001")){
-        // console.log(entry[1])
-        for(var id of ids){
-          if(id != "001"){
-            username_array.push(id)
-          }
-        }
-        let combine = username_array.join(" ")
-        // console.log(combine)
-        //display
-        final_output.push(combine)
-        // console.log(final_output)
-    }
   }
+}
   // if there is no values then create a new chat_room
   // console.log(final_output)
-  print_users(final_output)
+  // print_users(final_output)
 });
 
+}
+
+//NEED TO UPDATE WITH VUE FOR DYNAMIC RETREIVAL
+export function find_last_chat_message(paired_id){
+  const db = getDatabase()
+  const reference = ref(db, 'messages')
+  onValue(reference, (snapshot) => {
+    const data = snapshot.val();
+    paired_id = '001_002'
+    // console.log(data[paired_id])
+    for(var id in data){
+      if(id == paired_id){
+        // console.log(data[id])
+        let messages = data[id]
+        // console.log(messages)
+        // console.log(messages[messages.length - 1])
+        let last_message = messages[messages.length - 1]
+        // console.log(last_message.message)
+
+        // SOME ISSUE WITH THE ASYNC REQUEST. CANNOT RETURN
+        return last_message.message
+      }
+      
+    }
+  });
+
+
+}
+
+export function get_name(chat_id, user_id){
+  const db = getDatabase()
+  const reference = ref(db, 'users')
+  let ids = chat_id.split("_")
+  for(var id of ids){
+    if(id != user_id){
+      //get the user name
+      onValue(reference, (snapshot) => {
+        const data = snapshot.val();
+        
+        console.log(data[id].name)
+        
+        // SOME ISSUE WITH THE ASYNC REQUEST. CANNOT RETURN
+        return data[id].name
+        
+      });
+
+
+    }
+  }
 }
 
 export function print_users(list_of_names){
   let html_string = ""
   for(var user of list_of_names){
+    console.log(user)
     html_string+= `<div>${user}</div><hr>`
   }
 
   document.getElementById("chatroom").innerHTML = html_string
+}
+
+export function print_user(message,other_user){
+  let html_string = ""
+  html_string+= 
+  `<div class = "chatbox" style="padding:10px; display: flex;">
+      <div id="photo">
+        
+      </div>
+      <div style="margin-left: 20px;align-self: start;width: 70%;"> 
+        <b>${other_user}</b>
+        <div style="text-overflow: ellipsis; display: block; width:50%;white-space: nowrap; width: 100%; overflow: hidden;">
+          ${message}
+        </div>
+      </div>`
+      document.getElementById("chatroom").innerHTML += html_string
 }

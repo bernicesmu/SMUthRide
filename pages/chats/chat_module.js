@@ -2,6 +2,10 @@ import {create_chat} from '../../index.js'
 
 import {find_chat} from '../../index.js'
 
+import {find_last_chat_message} from '../../index.js'
+
+import {get_name} from '../../index.js'
+
 // Initialize Firebase
 
 
@@ -13,7 +17,7 @@ document.getElementById('usertest').addEventListener('submit', create_chatroom)
 console.log("weoufhwef")
 
 
-document.getElementById('g').addEventListener('click', find_chats) 
+document.getElementById('g').addEventListener('click', get_name("001_002","001")) 
 
 
 function create_chatroom() { 
@@ -30,4 +34,6 @@ function find_chats(){
     
     console.log(find_chat())
 }
+
+
 
