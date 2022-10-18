@@ -22,6 +22,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
+export function retrieve_rides_list() {
+  const db = getDatabase();
+  const rides = ref(db, `rides/`)
+  onValue(rides, (snapshot) => {
+    return snapshot.val()
+
+  })
+
+}
+
 export function writeUserData(username, name, email) {
   const db = getDatabase();
   const users = ref(db, `users`)
