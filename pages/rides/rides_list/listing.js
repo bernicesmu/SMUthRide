@@ -33,6 +33,4 @@ const display_listings = Vue.createApp({
         }
 })
 
-
-
 display_listings.mount('#populate_listings')

@@ -21,33 +21,13 @@
             color: #4e7570;
         }
 
-        nav {
-            padding: 3rem 0 3rem;
-            background-color: grey;
-            text-align: center;
-        }
-
         .card {
             background-color: #bedad6;
             margin: 1rem;
         }
 
-        .button {
-            background-color: #4e7570 !important;
-            color: #e3f1ef !important;
-            font-weight: 600 !important;
-        }
-
-        .navbar {
-            background-color: #4e7570;
-        }
-
         a:link {
             color: #bedad6;
-        }
-
-        #chat {
-            background-color: white;
         }
 
         body {
@@ -69,21 +49,22 @@
         }
         .card {
             background-color: #e3f1ef;
-            margin: 0 auto;
+            width: 300px;
+            margin: 20px auto;
+            min-width: 251px;
+            min-height: 235px;
+            max-width: 300px;
+            max-height: 300px;
+            transition: all 0.2s ease-in-out;
         }
 
         .card-body {
             border-radius: 15px;
             background-color: #bedad6;
-            min-width: 251px;
-            min-height: 235px;
-            max-width: 300px;
-            max-height: 300px;
             color: #4e7570;
-            transition: all 0.2s ease-in-out;
         }
 
-        .card-body:hover {
+        .card:hover {
             transition: all 0.2s ease-in-out;
             transform: scale(1.1);
         }
@@ -95,6 +76,9 @@
 
         .badge {
             background-color: #4c86a2;
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
 
         .inputs {
@@ -135,57 +119,57 @@
             font-size: 3rem;
             color: #4e7570;
         }
-
+        @media only screen and (max-width: 600px) {
+            #add_ride_icon{
+                position: fixed;
+                z-index: 3;
+                top: 20px;
+                right: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 <div class="col p-5">
-
     <div class="d-flex justify-content-between">
-        <div>
-            <h1 class="text-center mt-3">Rides</h1>
+        <div class="col-3">
+            <h1 class="text-center  mt-3">Rides</h1>
         </div>
         <div class="mt-3 inputs col-6">
             <i class="bi bi-search"></i>
             <input name="search_rides" type="text" class="form-control" placeholder="Search Rides...">
         </div>
-        <div></div>
+        <div class="col-3"></div>
     </div>
     <a href="" id="add_ride_icon">
         <i class="bi bi-plus-circle-fill"></i>
     </a>
-    <div id="populate_listings" class="d-flex flex-wrap justify-content-start align-content-start mx-auto">
-        <div  class="col mx-auto px-auto listing" v-for="listing in listings">
-
-            <div class="card" style="background-color: #e3f1ef; border-style: none">
-                <div class="card-body px-4 pt-4 pb-0 overflow-hidden mx-auto my-3">
-
-                    <div class="d-flex">
-                        <div class="flex-shrink-0  bd-highlight">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
-                                 alt="Generic placeholder image" class="img-fluid rounded-circle border"
-                            >
-                        </div>
-                        <div class="flex-grow-1">
-                            <div class="text-center overflow-visible ">
-                                <p class="mb-2">{{listing.name}}</p>
-                            </div>
-                            <div class="text-center overflow-visible">
-                                <h5>{{listing.date}},{{listing.time}}</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="badge rounded-pill" v-if="listing.frequency === 'recurring'">Recurring
+    <div id="populate_listings" class="row d-flex flex-wrap align-items-center">
+            <div class="card col-xl-2 col-lg-6 col-md-6 p-1" style="background-color: #e3f1ef; border-style: none" v-for="listing in listings">
+                <div class="card-body col">
+                    <span class="badge rounded-pill" v-if="listing.frequency === 'recurring'">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
                             <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
                             <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
                         </svg>
                     </span>
-                    <div v-else style="height:24.4px"> </div>
-
-
-                    <div class="" >
-<!--                        <a href="#" class="stretched-link"></a>-->
+                    <div class="d-flex">
+                        <div class="bd-highlight col-6">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
+                                 alt="Generic placeholder image" class="img-fluid rounded-circle border"
+                            >
+                        </div>
+                        <div class=" col-6">
+                            <div class="text-center overflow-visible ">
+                                <p class="mb-2">{{listing.name}}</p>
+                            </div>
+                            <div class="text-center overflow-visible">
+                                <h5>{{listing.date}}</h5>
+                                <h5>{{listing.time}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
                         <hr class="mb-1 mt-2">
                         <h5 class="mt-1 overflow-visible" v-if="listing.smu_pick_or_drop === 'drop'">
                             <b>{{listing.location}}</b><i class="bi bi-arrow-right"></i><b>SMU</b>
@@ -195,13 +179,9 @@
                         </h5>
                         <p class=" my-0 fw-bold">${{listing.cost}}</p>
                         <p class="my-0">{{listing.current_capacity}}/{{listing.max_capacity}} slots available</p>
-
                     </div>
                 </div>
             </div>
-        </div>
-
-
     </div>
 </div>
 
