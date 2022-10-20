@@ -21,7 +21,6 @@ var firebaseConfig = {
   function find_mid(chatid) { 
     const database = getDatabase(); 
     const chats = ref(database, `messages/${chatid}`)
-    console.log(chats)
     onValue(chats, (snapshot) => { 
       if (!snapshot.exists()) { 
         set(ref(database, `messages/${chatid}/0`), {
@@ -29,13 +28,6 @@ var firebaseConfig = {
         })
       }
       const data = snapshot.val();
-      // var mid = 0;
-      // for (var i of Object.keys(data)) { 
-      //   // console.log("forloop", i)
-      //   if (i > mid) { 
-      //     mid = i 
-      //   }
-      // }
       var mid = 0
       for (var i of data) { 
         mid += 1 
@@ -63,12 +55,10 @@ var firebaseConfig = {
       // create db collection and send in the data
       // need to get your username plus your partner username
       find_mid('001_002')
-      console.log("Localstorage", localStorage.getItem("new_mid"))
       var new_mid = parseInt(localStorage.getItem("new_mid"))  
       if (new_mid == 0) {
         new_mid = 1 
       }
-      console.log("newmid", new_mid)
       localStorage.removeItem("new_mid")
       db.ref("messages/" + "001_002" + `/${new_mid}`).set({
         // probably want to have a from and to so that we can identify...if from == username then we display as you sent it. Otherwise, we display as you receiving it
@@ -94,5 +84,3 @@ var firebaseConfig = {
 
     find_chat()
     localStorage.clear()
-    // console.log(localStorage)
-  
