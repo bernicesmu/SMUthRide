@@ -34,11 +34,11 @@
         #add_ride_icon{
             position: fixed;
             z-index: 3;
-            top: 45px;
+            top: 32px;
             right: 20px;
         }
         .card {
-         
+            border: none;
             width: 300px;
             margin: 20px auto;
             min-width: 251px;
@@ -50,7 +50,7 @@
 
         .card-body {
             border-radius: 15px;
-            background-color: #FFFFFF;
+            background-color: #e3f1ef;;
             color: #4e7570;
         }
 
@@ -182,37 +182,41 @@
             #add_ride_icon{
                 position: fixed;
                 z-index: 3;
-                bottom: 28px;
-                right: 20px;
+                top:90vh;
+                right: 5vh;
             }
         }
     </style>
 </head>
-<body>
+<body id="populate_listings">
 <div class="col p-5">
-    <div class="d-flex justify-content-between">
-        <div class="col-3">
-            <h1 class="text-center  mt-3">Rides</h1>
-        </div>
-        <div class="mt-3 inputs col-6">
-            <i class="bi bi-search"></i>
-            <input name="search_rides" type="text" class="form-control" placeholder="Search Rides...">
-        </div>
-        <div class="col-3 my-auto lh-lg d-flex justify-content-evenly">
-           <h5 class="pt-1">To SMU</h5>
-            <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-            </label>
-           <h5 class="pt-1">From SMU</h5>
-        </div>
-    </div>
     <a href="" id="add_ride_icon">
         <i class="bi bi-plus-circle-fill"></i>
     </a>
-    <div id="populate_listings" class="row d-flex flex-wrap align-items-center">
+    <div class="d-flex justify-content-between">
+        <div class="col-3">
+            <h1 class="text-center ">Rides</h1>
+        </div>
+        <div class=" inputs col-6 my-auto">
+            <i class="bi bi-search"></i>
+            <input name="search_rides" type="text" class="form-control" placeholder="Search Rides...">
+        </div>
+        <div class="col-3 my-auto lh-lg d-flex justify-content-center">
+                <label class="switch">
+                    <input type="checkbox" v-on:click="change_direction()">
+                    <span class="slider round"></span>
+                </label>
+                <h5 class="my-auto ms-1">
+                    <span>{{to_from}}</span>
+                    SMU</h5>
+            </div>
 
-        <div class="card col-xl-2 col-lg-6 col-md-3 mx-auto" style="background-color: #e3f1ef; border-style: none" v-for="listing in listings">
+        </div>
+    </div>
+
+    <div class="row d-flex flex-wrap align-items-center">
+
+        <div class="card col-xl-2 col-lg-6 col-md-3 mx-auto" v-for="listing in display_listings">
 
 
 

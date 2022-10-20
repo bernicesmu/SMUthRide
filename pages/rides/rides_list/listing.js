@@ -15,10 +15,25 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-const display_listings = Vue.createApp({
+const listings = Vue.createApp({
     data() {
         return{
-            listings: "hehe",
+            listings: [],
+            to_from : "To",
+            display_listings: []
+        }
+    },
+    methods: {
+        change_direction(){
+            this.to_from = this.to_from == "To" ? "From" : "To";
+            this.check_and_populate()
+        },
+        check_and_populate(){
+            if (this.to_from == "To"){
+                this.display_listings = this.listings.filter(x => x.smu_pick_or_drop == "drop");
+            } else if (this.to_from == "From"){
+                this.display_listings = this.listings.filter(x => x.smu_pick_or_drop == "pick");
+            }
         }
     },
     mounted() {
@@ -29,8 +44,9 @@ const display_listings = Vue.createApp({
 
             this.listings = snapshot.val()
             this.listings.splice(0, 1)
+            this.check_and_populate()
         })
         }
 })
 
-display_listings.mount('#populate_listings')
+listings.mount('#populate_listings')
