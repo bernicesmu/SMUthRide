@@ -1,9 +1,5 @@
 import { find_chat } from "../../index.js";
-
-
-
-
-
+import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 
 var firebaseConfig = {
     apiKey: "AIzaSyCCVjpCi9lziMF130jj2UtJGiPc0MamUkY",
@@ -22,7 +18,31 @@ var firebaseConfig = {
   
   document.getElementById("message-form").addEventListener("submit", sendMessage);
 
- 
+  function find_mid(chatid) { 
+    const database = getDatabase(); 
+    const chats = ref(database, `messages/${chatid}`)
+    console.log(chats)
+    onValue(chats, (snapshot) => { 
+      if (!snapshot.exists()) { 
+        set(ref(database, `messages/${chatid}/0`), {
+          dummy: 0
+        })
+      }
+      const data = snapshot.val();
+      // var mid = 0;
+      // for (var i of Object.keys(data)) { 
+      //   // console.log("forloop", i)
+      //   if (i > mid) { 
+      //     mid = i 
+      //   }
+      // }
+      var mid = 0
+      for (var i of data) { 
+        mid += 1 
+      }
+      localStorage.setItem("new_mid", mid)
+    })
+  }
   
   function sendMessage(e) {
       e.preventDefault();
@@ -42,26 +62,37 @@ var firebaseConfig = {
     
       // create db collection and send in the data
       // need to get your username plus your partner username
-      // need to add a new message ID everytime
-      db.ref("messages/" + "001_002" + `/1`).set({
+      find_mid('001_002')
+      console.log("Localstorage", localStorage.getItem("new_mid"))
+      var new_mid = parseInt(localStorage.getItem("new_mid"))  
+      if (new_mid == 0) {
+        new_mid = 1 
+      }
+      console.log("newmid", new_mid)
+      localStorage.removeItem("new_mid")
+      db.ref("messages/" + "001_002" + `/${new_mid}`).set({
         // probably want to have a from and to so that we can identify...if from == username then we display as you sent it. Otherwise, we display as you receiving it
         username,
         message,
       });
     }
   
-  const fetchChat = db.ref("messages/");
+  const fetchChat = db.ref("messages/001_002");
 
   
   fetchChat.on("child_added", function (snapshot) {
       const messages = snapshot.val();
-      const message = `<li class=${
-        username === messages.username ? "sent" : "receive"
-      }><span><p>${messages.username}: ${messages.message}</p></span></li>`;
-      // append the message on the page
-      document.getElementById("messages").innerHTML += message;
+      if (messages.dummy != 0) { 
+        const message = `<li class=${
+          username === messages.username ? "sent" : "receive"
+        }><span><p>${messages.username}: ${messages.message}</p></span></li>`;
+        // append the message on the page
+        document.getElementById("messages").innerHTML += message;
+      }
     });
 
 
     find_chat()
+    localStorage.clear()
+    // console.log(localStorage)
   
