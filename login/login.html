@@ -159,13 +159,13 @@
         left: 0;
         width: 0%;
         height: 2px;
-        background: #2691d9;
+        background: #4e7570;
         transition: 0.5s;
       }
       .txt_field input:focus ~ label,
       .txt_field input:valid ~ label {
         top: -5px;
-        color: #2691d9;
+        color: #4e7570;
       }
       .txt_field input:focus ~ span::before,
       .txt_field input:valid ~ span::before {
@@ -185,7 +185,7 @@
         width: 100%;
         height: 50px;
         border: 1px solid;
-        background: #2691d9;
+        background: #4e7570;
         border-radius: 25px;
         font-size: 18px;
         color: #e9f4fb;
@@ -194,7 +194,7 @@
         outline: none;
       }
       input[type="submit"]:hover {
-        border-color: #2691d9;
+        border-color: #4e7570;
         transition: 0.5s;
       }
       .signup_link {
@@ -216,25 +216,25 @@
       .user-icon,
       .password-icon, .user-icon2, .password-icon2{
         position: absolute;
-        font-size: 2.2em;
+        font-size: 2em;
         color: #4e7570;
       }
 
       .user-icon {
-        margin-top: 0.4em;
+        margin-top: 0.5em;
       }
 
       .password-icon {
-        margin-top: 2.4em;
+        margin-top: 2.8em;
         margin-left: 0.2em;
       }
 
       .email-icon {
         position: absolute;
         color: #4e7570;
-        font-size: 1.8em;
-        margin-top: 5.7em;
-        margin-left: 0.1em;
+        font-size: 1.5em;
+        margin-top: 7em;
+        margin-left: 0.2em;
 
       }
       /* ICONS */
@@ -242,7 +242,8 @@
       /* NAV TABS */
 
         .nav-tabs{
-          margin: 1em;
+          margin-top: 1em;
+          margin-bottom: 1.5em;
 
         }
          .nav-link{
@@ -261,7 +262,10 @@
 
          .nav-tabs .nav-link {
           color: black;
+          border-radius: 5em;
+      
          }
+
       /* NAV TABS */
 
       /* RESPONSIVE */
@@ -297,10 +301,11 @@
       }
       /* RESPONSIVE */
 
-      .tab-content > .tab-pane {
+      /* .tab-content > .tab-pane {
         width: 100%;
         margin-right: -100%;
-      }
+      } */
+
     </style>
   </head>
   <body>
@@ -320,7 +325,7 @@
             <div class="password-icon">
               <i class="fa fa-lock" aria-hidden="true"></i>
             </div> -->
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <ul class="nav nav-tabs border-bottom-0" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Login</button>
                 </li>
@@ -331,7 +336,7 @@
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                   <div class="innerlogin container">
-                    <h1>Login</h1>
+                    <h3>Login</h3>
                     <div class="user-icon">
                       <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                     </div>
@@ -349,27 +354,25 @@
                         <span></span>
                         <label>Password</label>
                       </div>
-                      <div class="pass" href="#">Forgot Password?</div>
-                      <div style="margin-bottom:15px;"><input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Remember me</label></div>
                       <input type="submit" value="Login" />
                     </form>
                   </div>
                 </div>
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                  <h1>Register</h1>
+                  <h3>Register</h3>
                   <div class="user-icon">
                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                   </div>
-                  <div class="user-icon2" style="margin-top:2.5em">
+                  <div class="user-icon2" style="margin-top:2.8em">
                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                   </div>
                   <div class="email-icon">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
                   </div>
-                  <div class="password-icon" style="margin-top:6.5em">
+                  <div class="password-icon" style="margin-top:7.3em">
                     <i class="fa fa-lock" aria-hidden="true"></i>
                   </div>
-                  <div class="password-icon2" style="margin-top:8.6em; margin-left:0.2em;">
+                  <div class="password-icon2" style="margin-top:9.5em; margin-left:0.2em;">
                     <i class="fa fa-lock" aria-hidden="true"></i>
                   </div>
                   <form method="post">
