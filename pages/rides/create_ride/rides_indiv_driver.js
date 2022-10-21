@@ -10,6 +10,7 @@ const ride_form = Vue.createApp({
     },
     methods:{
         check_date(){
+            if (date===""){return true}
             let selected_date = this.date.split("-")
             selected_date = new Date(selected_date[0], selected_date[1], selected_date[2])
             const today = new Date()
