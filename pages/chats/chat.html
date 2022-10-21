@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
     <!-- icon library -->
     <script src="https://kit.fontawesome.com/943156cb0b.js" crossorigin="anonymous"></script>
     <script type="module" src="../../index.js"></script>
+    <script type="module" src="chat.js"></script>
     <title>Chat</title>
 </head>
 <body>
@@ -52,6 +54,16 @@
         </div>
       </nav>
 
+      <div id="overlay">
+        <div id="text">
+          <span>Enter an Offer Price</span>
+          <input type="number" id="offer_price">
+          <span>
+            <button type="button" class="btn btn-danger" onclick="off()">Cancel</button>
+            <button type="button" class="btn btn-success" onclick="off()">Confirm</button>
+          </span>
+        </div>
+      </div>
     
       <!-- chatpage -->
       <div class="container text-center mt-3">
@@ -78,7 +90,7 @@
           </div>
         </div>
       
-          <div id="chat">
+          <div id="chat" onscroll="sticky()">
             <div id="contact" class=" d-flex">
               <div id="photo">
                 
@@ -95,20 +107,32 @@
         
               <!-- form to send message -->
               <div class="sub_div">
+                
                 <form action="" id="message-form">
-                  <input id="message-input" type="text" />
-                  <button id="message-btn" type="submit"><i class="fa-solid fa-taxi"></i>&nbsp Send</button>
-             
+                  <button type="button" class="btn btn-success" onclick="overlay()">Make Offer</button>
+                  <input id="message-input" type="text" placeholder="Type Message..."/>
+                  
+         
+                  <button type="submit" id="message-btn" class="btn btn-success"><i class="fa-solid fa-taxi"></i></button>
+
+                  <!-- <button class="btn btn-outline-dark" id="message-btn" type="submit"><i class="fa-solid fa-taxi"></i></button> -->
+                 
+                  <!-- <button id="message-btn" type="submit" class="btn-primary"><i class="fa-solid fa-taxi"></i></button> -->
+
+              
                 </form>
              
               </div>
+
+
               
-            
-            
+      
             
           </div>
+          
         </div>
 
+    
       
       
    
@@ -116,7 +140,22 @@
     <!-- scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
-    <script type="module" src="chat.js"></script>
+    
+    <script>
+          function sticky(){
+      document.getElementsByClassName("sub_div")[0].style.position = "sticky"
+     
+    }
+
+    function overlay(){
+      document.getElementById("overlay").style.display = "block";
+    }
+
+    function off(){
+      document.getElementById("overlay").style.display = "none";
+    }
+
+    </script>
     
 
 
