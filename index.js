@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -37,11 +37,11 @@ export function writeUserData(username, name, email) {
   const users = ref(db, `users`)
   onValue(users, (snapshot) => {
     const data = snapshot.val();
-    console.log(data)
     var uid = 0
     for (var i of Object.values(data)) { 
-      console.log("i is", i)
-      uid = i.userid
+      if (i.userid > uid) { 
+        uid = i.userid
+      }
     }
     localStorage.setItem("userid", uid)
   });
@@ -104,6 +104,22 @@ export function create_user(email, password) {
   });
 };
 
+export function signin_user(email, password) { 
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    localStorage.setItem("username", user)
+    console.log(user)
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage)
+  });
+}
 
 export function find_chat(){
   const db = getDatabase()
