@@ -1,0 +1,42 @@
+#navbarSupportedContent {
+    text-align: end;
+}
+
+.navbar {
+    background-color: #4e7570;
+    transition: top 0.8s ease;
+    padding: 1rem 4rem;
+    z-index: 1;
+}
+
+.navbar-top {
+    background-color: #4e7570;
+    transition: top 0.8s ease, background-color 0.8s ease;
+}
+
+.navbar-down {
+    background-color: #e3f1ef;
+    transition: top 0.8s ease, background-color 0.8s ease;
+}
+
+.nav-item {
+    padding-left: 2rem;
+}
+
+.nav-link {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.nav-item a:link,
+.nav-item a:visited {
+    text-decoration: none;
+    color: #87b6ae;
+}
+
+.nav-item a:hover,
+.nav-item a:active {
+    color: #7aa7a0;
+    font-weight: bold;
+    transition: 0.05s;
+}
