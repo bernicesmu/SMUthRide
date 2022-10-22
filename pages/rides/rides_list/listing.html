@@ -6,7 +6,8 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap5-toggle@4.3.4/css/bootstrap5-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap5-toggle@4.3.4/js/bootstrap5-toggle.ecmas.min.js"></script>
     <style>
         body {
             background-color: #FFFFFF;
@@ -117,65 +118,9 @@
         }
 
 
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
 
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #4e7570;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        .slider:before {
-            position: absolute;
-
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-
-        input:focus + .slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked + .slider:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
-        }
-
-        /* Rounded sliders */
-        .slider.round {
-            border-radius: 34px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
+        .bi-person-fill{
+            font-size: 32px;
         }
 
         @media only screen and (max-width: 600px) {
@@ -184,6 +129,9 @@
                 z-index: 3;
                 top:90vh;
                 right: 5vh;
+            }
+            .bi-person-fill{
+                font-size: 28px;
             }
         }
     </style>
@@ -202,12 +150,13 @@
             <input name="search_rides" type="text" class="form-control" placeholder="Search Rides...">
         </div>
         <div class="col-3 my-auto lh-lg d-flex justify-content-center">
+
                 <label class="switch">
-                    <input type="checkbox" v-on:click="change_direction()">
+                    <input type="checkbox" checked data-toggle="toggle"
+                           data-on="from" data-off="to" v-on:click="change_direction()">
                     <span class="slider round"></span>
                 </label>
                 <h5 class="my-auto ms-1">
-                    <span>{{to_from}}</span>
                     SMU</h5>
             </div>
 
@@ -222,7 +171,7 @@
 
             <div class="card-body col py-0">
 
-                <span class="badge rounded-pill" v-if="listing.frequency === 'recurring'">
+                <span class="badge rounded-pill px-1" v-if="listing.frequency === 'recurring'">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
                         <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
                         <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
@@ -230,40 +179,37 @@
                 </span>
 
                 <div class="d-flex mt-4">
-                    <div class="bd-highlight col-6 my-auto">
+                    <div class="bd-highlight col-4 my-auto">
                         <div class="d-flex justify-content-center">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
                                  alt="Generic placeholder image" class="img-fluid rounded-circle border"
-
                             >
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                         <div class="text-center overflow-visible ">
-                            <p class="mb-0 mt-2">{{listing.name}}</p>
-                            <h5 class="my-0">{{listing.date}}</h5>
-                            <h5 class="my-0">{{listing.time}}</h5>
+                            <h5 class="mb-0 py-2 ">{{listing.name}}</h5>
+                            <h5 class="my-0 fw-bold">{{format_date(listing.date)[1]}}</h5>
+                            <h5 class="my-0 fw-bold">{{format_date(listing.date)[0]}} {{formatAMPM(listing.time)}}</h5>
                         </div>
                     </div>
                 </div>
                 <hr class="mb-1 mt-2">
                 <div>
-                    <div class="d-flex card-title  my-0" v-if="listing.smu_pick_or_drop === 'drop'">
-                        <p class="my-0"><b>{{listing.user_location}}</b></p>
-                        <i class="bi bi-arrow-right my-auto"></i>
-                        <p class="my-auto mx-1" ><b>SMU</b></p>
+                    <h2 class="card-title fw-bold text-center mb-3"><i class="bi bi-geo-alt-fill"></i>{{listing.location}}</h2>
+                    <div class="d-flex my-2">
+
+                        <h1 class="me-auto ">${{listing.cost}}</h1>
+                        <h1>{{listing.current_capacity}}<i class="bi bi-person-fill" ></i></h1>
+
+
+
                     </div>
-                    <div class="d-flex card-title text-center" v-else-if="listing.smu_pick_or_drop === 'pick'">
-                        <b class="my-auto mx-1">SMU</b>
-                        <i class="bi bi-arrow-right my-auto"></i>
-                        <b>{{listing.user_location}}</b>
-                    </div>
-                    <p class=" my-0 fw-bold fs-3">${{listing.cost}} {{listing.current_capacity}}/{{listing.max_capacity}} slots available</p>
+
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 </body>
 <script src="listing.js" type="module"></script>
