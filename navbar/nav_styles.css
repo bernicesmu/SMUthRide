@@ -28,26 +28,25 @@
     font-weight: 700;
     min-width: 6rem;
     text-align: center;
-    text-shadow: 0.5px 0.5px #4e7570;
+    /* text-shadow: 0.5px 0.5px #4e7570; */
 }
 
 .nav-item a:link,
 .nav-item a:visited {
     text-decoration: none;
-    color: #d9e9e6;
 }
 
 .nav-item a:hover,
 .nav-item a:active {
-    color: #bedad6;
+    /* color: #bedad6; */
     font-weight: 900;
     transition: 0.05s;
 }
 
 .nav-item-top {
-    color: #bedad6 !important;
+    color: #bedad6;
 }
 
 .nav-item-down {
-    color: #4e7570 !important;
+    color: #4e7570;
 }
