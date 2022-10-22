@@ -28,19 +28,19 @@ const navbar = Vue.createApp({
                     >
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Home</a>
+                                <a class="nav-link nav-item-top" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/pages/rides/rides_list/listing.html">Rides</a>
+                                <a class="nav-link nav-item-top" href="/pages/rides/rides_list/listing.html">Rides</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">History</a>
+                                <a class="nav-link nav-item-top" href="#">History</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/pages/chats/chat.html">Chat</a>
+                                <a class="nav-link nav-item-top" href="/pages/chats/chat.html">Chat</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/pages/profile/profile.html">Profile</a>
+                                <a class="nav-link nav-item-top" href="/pages/profile/profile.html">Profile</a>
                             </li>
                             
                         </ul>

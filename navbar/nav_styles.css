@@ -34,7 +34,6 @@
 .nav-item a:link,
 .nav-item a:visited {
     text-decoration: none;
-    color: #d9e9e6;
 }
 
 .nav-item a:hover,
@@ -45,9 +44,9 @@
 }
 
 .nav-item-top {
-    color: #bedad6 !important;
+    color: #bedad6;
 }
 
 .nav-item-down {
-    color: #4e7570 !important;
+    color: #4e7570;
 }
