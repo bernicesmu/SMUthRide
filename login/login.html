@@ -74,8 +74,9 @@
         padding-top: 1em;
       }
       .content {
-        background-image: url("/duck.webp");
+        background-image: url("");
       }
+
 
       .forms {
         background-image: linear-gradient(45deg, #e3f1ef, #d5eefc);
@@ -310,39 +311,48 @@
         margin-right: -100%;
       } */
 
+
       #front-car { 
         position: absolute;
-        width: 411px;
-        height: 355px;
-        left: 95px;
-        top: 326px;
+        /* width: 18em;
+        height: 355px; */
+        width: 45%;
+        /* left: 95px; */
+        /* top: 326px; */
+        top: 5em;
+        left: 9.7em;
         z-index: 2;
         animation: MoveUpDown 1.5s linear infinite;
       }
 
       #road { 
         position: absolute;
-        width: 737px;
-        height: 352px;
-        left: -42px;
-        top: 487px;
+        /* width: 40em;
+        height: 352px; */
+        width: 100%;
+        /* left: -42px;
+        top: 487px; */
+        top:12em;
+        left:0.4em;
       }
 
       #road-stripes { 
         position: absolute;
-        width: 100px;
+        width: 20em;
         height: 500px;
-        left: 250px;
-        top: 294px;
-        /* animation: MoveUpDown 1.5s linear infinite; */
+        /* left: 250px;
+        top: 294px; */
+        animation: MoveUpDown 1.5s linear infinite;
       }
 
       #stripe1 { 
         position: absolute;
-        width: 115px;
+        width: 50%;
         height: 30px;
-        left: 270px;
-        top: 810px;
+        /* left: 270px;
+        top: 810px; */
+        left:9em;
+        top: 26em;
         background-color: #999999;
         z-index: 1;
         animation: stripe1up 1.5s linear infinite;
@@ -350,10 +360,12 @@
 
       #stripe2 { 
         position: absolute;
-        width: 115px;
+        width: 25%;
         height: 25px;
-        left: 270px;
-        top: 710px;
+        /* left: 270px;
+        top: 710px; */
+        left: 13em;
+        top:19.9em;
         background-color: #999999;
         z-index: 1;
         animation: stripe2up 1.5s linear infinite;
@@ -361,10 +373,12 @@
 
       #stripe3 { 
         position: absolute;
-        width: 115px;
+        width: 2em;
         height: 20px;
-        left: 270px;
-        top: 630px;
+        /* left: 270px;
+        top: 630px; */
+        left:20em;
+        top: 16em;
         background-color: #999999;
         z-index: 1;
         animation: stripe3up 1.5s linear infinite;
@@ -372,10 +386,12 @@
 
       #blocker { 
         position: absolute;
-        width: 115px;
+        width: 50%;
         height: 30px;
-        left: 270px;
-        top: 810px;
+        /* left: 270px;
+        top: 810px; */
+        left:9em;
+        top:26.3em;
         background-color: #FFFFFF;
         z-index: 1;
       }
@@ -422,26 +438,115 @@
         }
       }
 
+
+      @media screen and (max-width:2px) {
+
+        #front-car { 
+        position: absolute;
+        width: 16em;
+        height: 355px;
+        /* left: 95px; */
+        /* top: 326px; */
+        left: 9.7em;
+        z-index: 2;
+        animation: MoveUpDown 1.5s linear infinite;
+      }
+
+      #road { 
+        position: absolute;
+        width: 38em;
+        height: 352px;
+        /* left: -42px;
+        top: 487px; */
+        top:7em
+      }
+
+      #road-stripes { 
+        position: absolute;
+        width: 18em;
+        height: 500px;
+        /* left: 250px;
+        top: 294px; */
+        animation: MoveUpDown 1.5s linear infinite;
+      }
+
+      #stripe1 { 
+        position: absolute;
+        width: 18em;
+        height: 30px;
+        /* left: 270px;
+        top: 810px; */
+        left:9em;
+        top: 26em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe1up 1.5s linear infinite;
+      }
+
+      #stripe2 { 
+        position: absolute;
+        width: 13em;
+        height: 25px;
+        /* left: 270px;
+        top: 710px; */
+        left: 10em;
+        top:19.9em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe2up 1.5s linear infinite;
+      }
+
+      #stripe3 { 
+        position: absolute;
+        width: 2em;
+        height: 20px;
+        /* left: 270px;
+        top: 630px; */
+        left:20em;
+        top: 16em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe3up 1.5s linear infinite;
+      }
+
+      #blocker { 
+        position: absolute;
+        width: 25em;
+        height: 39px;
+        /* left: 270px;
+        top: 810px; */
+        left:9em;
+        top:25.6em;
+        background-color: #FFFFFF;
+        z-index: 1;
+      }
+
+      }
+
+      
+
     </style>
   </head>
   <body>
-    <div class="parent"> 
-      <img src="./front_car.svg" id="front-car">
-      <img src="./full_road.svg" id="road">
-      <div id="stripe1"></div>
-      <div id="stripe2"></div>
-      <div id="stripe3"></div>
-      <div id="blocker"></div>
-    </div>
     <div class="container page-box">
       <div class="row">
-        <div class="col col-lg-7 col-md-6 col-sm-12 content" >
+        <div class="col col-lg-7 col-md-6 col-sm-12 col-xs-12 content" >
           <div class="title">
             <p id="login-header">SMUth Ride</p>
             <p id="login-subheader">For smooth rides to and from SMU</p>
           </div>
+          <div class="container-fluid">
+            <div class="parent" style="position: relative;"> 
+              <img src="./front_car.svg" id="front-car">
+              <img src="./full_road.svg" id="road">
+              <div id="stripe1"></div>
+              <div id="stripe2"></div>
+              <div id="stripe3"></div>
+              <div id="blocker"></div>
+            </div>
+          </div>
         </div>
-        <div class="col col-lg-5 col-md-6 col-sm-12 forms">
+        <div class="col col-lg-5 col-md-6 col-sm-12 col-xs-12 forms">
           <div class="container login_form">
             <!-- <div class="user-icon">
               <i class="fa fa-user-circle-o" aria-hidden="true"></i>
