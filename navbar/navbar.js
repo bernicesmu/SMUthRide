@@ -30,14 +30,21 @@ const navbar = Vue.createApp({
                     >
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="../chats/chat.html">Chat</a>
+                                <a class="nav-link" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../rides/rides_list/listing.html">See Ride Listings</a>
+                                <a class="nav-link" href="/pages/rides/rides_list/listing.html">Rides</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../profile/profile.html">Profile</a>
+                                <a class="nav-link" href="#">History</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/pages/chats/chat.html">Chat</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/pages/profile/profile.html">Profile</a>
+                            </li>
+                            
                         </ul>
                     </div>
                 </nav>
@@ -46,7 +53,7 @@ const navbar = Vue.createApp({
     },
     methods: {
         nav_animation() {
-            console.log("working");
+            console.log("nav animation working");
             let currentScrollPos = window.pageYOffset;
             if (prevScrollpos > currentScrollPos) {
                 document.getElementById("navbar").style.top = "0";
