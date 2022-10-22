@@ -29,7 +29,6 @@
     min-width: 6rem;
     text-align: center;
     text-shadow: 0.5px 0.5px #4e7570;
-    -webkit-text-stroke: 0.7px #75a19b;
 }
 
 .nav-item a:link,
@@ -43,5 +42,12 @@
     color: #bedad6;
     font-weight: 900;
     transition: 0.05s;
-    -webkit-text-stroke: 0.5px #75a19b;
+}
+
+.nav-item-top {
+    color: #bedad6 !important;
+}
+
+.nav-item-down {
+    color: #4e7570 !important;
 }

@@ -51,18 +51,33 @@ const navbar = Vue.createApp({
     },
     methods: {
         nav_animation() {
-            console.log("nav animation working");
+            // console.log("nav animation working");
+            // console.log(
+            //     document.querySelectorAll("#navbarSupportedContent li")
+            // );
             let currentScrollPos = window.pageYOffset;
             if (currentScrollPos == 0) {
                 document
                     .getElementById("navbar")
                     .classList.remove("navbar-down");
                 document.getElementById("navbar").classList.add("navbar-top");
+                document
+                    .querySelectorAll("#navbarSupportedContent li a")
+                    .forEach((currentValue) => {
+                        currentValue.classList.remove("nav-item-down");
+                        currentValue.classList.add("nav-item-top");
+                    });
             } else {
                 document
                     .getElementById("navbar")
                     .classList.remove("navbar-top");
                 document.getElementById("navbar").classList.add("navbar-down");
+                document
+                    .querySelectorAll("#navbarSupportedContent li a")
+                    .forEach((currentValue) => {
+                        currentValue.classList.remove("nav-item-top");
+                        currentValue.classList.add("nav-item-down");
+                    });
             }
         },
     },
