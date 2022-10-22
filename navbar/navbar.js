@@ -1,5 +1,3 @@
-let prevScrollpos = window.pageYOffset;
-
 const navbar = Vue.createApp({
     data() {
         return {
@@ -55,14 +53,6 @@ const navbar = Vue.createApp({
         nav_animation() {
             console.log("nav animation working");
             let currentScrollPos = window.pageYOffset;
-            if (prevScrollpos > currentScrollPos) {
-                document.getElementById("navbar").style.top = "0";
-                document.getElementById("navbar").style.transitionDelay =
-                    "0.2s";
-            } else {
-                document.getElementById("navbar").style.top = "-350px";
-            }
-            prevScrollpos = currentScrollPos;
             if (currentScrollPos == 0) {
                 document
                     .getElementById("navbar")
