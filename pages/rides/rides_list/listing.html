@@ -22,8 +22,6 @@
             color: #4e7570;
         }
 
-
-
         a:link {
             color: #bedad6;
         }
@@ -31,6 +29,16 @@
         h1 {
             color: #4e7570;
         }
+
+        .toggle.toFromToggle{
+            border-radius: 15px;
+            /*background-color: #4e7570;*/
+        }
+        .toggle.toFromToggle.toggle-handle{
+            
+            border-radius: 15px;
+        }
+
 
         #add_ride_icon{
             position: fixed;
@@ -71,8 +79,6 @@
             top: 10px;
             left: 25px;
         }
-
-
 
         .inputs {
             position: relative;
@@ -117,8 +123,6 @@
             color:#cecece;
         }
 
-
-
         .bi-person-fill{
             font-size: 32px;
         }
@@ -152,12 +156,11 @@
         <div class="col-3 my-auto lh-lg d-flex justify-content-center">
 
                 <label class="switch">
-                    <input type="checkbox" checked data-toggle="toggle"
-                           data-on="from" data-off="to" v-on:click="change_direction()">
+                    <input type="checkbox" data-toggle="toggle" data-style="toFromToggle"
+                           data-on="From SMU" data-off="To SMU" v-on:change="change_direction()">
                     <span class="slider round"></span>
                 </label>
-                <h5 class="my-auto ms-1">
-                    SMU</h5>
+
             </div>
 
         </div>
