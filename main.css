@@ -36,15 +36,15 @@ a:link {
   color: #bedad6;
 }
 
-
-#messages{
-  padding-bottom: 30%;
+#messages {
+  margin-left: 10px;
+  overflow-anchor: auto;
+  padding-bottom: 15%;
 }
- 
+
 li {
   list-style-type: none;
   margin-bottom: 10px;
-  
   padding: 5px;
   border-radius: 10px;
   color: black;
@@ -57,22 +57,14 @@ li span {
   color: #b5b0b9;
 }
 
-#chat {
-  width: 80%;
-  margin: auto;
-  background-color: white;
-  border-radius: 20px;
-  padding-top: 30px;
-
-}
-
 #message-form {
   text-align: center;
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0px;
   width: 100%;
   background-color: #b7b5b9;
+  margin-top: 30px;
 }
 
 input {
@@ -87,13 +79,9 @@ button {
 
 .sent {
   text-align: right;
-  /* background-color: #a79cb3; */
   list-style-position: outside;
   margin-left: 50%;
-  word-wrap: break-word;
-  padding-right: 30px;
-  
-  
+  padding: 0px;
 }
 
 .sent p {
@@ -101,25 +89,27 @@ button {
   color: black;
   background-color: #4e7570;
   margin: 0px;
-  
+  word-break: break-all;
+  color: white;
 }
 
-.receive{
+.receive {
   /* background-color: #6929ca; */
-  
   list-style-position: outside;
   padding: 0px;
-  word-wrap: break-word;
-  background-color: #bedad6;
-  
+  word-wrap: break-all;
 }
 
-.receive span{
+.receive p {
+  margin-left: 5px;
+  color: black;
+  background-color: #bedad6;
+  margin: 0px;
+  word-break: break-all;
   color: #4e7570;
 }
 
-p{
-  
+p {
   display: inline-block;
   border-radius: 15px;
   padding-left: 15px;
@@ -128,3 +118,53 @@ p{
   padding-bottom: 5px;
   text-align: left;
 }
+
+#chat {
+  background-color: white;
+  width: 70%;
+  height: 500px;
+  overflow-y: scroll;
+  padding-top: 0;
+  position: relative;
+}
+
+.sub_div {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+
+#chatroom {
+  background-color: #4c86a2;
+  width: 30%;
+  margin-right: 3%;
+  height: 500px;
+  overflow-y: auto;
+}
+
+#contact {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  background-color: #4e7570;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#contact > h3 {
+  color: white;
+  padding: 10px;
+}
+
+#photo {
+  background-color: grey;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  position: relative;
+  left: 10px;
+  margin-right: 10px;
+}/*# sourceMappingURL=main.css.map */

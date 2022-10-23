@@ -23,6 +23,16 @@
         background-color: #e3f1ef;
       }
 
+      .page-box{
+  
+        max-width: 100vw;
+      }
+
+      .row{
+        height:100vh;
+        width:100vw;
+      }
+
       .title {
         color: #4e7570;
         margin-top: 20px;
@@ -36,11 +46,11 @@
       } */
 
       #login-header {
-        font-size: 5.5em;
+        font-size: 5em;
         font-weight: bold;
         padding: 0;
         line-height: 1em;
-        padding-bottom: 0.5em;
+        padding-bottom: 0.1em;
       }
 
       /* .subheader {
@@ -51,7 +61,7 @@
       #login-subheader {
         font-size: 26px;
         padding: 0;
-        padding-top: 0.5em;
+        padding-top: 0.1em;
         padding-left: 0.2em;
         
       }
@@ -64,16 +74,17 @@
         padding-top: 1em;
       }
 
-      .login_form {
+      .forms {
         background-image: linear-gradient(45deg, #6cebbe, #e4fde1);
         background-size: 400%;
         animation: bg-animation 10s infinite alternate;
-        border-radius: 30px;
         padding: 20px;
-        padding-top: 10%;
+        padding-top: 7%;
         position: relative;
-        margin: 0 1.5em;
+        margin: 0;
+        
       }
+
       @keyframes bg-animation {
         0% {
           background-position: left;
@@ -81,6 +92,17 @@
         100% {
           background-position: right;
         }
+      }
+
+      .login_form{
+        width:80%;
+
+        
+      }
+
+      .inner_login {
+        padding-top:1em;
+        padding-bottom: 1em;
       }
 
       /* #login_submit {
@@ -94,12 +116,12 @@
       /* LOGIN FORM */
       @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap");
 
-      .center h1 {
+      .login_form h1 {
         text-align: center;
         padding: 20px 0;
         border-bottom: 1px solid silver;
       }
-      .center form {
+      .login_form form {
         padding: 0 40px;
         box-sizing: border-box;
       }
@@ -116,6 +138,8 @@
         border: none;
         background: none;
         outline: none;
+        color:#4e7570;
+        font-weight: 550;
       }
       .txt_field label {
         position: absolute;
@@ -123,7 +147,7 @@
         left: 5px;
         color: #adadad;
         transform: translateY(-50%);
-        font-size: 18px;
+        font-size: 14px;
         pointer-events: none;
         transition: 0.5s;
         color: #4e7570;
@@ -152,6 +176,7 @@
         text-align: right;
         color: #a6a6a6;
         cursor: pointer;
+        font-size: 12px;
       }
       .pass:hover {
         text-decoration: underline;
@@ -215,9 +240,27 @@
       /* ICONS */
 
       /* NAV TABS */
+
+        .nav-tabs{
+          margin: 1em;
+
+        }
          .nav-link{
-          font-size: 20px;
+          font-size: 16px;
           
+         }
+
+         .nav-item {
+          color: #4e7570;
+         }
+
+         .nav-tabs .nav-link.active {
+          background-color: #4e7570;
+          color: white;
+         }
+
+         .nav-tabs .nav-link {
+          color: black;
          }
       /* NAV TABS */
 
@@ -242,37 +285,41 @@
           margin-top: 2.4em;
           margin-left: 0.1em;
         }
+        .content {
+          display:none;
+        }
+
+        .forms {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       }
       /* RESPONSIVE */
+
+      .tab-content > .tab-pane {
+        width: 100%;
+        margin-right: -100%;
+      }
     </style>
   </head>
   <body>
-    <img src="" />
-    <div
-      style="
-        width: 100%;
-        height: 90vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      "
-    >
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2">
-        <div class="col content" style="padding-left: 0; padding-right: 2em">
+    <div class="container page-box">
+      <div class="row">
+        <div class="col col-lg-7 col-md-6 col-sm-12 content" >
           <div class="title">
             <p id="login-header">SMUth Ride</p>
             <p id="login-subheader">For smooth ride to and from SMU</p>
           </div>
         </div>
-        <div class="col login-form">
-          <div class="login_form col col-rows-3">
+        <div class="col col-lg-5 col-md-6 col-sm-12 forms">
+          <div class="container login_form">
             <!-- <div class="user-icon">
               <i class="fa fa-user-circle-o" aria-hidden="true"></i>
             </div>
             <div class="password-icon">
               <i class="fa fa-lock" aria-hidden="true"></i>
             </div> -->
-            <div class="center">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Login</button>
@@ -283,28 +330,30 @@
               </ul>
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                  <h1>Login</h1>
-                  <div class="user-icon">
-                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                  </div>
-                  <div class="password-icon">
-                    <i class="fa fa-lock" aria-hidden="true"></i>
-                  </div>
-                  <form method="post">
-                    <div class="txt_field">
-                      <input type="text" required />
-                      <span></span>
-                      <label>Username</label>
+                  <div class="innerlogin container">
+                    <h1>Login</h1>
+                    <div class="user-icon">
+                      <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                     </div>
-                    <div class="txt_field">
-                      <input type="password" required />
-                      <span></span>
-                      <label>Password</label>
+                    <div class="password-icon">
+                      <i class="fa fa-lock" aria-hidden="true"></i>
                     </div>
-                    <div class="pass" href="#">Forgot Password?</div>
-                    <div style="margin-bottom:15px;"><input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Remember me</label></div>
-                    <input type="submit" value="Login" />
-                  </form>
+                    <form method="post">
+                      <div class="txt_field">
+                        <input type="text" required />
+                        <span></span>
+                        <label>Username</label>
+                      </div>
+                      <div class="txt_field">
+                        <input type="password" required />
+                        <span></span>
+                        <label>Password</label>
+                      </div>
+                      <div class="pass" href="#">Forgot Password?</div>
+                      <div style="margin-bottom:15px;"><input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Remember me</label></div>
+                      <input type="submit" value="Login" />
+                    </form>
+                  </div>
                 </div>
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                   <h1>Register</h1>
@@ -353,12 +402,12 @@
                     </form>
                  </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+
 
     <!-- <div class="login_pic"></div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 login">
