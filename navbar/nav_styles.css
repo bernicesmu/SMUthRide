@@ -38,7 +38,7 @@
 .nav-item a:hover,
 .nav-item a:active {
     font-weight: 900;
-    transition: 0.05s;
+    transition: 0.4s ease;
 }
 
 .nav-item-top {
