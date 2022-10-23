@@ -81,7 +81,7 @@ input#rate-5:checked ~ label{
   content: "Excellent! ";
 }
 .container form{
-  display: block;
+  display: none;
 }
 .star-widget input:checked ~ form{
   display: block;
@@ -151,11 +151,11 @@ form .post-btn button:hover{
     flex-wrap: wrap;
 }
 
-.personality-check .input:not(:checked) ~ .personality-check label:hover,
+/* .personality-check .input:not(:checked) ~ .personality-check label:hover,
 .personality-check .input:not(:checked) ~ .personality-check label:hover ~ .personality-check label{
   color: green;
-}
-.personality-check .input:checked ~ .personality-check label{
+} */
+.personality-check input:checked ~ .personality-check label{
   color: #4e7570;
 }
 
