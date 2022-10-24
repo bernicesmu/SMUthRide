@@ -33,7 +33,7 @@
             <div class="profile text-center justify-content-center h-100">
                 <img class="profile-pic" src="ded.png" alt="profile picture" />
                 <h2 class="name"><strong>{{ username }}</strong></h2>
-                <p class="degree-text">{{ major }}, Year {{ yearOfStudy }}</p>
+                <p class="degree-text">{{ major }}, {{ yearOfStudy }}</p>
                 <div class="additional-profile">
                     <p class=""><strong>Age</strong>: {{ age }}</p>
                     <p class=""><strong>Status</strong>: {{ status }}</p>
@@ -41,9 +41,9 @@
                     <p class="">
                         <strong>MBTI</strong>:
                         <a
-                            :href="'https://www.16personalities.com/' + mbti + '-personality'"
+                            :href="'https://www.16personalities.com/' + mbti.toLowerCase() + '-personality'"
                             class="personality"
-                            >{{ mbti.toUpperCase() }}</a
+                            >{{ mbti }}</a
                         >
                     </p>
                     <!-- the link can jus change the intp part to any other personality, eg infj etc -->
@@ -118,7 +118,7 @@
                                     ><i
                                         class="fab fa-linkedin fa-2x profile-fab"
                                     ></i
-                                    >https://www.linkedin.com/in/</a
+                                    >{{ linkedinLink }}</a
                                 >
                             </li>
                             <li>
@@ -128,7 +128,7 @@
                                     ><i
                                         class="fab fa-facebook fa-2x profile-fab"
                                     ></i
-                                    >https://www.facebook.com/</a
+                                    >{{ facebookLink }}</a
                                 >
                             </li>
                             <li>
@@ -138,7 +138,7 @@
                                     ><i
                                         class="fab fa-instagram fa-2x profile-fab"
                                     ></i
-                                    >https://www.instagram.com/</a
+                                    >{{ instagramLink }}</a
                                 >
                             </li>
                         </ul>

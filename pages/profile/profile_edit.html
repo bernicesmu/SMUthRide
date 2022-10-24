@@ -29,7 +29,7 @@
             ></div>
         </div>
 
-        <div class="wrapper">
+        <div id="profileVue" class="wrapper">
             <div class="profile text-center justify-content-center h-100">
                 <form
                     id="main-particulars-form"
@@ -48,7 +48,7 @@
                                 class="form-control text-center"
                                 id="displayname"
                                 name="displayname"
-                                value="Tan Ah Gao"
+                                v-model:value="username"
                         /></strong>
                     </h2>
                     <p class="degree-text">
@@ -58,20 +58,13 @@
                             id="degree"
                             name="degree"
                         >
-                            <option value="business">Business</option>
-                            <option value="accountancy" selected>
-                                Accountancy
+                            <option
+                                v-for="majorChoice in majorList"
+                                :value="majorChoice"
+                                :selected=" major === majorChoice "
+                            >
+                                {{ majorChoice }}
                             </option>
-                            <option value="economics">Economics</option>
-                            <option value="socialscience">
-                                Social Science
-                            </option>
-                            <option value="infosys">Information Systems</option>
-                            <option value="comsci">Computer Science</option>
-                            <option value="c&l">Computing & Law</option>
-                            <option value="swe">Software Engineer</option>
-                            <option value="law">Law</option>
-                            <option value="cis">CIS</option>
                         </select>
                         <select
                             type="dropdown"
@@ -79,12 +72,13 @@
                             id="year"
                             name="year"
                         >
-                            <option value="year1">Year 1</option>
-                            <option value="year2" selected>Year 2</option>
-                            <option value="year3">Year 3</option>
-                            <option value="year4">Year 4</option>
-                            <option value="year5">Year 5</option>
-                            <option value="alumni">Alumni</option>
+                            <option
+                                v-for="yearChoice in yearOfStudyList"
+                                :value="yearChoice"
+                                :selected=" yearChoice === yearOfStudy "
+                            >
+                                {{ yearChoice }}
+                            </option>
                         </select>
                     </p>
                     <div class="additional-profile">
@@ -93,7 +87,7 @@
                             <input
                                 type="number"
                                 class="form-control text-center w-50 d-inline"
-                                value="20"
+                                v-model:value="age"
                             />
                         </p>
                         <p class="">
@@ -104,11 +98,12 @@
                                 id="status"
                                 name="status"
                             >
-                                <option value="single">Single</option>
-                                <option value="attached">Attached</option>
-                                <option value="married">Married</option>
-                                <option value="complicated">
-                                    It's Complicated
+                                <option
+                                    v-for="statusChoice in statusList"
+                                    :value="statusChoice"
+                                    :selected=" statusChoice === status "
+                                >
+                                    {{ statusChoice }}
                                 </option>
                             </select>
                         </p>
@@ -121,22 +116,13 @@
                                 id="mbti"
                                 name="mbti"
                             >
-                                <option value="intj">INTJ</option>
-                                <option value="intp">INTP</option>
-                                <option value="entj">ENTJ</option>
-                                <option value="entp">ENTP</option>
-                                <option value="infj">INFJ</option>
-                                <option value="infp">INFP</option>
-                                <option value="enfj">ENFJ</option>
-                                <option value="enfp">ENFP</option>
-                                <option value="istj">ISTJ</option>
-                                <option value="isfj">ISFJ</option>
-                                <option value="estj">ESTJ</option>
-                                <option value="esfj">ESFJ</option>
-                                <option value="istp">ISTP</option>
-                                <option value="isfp">ISFP</option>
-                                <option value="estp">ESTP</option>
-                                <option value="esfp">ESFP</option>
+                                <option
+                                    v-for="mbtiChoice in mbtiList"
+                                    :value="mbtiChoice"
+                                    :selected=" mbtiChoice === mbti "
+                                >
+                                    {{ mbtiChoice }}
+                                </option>
                             </select>
                         </p>
                         <!-- the link can jus change the intp part to any other personality, eg infj etc -->
@@ -161,9 +147,8 @@
                             class="form-control text-center d-inline"
                             id="displayname"
                             name="displayname"
-                        >
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio tenetur repudiandae ratione voluptatem reprehenderit et quidem vitae asperiores, incidunt ullam fugit nostrum soluta ea mollitia inventore perspiciatis cupiditate odio ad.</textarea
-                        >
+                            v-model="bio"
+                        ></textarea>
                     </div>
                 </div>
                 <div class="card profile-card p-1">
@@ -218,7 +203,7 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio tenetur repu
                                     type="text"
                                     class="form-control text-center cca_options d-inline w-75"
                                     name="cca2"
-                                    value="https://www.linkedin.com/in/"
+                                    v-model:value="linkedinLink"
                                 />
                             </li>
                             <li>
@@ -229,7 +214,7 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio tenetur repu
                                     type="text"
                                     class="form-control text-center cca_options d-inline w-75"
                                     name="cca2"
-                                    value="https://www.facebook.com/"
+                                    v-model:value="facebookLink"
                                 />
                             </li>
                             <li>
@@ -240,7 +225,7 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio tenetur repu
                                     type="text"
                                     class="form-control text-center cca_options d-inline w-75"
                                     name="cca2"
-                                    value="https://www.instagram.com/"
+                                    v-model:value="instagramLink"
                                 />
                             </li>
                         </ul>
@@ -256,11 +241,6 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio tenetur repu
         ></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../../navbar/navbar.js"></script>
-        <script>
-            for (let element of document.getElementsByClassName("preference")) {
-                console.log(element.classList[1].slice(1));
-                element.style.width = element.classList[1].slice(1) + "%";
-            }
-        </script>
+        <script src="./profile.js"></script>
     </body>
 </html>
