@@ -54,26 +54,27 @@ export function writeUserData(username, name, email) {
   });
 }
 
-export function write_ride(smu_location, smu_to_from,driver_id, rideid, user_address, cost, max_capacity, date, time, users_offered, area) { 
+
+export function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area) { 
   const db = getDatabase();
   set(ref(db, `rides/${rideid}`), {
-    smu_location, 
-    smu_to_from, 
-    driver_id, 
-    user_address, 
-    cost, 
-    area, 
-    max_capacity, 
+    smu_location: smu_location, 
+    smu_to_from : smu_to_from, 
+    username: username, 
+    user_address: user_address, 
+    cost : cost, 
+    area: area, 
+    max_capacity: max_capacity, 
     // frequency,
-    date, 
-    time, 
-    users_offered 
+    date: date, 
+    time: time, 
+    users_offered: users_offered 
   })
 }
 
-export function find_rid(username) { 
+export function find_rid() { 
   const db = getDatabase();
-  const rides = ref(db, `rides/${username}`)
+  const rides = ref(db, `rides/`)
   onValue(rides, (snapshot) => {
     const data = snapshot.val();
     var rid = 0
