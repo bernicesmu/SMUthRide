@@ -17,20 +17,13 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
         />
         <link rel="stylesheet" href="../../main.css" />
+        <link rel="stylesheet" href="/navbar/nav_styles.css" />
 
         <style>
+            /* profile styles start */
             body {
                 overflow: hidden;
                 height: 100vh;
-            }
-
-            nav {
-                padding-top: 2rem;
-                padding-bottom: 2rem;
-                width: 100%;
-                z-index: 1;
-                position: fixed;
-                top: 0;
             }
 
             main {
@@ -78,22 +71,22 @@
                 margin-bottom: 0;
             }
 
-            a:link {
+            .socials-ul a:link {
                 color: #4e7570;
                 text-decoration: none;
             }
 
-            a:visited {
+            .socials-ul a:visited {
                 color: #4e7570;
                 text-decoration: none;
             }
 
-            a:hover {
+            .socials-ul a:hover {
                 color: #4c86a2;
                 text-decoration: none;
             }
 
-            a:active {
+            .socials-ul a:active {
                 color: #4e7570;
                 text-decoration: none;
             }
@@ -121,6 +114,8 @@
                 font-size: 20px;
                 border-radius: 15px;
                 height: 1rem;
+                transition: width 1s;
+                width: 0;
             }
 
             .cca {
@@ -133,9 +128,13 @@
                 list-style-type: square;
             }
 
-            .fab {
+            .profile-fab {
                 color: #4e7570;
                 margin-right: 1rem;
+            }
+
+            .socials-ul {
+                margin-top: 1rem;
             }
 
             @media (max-width: 768px) {
@@ -148,12 +147,14 @@
                     justify-content: center;
                 }
             }
+
+            /* profile styles end */
         </style>
     </head>
     <body>
-        <nav>
-            <p>NAVBAR</p>
-        </nav>
+        <div id="navbarVue">
+            <div v-html="navbar_html" @scroll="nav_animation"></div>
+        </div>
 
         <div class="wrapper">
             <div class="profile text-center justify-content-center">
@@ -194,19 +195,19 @@
                         <h5 class="card-title motivations">Motivations</h5>
                         <h6>Price</h6>
                         <div class="meter">
-                            <div class="motivation" style="width: 70%"></div>
+                            <div class="motivation w70"></div>
                         </div>
                         <h6>Comfort</h6>
                         <div class="meter">
-                            <div class="motivation" style="width: 40%"></div>
+                            <div class="motivation w40"></div>
                         </div>
                         <h6>Convenience</h6>
                         <div class="meter">
-                            <div class="motivation" style="width: 60%"></div>
+                            <div class="motivation w60"></div>
                         </div>
                         <h6>Speed</h6>
                         <div class="meter">
-                            <div class="motivation" style="width: 90%"></div>
+                            <div class="motivation w90"></div>
                         </div>
                     </div>
                 </div>
@@ -224,27 +225,38 @@
                 <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title">Socials</h5>
-                        <p class="card-text ps-0">
-                            <ul>
-                                <li>
-                                    <a
-                                        href="https://www.linkedin.com/in/"
-                                        target="_blank"
-                                        ><i class="fab fa-linkedin fa-2x"></i
-                                    >https://www.linkedin.com/in/</a>
-                                </li>
-                                <li>
-                                    <a href="https://www.facebook.com/" target="_blank"
-                                        ><i class="fab fa-facebook fa-2x"></i
-                                    >https://www.facebook.com/</a>
-                                </li>
-                                <li>
-                                    <a href="https://www.instagram.com/" target="_blank"
-                                        ><i class="fab fa-instagram fa-2x"></i
-                                    >https://www.instagram.com/</a>
-                                </li>
-                            </ul>
-                        </p>
+                        <ul class="socials-ul">
+                            <li>
+                                <a
+                                    href="https://www.linkedin.com/in/"
+                                    target="_blank"
+                                    ><i
+                                        class="fab fa-linkedin fa-2x profile-fab"
+                                    ></i
+                                    >https://www.linkedin.com/in/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.facebook.com/"
+                                    target="_blank"
+                                    ><i
+                                        class="fab fa-facebook fa-2x profile-fab"
+                                    ></i
+                                    >https://www.facebook.com/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.instagram.com/"
+                                    target="_blank"
+                                    ><i
+                                        class="fab fa-instagram fa-2x profile-fab"
+                                    ></i
+                                    >https://www.instagram.com/</a
+                                >
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </main>
@@ -255,5 +267,13 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"
         ></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="../../navbar/navbar.js"></script>
+        <script>
+            for (let element of document.getElementsByClassName("motivation")) {
+                console.log(element.classList[1].slice(1));
+                element.style.width = element.classList[1].slice(1) + "%";
+            }
+        </script>
     </body>
 </html>

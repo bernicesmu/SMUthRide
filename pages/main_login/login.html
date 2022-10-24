@@ -20,7 +20,7 @@
         font-family: Arial, Helvetica, sans-serif;
       }
       body {
-        background-color: #e3f1ef;
+        background-color: #ffffff;
       }
 
       .page-box{
@@ -73,9 +73,13 @@
         padding: 1.5em;
         padding-top: 1em;
       }
+      .content {
+        background-image: url("");
+      }
+
 
       .forms {
-        background-image: linear-gradient(45deg, #6cebbe, #e4fde1);
+        background-image: linear-gradient(45deg, #e3f1ef, #d5eefc);
         background-size: 400%;
         animation: bg-animation 10s infinite alternate;
         padding: 20px;
@@ -159,13 +163,13 @@
         left: 0;
         width: 0%;
         height: 2px;
-        background: #2691d9;
+        background: #4e7570;
         transition: 0.5s;
       }
       .txt_field input:focus ~ label,
       .txt_field input:valid ~ label {
         top: -5px;
-        color: #2691d9;
+        color: #4e7570;
       }
       .txt_field input:focus ~ span::before,
       .txt_field input:valid ~ span::before {
@@ -185,7 +189,7 @@
         width: 100%;
         height: 50px;
         border: 1px solid;
-        background: #2691d9;
+        background: #4e7570;
         border-radius: 25px;
         font-size: 18px;
         color: #e9f4fb;
@@ -194,7 +198,7 @@
         outline: none;
       }
       input[type="submit"]:hover {
-        border-color: #2691d9;
+        border-color: #4e7570;
         transition: 0.5s;
       }
       .signup_link {
@@ -216,25 +220,25 @@
       .user-icon,
       .password-icon, .user-icon2, .password-icon2{
         position: absolute;
-        font-size: 2.2em;
+        font-size: 2em;
         color: #4e7570;
       }
 
       .user-icon {
-        margin-top: 0.4em;
+        margin-top: 0.5em;
       }
 
       .password-icon {
-        margin-top: 2.4em;
+        margin-top: 2.8em;
         margin-left: 0.2em;
       }
 
       .email-icon {
         position: absolute;
         color: #4e7570;
-        font-size: 1.8em;
-        margin-top: 5.7em;
-        margin-left: 0.1em;
+        font-size: 1.5em;
+        margin-top: 7em;
+        margin-left: 0.2em;
 
       }
       /* ICONS */
@@ -242,7 +246,8 @@
       /* NAV TABS */
 
         .nav-tabs{
-          margin: 1em;
+          margin-top: 1em;
+          margin-bottom: 1.5em;
 
         }
          .nav-link{
@@ -261,7 +266,11 @@
 
          .nav-tabs .nav-link {
           color: black;
+          border-radius: 5em;
+          margin-right: 1em;
+      
          }
+
       /* NAV TABS */
 
       /* RESPONSIVE */
@@ -297,22 +306,247 @@
       }
       /* RESPONSIVE */
 
-      .tab-content > .tab-pane {
+      /* .tab-content > .tab-pane {
         width: 100%;
         margin-right: -100%;
+      } */
+
+
+      #front-car { 
+        position: absolute;
+        /* width: 18em;
+        height: 355px; */
+        width: 45%;
+        /* left: 95px; */
+        /* top: 326px; */
+        top: 5em;
+        left: 9.7em;
+        z-index: 2;
+        animation: MoveUpDown 1.5s linear infinite;
       }
+
+      #road { 
+        position: absolute;
+        /* width: 40em;
+        height: 352px; */
+        width: 100%;
+        /* left: -42px;
+        top: 487px; */
+        top:12em;
+        left:0.4em;
+      }
+
+      #road-stripes { 
+        position: absolute;
+        width: 20em;
+        height: 500px;
+        /* left: 250px;
+        top: 294px; */
+        animation: MoveUpDown 1.5s linear infinite;
+      }
+
+      #stripe1 { 
+        position: absolute;
+        width: 50%;
+        height: 30px;
+        /* left: 270px;
+        top: 810px; */
+        left:9em;
+        top: 26em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe1up 1.5s linear infinite;
+      }
+
+      #stripe2 { 
+        position: absolute;
+        width: 25%;
+        height: 25px;
+        /* left: 270px;
+        top: 710px; */
+        left: 13em;
+        top:19.9em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe2up 1.5s linear infinite;
+      }
+
+      #stripe3 { 
+        position: absolute;
+        width: 2em;
+        height: 20px;
+        /* left: 270px;
+        top: 630px; */
+        left:20em;
+        top: 16em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe3up 1.5s linear infinite;
+      }
+
+      #blocker { 
+        position: absolute;
+        width: 50%;
+        height: 30px;
+        /* left: 270px;
+        top: 810px; */
+        left:9em;
+        top:26.3em;
+        background-color: #FFFFFF;
+        z-index: 1;
+      }
+      
+      @keyframes MoveUpDown {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes stripe1up {
+        0% {
+          transform: translateY(0);
+          height: 30px;
+        }
+        100% {
+          transform: translateY(-100px);
+          height: 25px;
+        }
+      }
+
+      @keyframes stripe2up {
+        0% {
+          transform: translateY(0);
+          height: 25px;
+        }
+        100% {
+          transform: translateY(-80px);
+          height: 20px;
+        }
+      }
+
+      @keyframes stripe3up {
+        0% {
+          transform: translateY(0);
+          height: 20px;
+        }
+        100% {
+          transform: translateY(-60px);
+          height: 15px;
+        }
+      }
+
+
+      @media screen and (max-width:2px) {
+
+        #front-car { 
+        position: absolute;
+        width: 16em;
+        height: 355px;
+        /* left: 95px; */
+        /* top: 326px; */
+        left: 9.7em;
+        z-index: 2;
+        animation: MoveUpDown 1.5s linear infinite;
+      }
+
+      #road { 
+        position: absolute;
+        width: 38em;
+        height: 352px;
+        /* left: -42px;
+        top: 487px; */
+        top:7em
+      }
+
+      #road-stripes { 
+        position: absolute;
+        width: 18em;
+        height: 500px;
+        /* left: 250px;
+        top: 294px; */
+        animation: MoveUpDown 1.5s linear infinite;
+      }
+
+      #stripe1 { 
+        position: absolute;
+        width: 18em;
+        height: 30px;
+        /* left: 270px;
+        top: 810px; */
+        left:9em;
+        top: 26em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe1up 1.5s linear infinite;
+      }
+
+      #stripe2 { 
+        position: absolute;
+        width: 13em;
+        height: 25px;
+        /* left: 270px;
+        top: 710px; */
+        left: 10em;
+        top:19.9em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe2up 1.5s linear infinite;
+      }
+
+      #stripe3 { 
+        position: absolute;
+        width: 2em;
+        height: 20px;
+        /* left: 270px;
+        top: 630px; */
+        left:20em;
+        top: 16em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe3up 1.5s linear infinite;
+      }
+
+      #blocker { 
+        position: absolute;
+        width: 25em;
+        height: 39px;
+        /* left: 270px;
+        top: 810px; */
+        left:9em;
+        top:25.6em;
+        background-color: #FFFFFF;
+        z-index: 1;
+      }
+
+      }
+
+      
+
     </style>
   </head>
   <body>
     <div class="container page-box">
       <div class="row">
-        <div class="col col-lg-7 col-md-6 col-sm-12 content" >
+        <div class="col col-lg-7 col-md-6 col-sm-12 col-xs-12 content" >
           <div class="title">
             <p id="login-header">SMUth Ride</p>
-            <p id="login-subheader">For smooth ride to and from SMU</p>
+            <p id="login-subheader">For smooth rides to and from SMU</p>
+          </div>
+          <div class="container-fluid">
+            <div class="parent" style="position: relative;"> 
+              <img src="./front_car.svg" id="front-car">
+              <img src="./full_road.svg" id="road">
+              <div id="stripe1"></div>
+              <div id="stripe2"></div>
+              <div id="stripe3"></div>
+              <div id="blocker"></div>
+            </div>
           </div>
         </div>
-        <div class="col col-lg-5 col-md-6 col-sm-12 forms">
+        <div class="col col-lg-5 col-md-6 col-sm-12 col-xs-12 forms">
           <div class="container login_form">
             <!-- <div class="user-icon">
               <i class="fa fa-user-circle-o" aria-hidden="true"></i>
@@ -320,7 +554,7 @@
             <div class="password-icon">
               <i class="fa fa-lock" aria-hidden="true"></i>
             </div> -->
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <ul class="nav nav-tabs border-bottom-0" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Login</button>
                 </li>
@@ -331,70 +565,68 @@
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                   <div class="innerlogin container">
-                    <h1>Login</h1>
+                    <h3>Login</h3>
                     <div class="user-icon">
                       <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                     </div>
                     <div class="password-icon">
                       <i class="fa fa-lock" aria-hidden="true"></i>
                     </div>
-                    <form method="post">
+                    <form method="post" id="login">
                       <div class="txt_field">
-                        <input type="text" required />
+                        <input type="text" name='useroremail' required />
                         <span></span>
-                        <label>Username</label>
+                        <label>Username or email</label>
                       </div>
                       <div class="txt_field">
-                        <input type="password" required />
+                        <input type="password" name='password' required />
                         <span></span>
                         <label>Password</label>
                       </div>
-                      <div class="pass" href="#">Forgot Password?</div>
-                      <div style="margin-bottom:15px;"><input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Remember me</label></div>
                       <input type="submit" value="Login" />
                     </form>
                   </div>
                 </div>
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                  <h1>Register</h1>
+                  <h3>Register</h3>
                   <div class="user-icon">
                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                   </div>
-                  <div class="user-icon2" style="margin-top:2.5em">
+                  <div class="user-icon2" style="margin-top:2.8em">
                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                   </div>
                   <div class="email-icon">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
                   </div>
-                  <div class="password-icon" style="margin-top:6.5em">
+                  <div class="password-icon" style="margin-top:7.3em">
                     <i class="fa fa-lock" aria-hidden="true"></i>
                   </div>
-                  <div class="password-icon2" style="margin-top:8.6em; margin-left:0.2em;">
+                  <div class="password-icon2" style="margin-top:9.5em; margin-left:0.2em;">
                     <i class="fa fa-lock" aria-hidden="true"></i>
                   </div>
-                  <form method="post">
+                  <form method="post" id="registration">
                     <div class="txt_field">
-                      <input type="text" required />
+                      <input type="text" name='name' required />
                       <span></span>
-                      <label>Name</label>
+                      <label>Display name</label>
                     </div>
                     <div class="txt_field">
-                      <input type="text" required />
+                      <input type="text" name='username' required />
                       <span></span>
                       <label>Username</label>
                     </div>
                     <div class="txt_field">
-                      <input type="text" required />
+                      <input type="text" name='email' required />
                       <span></span>
                       <label>Email</label>
                     </div>
                     <div class="txt_field">
-                      <input type="password" required />
+                      <input type="password" name='pw' required />
                       <span></span>
                       <label>Password</label>
                     </div>
                     <div class="txt_field">
-                      <input type="password" required />
+                      <input type="password" name='cfmpassword' required />
                       <span></span>
                       <label>Confirm Password</label>
                     </div>
@@ -452,6 +684,21 @@
       integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
       crossorigin="anonymous"
     ></script>
+    <script type="module" src="./login.js"></script>
+    <script>
+      // used to prevent the page from refreshing after submit, because its quite annoying lol
+      var form = document.getElementById("registration"); 
+      function handleForm(event) {     
+          event.preventDefault(); 
+      }  
+      form.addEventListener('submit', handleForm);
+
+      var form = document.getElementById("login"); 
+      function handleForm(event) {     
+          event.preventDefault(); 
+      }  
+      form.addEventListener('submit', handleForm);
+    </script>
   </body>
 </html>
 
