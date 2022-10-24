@@ -21,9 +21,8 @@ const listings = Vue.createApp({
             listings: [],
             to_from : "From",
             display_listings: [],
-            button: screen.width>768 ? '' : '<br>',
-            toSMU: "to " + this.button + "SMU",
-            fromSMU: "from " + this.button + "SMU"
+            driver_listings:[],
+            rider_listings: []
         }
     },
     methods: {
@@ -34,10 +33,14 @@ const listings = Vue.createApp({
         },
         check_and_populate(){
             if (this.to_from === "To"){
-                this.display_listings = this.listings.filter(x => x.smu_pick_or_drop === "drop");
+                this.display_listings = this.listings.filter(x => x.smu_to_from === "To");
             } else if (this.to_from === "From"){
-                this.display_listings = this.listings.filter(x => x.smu_pick_or_drop === "pick");
+                this.display_listings = this.listings.filter(x => x.smu_to_from === "From");
             }
+            console.log(this.display_listings)
+            this.driver_listings= this.display_listings.filter(x=> x.driver_username === localStorage.getItem("user"))
+            this.rider_listings=  this.display_listings.filter(x=> x.users_offered.includes(localStorage.getItem('user')))
+            console.log(this.rider_listings)
         },
         formatAMPM(date){
 
@@ -54,20 +57,36 @@ const listings = Vue.createApp({
             date = date.split("-")
             let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
             return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
+        },
+        get_user_name(username){
+
+            let user = this.users.filter(x => x.user_name === username)
+            return user[0].name
         }
     },
     mounted() {
-
         const db = getDatabase();
         const rides = ref(db, `rides/`)
         const users = ref(db, `users/`)
+        console.log('hi')
+        onValue(users, (snapshot) => {
+            for (const key in snapshot.val()){
+                this.users.push(snapshot.val()[key])
+            }
+            console.log(this.users)
+        });
+
         onValue(rides, (snapshot) => {
 
             this.listings = snapshot.val()
             this.listings.splice(0, 1)
+
             this.check_and_populate()
         })
+
+
     }
+
 })
 
 listings.mount('#populate_listings')
