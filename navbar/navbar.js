@@ -42,7 +42,7 @@ const navbar = Vue.createApp({
                         <a class="nav-link nav-item-top" href="#">Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" href="../pages/chats/chat.html">Chat</a>
+                        <a class="nav-link nav-item-top" href="{ relativePath + 'pages/chats/chat.html' }">Chat</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-item-top" href="../pages/profile/profile.html"><img src="/pages/profile/ded.png" class="profile-img"/></a>
@@ -81,10 +81,21 @@ const navbar = Vue.createApp({
     },
     mounted() {
         window.addEventListener("scroll", this.nav_animation);
+
         for (const elem of document.getElementsByClassName("nav-link")) {
             if (elem.innerText.toLowerCase() === this.page) {
                 elem.classList.add("active-page");
             }
+        }
+
+        if (
+            this.page === "profile" ||
+            this.page === "chat" ||
+            this.page === "offers"
+        ) {
+            const relativePath = "../";
+        } else {
+            const relativePath = "../../";
         }
     },
 });
