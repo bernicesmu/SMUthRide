@@ -45,7 +45,7 @@
                 flex: 1 0 10%;
                 margin-top: 2.5rem;
                 padding: 0 1rem;
-                padding-top: 3rem;
+                padding-top: 1rem;
             }
 
             .profile-pic {
@@ -156,6 +156,23 @@
             }
 
             @media (max-width: 768px) {
+                .wrapper {
+                    display: block;
+                    overflow-y: auto;
+                }
+                .additional-profile {
+                    display: flex;
+                    justify-content: center;
+                }
+                .additional-profile p {
+                    margin-right: 1rem;
+                }
+                main {
+                    margin-top: 1rem;
+                    padding: 2rem;
+                }
+            }
+            @media (max-height: 600px) {
                 .wrapper {
                     display: block;
                     overflow-y: auto;
