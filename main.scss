@@ -19,12 +19,6 @@ h1, h2, h3, h4, h5, h6, p {
   color: $dark-green;
 }
 
-nav {
-  padding: 3rem 0 3rem;
-  background-color: grey;
-  text-align: center;
-}
-
 .card {
   background-color: $medium-green;
   margin: 1rem;
@@ -34,10 +28,6 @@ nav {
   background-color: $dark-green !important;
   color: $light-green !important;
   font-weight: 600 !important;
-}
-
-.navbar{
-  background-color: $dark-green;
 }
 
 a:link{
@@ -51,7 +41,7 @@ a:link{
   // margin-bottom: 30px;
   margin-left: 10px;
   overflow-anchor: auto;
-  padding-bottom: 15%
+  // padding-bottom: 15%
   
   
 }
@@ -64,7 +54,7 @@ a:link{
 li {
   list-style-type: none;
   margin-bottom: 10px;
-  
+  font-family: sans-serif;
   padding: 5px;
   border-radius: 10px;
   color: black;
@@ -72,7 +62,7 @@ li {
 }
 
 li span {
-  font-style: italic;
+  
   font-weight: bolder;
   color: #b5b0b9;
 }
@@ -82,10 +72,10 @@ li span {
 #message-form {
   text-align: center;
   position: sticky;
-  bottom: 0px;
-  width: 100%;
-  background-color: #b7b5b9;
-  margin-top: 30px;
+
+  
+ 
+  // margin-top: 30px;
   
   
   
@@ -101,10 +91,10 @@ input {
   height: 30px;
 }
 
-button {
-  width: 25%;
-  height: 38px;
-}
+// button {
+//   // width: 25%;
+//   // height: 38px;
+// }
 
 .sent {
   text-align: right;
@@ -169,11 +159,17 @@ p{
   padding-top: 0;
   position: relative;
   
+  
 }
 .sub_div {
   position: absolute;
   bottom: 0px;
   width: 100%;
+  // padding-top: 10px;
+  // padding-left: 5px;
+  // padding-right: 5px;
+  background-color: black;
+  
 }
 
 // #chat {
@@ -236,5 +232,68 @@ p{
   left: 10px;
   
   margin-right: 10px;
+}
+
+
+button{
+  align-items: center;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+#message-input{
+  width: 70%;
+  margin-top:5px;
+  margin-bottom: 5px;
+  border-radius: 30px;
+  padding-left: 5px;
+  
+}
+
+
+#overlay {
+  position: fixed; 
+  display: none; 
+  width: 100%; 
+  height: 100%;  
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); 
+  z-index: 2; 
+  cursor: pointer; 
+  margin: auto;
+}
+
+#text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+ 
+  background-color: $light-blue;
+  border-radius: 5px;
+  
+  
+}
+
+#text span{
+  color: black;
+  display: block;
+  text-align: center;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#text input{
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
 }
 
