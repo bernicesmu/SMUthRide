@@ -1,12 +1,14 @@
+
+
 Vue.createApp({
     data() {
         return {
-            username: "Tan Ah Gao",
-            major: "Accountancy",
+            displayname: "Tan Ah Gao",
+            degree: "Accountancy",
             yearOfStudy: "Year 2",
             age: "20",
             status: "Single",
-            location: "Jurong",
+            location_user: "Jurong",
             mbti: "INTP",
             bio: "lorem ipsum",
             prefPrice: "70",
@@ -29,6 +31,7 @@ Vue.createApp({
                 "Software Engineer",
                 "Law",
                 "CIS",
+                "Bachelor",
             ],
             yearOfStudyList: [
                 "Year 1",
@@ -37,6 +40,7 @@ Vue.createApp({
                 "Year 4",
                 "Year 5",
                 "Alumni",
+                "Year X",
             ],
             statusList: ["Single", "Attached", "Married", "It's Complicated"],
             mbtiList: [
@@ -56,6 +60,7 @@ Vue.createApp({
                 "ISFP",
                 "ESTP",
                 "ESFP",
+                "ABCD",
             ],
         };
     },
@@ -64,6 +69,41 @@ Vue.createApp({
         // can you connect to database here and get all the values in the data
         // you can refer to the pseudocode in this site https://www.w3docs.com/snippets/vue-js/what-is-the-difference-between-the-created-and-mounted-hooks-in-vue-js.html
         // feel free to change all the values to null if needed
+        username = localStorage.getItem('username_x')
+        displayname = localStorage.getItem('displayname')
+        age = localStorage.getItem('age')
+        bio = localStorage.getItem('bio')
+        cca = localStorage.getItem('cca')
+        comfort = localStorage.getItem('comfort')
+        convenience = localStorage.getItem('convenience')
+        degree = localStorage.getItem('degree')
+        facebook = localStorage.getItem('facebook')
+        instagram = localStorage.getItem('instagram')
+        linkedin = localStorage.getItem('linkedin')
+        location_user = localStorage.getItem('location_user')
+        mbti = localStorage.getItem('mbti')
+        price = localStorage.getItem('price')
+        speed = localStorage.getItem('speed')
+        rs_status = localStorage.getItem('status')
+        year = localStorage.getItem('year')
+
+        this.displayname = displayname
+        this.degree = degree
+        this.yearOfStudy = year 
+        this.age = age 
+        this.status = rs_status 
+        this.location_user = location_user
+        this.mbti = mbti
+        this.bio = bio
+        this.prefPrice = price
+        this.prefComfort = comfort
+        this.prefConvenience = convenience
+        this.prefSpeed = speed
+        this.ccas = ['smubia'] //unhardcode later
+        this.linkedinLink = linkedin
+        this.facebookLink = facebook
+        this.instagramLink = instagram
+
     },
     mounted() {
         for (let element of document.getElementsByClassName("preference")) {

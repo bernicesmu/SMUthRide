@@ -38,6 +38,8 @@ function register_user() {
     if (valid) { 
         create_user(email, password)
         writeUserData(username, name, email)
+        localStorage.clear()
+        localStorage.setItem("username_x", username)
     }
 }
 
