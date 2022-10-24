@@ -9,7 +9,6 @@
 
 <head>
     <link rel="stylesheet" href="../../../main.css" />
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -548,37 +547,12 @@
 </body>
 
 <script>
-    username = "amy" // this username can be read in the riders_indiv_driver.js file 
-
-
-    // set min and max dates for calendar
-
-    const date = new Date();
-
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    document.getElementsByName("date")[0].min = `${year}-${month}-${day}`;
-
-
-    // set min time for time input
-    let hour = date.getHours();
-    let minute = date.getMinutes();
-    document.getElementsByName("time")[0].min = `${hour}:${minute}`;
-    document.getElementsByName("time")[0].value = `${hour}:${minute}`;
-
-    // used to prevent the page from refreshing after submit, because its quite annoying lol
-    var form = document.getElementById("rides"); 
-    function handleForm(event) {     
-        event.preventDefault(); 
-    }  
-    form.addEventListener('submit', handleForm);
+    username = "bob"
+    email = 'bob@hello.com' // this username can be read in the riders_indiv_driver.js file 
 </script>
 
 <script type="module" src="../../../index.js"></script>
 <script type="module" src="./rides_indiv_driver.js"></script>
-=======
-   
 
     <script>
         smu_position = "from";
