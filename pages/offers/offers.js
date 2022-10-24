@@ -1,6 +1,6 @@
-
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+
 const firebaseConfig = {
     apiKey: "AIzaSyCCVjpCi9lziMF130jj2UtJGiPc0MamUkY",
     authDomain: "wad2-smuth-ride.firebaseapp.com",
@@ -19,8 +19,11 @@ const listings = Vue.createApp({
     data() {
         return{
             listings: [],
-            to_from : "To",
-            display_listings: []
+            to_from : "From",
+            display_listings: [],
+            button: screen.width>768 ? '' : '<br>',
+            toSMU: "to " + this.button + "SMU",
+            fromSMU: "from " + this.button + "SMU"
         }
     },
     methods: {
@@ -36,7 +39,7 @@ const listings = Vue.createApp({
                 this.display_listings = this.listings.filter(x => x.smu_pick_or_drop === "pick");
             }
         },
-        formatAMPM(date) {
+        formatAMPM(date){
 
             let hours = Number(date.split(":")[0]);
             let minutes = Number(date.split(":")[1]);
@@ -57,13 +60,14 @@ const listings = Vue.createApp({
 
         const db = getDatabase();
         const rides = ref(db, `rides/`)
+        const users = ref(db, `users/`)
         onValue(rides, (snapshot) => {
 
             this.listings = snapshot.val()
             this.listings.splice(0, 1)
             this.check_and_populate()
         })
-        }
+    }
 })
 
 listings.mount('#populate_listings')
