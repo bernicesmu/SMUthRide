@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap5-toggle@4.3.4/css/bootstrap5-toggle.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap5-toggle@4.3.4/js/bootstrap5-toggle.ecmas.min.js"></script>
+    <script src="https://unpkg.com/vue-screen-size/dist/vue-screen-size.min.js"></script>
     <style>
         body {
             background-color: #FFFFFF;
@@ -29,14 +30,15 @@
         h1 {
             color: #4e7570;
         }
-
-        .toggle.toFromToggle{
+        .toggle{
             border-radius: 15px;
-            /*background-color: #4e7570;*/
+        }
+        .toggle-on{
+            /*border-radius: 15px;*/
+            background-color: #4e7570;
         }
         .toggle.toFromToggle.toggle-handle{
-            
-            border-radius: 15px;
+            border-radius: 20rem;
         }
 
 
@@ -92,6 +94,7 @@
         input[type=text]:focus {
             background-color: #bedad6;
             border-radius: 15px ;
+            box-shadow: 0 0 5px #4e7570;
         }
 
         .form-control {
@@ -137,6 +140,7 @@
             .bi-person-fill{
                 font-size: 28px;
             }
+
         }
     </style>
 </head>
@@ -157,8 +161,7 @@
 
                 <label class="switch">
                     <input type="checkbox" data-toggle="toggle" data-style="toFromToggle"
-                           data-on="From SMU" data-off="To SMU" v-on:change="change_direction()">
-                    <span class="slider round"></span>
+                           v-bind:data-on="toSMU" v-bind:data-off="fromSMU" v-on:change="change_direction()" data-onstyle="success">
                 </label>
 
             </div>
@@ -174,7 +177,7 @@
 
             <div class="card-body col py-0">
 
-                <span class="badge rounded-pill px-1" v-if="listing.frequency === 'recurring'">
+                <span class="badge rounded-pill px-1" v-if="listing.frequency === 'recurring'" hidden>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
                         <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
                         <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
@@ -215,6 +218,6 @@
     </div>
 
 </body>
-<script src="listing.js" type="module"></script>
+<script src="rides_listing.js" type="module"></script>
 
 </html>

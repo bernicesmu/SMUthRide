@@ -1,6 +1,7 @@
 
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+
 const firebaseConfig = {
     apiKey: "AIzaSyCCVjpCi9lziMF130jj2UtJGiPc0MamUkY",
     authDomain: "wad2-smuth-ride.firebaseapp.com",
@@ -19,8 +20,11 @@ const listings = Vue.createApp({
     data() {
         return{
             listings: [],
-            to_from : "To",
-            display_listings: []
+            to_from : "From",
+            display_listings: [],
+            button: screen.width>768 ? '' : '<br>',
+            toSMU: "to " + this.button + "SMU",
+            fromSMU: "from " + this.button + "SMU"
         }
     },
     methods: {
