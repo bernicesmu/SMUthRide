@@ -24,24 +24,28 @@
             body {
                 overflow: hidden;
                 height: 100vh;
+                padding: 0;
+                margin: 0;
             }
 
             main {
                 overflow-y: auto;
                 padding: 2rem;
+                padding-left: 0;
             }
             .wrapper {
                 display: flex;
                 height: 100%;
                 /* margin-top: 6rem; */
                 margin-bottom: 5rem;
-                padding-top: 6rem;
+                padding-top: 3rem;
             }
 
             .profile {
                 flex: 1 0 10%;
                 margin-top: 2.5rem;
                 padding: 0 1rem;
+                padding-top: 3rem;
             }
 
             .profile-pic {
@@ -69,6 +73,20 @@
             .additional-profile p {
                 display: block;
                 margin-bottom: 0;
+            }
+
+            .edit-profile {
+                margin: 2rem 1rem 0;
+            }
+
+            .btn-edit-profile {
+                background-color: #4e7570;
+                color: white;
+            }
+
+            .btn-edit-profile:hover {
+                background-color: #bedad6;
+                color: white;
             }
 
             .socials-ul a:link {
@@ -146,6 +164,13 @@
                     display: flex;
                     justify-content: center;
                 }
+                .additional-profile p {
+                    margin-right: 1rem;
+                }
+                main {
+                    margin-top: 1rem;
+                    padding: 2rem;
+                }
             }
 
             /* profile styles end */
@@ -161,7 +186,7 @@
         </div>
 
         <div class="wrapper">
-            <div class="profile text-center justify-content-center">
+            <div class="profile text-center justify-content-center h-100">
                 <img class="profile-pic" src="ded.png" alt="profile picture" />
                 <h2 class="name"><strong>Tan Ah Gao</strong></h2>
                 <p class="degree-text">Useless Degree, 2022</p>
@@ -170,7 +195,7 @@
                     <p class=""><strong>Status</strong>: Single</p>
                     <p class=""><strong>Location</strong>: Jurong</p>
                     <p class="">
-                        <strong>Personality Type</strong>:
+                        <strong>MBTI</strong>:
                         <a
                             href="https://www.16personalities.com/intp-personality"
                             class="personality"
@@ -178,6 +203,13 @@
                         >
                     </p>
                     <!-- the link can jus change the intp part to any other personality, eg infj etc -->
+                </div>
+                <div class="edit-profile">
+                    <a href="./profile_edit.html"
+                        ><button class="btn btn-edit-profile w-100">
+                            Edit profile
+                        </button></a
+                    >
                 </div>
             </div>
 
