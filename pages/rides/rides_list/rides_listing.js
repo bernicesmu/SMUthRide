@@ -58,7 +58,9 @@ const listings = Vue.createApp({
             return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
         },
         get_user_name(id){
-            let user = this.users.filter(x => x.id === id)
+            console.log("hi")
+            let user = this.users.filter(x => x.userid === id)
+            console.log(user)
             return user[0].name
         }
     },
