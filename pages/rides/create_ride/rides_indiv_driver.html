@@ -268,8 +268,14 @@
             margin: auto;
         }
     </style>
+    
+    <link rel="stylesheet" href="/navbar/nav_styles.css" />
 </head>
 <body>
+    <div id="navbarVue">
+        <div v-html="navbar_html" @scroll="nav_animation" data-page="rides"></div>
+    </div>
+
     <div class="text-center my-5">
         <h1>Offer a ride</h1>
     </div>
@@ -590,4 +596,7 @@
             }
         }
     </script>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="/navbar/navbar.js"></script>
 </body>
