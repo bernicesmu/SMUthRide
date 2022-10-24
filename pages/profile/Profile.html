@@ -17,7 +17,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
         />
         <link rel="stylesheet" href="../../main.css" />
-        <link rel="stylesheet" href="/navbar/nav_styles.css" />
+        <link rel="stylesheet" href="../../navbar/nav_styles.css" />
 
         <style>
             /* profile styles start */
@@ -95,7 +95,7 @@
                 border: none;
             }
 
-            .motivations {
+            .preferences {
                 padding-bottom: 0.8rem;
             }
 
@@ -107,7 +107,7 @@
                 margin-bottom: 1rem;
             }
 
-            .motivation {
+            .preference {
                 background-color: #4e7570;
                 color: white;
                 text-align: right;
@@ -153,7 +153,11 @@
     </head>
     <body>
         <div id="navbarVue">
-            <div v-html="navbar_html" @scroll="nav_animation"></div>
+            <div
+                v-html="navbar_html"
+                @scroll="nav_animation"
+                data-page="profile"
+            ></div>
         </div>
 
         <div class="wrapper">
@@ -192,22 +196,22 @@
                 </div>
                 <div class="card profile-card p-1">
                     <div class="card-body">
-                        <h5 class="card-title motivations">Motivations</h5>
+                        <h5 class="card-title preferences">Preferences</h5>
                         <h6>Price</h6>
                         <div class="meter">
-                            <div class="motivation w70"></div>
+                            <div class="preference w70"></div>
                         </div>
                         <h6>Comfort</h6>
                         <div class="meter">
-                            <div class="motivation w40"></div>
+                            <div class="preference w40"></div>
                         </div>
                         <h6>Convenience</h6>
                         <div class="meter">
-                            <div class="motivation w60"></div>
+                            <div class="preference w60"></div>
                         </div>
                         <h6>Speed</h6>
                         <div class="meter">
-                            <div class="motivation w90"></div>
+                            <div class="preference w90"></div>
                         </div>
                     </div>
                 </div>
@@ -270,7 +274,7 @@
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../../navbar/navbar.js"></script>
         <script>
-            for (let element of document.getElementsByClassName("motivation")) {
+            for (let element of document.getElementsByClassName("preference")) {
                 console.log(element.classList[1].slice(1));
                 element.style.width = element.classList[1].slice(1) + "%";
             }

@@ -46,7 +46,11 @@
 }
 
 .nav-item-down {
-    color: #4e7570;
+    color: #b7b7b7;
+}
+
+.active-page {
+    color: black;
 }
 
 .profile-img {
