@@ -18,156 +18,7 @@
         />
         <link rel="stylesheet" href="../../main.css" />
         <link rel="stylesheet" href="../../navbar/nav_styles.css" />
-
-        <style>
-            /* profile styles start */
-            body {
-                overflow: hidden;
-                height: 100vh;
-                padding: 0;
-                margin: 0;
-            }
-
-            main {
-                overflow-y: auto;
-                padding: 2rem;
-                padding-left: 0;
-            }
-            .wrapper {
-                display: flex;
-                height: 100%;
-                /* margin-top: 6rem; */
-                margin-bottom: 5rem;
-                padding-top: 3rem;
-            }
-
-            .profile {
-                flex: 1 0 10%;
-                margin-top: 2.5rem;
-                padding: 0 1rem;
-                padding-top: 3rem;
-            }
-
-            .profile-pic {
-                width: 12rem;
-            }
-
-            .degree-text {
-                display: block;
-                text-align: center;
-            }
-
-            .name {
-                display: block;
-                text-align: center;
-                margin-top: 0.5rem;
-                margin-bottom: 0;
-                font-size: 2rem;
-                padding-bottom: 0;
-            }
-
-            .additional-profile {
-                text-align: start;
-                margin: 2rem 1rem 0;
-            }
-            .additional-profile p {
-                display: block;
-                margin-bottom: 0;
-            }
-
-            .edit-profile { 
-                margin: 2rem 1rem 0;
-            }
-
-            .btn-edit-profile { 
-                background-color: #4e7570;
-                color: white;
-            }
-
-            .btn-edit-profile:hover { 
-                background-color: #bedad6;
-                color: white;
-            }
-
-            .socials-ul a:link {
-                color: #4e7570;
-                text-decoration: none;
-            }
-
-            .socials-ul a:visited {
-                color: #4e7570;
-                text-decoration: none;
-            }
-
-            .socials-ul a:hover {
-                color: #4c86a2;
-                text-decoration: none;
-            }
-
-            .socials-ul a:active {
-                color: #4e7570;
-                text-decoration: none;
-            }
-
-            .card {
-                border: none;
-            }
-
-            .preferences {
-                padding-bottom: 0.8rem;
-            }
-
-            .meter {
-                background-color: rgb(192, 192, 192);
-                width: 90%;
-                border-radius: 15px;
-                height: 1rem;
-                margin-bottom: 1rem;
-            }
-
-            .preference {
-                background-color: #4e7570;
-                color: white;
-                text-align: right;
-                font-size: 20px;
-                border-radius: 15px;
-                height: 1rem;
-                transition: width 1s;
-                width: 0;
-            }
-
-            .cca {
-                padding-left: 1rem;
-                margin-left: 1rem;
-            }
-
-            .cca li {
-                margin-bottom: 0;
-                list-style-type: square;
-            }
-
-            .profile-fab {
-                color: #4e7570;
-                margin-right: 1rem;
-            }
-
-            .socials-ul {
-                margin-top: 1rem;
-            }
-
-            @media (max-width: 768px) {
-                .wrapper {
-                    display: block;
-                    overflow-y: auto;
-                }
-                .additional-profile {
-                    display: flex;
-                    justify-content: center;
-                }
-            }
-
-            /* profile styles end */
-        </style>
+        <link rel="stylesheet" href="./profile.css" />
     </head>
     <body>
         <div id="navbarVue">
@@ -178,29 +29,112 @@
             ></div>
         </div>
 
-        <div class="wrapper">
+        <div id="profileVue" class="wrapper">
             <div class="profile text-center justify-content-center h-100">
-                <form id="main-particulars-form">
-                <img class="profile-pic" src="ded.png" alt="profile picture" />
-                <h2 class="name"><strong><input type="name" class="form-control" id="displayname" value="Tan Ah Gao"></strong></h2>
-                <p class="degree-text"><input type="name" class="form-control" id="degree" value="Useless Degree">Useless Degree, 2022</p>
-                <div class="additional-profile">
-                    <p class=""><strong>Age</strong>: 20</p>
-                    <p class=""><strong>Status</strong>: Single</p>
-                    <p class=""><strong>Location</strong>: Jurong</p>
-                    <p class="">
-                        <strong>MBTI</strong>:
-                        <a
-                            href="https://www.16personalities.com/intp-personality"
-                            class="personality"
-                            >INTP</a
+                <form
+                    id="main-particulars-form"
+                    method="post"
+                    action="./profile.html"
+                >
+                    <img
+                        class="profile-pic"
+                        src="ded.png"
+                        alt="profile picture"
+                    />
+                    <h2 class="name">
+                        <strong
+                            ><input
+                                type="text"
+                                class="form-control text-center"
+                                id="displayname"
+                                name="displayname"
+                                v-model:value="username"
+                        /></strong>
+                    </h2>
+                    <p class="degree-text">
+                        <select
+                            type="dropdown"
+                            class="form-select text-center"
+                            id="degree"
+                            name="degree"
                         >
+                            <option
+                                v-for="majorChoice in majorList"
+                                :value="majorChoice"
+                                :selected=" major === majorChoice "
+                            >
+                                {{ majorChoice }}
+                            </option>
+                        </select>
+                        <select
+                            type="dropdown"
+                            class="form-select text-center"
+                            id="year"
+                            name="year"
+                        >
+                            <option
+                                v-for="yearChoice in yearOfStudyList"
+                                :value="yearChoice"
+                                :selected=" yearChoice === yearOfStudy "
+                            >
+                                {{ yearChoice }}
+                            </option>
+                        </select>
                     </p>
-                    <!-- the link can jus change the intp part to any other personality, eg infj etc -->
-                </div>
-                <div class="edit-profile">
-                    <a href="./profile_edit.html"><button class="btn btn-edit-profile w-100">Save edits</button></a>
-                </div>
+                    <div class="additional-profile">
+                        <p class="">
+                            <strong>Age</strong>:
+                            <input
+                                type="number"
+                                class="form-control text-center w-50 d-inline"
+                                v-model:value="age"
+                            />
+                        </p>
+                        <p class="">
+                            <strong>Status</strong>:
+                            <select
+                                type="dropdown"
+                                class="form-select text-center w-50 d-inline"
+                                id="status"
+                                name="status"
+                            >
+                                <option
+                                    v-for="statusChoice in statusList"
+                                    :value="statusChoice"
+                                    :selected=" statusChoice === status "
+                                >
+                                    {{ statusChoice }}
+                                </option>
+                            </select>
+                        </p>
+                        <p class=""><strong>Location</strong>: Jurong</p>
+                        <p class="">
+                            <strong>MBTI</strong>:
+                            <select
+                                type="dropdown"
+                                class="form-select text-center w-50 d-inline"
+                                id="mbti"
+                                name="mbti"
+                            >
+                                <option
+                                    v-for="mbtiChoice in mbtiList"
+                                    :value="mbtiChoice"
+                                    :selected=" mbtiChoice === mbti "
+                                >
+                                    {{ mbtiChoice }}
+                                </option>
+                            </select>
+                        </p>
+                        <!-- the link can jus change the intp part to any other personality, eg infj etc -->
+                    </div>
+                    <div class="edit-profile">
+                        <button
+                            type="submit"
+                            class="btn btn-edit-profile w-100"
+                        >
+                            Save edits
+                        </button>
+                    </div>
                 </form>
             </div>
 
@@ -208,13 +142,13 @@
                 <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title">Bio</h5>
-                        <p class="card-text ps-0">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Distinctio tenetur repudiandae ratione
-                            voluptatem reprehenderit et quidem vitae asperiores,
-                            incidunt ullam fugit nostrum soluta ea mollitia
-                            inventore perspiciatis cupiditate odio ad.
-                        </p>
+                        <textarea
+                            rows="5"
+                            class="form-control text-center d-inline"
+                            id="displayname"
+                            name="displayname"
+                            v-model="bio"
+                        ></textarea>
                     </div>
                 </div>
                 <div class="card profile-card p-1">
@@ -242,10 +176,18 @@
                     <div class="card-body">
                         <h5 class="card-title">CCAs</h5>
                         <!-- <p class="card-text ps-0"> -->
-                        <ul class="cca">
-                            <li>Ellipsis</li>
-                            <li>.Hack</li>
-                        </ul>
+                        <input
+                            type="text"
+                            class="form-control text-center cca_options w-50"
+                            name="cca1"
+                            value="Ellipsis"
+                        />
+                        <input
+                            type="text"
+                            class="form-control text-center cca_options w-50"
+                            name="cca2"
+                            value=".Hack"
+                        />
                         <!-- </p> -->
                     </div>
                 </div>
@@ -254,34 +196,37 @@
                         <h5 class="card-title">Socials</h5>
                         <ul class="socials-ul">
                             <li>
-                                <a
-                                    href="https://www.linkedin.com/in/"
-                                    target="_blank"
-                                    ><i
-                                        class="fab fa-linkedin fa-2x profile-fab"
-                                    ></i
-                                    >https://www.linkedin.com/in/</a
-                                >
+                                <i
+                                    class="fab fa-linkedin fa-2x profile-fab d-inline"
+                                ></i>
+                                <input
+                                    type="text"
+                                    class="form-control text-center cca_options d-inline w-75"
+                                    name="cca2"
+                                    v-model:value="linkedinLink"
+                                />
                             </li>
                             <li>
-                                <a
-                                    href="https://www.facebook.com/"
-                                    target="_blank"
-                                    ><i
-                                        class="fab fa-facebook fa-2x profile-fab"
-                                    ></i
-                                    >https://www.facebook.com/</a
-                                >
+                                <i
+                                    class="fab fa-facebook fa-2x profile-fab d-inline"
+                                ></i>
+                                <input
+                                    type="text"
+                                    class="form-control text-center cca_options d-inline w-75"
+                                    name="cca2"
+                                    v-model:value="facebookLink"
+                                />
                             </li>
                             <li>
-                                <a
-                                    href="https://www.instagram.com/"
-                                    target="_blank"
-                                    ><i
-                                        class="fab fa-instagram fa-2x profile-fab"
-                                    ></i
-                                    >https://www.instagram.com/</a
-                                >
+                                <i
+                                    class="fab fa-instagram fa-2x profile-fab d-inline"
+                                ></i>
+                                <input
+                                    type="text"
+                                    class="form-control text-center cca_options d-inline w-75"
+                                    name="cca2"
+                                    v-model:value="instagramLink"
+                                />
                             </li>
                         </ul>
                     </div>
@@ -296,11 +241,6 @@
         ></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../../navbar/navbar.js"></script>
-        <script>
-            for (let element of document.getElementsByClassName("preference")) {
-                console.log(element.classList[1].slice(1));
-                element.style.width = element.classList[1].slice(1) + "%";
-            }
-        </script>
+        <script src="./profile.js"></script>
     </body>
 </html>

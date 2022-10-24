@@ -45,7 +45,7 @@ const navbar = Vue.createApp({
                         <a class="nav-link nav-item-top" :href="relativePath + 'pages/chats/chat.html'">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/profile/profile.html'"><img src="/pages/profile/ded.png" class="profile-img"/></a>
+                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/profile/profile.html'"><img :src="relativePath + 'pages/profile/ded.png'" class="profile-img"/></a>
                     </li>
                 </ul>
             </div>

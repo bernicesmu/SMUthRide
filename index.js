@@ -52,6 +52,21 @@ export function writeUserData(username, name, email) {
       name: name,
       email: email,
   });
+  set(ref(db, `users/${username}/userprofile`), {
+    degree: "Bachelor",
+    year: "Year X",
+    location: "Singapore", 
+    mbti: "ABCD",
+    bio: "I have no bio", 
+    price: 0,
+    comfort: 0,
+    convenience: 0, 
+    speed: 0, 
+    cca: [""],
+    linkedin: "https://www.linkedin.com/in/",
+    facebook: "https://www.facebook.com/",
+    instagram: "https://www.instagram.com/",
+  }) 
 }
 
 
@@ -225,4 +240,17 @@ export function print_user(message,other_user){
     </div>`
     document.getElementById("chatroom").innerHTML += html_string
   }
+}
+
+export function find_user_profile(username) { 
+  const db = getDatabase();
+  const users = ref(db, `users/${username}`)
+  onValue(users, (snapshot) => {
+    const data = snapshot.val();
+    var rid = 0
+    for (var i of Object.keys(data)) { 
+      rid = i 
+    }
+    localStorage.setItem("rideid", rid)
+  });
 }
