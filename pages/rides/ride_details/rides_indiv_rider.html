@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <head>
-    <link rel="stylesheet" href="../../../main.css" />
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -43,8 +42,18 @@
             text-align: left;
         }
     </style>
+
+    <link rel="stylesheet" href="../../../main.css" />
+    <link rel="stylesheet" href="../../../navbar/nav_styles.css" />
 </head>
 <body>
+    <div id="navbarVue">
+        <div
+            v-html="navbar_html"
+            @scroll="nav_animation"
+            data-page="rides"
+        ></div>
+    </div>
     <div class="trip text-center my-5">
         <h1 class="d-inline">SMU</h1>
         <svg
@@ -176,4 +185,6 @@
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="../../../navbar/navbar.js"></script>
 </body>
