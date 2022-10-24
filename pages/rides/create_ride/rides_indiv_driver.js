@@ -29,8 +29,8 @@ var rideid = parseInt(localStorage.getItem("rideid")) + 1
 // writeUserData(1, username, email, "regine.com")
 
 function write_ride_local() {
-    console.log("Hllo")
-    var username = localStorage.getItem("username")
+    
+    var username = localStorage.getItem("username_x")
 
     // const database = getDatabase(); 
     // const chats = ref(database, `users/${username}`)
@@ -53,13 +53,13 @@ function write_ride_local() {
     
     var user_address = inputs.address.value 
     // console.log(address)
-    var smu_location = document.getElementById("smulocation")
-    var cost = inputs.cost.value
-    var max_capacity = inputs.capacity.value
+    var smu_location = document.getElementById("smulocation").options[document.getElementById("smulocation").selectedIndex].text;
+    var cost = parseFloat(inputs.cost.value)
+    var max_capacity = parseInt(inputs.capacity.value)
     var frequency = document.querySelector('input[name="frequency"]:checked').value
     var date = inputs.date.value
     var time = inputs.time.value 
-    var users_offered = []
+    var users_offered = [""]
     var area = "Changi Prison"
     write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area)
 
