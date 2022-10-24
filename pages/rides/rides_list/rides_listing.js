@@ -56,17 +56,9 @@ const listings = Vue.createApp({
             let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
             return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
         },
-<<<<<<< Updated upstream
-        get_user_name(id){
-            console.log("hi")
-            let user = this.users.filter(x => x.userid === id)
-            console.log(user)
-=======
         get_user_name(username){
 
             let user = this.users.filter(x => x.user_name === username)
-
->>>>>>> Stashed changes
             return user[0].name
         }
     },
