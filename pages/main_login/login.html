@@ -320,7 +320,8 @@
         /* left: 95px; */
         /* top: 326px; */
         top: 5em;
-        left: 9.7em;
+        left: 25%;
+        align-self: center;
         z-index: 2;
         animation: MoveUpDown 1.5s linear infinite;
       }
@@ -347,12 +348,12 @@
 
       #stripe1 { 
         position: absolute;
-        width: 50%;
-        height: 30px;
+        width: 30%;
+        height: 40px;
         /* left: 270px;
         top: 810px; */
-        left:9em;
-        top: 26em;
+        left:14em;
+        top: 29.9em;
         background-color: #999999;
         z-index: 1;
         animation: stripe1up 1.5s linear infinite;
@@ -369,6 +370,7 @@
         background-color: #999999;
         z-index: 1;
         animation: stripe2up 1.5s linear infinite;
+        display:none;
       }
 
       #stripe3 { 
@@ -382,16 +384,17 @@
         background-color: #999999;
         z-index: 1;
         animation: stripe3up 1.5s linear infinite;
+        display: none;
       }
 
       #blocker { 
         position: absolute;
-        width: 50%;
-        height: 30px;
+        width: 100%;
+        height: 6em;
         /* left: 270px;
         top: 810px; */
-        left:9em;
-        top:26.3em;
+        left:0;
+        top:29.9em;
         background-color: #FFFFFF;
         z-index: 1;
       }
@@ -411,7 +414,7 @@
           height: 30px;
         }
         100% {
-          transform: translateY(-100px);
+          transform: translateY(-8.5em);
           height: 25px;
         }
       }
@@ -438,90 +441,151 @@
         }
       }
 
+      
+      @media screen and (max-width:1400px) {
+        #stripe1 { 
+        position: absolute;
+        width: 30%;
+        height: 30px;
+        /* left: 270px;
+        top: 810px; */
+        left:12em;
+        top: 26em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe1up 1.5s linear infinite;
+      } 
 
-      @media screen and (max-width:2px) {
+      #blocker { 
+        position: absolute;
+        width: 100%;
+        height: 5em;
+        /* left: 270px;
+        top: 810px; */
+        left:0;
+        top:26em;
+        background-color: #FFFFFF;
+        z-index: 1;
+      }
+
+
+      }
+      @media screen and (max-width:1200px) {
+        #stripe1 { 
+        position: absolute;
+        width: 30%;
+        height: 30px;
+        /* left: 270px;
+        top: 810px; */
+        left:12em;
+        top: 23em;
+        background-color: #999999;
+        z-index: 1;
+        animation: stripe1up 1.5s linear infinite;
+      } 
+
+      #blocker { 
+        position: absolute;
+        width: 100%;
+        height: 4em;
+        /* left: 270px;
+        top: 810px; */
+        left:0;
+        top:23em;
+        background-color: #FFFFFF;
+        z-index: 1;
+      }
+
+      }
+      @media screen and (max-width:992px) {
 
         #front-car { 
         position: absolute;
-        width: 16em;
-        height: 355px;
-        /* left: 95px; */
-        /* top: 326px; */
-        left: 9.7em;
+        width: 45%;
+        left: 25%;
         z-index: 2;
         animation: MoveUpDown 1.5s linear infinite;
       }
 
       #road { 
         position: absolute;
-        width: 38em;
+        width: 100%;
         height: 352px;
-        /* left: -42px;
-        top: 487px; */
-        top:7em
+        top:2.5em;
+        
       }
 
       #road-stripes { 
         position: absolute;
         width: 18em;
         height: 500px;
-        /* left: 250px;
-        top: 294px; */
         animation: MoveUpDown 1.5s linear infinite;
       }
 
       #stripe1 { 
         position: absolute;
-        width: 18em;
-        height: 30px;
-        /* left: 270px;
-        top: 810px; */
-        left:9em;
-        top: 26em;
+        width: 25%;
+        height: 35px;
+        left:8.5em;
+        top: 18em;
         background-color: #999999;
         z-index: 1;
         animation: stripe1up 1.5s linear infinite;
       }
 
       #stripe2 { 
-        position: absolute;
-        width: 13em;
-        height: 25px;
+        /* position: absolute;
+        width: 30%;
+        height: 30px; */
         /* left: 270px;
         top: 710px; */
-        left: 10em;
-        top:19.9em;
+        /* left: 8em;
+        top:12em;
         background-color: #999999;
         z-index: 1;
-        animation: stripe2up 1.5s linear infinite;
+        animation: stripe2up 1.5s linear infinite; */
+        display: none;
       }
 
       #stripe3 { 
-        position: absolute;
+        /* position: absolute;
         width: 2em;
-        height: 20px;
+        height: 20px; */
         /* left: 270px;
         top: 630px; */
-        left:20em;
+        /* left:20em;
         top: 16em;
         background-color: #999999;
         z-index: 1;
-        animation: stripe3up 1.5s linear infinite;
+        animation: stripe3up 1.5s linear infinite; */
+        display: none;
       }
 
       #blocker { 
         position: absolute;
-        width: 25em;
-        height: 39px;
+        width: 100%;
+        height: 3.5em;
         /* left: 270px;
         top: 810px; */
-        left:9em;
-        top:25.6em;
+        left:0;
+        top:17.8em;
         background-color: #FFFFFF;
-        z-index: 1;
+        z-index: 2;
       }
 
       }
+
+      
+
+      @media screen and (max-width:768px) {
+
+        .parent {
+          display: none;
+        }
+
+      }
+
+
 
       
 
@@ -548,12 +612,6 @@
         </div>
         <div class="col col-lg-5 col-md-6 col-sm-12 col-xs-12 forms">
           <div class="container login_form">
-            <!-- <div class="user-icon">
-              <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-            </div>
-            <div class="password-icon">
-              <i class="fa fa-lock" aria-hidden="true"></i>
-            </div> -->
               <ul class="nav nav-tabs border-bottom-0" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Login</button>
