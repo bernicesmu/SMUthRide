@@ -1,4 +1,4 @@
-import {writeUserData, create_user, signin_user} from '../index.js'
+import {writeUserData, create_user, signin_user} from '../../index.js'
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 
 var firebaseConfig = {
