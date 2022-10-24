@@ -29,12 +29,27 @@ var rideid = parseInt(localStorage.getItem("rideid")) + 1
 // writeUserData(1, username, email, "regine.com")
 
 function write_ride_local() {
+    var username = localStorage.getItem("username")
+
+    const database = getDatabase(); 
+    const chats = ref(database, `users/${username}`)
+    onValue(chats, (snapshot) => { 
+      
+      const data = snapshot.val();
+      console.log(data)
+    })
+
     var inputs = document.getElementsByTagName('input')
+    
     var address = inputs.address.value 
+    console.log(address)
     var cost = inputs.cost.value
     var capacity = inputs.capacity.value
     var frequency = document.querySelector('input[name="frequency"]:checked').value
     var date = inputs.date.value
     var time = inputs.time.value 
-    write_ride(username, rideid, address, cost, capacity, frequency, date, time)
+    var users_offered = []
+    write_ride(username, rideid, address, cost, capacity, frequency, date, time, users_offered)
+
+    smu_location, smu_to_from,driver_id, rideid, user_address, area
 }
