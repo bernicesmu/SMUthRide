@@ -59,6 +59,21 @@
           <span>Enter an Offer Price</span>
           <input type="number" id="offer_price">
           <span>
+            Driver: 
+            <select name="driver" id="">
+              <option value="">Tom</option>
+              <option value="">John</option>
+            </select>
+          </span>
+          <span>
+            <select name="rides" id="">
+              <option value="">Use vue for this</option>
+              <option value="">Use vue for this</option>
+              <option value="">Use vue for this</option>
+              <option value="">Use vue for this</option>
+            </select>
+          </span>
+          <span>
             <button type="button" class="btn btn-danger" onclick="off()">Cancel</button>
             <button type="button" class="btn btn-success" onclick="off()">Confirm</button>
           </span>
@@ -113,7 +128,7 @@
                   <input id="message-input" type="text" placeholder="Type Message..."/>
                   
          
-                  <button type="submit" id="message-btn" class="btn btn-success"><i class="fa-solid fa-taxi"></i></button>
+                  <button type="submit" id="message-btn" class="btn btn-success" onclick="test()"><i class="fa-solid fa-taxi"></i></button>
 
                   <!-- <button class="btn btn-outline-dark" id="message-btn" type="submit"><i class="fa-solid fa-taxi"></i></button> -->
                  
@@ -154,6 +169,31 @@
     function off(){
       document.getElementById("overlay").style.display = "none";
     }
+
+    // function scroll(){
+    // //   window.setInterval(function() {
+    // var elem = document.getElementById('chat');
+    // //   elem.scrollTop = elem.scrollHeight;
+    // // }, 0);
+    // window.scrollTo(0, document.querySelector(".chat").scrollHeight);
+
+    // }
+    function test(){
+      
+      var elem = document.getElementById('chat');
+      elem.scrollTop = elem.scrollHeight;
+      
+    }
+    
+    // window.setInterval(function() {
+    // var elem = document.getElementById('chat');
+    //   elem.scrollTop = elem.scrollHeight;
+    // }, 0);
+
+    
+
+    
+ 
 
     </script>
     
