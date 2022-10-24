@@ -39,7 +39,7 @@ const navbar = Vue.createApp({
                         <a class="nav-link nav-item-top" :href="relativePath + 'pages/rides/rides_list/rides_listing.html'">Rides</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" href="#">Offers</a>
+                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/offers/offers.html'">Offers</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-item-top" :href="relativePath + 'pages/chats/chat.html'">Chat</a>
