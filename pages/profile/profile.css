@@ -67,6 +67,11 @@ main {
     color: white;
 }
 
+.socials-ul {
+    margin-top: 1rem;
+    list-style-type: none;
+}
+
 .socials-ul a:link {
     color: #4e7570;
     text-decoration: none;
@@ -127,10 +132,6 @@ main {
 .profile-fab {
     color: #4e7570;
     margin-right: 1rem;
-}
-
-.socials-ul {
-    margin-top: 1rem;
 }
 
 @media (max-width: 768px) {
