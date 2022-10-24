@@ -23,9 +23,7 @@ const listings = Vue.createApp({
             listings: [],
             to_from : "From",
             display_listings: [],
-            button: screen.width>768 ? '' : '<br>',
-            toSMU: "to " + this.button + "SMU",
-            fromSMU: "from " + this.button + "SMU"
+
         }
     },
     methods: {
@@ -34,6 +32,7 @@ const listings = Vue.createApp({
             this.check_and_populate()
         },
         check_and_populate(){
+
             if (this.to_from === "To"){
                 this.display_listings = this.listings.filter(x => x.smu_to_from === "To");
             } else if (this.to_from === "From"){
@@ -57,10 +56,17 @@ const listings = Vue.createApp({
             let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
             return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
         },
+<<<<<<< Updated upstream
         get_user_name(id){
             console.log("hi")
             let user = this.users.filter(x => x.userid === id)
             console.log(user)
+=======
+        get_user_name(username){
+
+            let user = this.users.filter(x => x.user_name === username)
+
+>>>>>>> Stashed changes
             return user[0].name
         }
     },
@@ -70,15 +76,16 @@ const listings = Vue.createApp({
         const rides = ref(db, `rides/`)
         const users = ref(db, `users/`)
         onValue(users, (snapshot) => {
-            this.users = snapshot.val();
-            console.log(this.users)
+            for (const key in snapshot.val()){
+                this.users.push(snapshot.val()[key])
+            }
         });
 
         onValue(rides, (snapshot) => {
 
             this.listings = snapshot.val()
             this.listings.splice(0, 1)
-
+            console.log(this.listings)
             this.check_and_populate()
         })
         }
