@@ -11,28 +11,7 @@
     <link rel="stylesheet" href="../../../navbar/nav_styles.css">
     <link rel="stylesheet" href="../../../main.css">
     <style>
-<<<<<<< Updated upstream
-        body {
-            background-color: #FFFFFF;
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        h1, h2, h3, h4, h5, h6, p {
-            color: #4e7570;
-        }
-
-        a:link {
-            color: #bedad6;
-        }
-=======
-        a:link {
-                color: #bedad6;
-            }
->>>>>>> Stashed changes
 
         h1 {
             color: #4e7570;
@@ -141,11 +120,18 @@
             #add_ride_icon{
                 position: fixed;
                 z-index: 3;
-                top:90vh;
-                right: 5vh;
+                top: 32px;
+                right: 20px;
             }
-            .bi-person-fill{
-                font-size: 28px;
+            .card {
+                border: none;
+                width: 300px;
+                margin: 20px auto;
+                min-width: 251px;
+                min-height: 235px;
+                max-width: 300px;
+                max-height: 300px;
+                transition: all 0.2s ease-in-out;
             }
 
         }
@@ -215,18 +201,27 @@
                         </div>
                     </div>
                 </div>
-                <hr class="mb-1 mt-2">
-                <div>
-                    <h2 class="card-title fw-bold text-center mb-3"><i class="bi bi-geo-alt-fill"></i>{{listing.location}}</h2>
-                    <div class="d-flex my-2">
-
-                        <h1 class="me-auto ">${{listing.cost}}</h1>
-                        <h1>{{listing.current_capacity}}<i class="bi bi-person-fill" ></i></h1>
-
-
-
-                    </div>
-
+                <div class="inputs col-6 my-auto">
+                    <i class="bi bi-search"></i>
+                    <input
+                        name="search_rides"
+                        type="text"
+                        class="form-control"
+                        placeholder="Search Rides..."
+                    />
+                </div>
+                <div class="col-3 my-auto lh-lg d-flex justify-content-center">
+                    <label class="switch">
+                        <input
+                            type="checkbox"
+                            data-toggle="toggle"
+                            data-style="toFromToggle"
+                            data-on="From SMU"
+                            data-off="To SMU"
+                            v-on:change="change_direction()"
+                        />
+                        <span class="slider round"></span>
+                    </label>
                 </div>
             </div>
         </div>
@@ -235,4 +230,49 @@
 </body>
 <script src="rides_listing.js" type="module"></script>
 
+                    <div class="d-flex mt-4">
+                        <div class="bd-highlight col-4 my-auto">
+                            <div class="d-flex justify-content-center">
+                                <img
+                                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
+                                    alt="Generic placeholder image"
+                                    class="img-fluid rounded-circle border"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="text-center overflow-visible">
+                                <h5 class="mb-0 py-2">{{listing.name}}</h5>
+                                <h5 class="my-0 fw-bold">
+                                    {{format_date(listing.date)[1]}}
+                                </h5>
+                                <h5 class="my-0 fw-bold">
+                                    {{format_date(listing.date)[0]}}
+                                    {{formatAMPM(listing.time)}}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mb-1 mt-2" />
+                    <div>
+                        <h2 class="card-title fw-bold text-center mb-3">
+                            <i class="bi bi-geo-alt-fill"></i
+                            >{{listing.location}}
+                        </h2>
+                        <div class="d-flex my-2">
+                            <h1 class="me-auto">${{listing.cost}}</h1>
+                            <h1>
+                                {{listing.current_capacity}}<i
+                                    class="bi bi-person-fill"
+                                ></i>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="listing.js" type="module"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="../../../navbar/navbar.js"></script>
 </html>

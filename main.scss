@@ -6,6 +6,7 @@ $light-blue: #a7c7d6;
 
 body {
   background-color: $light-green !important;
+  margin-top: 130px !important;  
 }
 
 * {
@@ -15,12 +16,6 @@ body {
 
 h1, h2, h3, h4, h5, h6, p { 
   color: $dark-green;
-}
-
-nav {
-  padding: 3rem 0 3rem;
-  background-color: grey;
-  text-align: center;
 }
 
 .card {
@@ -34,14 +29,10 @@ nav {
   font-weight: 600 !important;
 }
 
-.navbar{
-  background-color: $dark-green;
-}
-
 a:link{
   color:$medium-green;
 }
 
-#chat{
-  background-color: white;
-}
+
+
+

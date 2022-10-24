@@ -17,20 +17,13 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
         />
         <link rel="stylesheet" href="../../main.css" />
+        <link rel="stylesheet" href="../../navbar/nav_styles.css" />
 
         <style>
+            /* profile styles start */
             body {
                 overflow: hidden;
                 height: 100vh;
-            }
-
-            nav {
-                padding-top: 2rem;
-                padding-bottom: 2rem;
-                width: 100%;
-                z-index: 1;
-                position: fixed;
-                top: 0;
             }
 
             main {
@@ -78,7 +71,31 @@
                 margin-bottom: 0;
             }
 
-            .motivations {
+            .socials-ul a:link {
+                color: #4e7570;
+                text-decoration: none;
+            }
+
+            .socials-ul a:visited {
+                color: #4e7570;
+                text-decoration: none;
+            }
+
+            .socials-ul a:hover {
+                color: #4c86a2;
+                text-decoration: none;
+            }
+
+            .socials-ul a:active {
+                color: #4e7570;
+                text-decoration: none;
+            }
+
+            .card {
+                border: none;
+            }
+
+            .preferences {
                 padding-bottom: 0.8rem;
             }
 
@@ -90,33 +107,15 @@
                 margin-bottom: 1rem;
             }
 
-            .motivation {
+            .preference {
                 background-color: #4e7570;
                 color: white;
-                padding: 1%;
                 text-align: right;
                 font-size: 20px;
                 border-radius: 15px;
-            }
-
-            .price {
-                width: 70%;
                 height: 1rem;
-            }
-
-            .comfort {
-                width: 40%;
-                height: 1rem;
-            }
-
-            .convenience {
-                width: 60%;
-                height: 1rem;
-            }
-
-            .speed {
-                width: 90%;
-                height: 1rem;
+                transition: width 1s;
+                width: 0;
             }
 
             .cca {
@@ -129,17 +128,13 @@
                 list-style-type: square;
             }
 
-            .fab {
+            .profile-fab {
                 color: #4e7570;
+                margin-right: 1rem;
             }
 
-            .social {
-                display: flex;
-                justify-content: center;
-            }
-
-            .social a {
-                margin: 0 5%;
+            .socials-ul {
+                margin-top: 1rem;
             }
 
             @media (max-width: 768px) {
@@ -152,86 +147,18 @@
                     justify-content: center;
                 }
             }
+
+            /* profile styles end */
         </style>
     </head>
     <body>
-        <nav>
-            <p>NAVBAR</p>
-        </nav>
-
-        <!-- <div class="card profile-card">
-            <div class="card-body row text-center justify-content-center">
-                <img class="col-md-4 col-sm-12 profile-pic p-2" src="ded.png" alt="profile picture" />
-                <div class="col-md-4 col-sm-6 p-2 mb-4">
-                    <p class="card-text">Tan Ah Gao</p>
-                    <p class="card-text">Useless Degree, 2022</p>
-                    <a href="#" class="btn button">Change Password</a>
-                </div>
-                <div class="col-md-4 col-sm-6 p-2 mb-4">
-                    <p class="card-text">Age: 22</p>
-                    <p class="card-text">Birthday: 22/02/2000</p>
-                    <p class="card-text">Gender: Male</p>
-                </div>
-                <div class="col-sm-12 mx-auto p-2">
-                    <p class="card-text"><u>Bio</u></p>
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Cum fugit asperiores modi, autem adipisci quis
-                        exercitationem, quaerat vitae nemo minus provident,
-                        libero sequi. Quos totam porro ea rerum, laborum quae.
-                    </p>
-                </div>
-            </div>
+        <div id="navbarVue">
+            <div
+                v-html="navbar_html"
+                @scroll="nav_animation"
+                data-page="profile"
+            ></div>
         </div>
-
-        <div class="row">
-            <div class="col-12 col-lg-4 col-md-6 col-sm-12">
-                <div class="card profile-card">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Hobbies</h5>
-                        <p class="card-text">
-                            <ul class="card-title m-5">
-                                <li>Cycling</li>
-                                <li>Swimming</li>
-                                <li>Darts</li>
-                                <li>Bowling</li>
-                            </ul>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-4 col-md-6 col-sm-12">
-                <div class="card profile-card">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Motivations</h5>
-                        <p class="card-text">
-                            <ul class="card-title m-5">
-                                <li>Cycling</li>
-                                <li>Swimming</li>
-                                <li>Darts</li>
-                                <li>Bowling</li>
-                            </ul>
-                            
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-4 col-md-6 col-sm-12">
-                <div class="card profile-card">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">CCA(s)</h5>
-                        <p class="card-text">
-                            <ul class="card-title m-5">
-                                <li>Cycling</li>
-                                <li>Swimming</li>
-                                <li>Darts</li>
-                                <li>Bowling</li>
-                            </ul>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div> -->
 
         <div class="wrapper">
             <div class="profile text-center justify-content-center">
@@ -246,6 +173,7 @@
                         <strong>Personality Type</strong>:
                         <a
                             href="https://www.16personalities.com/intp-personality"
+                            class="personality"
                             >INTP</a
                         >
                     </p>
@@ -268,28 +196,28 @@
                 </div>
                 <div class="card profile-card p-1">
                     <div class="card-body">
-                        <h5 class="card-title motivations">Motivations</h5>
+                        <h5 class="card-title preferences">Preferences</h5>
                         <h6>Price</h6>
                         <div class="meter">
-                            <div class="motivation price"></div>
+                            <div class="preference w70"></div>
                         </div>
                         <h6>Comfort</h6>
                         <div class="meter">
-                            <div class="motivation comfort"></div>
+                            <div class="preference w40"></div>
                         </div>
                         <h6>Convenience</h6>
                         <div class="meter">
-                            <div class="motivation convenience"></div>
+                            <div class="preference w60"></div>
                         </div>
                         <h6>Speed</h6>
                         <div class="meter">
-                            <div class="motivation speed"></div>
+                            <div class="preference w90"></div>
                         </div>
                     </div>
                 </div>
                 <div class="card profile-card p-1">
                     <div class="card-body">
-                        <h5 class="card-title">CCA(s)</h5>
+                        <h5 class="card-title">CCAs</h5>
                         <!-- <p class="card-text ps-0"> -->
                         <ul class="cca">
                             <li>Ellipsis</li>
@@ -301,19 +229,38 @@
                 <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title">Socials</h5>
-                        <p class="card-text ps-0 social">
-                            <a
-                                href="https://www.linkedin.com/in/"
-                                target="_blank"
-                                ><i class="fab fa-linkedin fa-3x"></i
-                            ></a>
-                            <a href="https://www.facebook.com/" target="_blank"
-                                ><i class="fab fa-facebook fa-3x"></i
-                            ></a>
-                            <a href="https://www.instagram.com/" target="_blank"
-                                ><i class="fab fa-instagram fa-3x"></i
-                            ></a>
-                        </p>
+                        <ul class="socials-ul">
+                            <li>
+                                <a
+                                    href="https://www.linkedin.com/in/"
+                                    target="_blank"
+                                    ><i
+                                        class="fab fa-linkedin fa-2x profile-fab"
+                                    ></i
+                                    >https://www.linkedin.com/in/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.facebook.com/"
+                                    target="_blank"
+                                    ><i
+                                        class="fab fa-facebook fa-2x profile-fab"
+                                    ></i
+                                    >https://www.facebook.com/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.instagram.com/"
+                                    target="_blank"
+                                    ><i
+                                        class="fab fa-instagram fa-2x profile-fab"
+                                    ></i
+                                    >https://www.instagram.com/</a
+                                >
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </main>
@@ -324,5 +271,13 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"
         ></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="../../navbar/navbar.js"></script>
+        <script>
+            for (let element of document.getElementsByClassName("preference")) {
+                console.log(element.classList[1].slice(1));
+                element.style.width = element.classList[1].slice(1) + "%";
+            }
+        </script>
     </body>
 </html>

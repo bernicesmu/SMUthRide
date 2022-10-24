@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -37,11 +37,11 @@ export function writeUserData(username, name, email) {
   const users = ref(db, `users`)
   onValue(users, (snapshot) => {
     const data = snapshot.val();
-    console.log(data)
     var uid = 0
     for (var i of Object.values(data)) { 
-      console.log("i is", i)
-      uid = i.userid
+      if (i.userid > uid) { 
+        uid = i.userid
+      }
     }
     localStorage.setItem("userid", uid)
   });
@@ -103,3 +103,120 @@ export function create_user(email, password) {
       // ..
   });
 };
+
+export function signin_user(email, password) { 
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    localStorage.setItem("username", user)
+    console.log(user)
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage)
+  });
+}
+
+export function find_chat(){
+  const db = getDatabase()
+  const reference = ref(db, 'messages')
+  var final_output = []
+// Attach an asynchronous callback to read the data at our posts reference
+  onValue(reference, (snapshot) => {
+    const data = snapshot.val();
+    var values = Object.entries(data)
+
+    for(var entry of values){
+      let username_array = []
+      let chat_id = entry[0]
+    if(chat_id.includes("001")){      
+      find_last_chat_message(chat_id)
+      let message = localStorage.getItem("latest_message")
+      // console.log(message)
+      get_name(chat_id,"001")
+      let other_user = localStorage.getItem("other_user_name")
+      print_user(message,other_user)
+      localStorage.removeItem("latest_message")
+      localStorage.removeItem("other_user_name")
+  }
+}
+
+});
+
+}
+
+//NEED TO UPDATE WITH VUE FOR DYNAMIC RETREIVAL
+export function find_last_chat_message(paired_id){
+  const db = getDatabase()
+  const reference = ref(db, 'messages')
+  onValue(reference, (snapshot) => {
+    const data = snapshot.val();
+    paired_id = '001_002'
+    for(var id in data){
+      if(id == paired_id){
+        let messages = data[id]
+        let last_message = messages[messages.length - 1]
+        localStorage.setItem("latest_message", last_message.message)
+      }
+      
+    }
+  });
+
+
+}
+
+export function get_name(chat_id, user_id){
+  const db = getDatabase()
+  const reference = ref(db, 'users')
+  let ids = chat_id.split("_")
+  for(var id of ids){
+    if(id != user_id){
+      //get the user name
+      onValue(reference, (snapshot) => {
+        const data = snapshot.val();
+        localStorage.setItem("other_user_name", data[id].name)
+      });
+
+
+    }
+  }
+}
+
+export function print_user(message,other_user){
+  var username = "joleneusername" // hardcoded for now 
+  var all_chatrooms = document.getElementsByClassName("chatbox")
+  var exist = false
+  for (var cr of all_chatrooms) { 
+    if (cr.id == username) { 
+      exist = true 
+    }
+  }
+  if (exist) { 
+    let html_string =
+    `<div id="photo"></div>
+      <div style="margin-left: 20px;align-self: start;width: 70%;"> 
+        <b>${other_user}</b>
+        <div style="text-overflow: ellipsis; display: block; width:50%;white-space: nowrap; width: 100%; overflow: hidden;">
+          ${message}
+        </div>
+      </div>`
+    document.getElementById(username).innerHTML = html_string
+  }
+  else { 
+    let html_string =
+    `<div id="${username}" class="chatbox" style="padding:10px; display: flex;">
+        <div id="photo"></div>
+        <div style="margin-left: 20px;align-self: start;width: 70%;"> 
+          <b>${other_user}</b>
+          <div style="text-overflow: ellipsis; display: block; width:50%;white-space: nowrap; width: 100%; overflow: hidden;">
+            ${message}
+          </div>
+        </div>
+    </div>`
+    document.getElementById("chatroom").innerHTML += html_string
+  }
+}

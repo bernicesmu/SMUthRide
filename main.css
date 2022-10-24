@@ -1,5 +1,6 @@
 body {
   background-color: #e3f1ef !important;
+  margin-top: 130px;
 }
 
 * {
@@ -9,12 +10,6 @@ body {
 
 h1, h2, h3, h4, h5, h6, p {
   color: #4e7570;
-}
-
-nav {
-  padding: 3rem 0 3rem;
-  background-color: grey;
-  text-align: center;
 }
 
 .card {
@@ -28,103 +23,6 @@ nav {
   font-weight: 600 !important;
 }
 
-.navbar {
-  background-color: #4e7570;
-}
-
 a:link {
   color: #bedad6;
-}
-
-
-#messages{
-  padding-bottom: 30%;
-}
- 
-li {
-  list-style-type: none;
-  margin-bottom: 10px;
-  
-  padding: 5px;
-  border-radius: 10px;
-  color: black;
-  width: 50%;
-}
-
-li span {
-  font-style: italic;
-  font-weight: bolder;
-  color: #b5b0b9;
-}
-
-#chat {
-  width: 80%;
-  margin: auto;
-  background-color: white;
-  border-radius: 20px;
-  padding-top: 30px;
-
-}
-
-#message-form {
-  text-align: center;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #b7b5b9;
-}
-
-input {
-  width: 70%;
-  height: 30px;
-}
-
-button {
-  width: 25%;
-  height: 38px;
-}
-
-.sent {
-  text-align: right;
-  /* background-color: #a79cb3; */
-  list-style-position: outside;
-  margin-left: 50%;
-  word-wrap: break-word;
-  padding-right: 30px;
-  
-  
-}
-
-.sent p {
-  margin-left: 5px;
-  color: black;
-  background-color: #4e7570;
-  margin: 0px;
-  
-}
-
-.receive{
-  /* background-color: #6929ca; */
-  
-  list-style-position: outside;
-  padding: 0px;
-  word-wrap: break-word;
-  background-color: #bedad6;
-  
-}
-
-.receive span{
-  color: #4e7570;
-}
-
-p{
-  
-  display: inline-block;
-  border-radius: 15px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  text-align: left;
-}
+}/*# sourceMappingURL=main.css.map */
