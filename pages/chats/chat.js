@@ -85,4 +85,10 @@ var firebaseConfig = {
     find_chat()
     localStorage.clear()
 
+  function send_offer(){
+    // query select the driver, and query select the ride
+
+    
+  }
+
 
