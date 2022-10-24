@@ -36,21 +36,34 @@ const navbar = Vue.createApp({
                         <a class="nav-link nav-item-top" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" href="../pages/rides/rides_list/listing.html">Rides</a>
+                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/rides/rides_list/rides_listing.html'">Rides</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-item-top" href="#">Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" href="{ relativePath + 'pages/chats/chat.html' }">Chat</a>
+                        <a class="nav-link nav-item-top" href="{{ relativePath + 'pages/chats/chat.html' }}">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" href="../pages/profile/profile.html"><img src="/pages/profile/ded.png" class="profile-img"/></a>
+                        <a class="nav-link nav-item-top" href="{{ relativePath + 'pages/profile/profile.html' }}"><img src="/pages/profile/ded.png" class="profile-img"/></a>
                     </li>
                 </ul>
             </div>
         </nav>
     `,
+    computed: {
+        relativePath() {
+            if (
+                this.page === "profile" ||
+                this.page === "chat" ||
+                this.page === "offers"
+            ) {
+                return "../../";
+            } else {
+                return "../../../";
+            }
+        },
+    },
     methods: {
         nav_animation() {
             let currentScrollPos = window.pageYOffset;
@@ -86,16 +99,6 @@ const navbar = Vue.createApp({
             if (elem.innerText.toLowerCase() === this.page) {
                 elem.classList.add("active-page");
             }
-        }
-
-        if (
-            this.page === "profile" ||
-            this.page === "chat" ||
-            this.page === "offers"
-        ) {
-            const relativePath = "../";
-        } else {
-            const relativePath = "../../";
         }
     },
 });
