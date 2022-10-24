@@ -344,11 +344,9 @@
 
                 <div class="col-md-6 d-flex justify-content-center py-3">
                     <div class="group">
-                        <input type="text" class="location-input" required />
+                        <input type="text" class="location-input" id="location_field" required/>
                         <span class="highlight"></span>
-                        <label class="text-label" id="location_field"
-                            >Drop off address</label
-                        >
+                        <label class="text-label">Drop off address</label>
                     </div>
                 </div>
             </div>
@@ -362,24 +360,13 @@
             
 
             <div id="map"></div>
+            <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>  -->
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&callback=initMap" type="text/javascript" async defer></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-            <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&callback=initMap" async defer></script>
+            
             
             <script>
             var map;
-            //directionsDisplay
-            var chosenloc = document.getElementById('location_field').value
-            var chosentrans = encodeURI(chosenloc)
-            
-            smuLatLng = []
-            coords = [1.296568, 103.852119] // auto starts center at SCIS
-
-            
-            // directionservice allows use of route method, directionrenderer displays the route
-            var directionsService = new google.maps.DirectionsService();
-            var directionsDisplay = new google.maps.DirectionsRenderer();
-
-            // creates the map
             function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: coords[0], lng: coords[1]},
@@ -395,6 +382,18 @@
                     position: {lat: coords[0], lng: coords[1]},
                   });
             }
+            //directionsDisplay
+            var chosenloc = document.getElementById('location_field').value
+            console.log(chosenloc)
+            var chosentrans = encodeURI(chosenloc)
+            
+            smuLatLng = []
+            coords = [1.296568, 103.852119] // auto starts center at SCIS
+
+            
+            // directionservice allows use of route method, directionrenderer displays the route
+
+            // creates the map
 
             function getSMUloc() {
                 var smuloc = document.getElementById('smulocation').value
@@ -447,7 +446,7 @@
 
                 else 
                 {
-                var request = 
+                    var request = 
                     {
                     origin: document.getElementById('location_field').value,
                     destination: document.getElementById('smulocation').value,
@@ -456,6 +455,8 @@
                     }
                 }
 
+                var directionsService = new google.maps.DirectionsService();
+                var directionsDisplay = new google.maps.DirectionsRenderer();
                 directionsService.route(request, function(result, status) {
                     if (status == google.maps.DirectionStatus.OK) 
                     {
@@ -497,11 +498,11 @@
                 types: ['(cities)']
             }
 
-            var input1 = document.getElementById('smulocation')
-            var autocomplete1 = new google.maps.places.Autocomplete(input1, options)
+            // var input1 = document.getElementById('smulocation')
+            // var autocomplete1 = new google.maps.places.Autocomplete(input1, options)
 
-            var input2 = document.getElementById('location_field')
-            var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
+            // var input2 = document.getElementById('location_field')
+            // var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
             
             </script>
      
