@@ -336,7 +336,7 @@
     </div>
 
     <div class="content d-flex justify-content-center text-align-center">
-        <form action="../rides_list/listing.html" class="d-inline-block my-3">
+        <form action="../rides_list/listing.html" class="d-inline-block my-3" id="rides">
             <!-- get the input from the user from here -->
             <div class="row d-flex justify-content-center my-2">
                 <div class="col-md-6 d-flex justify-content-center py-3">
@@ -381,6 +381,7 @@
             
             <div id="problematic"></div>
             <script>
+        
             var map;
             function initMap() {
                 
@@ -540,7 +541,7 @@
              var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
             
             </script>
-     
+                
                 <div class="group" id="cost_group">  
                     <span class="currencyinput" id="dollarsign"></span>    
                     <input type="number" name='cost' min="0" step="0.1" class="text-input cost-input" oninput="cost_click()" required>
@@ -631,6 +632,7 @@
                 smu_position = "from";
             }
         }
+        console.log(document.getElementsByTagName('input'))
     </script>
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
