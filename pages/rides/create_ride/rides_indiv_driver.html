@@ -336,7 +336,7 @@
     </div>
 
     <div class="content d-flex justify-content-center text-align-center">
-        <form action="../rides_list/listing.html" class="d-inline-block my-3" id="rides">
+        <form action="../rides_list/rides_listing.html" class="d-inline-block my-3">
             <!-- get the input from the user from here -->
             <div class="row d-flex justify-content-center my-2">
                 <div class="col-md-6 d-flex justify-content-center py-3">
@@ -359,9 +359,9 @@
 
                 <div class="col-md-6 d-flex justify-content-center py-3">
                     <div class="group">
-                        <input type="text" class="location-input" id="location_field" required/>
+                        <input type="text" name="address" class="location-input" id="location_field" required/>
                         <span class="highlight"></span>
-                        <label class="text-label">Drop off address</label>
+                        <!-- <label class="text-label">Drop off address</label> -->
                     </div>
                 </div>
             </div>
@@ -581,6 +581,7 @@
                 <button
                     type="submit"
                     class="btn button d-block mx-auto mt-5 w-100 mb-5"
+                    id = "rides"
                 >
                     Get in loser, we're going shopping.
                 </button>
