@@ -6,7 +6,7 @@ $light-blue: #a7c7d6;
 
 body {
   background-color: $light-green !important;
- 
+  margin-top: 130px !important; 
   
 }
 
@@ -51,7 +51,7 @@ a:link{
   
 // }
  
-li {
+li{
   list-style-type: none;
   margin-bottom: 10px;
   font-family: sans-serif;
