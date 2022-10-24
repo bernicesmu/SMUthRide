@@ -4,7 +4,6 @@ const navbar = Vue.createApp({
     data() {
         return {
             page: pageData,
-            activePage: "home",
         };
     },
     template: `
@@ -34,40 +33,26 @@ const navbar = Vue.createApp({
             >
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :class="{active: currentPage}" href="#">Home</a>
+                        <a class="nav-link nav-item-top" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" href="/pages/rides/rides_list/listing.html">Rides</a>
+                        <a class="nav-link nav-item-top" href="../pages/rides/rides_list/listing.html">Rides</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-item-top" href="#">Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" href="/pages/chats/chat.html">Chat</a>
+                        <a class="nav-link nav-item-top" href="../pages/chats/chat.html">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" href="/pages/profile/profile.html"><img src="/pages/profile/ded.png" class="profile-img"/></a>
+                        <a class="nav-link nav-item-top" href="../pages/profile/profile.html"><img src="/pages/profile/ded.png" class="profile-img"/></a>
                     </li>
-                    
                 </ul>
             </div>
         </nav>
     `,
-    computed: {
-        currentPage() {
-            if (this.page === this.activePage) {
-                return true;
-            } else {
-                return false;
-            }
-        },
-    },
     methods: {
         nav_animation() {
-            // console.log("nav animation working");
-            // console.log(
-            //     document.querySelectorAll("#navbarSupportedContent li")
-            // );
             let currentScrollPos = window.pageYOffset;
             if (currentScrollPos == 0) {
                 document
@@ -96,6 +81,11 @@ const navbar = Vue.createApp({
     },
     mounted() {
         window.addEventListener("scroll", this.nav_animation);
+        for (const elem of document.getElementsByClassName("nav-link")) {
+            if (elem.innerText.toLowerCase() === this.page) {
+                elem.classList.add("active-page");
+            }
+        }
     },
 });
 
