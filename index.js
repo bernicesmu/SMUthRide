@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -55,8 +55,10 @@ export function writeUserData(username, name, email) {
   set(ref(db, `users/${username}/userprofile`), {
     degree: "Bachelor",
     year: "Year X",
-    location: "Singapore", 
+    status: "It's Complicated",
+    location_user: "Singapore", 
     mbti: "ABCD",
+    age: 0,
     bio: "I have no bio", 
     price: 0,
     comfort: 0,
@@ -244,13 +246,46 @@ export function print_user(message,other_user){
 
 export function find_user_profile(username) { 
   const db = getDatabase();
-  const users = ref(db, `users/${username}`)
-  onValue(users, (snapshot) => {
+  const userprof = ref(db, `users/${username}/userprofile`)
+  onValue(userprof, (snapshot) => {
     const data = snapshot.val();
-    var rid = 0
-    for (var i of Object.keys(data)) { 
-      rid = i 
+    var k = "";
+    var v = "";
+    for ([k, v] of Object.entries(data)) { 
+      localStorage.setItem(k, v)
     }
-    localStorage.setItem("rideid", rid)
   });
+}
+
+export function find_name_from_username(username) { 
+  const db = getDatabase();
+  const userprof = ref(db, `users/${username}/name`)
+  onValue(userprof, (snapshot) => {
+    const data = snapshot.val();
+    localStorage.setItem("displayname", data)
+  });
+}
+
+export function write_user_profile(username, displayname, age, bio, cca, comfort, convenience, degree, facebook, instagram, linkedin, location_user, mbti, price, speed, rs_status, year) { 
+  const db = getDatabase(); 
+  set(ref(db, `users/${username}/userprofile`), {
+    degree: degree,
+    year: year,
+    status: rs_status,
+    location_user: location_user, 
+    mbti: mbti,
+    age: age,
+    bio: bio, 
+    price: price,
+    comfort: comfort,
+    convenience: convenience, 
+    speed: speed, 
+    cca: cca,
+    linkedin: linkedin,
+    facebook: facebook,
+    instagram: instagram,
+  }) 
+  const updates = {};
+  updates[`users/${username}/name`] = displayname
+  return update(ref(db), updates)
 }

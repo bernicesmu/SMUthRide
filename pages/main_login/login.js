@@ -38,6 +38,8 @@ function register_user() {
     if (valid) { 
         create_user(email, password)
         writeUserData(username, name, email)
+        localStorage.clear()
+        localStorage.setItem("username_x", username)
     }
 }
 
@@ -51,18 +53,31 @@ function find_email_from_username(username) {
   })
 }
 
+// function login_user() { 
+//     var inputs = document.getElementsByTagName('input')
+//     var useroremail = inputs.useroremail.value 
+//     var password = inputs.password.value
+
+//     if (!useroremail.includes("@")) { 
+//         find_email_from_username(useroremail)
+//         var email = localStorage.getItem("email")
+//     }
+//     else { 
+//         var email = useroremail
+//     }
+
+//     signin_user(email, password)
+// }
+
 function login_user() { 
     var inputs = document.getElementsByTagName('input')
-    var useroremail = inputs.useroremail.value 
+    var username = inputs.useroremail.value //name of the input in the HTML form is useroremail, but for now we leave it as username only
     var password = inputs.password.value
 
-    if (!useroremail.includes("@")) { 
-        find_email_from_username(useroremail)
-        var email = localStorage.getItem("email")
-    }
-    else { 
-        var email = useroremail
-    }
+    find_email_from_username(username)
+    var email = localStorage.getItem("email")
 
     signin_user(email, password)
+    localStorage.clear()
+    localStorage.setItem("username_x", username)
 }

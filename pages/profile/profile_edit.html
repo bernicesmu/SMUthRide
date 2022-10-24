@@ -20,6 +20,32 @@
         <link rel="stylesheet" href="../../navbar/nav_styles.css" />
         <link rel="stylesheet" href="./profile.css" />
     </head>
+    <style> 
+        input[type=range] {
+            height: 1rem;
+            -webkit-appearance: none;
+            margin: 10px 0;
+            width: 90%;
+            background-color: #e3f1ef;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 1rem;
+            width: 1rem;
+            border-radius: 1rem;
+            background: #4E7570;
+            cursor: pointer;
+            -webkit-appearance: none;
+        }
+
+        .plus-button { 
+            position: absolute;
+            right: 25px;
+            top: 20px;
+            padding: 0;
+            border: transparent; 
+            background-color: transparent;
+        }
+    </style>
     <body>
         <div id="navbarVue">
             <div
@@ -29,13 +55,8 @@
             ></div>
         </div>
 
-        <div id="profileVue" class="wrapper">
-            <div class="profile text-center justify-content-center h-100">
-                <form
-                    id="main-particulars-form"
-                    method="post"
-                    action="./profile.html"
-                >
+            <div id="profileVue" class="wrapper">
+                <div class="profile text-center justify-content-center h-100">
                     <img
                         class="profile-pic"
                         src="ded.png"
@@ -45,30 +66,30 @@
                         <strong
                             ><input
                                 type="text"
-                                class="form-control text-center"
+                                class="form-control text-center target-input"
                                 id="displayname"
                                 name="displayname"
-                                v-model:value="username"
+                                v-model:value="displayname"
                         /></strong>
                     </h2>
                     <p class="degree-text">
                         <select
                             type="dropdown"
-                            class="form-select text-center"
+                            class="form-select text-center target-input"
                             id="degree"
                             name="degree"
                         >
                             <option
                                 v-for="majorChoice in majorList"
                                 :value="majorChoice"
-                                :selected=" major === majorChoice "
+                                :selected=" degree === majorChoice "
                             >
                                 {{ majorChoice }}
                             </option>
                         </select>
                         <select
                             type="dropdown"
-                            class="form-select text-center"
+                            class="form-select text-center target-input"
                             id="year"
                             name="year"
                         >
@@ -86,7 +107,8 @@
                             <strong>Age</strong>:
                             <input
                                 type="number"
-                                class="form-control text-center w-50 d-inline"
+                                class="form-control text-center w-50 d-inline target-input"
+                                name="age"
                                 v-model:value="age"
                             />
                         </p>
@@ -94,7 +116,7 @@
                             <strong>Status</strong>:
                             <select
                                 type="dropdown"
-                                class="form-select text-center w-50 d-inline"
+                                class="form-select text-center w-50 d-inline target-input"
                                 id="status"
                                 name="status"
                             >
@@ -112,7 +134,7 @@
                             <strong>MBTI</strong>:
                             <select
                                 type="dropdown"
-                                class="form-select text-center w-50 d-inline"
+                                class="form-select text-center w-50 d-inline target-input"
                                 id="mbti"
                                 name="mbti"
                             >
@@ -128,15 +150,20 @@
                         <!-- the link can jus change the intp part to any other personality, eg infj etc -->
                     </div>
                     <div class="edit-profile">
+                        <form 
+                            id="profile_form"
+                            method="post"
+                            action="./profile.html"
+                        > 
                         <button
                             type="submit"
                             class="btn btn-edit-profile w-100"
                         >
                             Save edits
                         </button>
+                        </form> 
                     </div>
-                </form>
-            </div>
+                </div>
 
             <main>
                 <div class="card profile-card p-1">
@@ -144,9 +171,9 @@
                         <h5 class="card-title">Bio</h5>
                         <textarea
                             rows="5"
-                            class="form-control text-center d-inline"
-                            id="displayname"
-                            name="displayname"
+                            class="form-control d-inline target-input"
+                            id="bio"
+                            name="bio"
                             v-model="bio"
                         ></textarea>
                     </div>
@@ -155,39 +182,34 @@
                     <div class="card-body">
                         <h5 class="card-title preferences">Preferences</h5>
                         <h6>Price</h6>
-                        <div class="meter">
-                            <div class="preference w70"></div>
-                        </div>
+                        <input type="range" class="meter target-input" id="prefPrice" name="prefPrice" :value="prefPrice" v-model="prefPrice">
                         <h6>Comfort</h6>
-                        <div class="meter">
-                            <div class="preference w40"></div>
-                        </div>
+                        <input type="range" class="meter target-input" id="prefComfort" name="prefComfort" :value="prefComfort" v-model="prefComfort">
                         <h6>Convenience</h6>
-                        <div class="meter">
-                            <div class="preference w60"></div>
-                        </div>
+                        <input type="range" class="meter target-input" id="prefConvenience" name="prefConvenience" :value="prefConvenience" v-model="prefConvenience">
                         <h6>Speed</h6>
-                        <div class="meter">
-                            <div class="preference w90"></div>
-                        </div>
+                        <input type="range" class="meter target-input" id="prefSpeed" name="prefSpeed" :value="prefSpeed" v-model="prefSpeed">
                     </div>
                 </div>
                 <div class="card profile-card p-1">
                     <div class="card-body">
+                        <button class="plus-button" id="plus-button" onclick="create_new_cca()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4e7570" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                            </svg>
+                        </button>
                         <h5 class="card-title">CCAs</h5>
                         <!-- <p class="card-text ps-0"> -->
+                        <div id="cca-input" v-for="cca of ccas"> 
                         <input
                             type="text"
-                            class="form-control text-center cca_options w-50"
+                            class="form-control text-center cca_options w-50 target-input"
                             name="cca1"
-                            value="Ellipsis"
+                            v-for="cca of ccas"
+                            :value="cca"
+                            v-model="ccas"
                         />
-                        <input
-                            type="text"
-                            class="form-control text-center cca_options w-50"
-                            name="cca2"
-                            value=".Hack"
-                        />
+                        </div> 
                         <!-- </p> -->
                     </div>
                 </div>
@@ -201,8 +223,8 @@
                                 ></i>
                                 <input
                                     type="text"
-                                    class="form-control text-center cca_options d-inline w-75"
-                                    name="cca2"
+                                    class="form-control text-center cca_options d-inline w-75 target-input"
+                                    name="linkedin"
                                     v-model:value="linkedinLink"
                                 />
                             </li>
@@ -212,8 +234,8 @@
                                 ></i>
                                 <input
                                     type="text"
-                                    class="form-control text-center cca_options d-inline w-75"
-                                    name="cca2"
+                                    class="form-control text-center cca_options d-inline w-75 target-input"
+                                    name="facebook"
                                     v-model:value="facebookLink"
                                 />
                             </li>
@@ -223,8 +245,8 @@
                                 ></i>
                                 <input
                                     type="text"
-                                    class="form-control text-center cca_options d-inline w-75"
-                                    name="cca2"
+                                    class="form-control text-center cca_options d-inline w-75 target-input"
+                                    name="instagram"
                                     v-model:value="instagramLink"
                                 />
                             </li>
@@ -242,5 +264,26 @@
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../../navbar/navbar.js"></script>
         <script src="./profile.js"></script>
+        <script src="./profile_mod.js" type="module"></script>
+        <script> 
+            function create_new_cca() { 
+                document.getElementById('cca-input').innerHTML += `
+                    <input 
+                        type="text"
+                        class="form-control text-center cca_options w-50"
+                        name="cca3"
+                        placeholder="Add a new CCA"
+                        v-for="cca of ccas"
+                        v-model="ccas"
+                    />
+                `
+            }
+            // // used to prevent the page from refreshing after submit, because its quite annoying lol
+            // var form = document.getElementById("profile_form"); 
+            // function handleForm(event) {     
+            //     event.preventDefault(); 
+            // }  
+            // form.addEventListener('submit', handleForm);
+        </script>
     </body>
 </html>

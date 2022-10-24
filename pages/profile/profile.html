@@ -32,12 +32,12 @@
         <div id="profileVue" class="wrapper">
             <div class="profile text-center justify-content-center h-100">
                 <img class="profile-pic" src="ded.png" alt="profile picture" />
-                <h2 class="name"><strong>{{ username }}</strong></h2>
-                <p class="degree-text">{{ major }}, {{ yearOfStudy }}</p>
+                <h2 class="name"><strong>{{ displayname }}</strong></h2>
+                <p class="degree-text">{{ degree }}, {{ yearOfStudy }}</p>
                 <div class="additional-profile">
                     <p class=""><strong>Age</strong>: {{ age }}</p>
                     <p class=""><strong>Status</strong>: {{ status }}</p>
-                    <p class=""><strong>Location</strong>: {{ location }}</p>
+                    <p class=""><strong>Location</strong>: {{ location_user }}</p>
                     <p class="">
                         <strong>MBTI</strong>:
                         <a
@@ -154,6 +154,7 @@
         ></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../../navbar/navbar.js"></script>
+        <script src="./profile_mod.js" type="module"></script>
         <script src="./profile.js"></script>
     </body>
 </html>
