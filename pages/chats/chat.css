@@ -188,14 +188,16 @@ button {
   color: white;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+  height: 600px;
   background-color: #a7c7d6;
-  border-radius: 5px;
+  border-radius: 30px;
+  padding: 20px;
+  padding-top: 120px;
 }
 
 #text span {
   color: black;
   display: block;
-  text-align: center;
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -203,6 +205,41 @@ button {
 #text input {
   display: block;
   margin: auto;
-  border-radius: 10px;
   margin-bottom: 10px;
+}
+
+.text-input:focus {
+  outline: none;
+  opacity: 1;
+}
+
+.cost-input {
+  padding-left: 17px;
+}
+
+.text-input {
+  font-size: calc(1.275rem + 0.3vw);
+  font-weight: 500;
+  height: 25px;
+  padding: 10px 10px 18px 5px;
+  display: block;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #4e7570;
+  color: #4e7570;
+  background: rgba(0, 0, 0, 0);
+  opacity: 1;
+  transition: 0.2s ease;
+}
+
+.text-input:focus ~ .text-label,
+.text-input:valid ~ .text-label {
+  top: -30px;
+  font-size: 1rem;
+  color: white;
+  opacity: 0.8;
+}
+
+#confirm_cancel {
+  text-align: center;
 }/*# sourceMappingURL=chat.css.map */
