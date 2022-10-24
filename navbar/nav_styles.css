@@ -1,0 +1,60 @@
+#navbarSupportedContent {
+    text-align: end;
+}
+
+.navbar {
+    background-color: #4e7570;
+    transition: top 0.8s ease;
+    padding: 1rem 4rem;
+    z-index: 1;
+}
+
+.navbar-top {
+    background-color: #4e7570;
+    transition: top 0.8s ease, background-color 0.8s ease;
+}
+
+.navbar-down {
+    background-color: #e3f1ef;
+    transition: top 0.8s ease, background-color 0.8s ease;
+}
+
+.nav-item {
+    padding-left: 0.5rem;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    font-weight: 700;
+    min-width: 6rem;
+    text-align: end;
+}
+
+.nav-item a:link,
+.nav-item a:visited {
+    text-decoration: none;
+}
+
+.nav-item a:hover,
+.nav-item a:active {
+    font-weight: 900;
+    transition: 0.4s ease;
+}
+
+.nav-item-top {
+    color: #bedad6;
+}
+
+.nav-item-down {
+    color: #4e7570;
+}
+
+.profile-img {
+    max-height: 2rem;
+}
+
+@media (max-width: 768px) {
+    .nav-link {
+        text-align: center;
+    }
+}
