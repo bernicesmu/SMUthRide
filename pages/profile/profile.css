@@ -1,0 +1,169 @@
+body {
+    overflow: hidden;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    overflow-y: auto;
+    padding: 2rem;
+    padding-left: 0;
+    width: 75%;
+}
+.wrapper {
+    display: flex;
+    height: 100%;
+    /* margin-top: 6rem; */
+    margin-bottom: 5rem;
+    padding-top: 3rem;
+}
+
+.profile {
+    flex: 1 0 10%;
+    margin-top: 2.5rem;
+    padding: 0 1rem;
+    padding-top: 1rem;
+}
+
+.profile-pic {
+    width: 12rem;
+}
+
+.degree-text {
+    display: block;
+    text-align: center;
+}
+
+.name {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-size: 2rem;
+    padding-bottom: 0;
+}
+
+.additional-profile {
+    text-align: start;
+    margin: 2rem 1rem 0;
+}
+.additional-profile p {
+    display: block;
+    margin-bottom: 0;
+}
+
+.edit-profile {
+    margin: 2rem 1rem 0;
+}
+
+.btn-edit-profile {
+    background-color: #4e7570;
+    color: white;
+}
+
+.btn-edit-profile:hover {
+    background-color: #bedad6;
+    color: white;
+}
+
+.socials-ul a:link {
+    color: #4e7570;
+    text-decoration: none;
+}
+
+.socials-ul a:visited {
+    color: #4e7570;
+    text-decoration: none;
+}
+
+.socials-ul a:hover {
+    color: #4c86a2;
+    text-decoration: none;
+}
+
+.socials-ul a:active {
+    color: #4e7570;
+    text-decoration: none;
+}
+
+.card {
+    border: none;
+}
+
+.preferences {
+    padding-bottom: 0.8rem;
+}
+
+.meter {
+    background-color: rgb(192, 192, 192);
+    width: 90%;
+    border-radius: 15px;
+    height: 1rem;
+    margin-bottom: 1rem;
+}
+
+.preference {
+    background-color: #4e7570;
+    color: white;
+    text-align: right;
+    font-size: 20px;
+    border-radius: 15px;
+    height: 1rem;
+    transition: width 1s;
+    width: 0;
+}
+
+.cca {
+    padding-left: 1rem;
+    margin-left: 1rem;
+}
+
+.cca li {
+    margin-bottom: 0;
+    list-style-type: square;
+}
+
+.profile-fab {
+    color: #4e7570;
+    margin-right: 1rem;
+}
+
+.socials-ul {
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        display: block;
+        overflow-y: auto;
+    }
+    .additional-profile {
+        display: flex;
+        justify-content: center;
+    }
+    .additional-profile p {
+        margin-right: 1rem;
+    }
+    main {
+        margin-top: 1rem;
+        padding: 2rem;
+    }
+}
+@media (max-height: 600px) {
+    .wrapper {
+        display: block;
+        overflow-y: auto;
+    }
+    .additional-profile {
+        display: flex;
+        justify-content: center;
+    }
+    .additional-profile p {
+        margin-right: 1rem;
+    }
+    main {
+        margin-top: 1rem;
+        padding: 2rem;
+    }
+}
