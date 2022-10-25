@@ -20,31 +20,32 @@
         <link rel="stylesheet" href="../../navbar/nav_styles.css" />
         <link rel="stylesheet" href="./profile.css" />
     </head>
-    <style> 
-        input[type=range] {
+    <style>
+        input[type="range"] {
             height: 1rem;
             -webkit-appearance: none;
             margin: 10px 0;
             width: 90%;
             background-color: #e3f1ef;
         }
-        input[type=range]::-webkit-slider-thumb {
+        input[type="range"]::-webkit-slider-thumb {
             height: 1rem;
             width: 1rem;
             border-radius: 1rem;
-            background: #4E7570;
+            background: #4e7570;
             cursor: pointer;
             -webkit-appearance: none;
         }
 
-        .plus-button { 
-            position: absolute;
-            right: 25px;
-            top: 20px;
+        .plus-minus-button {
+            display: inline-block;
             padding: 0;
-            border: transparent; 
+            border: transparent;
             background-color: transparent;
         }
+        /* .cca_options {
+            display: flex;
+        } */
     </style>
     <body>
         <div id="navbarVue">
@@ -55,115 +56,111 @@
             ></div>
         </div>
 
-            <div id="profileVue" class="wrapper">
-                <div class="profile text-center justify-content-center h-100">
-                    <img
-                        class="profile-pic"
-                        src="ded.png"
-                        alt="profile picture"
-                    />
-                    <h2 class="name">
-                        <strong
-                            ><input
-                                type="text"
-                                class="form-control text-center target-input"
-                                id="displayname"
-                                name="displayname"
-                                v-model:value="displayname"
-                        /></strong>
-                    </h2>
-                    <p class="degree-text">
+        <div id="profileVue" class="wrapper">
+            <div class="profile text-center justify-content-center h-100">
+                <img class="profile-pic" src="ded.png" alt="profile picture" />
+                <h2 class="name">
+                    <strong
+                        ><input
+                            type="text"
+                            class="form-control text-center target-input"
+                            id="displayname"
+                            name="displayname"
+                            v-model:value="displayname"
+                    /></strong>
+                </h2>
+                <p class="degree-text">
+                    <select
+                        type="dropdown"
+                        class="form-select text-center target-input"
+                        id="degree"
+                        name="degree"
+                    >
+                        <option
+                            v-for="majorChoice in majorList"
+                            :value="majorChoice"
+                            :selected=" degree === majorChoice "
+                        >
+                            {{ majorChoice }}
+                        </option>
+                    </select>
+                    <select
+                        type="dropdown"
+                        class="form-select text-center target-input"
+                        id="year"
+                        name="year"
+                    >
+                        <option
+                            v-for="yearChoice in yearOfStudyList"
+                            :value="yearChoice"
+                            :selected=" yearChoice === yearOfStudy "
+                        >
+                            {{ yearChoice }}
+                        </option>
+                    </select>
+                </p>
+                <div class="additional-profile">
+                    <p class="">
+                        <strong>Age</strong>:
+                        <input
+                            type="number"
+                            class="form-control text-center w-50 d-inline target-input"
+                            name="age"
+                            v-model:value="age"
+                        />
+                    </p>
+                    <p class="">
+                        <strong>Status</strong>:
                         <select
                             type="dropdown"
-                            class="form-select text-center target-input"
-                            id="degree"
-                            name="degree"
+                            class="form-select text-center w-50 d-inline target-input"
+                            id="status"
+                            name="status"
                         >
                             <option
-                                v-for="majorChoice in majorList"
-                                :value="majorChoice"
-                                :selected=" degree === majorChoice "
+                                v-for="statusChoice in statusList"
+                                :value="statusChoice"
+                                :selected=" statusChoice === status "
                             >
-                                {{ majorChoice }}
-                            </option>
-                        </select>
-                        <select
-                            type="dropdown"
-                            class="form-select text-center target-input"
-                            id="year"
-                            name="year"
-                        >
-                            <option
-                                v-for="yearChoice in yearOfStudyList"
-                                :value="yearChoice"
-                                :selected=" yearChoice === yearOfStudy "
-                            >
-                                {{ yearChoice }}
+                                {{ statusChoice }}
                             </option>
                         </select>
                     </p>
-                    <div class="additional-profile">
-                        <p class="">
-                            <strong>Age</strong>:
-                            <input
-                                type="number"
-                                class="form-control text-center w-50 d-inline target-input"
-                                name="age"
-                                v-model:value="age"
-                            />
-                        </p>
-                        <p class="">
-                            <strong>Status</strong>:
-                            <select
-                                type="dropdown"
-                                class="form-select text-center w-50 d-inline target-input"
-                                id="status"
-                                name="status"
+                    <p class=""><strong>Location</strong>: Jurong</p>
+                    <p class="">
+                        <strong>MBTI</strong>:
+                        <select
+                            type="dropdown"
+                            class="form-select text-center w-50 d-inline target-input"
+                            id="mbti"
+                            name="mbti"
+                        >
+                            <option
+                                v-for="mbtiChoice in mbtiList"
+                                :value="mbtiChoice"
+                                :selected=" mbtiChoice === mbti "
                             >
-                                <option
-                                    v-for="statusChoice in statusList"
-                                    :value="statusChoice"
-                                    :selected=" statusChoice === status "
-                                >
-                                    {{ statusChoice }}
-                                </option>
-                            </select>
-                        </p>
-                        <p class=""><strong>Location</strong>: Jurong</p>
-                        <p class="">
-                            <strong>MBTI</strong>:
-                            <select
-                                type="dropdown"
-                                class="form-select text-center w-50 d-inline target-input"
-                                id="mbti"
-                                name="mbti"
-                            >
-                                <option
-                                    v-for="mbtiChoice in mbtiList"
-                                    :value="mbtiChoice"
-                                    :selected=" mbtiChoice === mbti "
-                                >
-                                    {{ mbtiChoice }}
-                                </option>
-                            </select>
-                        </p>
-                        <!-- the link can jus change the intp part to any other personality, eg infj etc -->
-                    </div>
-                    <div class="edit-profile">
-                        <form 
-                            id="profile_form"
-                            method="post"
-                            action="./profile.html"
-                        > 
+                                {{ mbtiChoice }}
+                            </option>
+                        </select>
+                    </p>
+                    <!-- the link can jus change the intp part to any other personality, eg infj etc -->
+                </div>
+                <div class="edit-profile">
+                    <form
+                        id="profile_form"
+                        method="post"
+                        action="./profile.html"
+                    >
                         <button
                             type="submit"
                             class="btn btn-edit-profile w-100"
                         >
                             Save edits
                         </button>
-                        </form> 
-                    </div>
+                    </form>
                 </div>
+            </div>
 
             <main>
                 <div class="card profile-card p-1">
@@ -182,35 +179,93 @@
                     <div class="card-body">
                         <h5 class="card-title preferences">Preferences</h5>
                         <h6>Price</h6>
-                        <input type="range" class="meter target-input" id="prefPrice" name="prefPrice" :value="prefPrice" v-model="prefPrice">
+                        <input
+                            type="range"
+                            class="meter target-input"
+                            id="prefPrice"
+                            name="prefPrice"
+                            :value="prefPrice"
+                            v-model="prefPrice"
+                        />
                         <h6>Comfort</h6>
-                        <input type="range" class="meter target-input" id="prefComfort" name="prefComfort" :value="prefComfort" v-model="prefComfort">
+                        <input
+                            type="range"
+                            class="meter target-input"
+                            id="prefComfort"
+                            name="prefComfort"
+                            :value="prefComfort"
+                            v-model="prefComfort"
+                        />
                         <h6>Convenience</h6>
-                        <input type="range" class="meter target-input" id="prefConvenience" name="prefConvenience" :value="prefConvenience" v-model="prefConvenience">
+                        <input
+                            type="range"
+                            class="meter target-input"
+                            id="prefConvenience"
+                            name="prefConvenience"
+                            :value="prefConvenience"
+                            v-model="prefConvenience"
+                        />
                         <h6>Speed</h6>
-                        <input type="range" class="meter target-input" id="prefSpeed" name="prefSpeed" :value="prefSpeed" v-model="prefSpeed">
+                        <input
+                            type="range"
+                            class="meter target-input"
+                            id="prefSpeed"
+                            name="prefSpeed"
+                            :value="prefSpeed"
+                            v-model="prefSpeed"
+                        />
                     </div>
                 </div>
                 <div class="card profile-card p-1">
                     <div class="card-body">
-                        <button class="plus-button" id="plus-button" onclick="create_new_cca()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4e7570" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                            </svg>
-                        </button>
                         <h5 class="card-title">CCAs</h5>
-                        <!-- <p class="card-text ps-0"> -->
-                        <div id="cca-input" v-for="cca of ccas"> 
-                        <input
-                            type="text"
-                            class="form-control text-center cca_options w-50 target-input"
-                            name="cca1"
-                            v-for="cca of ccas"
-                            :value="cca"
-                            v-model="ccas"
-                        />
-                        </div> 
-                        <!-- </p> -->
+                        <div id="cca-input" v-for="cca of ccas">
+                            <input
+                                type="text"
+                                class="form-control text-center cca_options w-50 target-input"
+                                name="cca1"
+                                :value="cca"
+                                :disabled="cca!==''"
+                                @input=" ccaInputModel "
+                            />
+                            <button
+                                class="plus-minus-button"
+                                id="plus-button"
+                                v-if=" cca==='' "
+                                @click=" create_new_cca "
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    fill="#4e7570"
+                                    class="bi bi-plus-circle-fill"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path
+                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+                                    />
+                                </svg>
+                            </button>
+                            <button
+                                class="plus-minus-button"
+                                v-else
+                                @click=" remove_cca(cca) "
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    fill="#4e7570"
+                                    class="bi bi-dash-circle-fill"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path
+                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card profile-card p-1">
@@ -265,25 +320,25 @@
         <script src="../../navbar/navbar.js"></script>
         <script src="./profile.js"></script>
         <script src="./profile_mod.js" type="module"></script>
-        <script> 
-            function create_new_cca() { 
-                document.getElementById('cca-input').innerHTML += `
-                    <input 
-                        type="text"
-                        class="form-control text-center cca_options w-50"
-                        name="cca3"
-                        placeholder="Add a new CCA"
-                        v-for="cca of ccas"
-                        v-model="ccas"
-                    />
-                `
-            }
+        <!-- <script>
+            // function create_new_cca() {
+            //     document.getElementById('cca-input').innerHTML += `
+            //         <input
+            //             type="text"
+            //             class="form-control text-center cca_options w-50"
+            //             name="cca3"
+            //             placeholder="Add a new CCA"
+            //             v-for="cca of ccas"
+            //             v-model="ccas"
+            //         />
+            //     `
+            // }
             // // used to prevent the page from refreshing after submit, because its quite annoying lol
-            // var form = document.getElementById("profile_form"); 
-            // function handleForm(event) {     
-            //     event.preventDefault(); 
-            // }  
+            // var form = document.getElementById("profile_form");
+            // function handleForm(event) {
+            //     event.preventDefault();
+            // }
             // form.addEventListener('submit', handleForm);
-        </script>
+        </script> -->
     </body>
 </html>
