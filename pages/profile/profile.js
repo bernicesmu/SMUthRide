@@ -13,7 +13,7 @@ Vue.createApp({
             prefComfort: "40",
             prefConvenience: "60",
             prefSpeed: "90",
-            ccas: ["Ellipsis", ".Hack", ""],
+            ccas: ["Ellipsis", ".Hack"],
             linkedinLink: "https://www.linkedin.com/in/",
             facebookLink: "https://www.facebook.com/",
             instagramLink: "https://www.instagram.com/",
@@ -90,7 +90,7 @@ Vue.createApp({
         // feel free to change all the values to null if needed
         username = localStorage.getItem("username_x");
         displayname = localStorage.getItem("displayname");
-        age = localStorage.getItem("age");
+        age = String(localStorage.getItem("age"));
         bio = localStorage.getItem("bio");
         cca = localStorage.getItem("cca");
         comfort = localStorage.getItem("comfort");
@@ -106,6 +106,8 @@ Vue.createApp({
         rs_status = localStorage.getItem("status");
         year = localStorage.getItem("year");
 
+        cca = cca.split(",")
+
         this.displayname = displayname;
         this.degree = degree;
         this.yearOfStudy = year;
@@ -118,7 +120,7 @@ Vue.createApp({
         this.prefComfort = comfort;
         this.prefConvenience = convenience;
         this.prefSpeed = speed;
-        this.ccas = ["Ellipsis", ".Hack", ""]; //unhardcode later
+        this.ccas = cca; 
         this.linkedinLink = linkedin;
         this.facebookLink = facebook;
         this.instagramLink = instagram;

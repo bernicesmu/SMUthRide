@@ -14,16 +14,15 @@ if (elem) {
     elem.addEventListener("submit", update_user_database);
 }
 
-var displayname = localStorage.getItem("displayname");
-
 function update_user_database() {
     var inputs = document.getElementsByClassName("target-input");
+    var cca_options = document.getElementsByClassName('cca_options');
     console.log(inputs);
+    console.log(cca_options);
 
     var displayname = inputs.displayname.value;
-    var age = inputs.age.value;
+    var age = String(inputs.age.value);
     var bio = inputs.bio.value;
-    var cca = ["ellipsis", "smubia", "gourmet"];
     var comfort = inputs.prefComfort.value;
     var convenience = inputs.prefConvenience.value;
     var degree = inputs.degree.value;
@@ -36,6 +35,13 @@ function update_user_database() {
     var speed = inputs.prefSpeed.value;
     var rs_status = inputs.status.value;
     var year = inputs.year.value;
+
+    var cca = []
+    for (var cca_op of cca_options) { 
+        if (cca_op.value != "") { 
+            cca.push(cca_op.value)
+        }
+    }
 
     write_user_profile(
         username,
