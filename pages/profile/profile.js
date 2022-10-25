@@ -95,6 +95,11 @@ Vue.createApp({
                 this.ccas.splice(index, 1);
             }
         },
+        auto_grow() {
+            element = this.$refs.bio;
+            element.style.height = "5px";
+            element.style.height = element.scrollHeight + "px";
+        },
     },
     created() {
         // @bernice I have temporarily hardcoded values
