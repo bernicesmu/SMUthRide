@@ -448,9 +448,9 @@
                 xhttp.send();
             }
             
-            document.getElementById("getRoute").addEventListener("click", calcRoute)
             function calcRoute() 
             {
+
                 if (smu_position == 'from')
                 {
                     var request = 
@@ -474,12 +474,13 @@
                     }
                 }
                 
-                if (directionsDisplay != null) { 
-                    directionsDisplay.setMap(null);
-                    directionsDisplay = null; }
-                
-                var directionsService = new google.maps.DirectionsService();
-                var directionsDisplay = new google.maps.DirectionsRenderer();
+                if (document.getElementById('problematic').innerHTML != ''){
+                    console.log('===wtf===')
+                    directionsDisplay.setDirections({routes: []});
+                }
+
+                directionsService = new google.maps.DirectionsService();
+                directionsDisplay = new google.maps.DirectionsRenderer();
 
                 
 
@@ -496,7 +497,7 @@
                          
                         // this gets distance and time taken for route
                         const output = document.querySelector('#problematic');
-                        directionsDisplay.setMap(null)
+        
                         // from smu to indicated location, display route and duration
                         if (smu_position == 'from') 
                         {
