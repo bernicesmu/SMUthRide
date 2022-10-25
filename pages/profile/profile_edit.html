@@ -66,7 +66,7 @@
                             class="form-control text-center target-input"
                             id="displayname"
                             name="displayname"
-                            v-model:value="displayname"
+                            v-model="displayname"
                     /></strong>
                 </h2>
                 <p class="degree-text">
@@ -106,7 +106,7 @@
                             type="number"
                             class="form-control text-center w-50 d-inline target-input"
                             name="age"
-                            v-model:value="age"
+                            v-model="age"
                         />
                     </p>
                     <p class="">
@@ -147,17 +147,12 @@
                     <!-- the link can jus change the intp part to any other personality, eg infj etc -->
                 </div>
                 <div class="edit-profile">
-                    <form
-                        id="profile_form"
-                        method="post"
-                        action="./profile.html"
-                    >
-                        <button
+                    <form id="profile_form" action="./profile.html">
+                        <input
                             type="submit"
                             class="btn btn-edit-profile w-100"
-                        >
-                            Save edits
-                        </button>
+                            value="Save edits"
+                        />
                     </form>
                 </div>
             </div>
