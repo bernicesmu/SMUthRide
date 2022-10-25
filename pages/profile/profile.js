@@ -64,6 +64,19 @@ Vue.createApp({
             ],
         };
     },
+    computed: {
+        showSocials() {
+            if (
+                this.linkedinLink !== "" &&
+                this.facebookLink !== "" &&
+                this.instagramLink !== ""
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+    },
     methods: {
         create_new_cca() {
             if (this.ccaInput !== "" && !this.ccas.includes(this.ccaInput)) {
@@ -81,6 +94,11 @@ Vue.createApp({
             if (index !== -1) {
                 this.ccas.splice(index, 1);
             }
+        },
+        auto_grow() {
+            element = this.$refs.bio;
+            element.style.height = "5px";
+            element.style.height = element.scrollHeight + "px";
         },
     },
     created() {
@@ -106,7 +124,8 @@ Vue.createApp({
         rs_status = localStorage.getItem("status");
         year = localStorage.getItem("year");
 
-        cca = cca.split(",")
+        cca = cca.split(",");
+        cca.push("");
 
         this.displayname = displayname;
         this.degree = degree;
@@ -120,7 +139,7 @@ Vue.createApp({
         this.prefComfort = comfort;
         this.prefConvenience = convenience;
         this.prefSpeed = speed;
-        this.ccas = cca; 
+        this.ccas = cca;
         this.linkedinLink = linkedin;
         this.facebookLink = facebook;
         this.instagramLink = instagram;
