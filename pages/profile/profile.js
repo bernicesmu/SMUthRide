@@ -66,7 +66,7 @@ Vue.createApp({
     },
     methods: {
         create_new_cca() {
-            if (this.ccaInput !== "") {
+            if (this.ccaInput !== "" && !this.ccas.includes(this.ccaInput)) {
                 this.ccas.pop();
                 this.ccas.push(this.ccaInput);
                 this.ccas.push("");
