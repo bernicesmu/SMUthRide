@@ -104,7 +104,7 @@ export function find_rid() {
 
 export function create_chat(uid1, uid2) { 
   const db = getDatabase();
-  set(ref(db, `messages/${uid1}_${uid2}/`), {
+  set(ref(db, `messages/${uid1};${uid2}/`), {
     text: "hello world",
     user: "kenming",
     datetime: "13/10 5:49PM"
@@ -144,7 +144,7 @@ export function signin_user(email, password) {
   });
 }
 
-export function find_chat(){
+export function find_chat(username){
   const db = getDatabase()
   const reference = ref(db, 'messages')
   var final_output = []
@@ -155,13 +155,14 @@ export function find_chat(){
 
     for(var entry of values){
       let username_array = []
-      let chat_id = entry[0]
-    if(chat_id.includes("001")){      
+      let chat_usernames = entry[0]
+    if(chat_usernames.includes(username)){      
       find_last_chat_message(chat_id)
       let message = localStorage.getItem("latest_message")
       // console.log(message)
-      get_name(chat_id,"001")
+      get_name(chat_usernames,username)
       let other_user = localStorage.getItem("other_user_name")
+      // NO PROFILE PAGE
       print_user(message,other_user)
       localStorage.removeItem("latest_message")
       localStorage.removeItem("other_user_name")
@@ -173,14 +174,14 @@ export function find_chat(){
 }
 
 //NEED TO UPDATE WITH VUE FOR DYNAMIC RETREIVAL
-export function find_last_chat_message(paired_id){
+export function find_last_chat_message(paired_usernames){
   const db = getDatabase()
   const reference = ref(db, 'messages')
   onValue(reference, (snapshot) => {
     const data = snapshot.val();
-    paired_id = '001_002'
+    // paired_id = '001_002'
     for(var id in data){
-      if(id == paired_id){
+      if(id == paired_usernames){
         let messages = data[id]
         let last_message = messages[messages.length - 1]
         localStorage.setItem("latest_message", last_message.message)
@@ -195,7 +196,7 @@ export function find_last_chat_message(paired_id){
 export function get_name(chat_id, user_id){
   const db = getDatabase()
   const reference = ref(db, 'users')
-  let ids = chat_id.split("_")
+  let ids = chat_id.split(";")
   for(var id of ids){
     if(id != user_id){
       //get the user name
@@ -210,11 +211,12 @@ export function get_name(chat_id, user_id){
 }
 
 export function print_user(message,other_user){
-  var username = "joleneusername" // hardcoded for now 
+  // var username = "joleneusername" // hardcoded for now 
+ 
   var all_chatrooms = document.getElementsByClassName("chatbox")
   var exist = false
   for (var cr of all_chatrooms) { 
-    if (cr.id == username) { 
+    if (cr.id == other_user) { 
       exist = true 
     }
   }
@@ -231,7 +233,7 @@ export function print_user(message,other_user){
   }
   else { 
     let html_string =
-    `<div id="${username}" class="chatbox" style="padding:10px; display: flex;">
+    `<div id="${username};${other_user}" class="chatbox" style="padding:10px; display: flex;">
         <div id="photo"></div>
         <div style="margin-left: 20px;align-self: start;width: 70%;"> 
           <b>${other_user}</b>
