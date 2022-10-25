@@ -27,13 +27,6 @@ var firebaseConfig = {
       
   }
 
-
-
-
-
-
-
-
   function find_mid(chatid) { 
     const database = getDatabase(); 
     const chats = ref(database, `messages/${chatid}`)
@@ -70,6 +63,7 @@ var firebaseConfig = {
     
       // create db collection and send in the data
       // need to get your username plus your partner username
+      var chatid = "ber7;joleneusername" // hardcode1010
       find_mid(chatid)
       var new_mid = parseInt(localStorage.getItem("new_mid"))  
       if (new_mid == 0) {
@@ -83,7 +77,7 @@ var firebaseConfig = {
       });
     }
   
-  const fetchChat = db.ref("messages/001_002");
+  const fetchChat = db.ref("messages/ber7;joleneusername"); // hardcode1010
 
   
   fetchChat.on("child_added", function (snapshot) {
@@ -112,7 +106,7 @@ var firebaseConfig = {
     // I NEED TO GET THE USERNAME PAIR BEFORE I CAN READ THE DATABASE
 
     let chat_usernames = this.id
-    chat_usernames = "002;003"
+    chat_usernames = "ber7;joleneusername" // hardcode1010
     let usernames = chat_usernames.split(";")
     
     //READ THE DATABASE GET THE CHATROOM

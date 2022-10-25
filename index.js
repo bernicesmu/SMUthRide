@@ -156,7 +156,8 @@ export function find_chat(username){
     for(var entry of values){
       let username_array = []
       let chat_usernames = entry[0]
-    if(chat_usernames.includes(username)){      
+    if(chat_usernames.includes(username)){   
+      var chat_id = "ber7;joleneusername" // hardcode1010   
       find_last_chat_message(chat_id)
       let message = localStorage.getItem("latest_message")
       // console.log(message)
@@ -204,15 +205,12 @@ export function get_name(chat_id, user_id){
         const data = snapshot.val();
         localStorage.setItem("other_user_name", data[id].name)
       });
-
-
     }
   }
 }
 
 export function print_user(message,other_user){
   // var username = "joleneusername" // hardcoded for now 
- 
   var all_chatrooms = document.getElementsByClassName("chatbox")
   var exist = false
   for (var cr of all_chatrooms) { 
@@ -229,11 +227,11 @@ export function print_user(message,other_user){
           ${message}
         </div>
       </div>`
-    document.getElementById(username).innerHTML = html_string
+    document.getElementById(other_user).innerHTML = html_string
   }
   else { 
     let html_string =
-    `<div id="${username};${other_user}" class="chatbox" style="padding:10px; display: flex;">
+    `<div id="${other_user}" class="chatbox" style="padding:10px; display: flex;">
         <div id="photo"></div>
         <div style="margin-left: 20px;align-self: start;width: 70%;"> 
           <b>${other_user}</b>
