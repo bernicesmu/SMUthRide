@@ -66,11 +66,12 @@ Vue.createApp({
     },
     methods: {
         create_new_cca() {
-            this.ccas.pop();
-            this.ccas.push(this.ccaInput);
-            this.ccas.push("");
-            console.log(this.ccas);
-            console.log(this.ccaInput);
+            if (this.ccaInput !== "") {
+                this.ccas.pop();
+                this.ccas.push(this.ccaInput);
+                this.ccas.push("");
+                this.ccaInput = "";
+            }
         },
         ccaInputModel(event) {
             this.ccaInput = event.target.value;
