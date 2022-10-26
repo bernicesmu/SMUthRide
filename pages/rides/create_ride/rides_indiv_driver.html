@@ -31,6 +31,14 @@
     
     <link rel="stylesheet" href="../../../main.css" />
     <style>
+        #navbar_html {
+            margin-bottom: 20px;
+        }
+
+        .offer {
+            margin-top: 100px;
+        }
+
         select,
         option {
             width: 200px;
@@ -41,6 +49,16 @@
             width: auto;
             margin-bottom: 50px;
             border-radius: 20px;
+        }
+        
+        .wrong_loc {
+            display: block;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            border-radius: 20px;
+            background-color: coral;
+            margin-bottom: 40px;
         }
 
         #problematic {
@@ -294,8 +312,8 @@
     <div id="navbarVue">
         <div v-html="navbar_html" @scroll="nav_animation" data-page="rides"></div>
     </div>
-
-    <div class="text-center my-5 ">
+    
+    <div class="offer text-center">
         <h1>Offer a ride</h1>
     </div>
 
@@ -365,19 +383,20 @@
                             onchange="getSMUloc('gohome')"
                         
                         >
-                            <option value="Singapore 178902">SCIS</option>
-                            <option value="Singapore 178903">SOE</option>
-                            <option value="Singapore 179943">SOL</option>
-                            <option value="Singapore 178900">SOA</option>
-                            <option value="Singapore 178899">SOB</option>
-                            <option value="Singapore 179873">SOSS</option>
+                            <option value="Singapore 178902,School of Computing and Information Systems">SCIS</option>
+                            <option value="Singapore 178903,School of Economics">SOE</option>
+                            <option value="Singapore 179943,School of Law">SOL</option>
+                            <option value="Singapore 178900,School of Accountancy">SOA</option>
+                            <option value="Singapore 178899,School of Business">SOB</option>
+                            <option value="Singapore 179873,School of Social Sciences">SOSS</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-center py-3">
                     <div class="group">
-                        <input type="text" name="address" class="location-input" id="location_field" required/>
+
+                        <input type="text" class="location-input text-input" id="location_field" onclick="frequency_click()" required/>
                         <span class="highlight"></span>
                         <!-- <label class="text-label">Drop off address</label> -->
                     </div>
@@ -469,12 +488,17 @@
             
             function calcRoute() 
             {
+                sch_value = document.getElementById('smulocation').value
+                sch_deets = sch_value.split(',')
+
+                sch_postal = sch_deets[0]
+                sch_name = sch_deets[1]
 
                 if (smu_position == 'from')
                 {
                     var request = 
                     {
-                        origin: document.getElementById('smulocation').value,
+                        origin: sch_postal,
                         destination: document.getElementById('location_field').value,
                         travelMode: google.maps.TravelMode['DRIVING'],
                         unitSystem: google.maps.UnitSystem['METRIC']
@@ -487,7 +511,7 @@
                     var request = 
                     {
                     origin: document.getElementById('location_field').value,
-                    destination: document.getElementById('smulocation').value,
+                    destination: sch_postal,
                     travelMode: google.maps.TravelMode['DRIVING'], 
                     unitSystem: google.maps.UnitSystem['METRIC'],
                     }
@@ -511,17 +535,25 @@
                   });
 
                 directionsService.route(request, function(result, status) {
+                    const output = document.querySelector('#problematic');
+                    
                     if (status == "OK") 
                     {
                          
+                        // get the distance of the route in km
+                        distance = result.routes[0].legs[0].distance.text
+
+                        // get distance of route in min
+                        duration = parseInt(result.routes[0].legs[0].duration.text.split(' '))
+                        recc_price = parseInt(distance)*0.15 + 2.8 + duration*0.15
+
                         // this gets distance and time taken for route
                         const output = document.querySelector('#problematic');
         
                         // from smu to indicated location, display route and duration
                         if (smu_position == 'from') 
                         {
-                            directionsDisplay.setDirections({routes: []});
-                            output.innerHTML = `<div class='alert-info'> From: ${document.getElementById('smulocation').value} <br>To: ${document.getElementById('location_field').value}<br>Driving distance: ${result.routes[0].legs[0].distance.text}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
+                            output.innerHTML = `<div class='alert-info'> From: ${sch_name} <br>To: ${document.getElementById('location_field').value}<br>Driving distance: ${distance}<br>Recommended Pricing: $${recc_price.toFixed(2)}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
                             marker.setMap(null)
                             directionsDisplay.setMap(null)
                             directionsDisplay.setDirections({routes: []});
@@ -532,9 +564,7 @@
                         // from indicated to smu, display route and duration
                         else 
                         {
-                            directionsDisplay.setMap(null)
-                            directionsDisplay.setDirections({routes: []});
-                            output.innerHTML = `<div class='alert-info'> From: ${document.getElementById('location_field').value} <br>To: ${document.getElementById('smulocation').value}<br>Driving distance: ${result.routes[0].legs[0].distance.text}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
+                            output.innerHTML = `<div class='alert-info'> From: ${document.getElementById('location_field').value} <br>To: ${sch_name}<br>Driving distance: ${distance}<br>Recommended Pricing: $${recc_price.toFixed(2)}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
 
                             marker.setMap(null)
                             directionsDisplay.setMap(null)
@@ -552,7 +582,7 @@
                         map.setCenter(coords[0], coords[1])
 
                         // error message for invalid address
-                        output.innerHTML = `<div class='alert-danger'>Stop it. Get some help.</div>`
+                        output.innerHTML = `<div class='wrong_loc'>Stop it. Get some help. Put correct location please.</div>`
                     }
                 })
             }
