@@ -77,7 +77,7 @@ export function write_ride(smu_location,smu_to_from,username,rideid,user_address
   set(ref(db, `rides/${rideid}`), {
     smu_location: smu_location, 
     smu_to_from : smu_to_from, 
-    username: username, 
+    driver_username: username, 
     user_address: user_address, 
     cost : cost, 
     area: area, 
@@ -288,4 +288,17 @@ export function write_user_profile(username, displayname, age, bio, cca, comfort
   const updates = {};
   updates[`users/${username}/name`] = displayname
   return update(ref(db), updates)
+}
+
+export function get_ride_details(rideid) { 
+  const db = getDatabase();
+  const rides = ref(db, `rides/${rideid}`)
+  onValue(rides, (snapshot) => {
+    const data = snapshot.val();
+    var k = "";
+    var v = "";
+    for ([k, v] of Object.entries(data)) { 
+      localStorage.setItem(k, v)
+    }
+  });
 }

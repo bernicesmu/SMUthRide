@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="../../../main.css" />
     <link rel="stylesheet" href="../../../navbar/nav_styles.css" />
 </head>
+<script type="module" src="./rides_indiv_rider.js"></script>
 <body>
     <div id="navbarVue">
         <div
@@ -86,11 +87,11 @@
                     </div>
                     <div class="usertext d-block my-auto">
                         <div class="userinfo d-flex">
-                            <h4 class="name me-2">James Tan</h4>
-                            <h4 class="username">@username</h4>
+                            <h4 class="name me-2" id="displayname">James Tan</h4>
+                            <h4 class="username" id="username">@username</h4>
                         </div>
                         <div class="degree">
-                            <h6 class="degree">Year 2, Information Systems</h6>
+                            <h6 class="degree" id="year_degree">Year 2, Information Systems</h6>
                         </div>
                     </div>
                 </div>
@@ -111,7 +112,7 @@
                                 d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
                             />
                         </svg>
-                        <h4 class="d-inline">90 Stamford Road, S(512345)</h4>
+                        <h4 class="d-inline" id="user_address">90 Stamford Road, S(512345)</h4>
                     </div>
                     <div class="cost mb-4">
                         <svg
@@ -132,7 +133,7 @@
                                 d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
                             />
                         </svg>
-                        <h4 class="d-inline">$9 per pax</h4>
+                        <h4 class="d-inline" id="costperpax">$9 per pax</h4>
                     </div>
                     <div class="capacity mb-4">
                         <svg
@@ -151,7 +152,7 @@
                                 d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM4.82 3a1.5 1.5 0 0 0-1.379.91l-.792 1.847a1.8 1.8 0 0 1-.853.904.807.807 0 0 0-.43.564L1.03 8.904a1.5 1.5 0 0 0-.03.294v.413c0 .796.62 1.448 1.408 1.484 1.555.07 3.786.155 5.592.155 1.806 0 4.037-.084 5.592-.155A1.479 1.479 0 0 0 15 9.611v-.413c0-.099-.01-.197-.03-.294l-.335-1.68a.807.807 0 0 0-.43-.563 1.807 1.807 0 0 1-.853-.904l-.792-1.848A1.5 1.5 0 0 0 11.18 3H4.82Z"
                             />
                         </svg>
-                        <h4 class="d-inline">2 / 4 seats available</h4>
+                        <h4 class="d-inline" id="capacity">2 / 4 seats available</h4>
                     </div>
                     <div class="datetime mb-4">
                         <svg
@@ -169,20 +170,18 @@
                                 d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"
                             />
                         </svg>
-                        <h4 class="d-inline">Every Monday, 12pm</h4>
+                        <h4 class="d-inline" id="date_time">Every Monday, 12pm</h4>
                     </div>
                 </div>
                 <div class="user-buttons">
                     <!-- <button type="button" class="btn button btn-lg me-2">
                         Make an offer
                     </button> -->
-                    <a
-                        type="button"
-                        class="btn button btn-lg"
-                        href="../../chats/chat.html"
-                    >
-                        Chat for more
-                    </a>
+                    <form id="gotochat" method="post" action="../../chats/chat.html">
+                        <button type="submit" class="btn button btn-lg">
+                            Chat for more
+                        </button>
+                    </form>
                 </div>
                 <!-- <div class="details d-inline-block align-middle">
                 </div> -->
