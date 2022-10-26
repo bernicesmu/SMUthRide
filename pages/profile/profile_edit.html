@@ -49,6 +49,13 @@
             min-height: 5rem !important;
             max-height: 10rem;
         }
+        .additional-profile div {
+            display: flex;
+        }
+        .add-profile-fields {
+            margin-left: auto;
+            max-width: 55%;
+        }
     </style>
     <body>
         <div id="navbarVue">
@@ -103,20 +110,20 @@
                     </select>
                 </p>
                 <div class="additional-profile">
-                    <p class="">
+                    <div class="">
                         <strong>Age</strong>:
                         <input
                             type="number"
-                            class="form-control text-center w-50 d-inline target-input"
+                            class="form-control text-center d-inline target-input add-profile-fields"
                             name="age"
                             v-model="age"
                         />
-                    </p>
-                    <p class="">
+                    </div>
+                    <div class="">
                         <strong>Status</strong>:
                         <select
                             type="dropdown"
-                            class="form-select text-center w-50 d-inline target-input"
+                            class="form-select text-center d-inline target-input add-profile-fields"
                             id="status"
                             name="status"
                         >
@@ -128,13 +135,13 @@
                                 {{ statusChoice }}
                             </option>
                         </select>
-                    </p>
-                    <p class=""><strong>Location</strong>: Jurong</p>
-                    <p class="">
+                    </div>
+                    <div class=""><strong>Location</strong>: Jurong</div>
+                    <div class="">
                         <strong>MBTI</strong>:
                         <select
                             type="dropdown"
-                            class="form-select text-center w-50 d-inline target-input"
+                            class="form-select text-center d-inline target-input add-profile-fields"
                             id="mbti"
                             name="mbti"
                         >
@@ -146,7 +153,7 @@
                                 {{ mbtiChoice }}
                             </option>
                         </select>
-                    </p>
+                    </div>
                     <!-- the link can jus change the intp part to any other personality, eg infj etc -->
                 </div>
                 <div class="edit-profile">
