@@ -103,10 +103,10 @@ var firebaseConfig = {
   function populate_chat(thing){
     const username = localStorage.getItem("username_x")
 
-    console.log(thing.id)
+    // console.log(thing.id)
     // I NEED TO GET THE USERNAME PAIR BEFORE I CAN READ THE DATABASE
 
-    let chat_usernames = this.id
+    let chat_usernames = thing.id
     chat_usernames = "ber7;joleneusername" // hardcode1010
     let usernames = chat_usernames.split(";")
     
@@ -122,7 +122,7 @@ var firebaseConfig = {
           if(chatroom.includes(usernames[0]) && chatroom.includes(usernames[1])){
             console.log(chatroom)
             let messages = chatrooms[chatroom]
-            for(message of messages){
+            for(var message of messages){
               // START POPULATING THE CRAP
               console.log(message)
             }

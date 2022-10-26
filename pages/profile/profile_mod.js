@@ -4,6 +4,8 @@ import {
     write_user_profile,
 } from "../../index.js";
 
+import {getStorage,ref as sRef, uploadBytesResumable, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js"
+
 var username = localStorage.getItem("username_x");
 
 find_user_profile(username);
@@ -62,4 +64,88 @@ function update_user_database() {
         rs_status,
         year
     );
+
+   
+
+
+    // function uploadImage(e){
+    //     console.log("hello")
+    //     const storage = getStorage()
+    //     const storageReference = storageReference(storage, 'public/myfile')
+    //     uploadTask.value = uploadBytesResumable(storageReference, e.target.files[0]);
+    //     // uploadTask.value.on{
+    //     //     "state_changed"
+    //     // }
+
+    //     console.log(uploadTask)
+    // }
+
+    // document.getElementById("upload").addEventListener("click",uploadImage)
+  
 }
+
+var files = []
+var reader = new FileReader()
+
+var SelBtn = document.getElementById("selbtn")
+var UpBtn = document.getElementById("upbtn")
+var myimg = document.getElementById("myimg")
+
+var input = document.createElement("input")
+
+
+
+input.type = "file"
+
+document.getElementById("buttons").appendChild(input)
+
+input.onchange = e =>{
+    files = e.target.files
+
+    // var extension = GetFileExt(files[0])
+    // var name = GetFileName(files[0])
+    reader.readAsDataURL(files[0])
+
+}
+
+reader.onload = function(){
+    myimg.src = reader.result
+    
+    console.log(files[0].name)
+}
+
+
+function GetFileExt(file){
+    var temp = file.name.split(".")
+    var ext = temp.slice
+}
+
+async function UploadProcess(){
+    var ImgToUpload = files[0]
+
+    var ImgName = files[0].name
+    const metadata = {
+        contenType: ImgToUpload.type
+    }
+    const storage = getStorage()
+    const storageRef = sRef(storage, "Users/" + ImgName)
+
+    const UploadTask = uploadBytesResumable(storageRef, ImgToUpload,metadata)
+
+    UploadTask.on('state-changed',(snapshot)=>{
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        console.log(progress)
+    },
+    (error) =>{
+        alert("error: img not uploaded")
+    },
+    ()=>{
+        getDownloadURL(UploadTask.snapshot.ref).then((downloadURL)=>{
+            console.log(downloadURL)
+        })
+    })
+
+
+}
+
+UpBtn.onclick = UploadProcess
