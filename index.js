@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -52,23 +52,46 @@ export function writeUserData(username, name, email) {
       name: name,
       email: email,
   });
+  set(ref(db, `users/${username}/userprofile`), {
+    degree: "Bachelor",
+    year: "Year X",
+    status: "It's Complicated",
+    location_user: "Singapore", 
+    mbti: "ABCD",
+    age: 0,
+    bio: "I have no bio", 
+    price: 0,
+    comfort: 0,
+    convenience: 0, 
+    speed: 0, 
+    cca: [""],
+    linkedin: "https://www.linkedin.com/in/",
+    facebook: "https://www.facebook.com/",
+    instagram: "https://www.instagram.com/",
+  }) 
 }
 
-export function write_ride(username, rideid, address, cost, capacity, frequency, date, time) { 
+
+export function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area) { 
   const db = getDatabase();
-  set(ref(db, `rides/${username}/${rideid}`), {
-    address,
-    cost,
-    capacity,
-    frequency,
-    date,
-    time
+  set(ref(db, `rides/${rideid}`), {
+    smu_location: smu_location, 
+    smu_to_from : smu_to_from, 
+    driver_username: username, 
+    user_address: user_address, 
+    cost : cost, 
+    area: area, 
+    max_capacity: max_capacity, 
+    // frequency,
+    date: date, 
+    time: time, 
+    users_offered: users_offered 
   })
 }
 
-export function find_rid(username) { 
+export function find_rid() { 
   const db = getDatabase();
-  const rides = ref(db, `rides/${username}`)
+  const rides = ref(db, `rides/`)
   onValue(rides, (snapshot) => {
     const data = snapshot.val();
     var rid = 0
@@ -81,7 +104,7 @@ export function find_rid(username) {
 
 export function create_chat(uid1, uid2) { 
   const db = getDatabase();
-  set(ref(db, `messages/${uid1}_${uid2}/`), {
+  set(ref(db, `messages/${uid1};${uid2}/`), {
     text: "hello world",
     user: "kenming",
     datetime: "13/10 5:49PM"
@@ -121,7 +144,7 @@ export function signin_user(email, password) {
   });
 }
 
-export function find_chat(){
+export function find_chat(username){
   const db = getDatabase()
   const reference = ref(db, 'messages')
   var final_output = []
@@ -132,13 +155,15 @@ export function find_chat(){
 
     for(var entry of values){
       let username_array = []
-      let chat_id = entry[0]
-    if(chat_id.includes("001")){      
+      let chat_usernames = entry[0]
+    if(chat_usernames.includes(username)){   
+      var chat_id = "ber7;joleneusername" // hardcode1010   
       find_last_chat_message(chat_id)
       let message = localStorage.getItem("latest_message")
       // console.log(message)
-      get_name(chat_id,"001")
+      get_name(chat_usernames,username)
       let other_user = localStorage.getItem("other_user_name")
+      // NO PROFILE PAGE
       print_user(message,other_user)
       localStorage.removeItem("latest_message")
       localStorage.removeItem("other_user_name")
@@ -150,14 +175,14 @@ export function find_chat(){
 }
 
 //NEED TO UPDATE WITH VUE FOR DYNAMIC RETREIVAL
-export function find_last_chat_message(paired_id){
+export function find_last_chat_message(paired_usernames){
   const db = getDatabase()
   const reference = ref(db, 'messages')
   onValue(reference, (snapshot) => {
     const data = snapshot.val();
-    paired_id = '001_002'
+    // paired_id = '001_002'
     for(var id in data){
-      if(id == paired_id){
+      if(id == paired_usernames){
         let messages = data[id]
         let last_message = messages[messages.length - 1]
         localStorage.setItem("latest_message", last_message.message)
@@ -172,7 +197,7 @@ export function find_last_chat_message(paired_id){
 export function get_name(chat_id, user_id){
   const db = getDatabase()
   const reference = ref(db, 'users')
-  let ids = chat_id.split("_")
+  let ids = chat_id.split(";")
   for(var id of ids){
     if(id != user_id){
       //get the user name
@@ -180,18 +205,16 @@ export function get_name(chat_id, user_id){
         const data = snapshot.val();
         localStorage.setItem("other_user_name", data[id].name)
       });
-
-
     }
   }
 }
 
 export function print_user(message,other_user){
-  var username = "joleneusername" // hardcoded for now 
+  // var username = "joleneusername" // hardcoded for now 
   var all_chatrooms = document.getElementsByClassName("chatbox")
   var exist = false
   for (var cr of all_chatrooms) { 
-    if (cr.id == username) { 
+    if (cr.id == other_user) { 
       exist = true 
     }
   }
@@ -204,11 +227,11 @@ export function print_user(message,other_user){
           ${message}
         </div>
       </div>`
-    document.getElementById(username).innerHTML = html_string
+    document.getElementById(other_user).innerHTML = html_string
   }
   else { 
     let html_string =
-    `<div id="${username}" class="chatbox" style="padding:10px; display: flex;">
+    `<div id="${other_user}" class="chatbox" style="padding:10px; display: flex;">
         <div id="photo"></div>
         <div style="margin-left: 20px;align-self: start;width: 70%;"> 
           <b>${other_user}</b>
@@ -219,4 +242,80 @@ export function print_user(message,other_user){
     </div>`
     document.getElementById("chatroom").innerHTML += html_string
   }
+}
+
+export function find_user_profile(username) { 
+  const db = getDatabase();
+  const userprof = ref(db, `users/${username}/userprofile`)
+  onValue(userprof, (snapshot) => {
+    const data = snapshot.val();
+    var k = "";
+    var v = "";
+    for ([k, v] of Object.entries(data)) { 
+      localStorage.setItem(k, v)
+    }
+  });
+}
+
+export function find_name_from_username(username) { 
+  const db = getDatabase();
+  const userprof = ref(db, `users/${username}/name`)
+  onValue(userprof, (snapshot) => {
+    const data = snapshot.val();
+    localStorage.setItem("displayname", data)
+  });
+}
+
+export function write_user_profile(username, displayname, age, bio, cca, comfort, convenience, degree, facebook, instagram, linkedin, location_user, mbti, price, speed, rs_status, year) { 
+  const db = getDatabase(); 
+  set(ref(db, `users/${username}/userprofile`), {
+    degree: degree,
+    year: year,
+    status: rs_status,
+    location_user: location_user, 
+    mbti: mbti,
+    age: age,
+    bio: bio, 
+    price: price,
+    comfort: comfort,
+    convenience: convenience, 
+    speed: speed, 
+    cca: cca,
+    linkedin: linkedin,
+    facebook: facebook,
+    instagram: instagram,
+  }) 
+  const updates = {};
+  updates[`users/${username}/name`] = displayname
+  return update(ref(db), updates)
+}
+
+export function get_ride_details(rideid) { 
+  const db = getDatabase();
+  const rides = ref(db, `rides/${rideid}`)
+  onValue(rides, (snapshot) => {
+    const data = snapshot.val();
+    var k = "";
+    var v = "";
+    for ([k, v] of Object.entries(data)) { 
+      localStorage.setItem(k, v)
+    }
+  });
+}
+
+export function formatAMPM(date) {
+
+  let hours = Number(date.split(":")[0]);
+  let minutes = Number(date.split(":")[1]);
+  let ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  return hours + ':' + minutes + ' ' + ampm;
+}
+
+export function format_date(date){
+  date = date.split("-")
+  let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
+  return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
 }

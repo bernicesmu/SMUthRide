@@ -8,17 +8,10 @@
     -->
 
 <head>
-    <link rel="stylesheet" href="../../../main.css" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- <script src="asset/public.js?version={{lastModifiedDate('asset/public.js')}}"></script> -->
     
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         function lastModifiedDate(url) {
         try {
@@ -35,7 +28,8 @@
     }
     </script>
 
-
+    
+    <link rel="stylesheet" href="../../../main.css" />
     <style>
         #navbar_html {
             margin-bottom: 20px;
@@ -251,8 +245,17 @@
             opacity: 0.5;
         }
 
-        .trip {
-            transition: 0.2 ease all;
+        #location_to{
+            position: absolute;
+            right: 32%;
+            z-index: 3;
+            color: #4e7570;
+        }
+        #location_from{
+            position: absolute;
+            left: 32%;
+            z-index: 3;
+            color: #4e7570;
         }
 
         /* active state */
@@ -300,6 +303,7 @@
             width: 90%;
             margin: auto;
         }
+
     </style>
     
     <link rel="stylesheet" href="../../../navbar/nav_styles.css" />
@@ -308,38 +312,51 @@
     <div id="navbarVue">
         <div v-html="navbar_html" @scroll="nav_animation" data-page="rides"></div>
     </div>
-
+    
     <div class="offer text-center">
         <h1>Offer a ride</h1>
     </div>
 
     <!-- this div section handles the selection between SMU and Location -->
     
-    <div class="trip text-center my-3">
-        <!-- dropdown list of all the buildings -->
-        <h2 class="d-inline" id="location_from">SMU</h2>
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="30"
-            height="30"
-            fill="#4e7570"
-            class="bi bi-arrow-right align-text-bottom mx-2"
-            viewBox="0 0 16 16"
-        >
-            <path
-                fill-rule="evenodd"
-                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
-            />
-        </svg>
+    <div class="trip d-flex my-3 justify-content-evenly" style="position: relative">
+        <div class="d-flex flex-wrap" style="width:30px">
 
+        </div>
+        <!-- dropdown list of all the buildings -->
+        <div class="d-flex flex-wrap h2" id="location_from">
+            <div class="">
+                SMU
+            </div>
+        </div>
+        <div class="d-flex flex-wrap">
+
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    fill="#4e7570"
+                    class="bi bi-arrow-right align-text-bottom my-auto"
+                    viewBox="0 0 16 16"
+            >
+                <path
+                        fill-rule="evenodd"
+                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                />
+            </svg>
+
+        </div>
         <!-- GET from input -->
-        <h2 class="d-inline" id="location_to">Location</h2>
+        <div class="d-flex flex-wrap h2" id="location_to">
+            Location
+        </div>
+
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
             fill="#4e7570"
-            class="bi bi-arrow-repeat align-text-top ms-3"
+            class="bi bi-arrow-repeat align-text-top ms-3 my-auto"
             viewBox="0 0 16 16"
             onclick="rotate_location()"
         >
@@ -354,7 +371,7 @@
     </div>
 
     <div class="content d-flex justify-content-center text-align-center">
-        <form class="d-inline-block my-3">
+        <form action="../rides_list/rides_listing.html" class="d-inline-block my-3">
             <!-- get the input from the user from here -->
             <div class="row d-flex justify-content-center my-2">
                 <div class="col-md-6 d-flex justify-content-center py-3">
@@ -364,6 +381,7 @@
                             name="smubuildings"
                             id="smulocation"
                             onchange="getSMUloc('gohome')"
+                        
                         >
                             <option value="Singapore 178902,School of Computing and Information Systems">SCIS</option>
                             <option value="Singapore 178903,School of Economics">SOE</option>
@@ -377,9 +395,10 @@
 
                 <div class="col-md-6 d-flex justify-content-center py-3">
                     <div class="group">
+
                         <input type="text" class="location-input text-input" id="location_field" onclick="frequency_click()" required/>
                         <span class="highlight"></span>
-                        <label class="text-label">Drop off address</label>
+                        <!-- <label class="text-label">Drop off address</label> -->
                     </div>
                 </div>
             </div>
@@ -399,6 +418,7 @@
             
             <div id="problematic"></div>
             <script>
+        
             var map;
             function initMap() {
                 
@@ -580,7 +600,7 @@
              var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
             
             </script>
-     
+                
                 <div class="group" id="cost_group">  
                     <span class="currencyinput" id="dollarsign"></span>    
                     <input type="number" name='cost' min="0" step="0.1" class="text-input cost-input" oninput="cost_click()" required>
@@ -620,6 +640,7 @@
                 <button
                     type="submit"
                     class="btn button d-block mx-auto mt-5 w-100 mb-5"
+                    id = "rides"
                 >
                     Get in loser, we're going shopping.
                 </button>
@@ -671,8 +692,14 @@
                 smu_position = "from";
             }
         }
+        console.log(document.getElementsByTagName('input'))
     </script>
-    
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"
+    ></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="../../../navbar/navbar.js"></script>
+    
 </body>

@@ -1,82 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous"
-        />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="chat.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../navbar/nav_styles.css" />
+    <!-- icon library -->
+    <script src="https://kit.fontawesome.com/943156cb0b.js" crossorigin="anonymous"></script>
+    <script type="module" src="../../index.js"></script>
+    <script type="module" src="chat.js"></script>
+    <title>Chat</title>
+</head>
+<body>
+    <!-- navbar -->
+    <div id="navbarVue">
+      <div
+          v-html="navbar_html"
+          @scroll="nav_animation"
+          data-page="chat"
+      ></div>
+    </div>
 
-        <!-- icon library -->
-        <script
-            src="https://kit.fontawesome.com/943156cb0b.js"
-            crossorigin="anonymous"
-        ></script>
-        <script type="module" src="../../index.js"></script>
-        <script type="module" src="chat.js"></script>
-        <title>Chat</title>
-        <link rel="stylesheet" href="../../main.css" />
-        <link rel="stylesheet" href="../../navbar/nav_styles.css" />
-    </head>
-    <body>
-        <!-- navbar -->
-        <div id="navbarVue">
-            <div
-                v-html="navbar_html"
-                @scroll="nav_animation"
-                data-page="chats"
-            ></div>
-        </div>
+      <div id="overlay" class="my-auto">
+        <div id="text" class="mb-6">
+          <h1 class="text-center mb-5">Make an Offer</h1>
+          
+          <div class="d-flex justify-content-evenly mb-4">
+            <p>
+              Driver:
+            </p>
+            
+            <select class="form-select form-select mb-3 w-50" aria-label=".form-select example">
+              <option selected>Ride</option>
+              <option value="1">Use vue for this</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <div></div>
+          </div>
 
-        <div id="overlay">
-            <div id="text">
-                <span>Enter an Offer Price</span>
-                <input type="number" id="offer_price" />
-                <span>
-                    Driver:
-                    <select name="driver" id="">
-                        <option value="">Tom</option>
-                        <option value="">John</option>
-                    </select>
-                </span>
-                <span>
-                    <select name="rides" id="">
-                        <option value="">Use vue for this</option>
-                        <option value="">Use vue for this</option>
-                        <option value="">Use vue for this</option>
-                        <option value="">Use vue for this</option>
-                    </select>
-                </span>
-                <span>
-                    <button
-                        type="button"
-                        class="btn btn-danger"
-                        onclick="off()"
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        type="button"
-                        class="btn btn-success"
-                        onclick="off()"
-                    >
-                        Confirm
-                    </button>
-                </span>
-            </div>
+          <div class="d-flex justify-content-evenly mb-4">
+            <p>
+              Rides:
+            </p>
+            
+            <select class="form-select form-select mb-3 w-50" aria-label=".form-select example">
+              <option selected>Ride</option>
+              <option value="1">Use vue for this</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <div></div>
+          </div>
+            
+          <div class="justify-content-evenly mb-4 d-flex">
+            <p>
+              Price:
+            </p>
+            <input type="number" id = "offer_price" name='cost' min="0" step="0.1" class="text-input cost-input text-label" required>
+          </div>
+          
+          
+          <span id="confirm_cancel">
+            <button type="button" class="btn btn-danger" onclick="off()">Cancel</button>
+            <button type="button" class="btn btn-success" onclick="off()" id="confirmOffer">Confirm</button>
+          </span>
         </div>
+      </div>
+    
+      <!-- chatpage -->
+      <div class="container text-center mt-3">
+        <header>
+            <h2>SMUth Chat</h2>
+            <h6>Chat With Your Group and Agree on Price</h6>
+        </header>
+      </div>
+      
 
-        <!-- chatpage -->
-        <div class="container text-center mt-3">
-            <header>
-                <h2>SMUth Chat</h2>
-                <h6>Chat With Your Group and Agree on Price</h6>
-            </header>
-        </div>
 
         <div class="container d-flex">
             <div id="chatroom">
@@ -160,7 +163,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+       
 
         <!-- scripts -->
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
@@ -206,5 +209,6 @@
         ></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../../navbar/navbar.js"></script>
+        
     </body>
 </html>
