@@ -302,3 +302,20 @@ export function get_ride_details(rideid) {
     }
   });
 }
+
+export function formatAMPM(date) {
+
+  let hours = Number(date.split(":")[0]);
+  let minutes = Number(date.split(":")[1]);
+  let ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  return hours + ':' + minutes + ' ' + ampm;
+}
+
+export function format_date(date){
+  date = date.split("-")
+  let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
+  return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
+}
