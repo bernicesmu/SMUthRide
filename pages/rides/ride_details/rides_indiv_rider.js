@@ -22,6 +22,10 @@ var date = localStorage.getItem("date")
 var time = localStorage.getItem("time")
 document.getElementById("date_time").innerHTML = `${date}, ${time}`
 
+var username = localStorage.getItem("username_x")
+localStorage.clear()
+localStorage.setItem("username_x", username)
+
 document.getElementById("gotochat").addEventListener("submit", gotochat)
 
 function gotochat() { 
