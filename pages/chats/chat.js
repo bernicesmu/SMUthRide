@@ -94,15 +94,16 @@ var firebaseConfig = {
 
     find_chat(username)
 
+
   let chats = document.getElementsByClassName("chatbox")
   for(var chat of chats){
-    chat.addEventListener("click",populate_chat)
+    chat.addEventListener("click",populate_chat(this))
   }
 
-  function populate_chat(){
+  function populate_chat(thing){
     const username = localStorage.getItem("username_x")
 
-    console.log(this.id)
+    console.log(thing.id)
     // I NEED TO GET THE USERNAME PAIR BEFORE I CAN READ THE DATABASE
 
     let chat_usernames = this.id
@@ -123,6 +124,7 @@ var firebaseConfig = {
             let messages = chatrooms[chatroom]
             for(message of messages){
               // START POPULATING THE CRAP
+              console.log(message)
             }
           }
           
