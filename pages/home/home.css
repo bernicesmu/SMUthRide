@@ -93,10 +93,11 @@ body {
 
 .rec_rides_cards {
     padding: 0%;
+    align-content: center;
 }
 
 .ride_card {
-    margin: 1.5em 0.5em;
+    margin: 1.5em 3em;
 }
 
 .row {
@@ -104,17 +105,44 @@ body {
     height: 80vh;
 }
 
-.profile_pic {
+.card {
+    display:flex;
+    width: 100%;
+}
+
+.profile {
+    display:flex;
+    margin:1em 1em 1em 1em;
+    
+    
+}
+
+.profile img {
     display: inline-block;
     aspect-ratio: 1/1;
     width: 50%;
     border-radius: 50%;
-  
     object-fit: cover;
+
+}
+
+.pro_info {
+    margin: 1.5em 0 0 1em;
 }
 
 .recurring_symbol {
-    
+    background-color: #4e7570;
+    border-radius: 1em;
+    text-align: center;
+    padding:0.4em 0;
+    width:40%;
+    aspect-ratio: 1/0.1;
+    margin: 0 1em 1em 1em;
+
+}
+.ride_deets {
+    margin: 0 0 0 1em;
+    line-height: 0.8em;
 }
 
 
