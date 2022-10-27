@@ -6,7 +6,10 @@ import {
 
 import {getStorage,ref as sRef, uploadBytesResumable, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js"
 
-var username = localStorage.getItem("username_x");
+// var username = localStorage.getItem("username_x");
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const username = urlParams.get('user')
 
 find_user_profile(username);
 find_name_from_username(username);
