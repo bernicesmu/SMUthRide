@@ -1,4 +1,4 @@
-import {writeUserData, create_user, signin_user} from '../../index.js'
+import {writeUserData, create_user, signin_user, get_all_usernames} from '../../index.js'
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 
 var firebaseConfig = {
@@ -44,6 +44,18 @@ function register_user() {
     if (password != cfmpassword) { 
         alert("The passwords do not match! Please try again.")
         valid = false 
+    }
+
+    if (username.includes(";") | username.includes(",")) { 
+        alert("Username cannot contain comma (,) or semicolon (;).")
+        valid = false 
+    }
+
+    get_all_usernames()
+    var all_usernames = localStorage.getItem("all_usernames")
+    if (all_usernames.includes(username)) { 
+        alert("Someone else has the same username! Please choose another one.")
+        valid = false
     }
 
     if (valid) { 
