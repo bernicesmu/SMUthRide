@@ -34,9 +34,9 @@ const listings = Vue.createApp({
         check_and_populate(){
 
             if (this.to_from === "To"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from == "To");
+                this.display_listings = this.listings.filter(x => x.smu_to_from == "To" && "users_offered" in x);
             } else if (this.to_from === "From"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from == "From");
+                this.display_listings = this.listings.filter(x => x.smu_to_from == "From" && "users_offered" in x);
             }
 
         },
