@@ -161,8 +161,15 @@ export function find_chat(username){
       find_last_chat_message(chat_id)
       let message = localStorage.getItem("latest_message")
       // console.log(message)
-      get_name(chat_usernames,username)
-      let other_user = localStorage.getItem("other_user_name")
+      var chatid_ids = chat_id.split(";")
+      for (var id of chatid_ids) { 
+        if (id != username) { 
+          var other_username = id
+        }
+      }
+      find_name_from_username(other_username)
+      let other_user = localStorage.getItem("displayname")
+      localStorage.removeItem("displayname")
       // NO PROFILE PAGE
       print_user(message,other_user)
       localStorage.removeItem("latest_message")
@@ -190,23 +197,6 @@ export function find_last_chat_message(paired_usernames){
       
     }
   });
-
-
-}
-
-export function get_name(chat_id, user_id){
-  const db = getDatabase()
-  const reference = ref(db, 'users')
-  let ids = chat_id.split(";")
-  for(var id of ids){
-    if(id != user_id){
-      //get the user name
-      onValue(reference, (snapshot) => {
-        const data = snapshot.val();
-        localStorage.setItem("other_user_name", data[id].name)
-      });
-    }
-  }
 }
 
 export function print_user(message,other_user){

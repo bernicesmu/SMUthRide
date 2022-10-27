@@ -34,9 +34,9 @@ const listings = Vue.createApp({
         check_and_populate(){
 
             if (this.to_from === "To"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from === "To");
+                this.display_listings = this.listings.filter(x => x.smu_to_from == "To");
             } else if (this.to_from === "From"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from === "From");
+                this.display_listings = this.listings.filter(x => x.smu_to_from == "From");
             }
 
         },
@@ -46,7 +46,7 @@ const listings = Vue.createApp({
             let minutes = Number(date.split(":")[1]);
             let ampm = hours >= 12 ? 'pm' : 'am';
             hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
+            hours = hours ? hours : 12; // the h`our '0' should be '12'
             minutes = minutes < 10 ? '0'+minutes : minutes;
             return hours + ':' + minutes + ' ' + ampm;
 
@@ -57,9 +57,7 @@ const listings = Vue.createApp({
             return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
         },
         get_user_name(username){
-
-            let user = this.users.filter(x => x.user_name === username)
-            return user[0].name
+            return this.users[username].name
         }
     },
     mounted() {
@@ -68,16 +66,11 @@ const listings = Vue.createApp({
         const rides = ref(db, `rides/`)
         const users = ref(db, `users/`)
         onValue(users, (snapshot) => {
-            for (const key in snapshot.val()){
-                this.users.push(snapshot.val()[key])
-            }
+            this.users = snapshot.val();
         });
 
         onValue(rides, (snapshot) => {
-
             this.listings = snapshot.val()
-            this.listings.splice(0, 1)
-            console.log(this.listings)
             this.check_and_populate()
         })
         }

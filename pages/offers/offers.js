@@ -37,7 +37,6 @@ const listings = Vue.createApp({
             } else if (this.to_from === "From"){
                 this.display_listings = this.listings.filter(x => x.smu_to_from === "From");
             }
-            console.log(this.display_listings)
             this.driver_listings= this.display_listings.filter(x=> x.driver_username === localStorage.getItem("user"))
             this.rider_listings=  this.display_listings.filter(x=> x.users_offered.includes(localStorage.getItem('user')))
             console.log(this.rider_listings)
@@ -59,27 +58,20 @@ const listings = Vue.createApp({
             return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
         },
         get_user_name(username){
-
-            let user = this.users.filter(x => x.user_name === username)
-            return user[0].name
+            return this.users[username].name
         }
     },
     mounted() {
         const db = getDatabase();
         const rides = ref(db, `rides/`)
         const users = ref(db, `users/`)
-        console.log('hi')
         onValue(users, (snapshot) => {
-            for (const key in snapshot.val()){
-                this.users.push(snapshot.val()[key])
-            }
-            console.log(this.users)
+            this.users = snapshot.val();
         });
 
         onValue(rides, (snapshot) => {
 
             this.listings = snapshot.val()
-            this.listings.splice(0, 1)
 
             this.check_and_populate()
         })

@@ -92,15 +92,33 @@ var firebaseConfig = {
     });
 
 
-    find_chat(username)
 
-
-  let chats = document.getElementsByClassName("chatbox")
-  for(var chat of chats){
-    chat.addEventListener("click",populate_chat(this))
+  find_chat(username)
+  
+  // let html_string =
+  //   `<div id="qwerty" class="chatbox" style="padding:10px; display: flex;">
+  //       <div id="photo"></div>
+  //       <div style="margin-left: 20px;align-self: start;width: 70%;"> 
+  //         <b>qwerty</b>
+  //         <div style="text-overflow: ellipsis; display: block; width:50%;white-space: nowrap; width: 100%; overflow: hidden;">
+  //           ywiduh
+  //         </div>
+  //       </div>
+  //   </div>`
+  // document.getElementById("chatroom").innerHTML += html_string
+  
+  const mychats = document.getElementsByClassName("chatbox")
+  console.log(mychats, mychats.length)
+  for (var mychat of mychats) {
+    console.log(mychat)
+    // mychat.addEventListener("click",populate_chat)
   }
 
-  function populate_chat(thing){
+  var mychat = document.getElementById("joleneforchat")
+  console.log(mychat)
+
+  function populate_chat( element ){
+    console.log(this)
     const username = localStorage.getItem("username_x")
 
     // console.log(thing.id)
