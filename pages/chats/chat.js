@@ -14,9 +14,18 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   
   const db = firebase.database(); 
-  const username = prompt("Enter username")
+  // const username = prompt("Enter username")
+  const username = localStorage.getItem("username_x")
+  console.log(username)
   
   document.getElementById("message-form").addEventListener("submit", sendMessage);
+
+  document.getElementById("confirmOffer").addEventListener("click",write_offer)
+
+
+  function write_offer(){
+      
+  }
 
   function find_mid(chatid) { 
     const database = getDatabase(); 
@@ -54,20 +63,21 @@ var firebaseConfig = {
     
       // create db collection and send in the data
       // need to get your username plus your partner username
-      find_mid('001_002')
+      var chatid = "ber7;joleneusername" // hardcode1010
+      find_mid(chatid)
       var new_mid = parseInt(localStorage.getItem("new_mid"))  
       if (new_mid == 0) {
         new_mid = 1 
       }
       localStorage.removeItem("new_mid")
-      db.ref("messages/" + "001_002" + `/${new_mid}`).set({
+      db.ref("messages/" + chatid + `/${new_mid}`).set({
         // probably want to have a from and to so that we can identify...if from == username then we display as you sent it. Otherwise, we display as you receiving it
         username,
         message,
       });
     }
   
-  const fetchChat = db.ref("messages/001_002");
+  const fetchChat = db.ref("messages/ber7;joleneusername"); // hardcode1010
 
   
   fetchChat.on("child_added", function (snapshot) {
@@ -82,7 +92,70 @@ var firebaseConfig = {
     });
 
 
-    find_chat()
-    localStorage.clear()
+  find_chat(username)
+  
+  // let html_string =
+  //   `<div id="qwerty" class="chatbox" style="padding:10px; display: flex;">
+  //       <div id="photo"></div>
+  //       <div style="margin-left: 20px;align-self: start;width: 70%;"> 
+  //         <b>qwerty</b>
+  //         <div style="text-overflow: ellipsis; display: block; width:50%;white-space: nowrap; width: 100%; overflow: hidden;">
+  //           ywiduh
+  //         </div>
+  //       </div>
+  //   </div>`
+  // document.getElementById("chatroom").innerHTML += html_string
+  
+  const mychats = document.getElementsByClassName("chatbox")
+  console.log(mychats, mychats.length)
+  for (var mychat of mychats) {
+    console.log(mychat)
+    // mychat.addEventListener("click",populate_chat)
+  }
+
+  var mychat = document.getElementById("joleneforchat")
+  console.log(mychat)
+
+  function populate_chat( element ){
+    console.log(this)
+    const username = localStorage.getItem("username_x")
+
+    console.log(this.id)
+    // I NEED TO GET THE USERNAME PAIR BEFORE I CAN READ THE DATABASE
+
+    let chat_usernames = this.id
+    chat_usernames = "ber7;joleneusername" // hardcode1010
+    let usernames = chat_usernames.split(";")
+    
+    //READ THE DATABASE GET THE CHATROOM
+    const database = getDatabase(); 
+    const chats = ref(database, `messages`)
+
+    onValue(chats, (snapshot) => { 
+        let chatrooms = snapshot.val()
+
+        console.log(chatrooms)
+        for(var chatroom in chatrooms){
+          if(chatroom.includes(usernames[0]) && chatroom.includes(usernames[1])){
+            console.log(chatroom)
+            let messages = chatrooms[chatroom]
+            for(var message of messages){
+              // START POPULATING THE CRAP
+            }
+          }
+          
+        }
+    })
+
+
+    // CHECK IF THE MESSAGE IS SENT BY THIS USER THEN YOU POPULATE IT AS HIS SIDE, ELSE YOU POPULATE AS THE OTHER SIDE 
+
+  }
+
+  function send_offer(){
+    // query select the driver, and query select the ride
+
+    
+  }
 
 

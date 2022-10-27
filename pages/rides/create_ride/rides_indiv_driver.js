@@ -1,5 +1,5 @@
 import {writeUserData, write_ride, find_rid} from '../../../index.js'
-writeUserData(1, username, "regine@hello.com", "regine.com")
+// writeUserData(username, "regine@hello.com", 1)
 
 const ride_form = Vue.createApp({
     data() {
@@ -18,9 +18,9 @@ const ride_form = Vue.createApp({
         }
     }
 })
-ride_form.mount('#ride_form')
+// ride_form.mount('#ride_form')
 
-document.getElementById('rides').addEventListener('submit', write_ride_local) 
+document.getElementById('rides').addEventListener('click', write_ride_local) 
 
 var username = "rferefvc" // to use session management to dynamically retrieve the username
 find_rid(username)
@@ -29,12 +29,38 @@ var rideid = parseInt(localStorage.getItem("rideid")) + 1
 // writeUserData(1, username, email, "regine.com")
 
 function write_ride_local() {
+    
+    var username = localStorage.getItem("username_x")
+
+    // const database = getDatabase(); 
+    // const chats = ref(database, `users/${username}`)
+    // onValue(chats, (snapshot) => { 
+      
+    //   const data = snapshot.val();
+    //   var userid
+        
+    // })
+    var rideid = find_rid() + 1
+
     var inputs = document.getElementsByTagName('input')
-    var address = inputs.address.value 
-    var cost = inputs.cost.value
-    var capacity = inputs.capacity.value
+
+    if (document.getElementById("location_from").innerHTML == "SMU"){
+        var smu_to_from = "From"
+    }
+    else{
+        var smu_to_from = "To"
+    }
+    
+    var user_address = inputs.address.value 
+    // console.log(address)
+    var smu_location = document.getElementById("smulocation").options[document.getElementById("smulocation").selectedIndex].text;
+    var cost = parseFloat(inputs.cost.value)
+    var max_capacity = parseInt(inputs.capacity.value)
     var frequency = document.querySelector('input[name="frequency"]:checked').value
     var date = inputs.date.value
     var time = inputs.time.value 
-    write_ride(username, rideid, address, cost, capacity, frequency, date, time)
+    var users_offered = [""]
+    var area = "Changi Prison"
+    write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area)
+
 }
