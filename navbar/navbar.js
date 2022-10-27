@@ -36,16 +36,17 @@ const navbar = Vue.createApp({
                         <a class="nav-link nav-item-top" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/rides/rides_list/rides_listing.html'">Rides</a>
+                        <a class="nav-link nav-item-top" :href=" relativePath +
+                        'pages/rides/rides_list/rides_listing.html' ">Rides</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/offers/offers.html'">Offers</a>
+                        <a class="nav-link nav-item-top" :href=" offerURL ">Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/chats/chat.html'">Chat</a>
+                        <a class="nav-link nav-item-top" :href=" chatURL ">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/profile/profile.html'"><img :src="relativePath + 'pages/profile/ded.png'" class="profile-img"/></a>
+                        <a class="nav-link nav-item-top" :href=" profileURL "><img :src="relativePath + 'pages/profile/ded.png'" class="profile-img"/></a>
                     </li>
                 </ul>
             </div>
@@ -61,6 +62,34 @@ const navbar = Vue.createApp({
                 return "../../";
             } else {
                 return "../../../";
+            }
+        },
+        isLoggedIn() {
+            return localStorage.getItem("username_x");
+        },
+        offerURL() {
+            if (this.isLoggedIn) {
+                return this.relativePath + "pages/offers/offers.html";
+            } else {
+                return this.relativePath + "pages/login/login.html";
+            }
+        },
+        chatURL() {
+            if (this.isLoggedIn) {
+                return this.relativePath + "pages/chats/chat.html";
+            } else {
+                return this.relativePath + "pages/login/login.html";
+            }
+        },
+        profileURL() {
+            if (this.isLoggedIn) {
+                return (
+                    this.relativePath +
+                    "pages/profile/profile.html?user=" +
+                    localStorage.getItem("username_x")
+                );
+            } else {
+                return this.relativePath + "pages/login/login.html";
             }
         },
     },
