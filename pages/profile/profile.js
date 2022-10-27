@@ -1,3 +1,5 @@
+
+
 Vue.createApp({
     data() {
         return {
@@ -17,6 +19,7 @@ Vue.createApp({
             linkedinLink: "https://www.linkedin.com/in/",
             facebookLink: "https://www.facebook.com/",
             instagramLink: "https://www.instagram.com/",
+            selectedFile: null,
 
             ccaInput: "",
 
@@ -100,6 +103,33 @@ Vue.createApp({
             element.style.height = "5px";
             element.style.height = element.scrollHeight + "px";
         },
+        // onFileSelect(event){
+        //     console.log(event.target.files[0])
+        //     this.selectedFile= event.target.files[0]
+        // },
+        // uploadImage(){
+        //     const ref = firebase.storage().ref()
+
+        //     const file = document.querySelector("#photo").files[0]
+
+        //     const name = new Date() + '-' + file.name
+
+        //     const metadata = {
+        //         contentType:file.type
+        //     }
+
+        //     const task = ref.child(name).put(file,metadata)
+
+        //     task
+        //     .then(snapshot => {
+        //         snapshot.ref.getDownloadURL()
+        //     })
+        //     .then(url => {
+        //         console.log(url)
+        //     })
+        // }
+      
+    
     },
     created() {
         // @bernice I have temporarily hardcoded values

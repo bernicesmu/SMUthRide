@@ -68,7 +68,19 @@
 
         <div id="profileVue" class="wrapper">
             <div class="profile text-center justify-content-center h-100">
-                <img class="profile-pic" src="ded.png" alt="profile picture" />
+                <!-- <img class="profile-pic" src="ded.png" alt="profile picture" /> -->
+                <!-- <img class="profile-pic" v-bind:src="selectedFile" alt="profile picture" /> 
+                {{selectedFile}} -->
+                
+                <!-- <input type = "file" ref="fileInput" id="photo"> -->
+                <!-- <button @click="$refs.fileInput.click()">Pick File</button> -->
+                <!-- <button id="upload">Upload</button> -->
+                <img id="myimg" width="50" height="50">
+                <div id="buttons">
+                    <!-- <button id="selbtn">Select Image</button> -->
+                    <button id="upbtn">Upload Image</button>
+                </div>
+                
                 <h2 class="name">
                     <strong
                         ><input
@@ -347,5 +359,41 @@
             // }
             // form.addEventListener('submit', handleForm);
         </script>
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-analytics.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+              apiKey: "AIzaSyCCVjpCi9lziMF130jj2UtJGiPc0MamUkY",
+              authDomain: "wad2-smuth-ride.firebaseapp.com",
+              databaseURL: "https://wad2-smuth-ride-default-rtdb.asia-southeast1.firebasedatabase.app",
+              projectId: "wad2-smuth-ride",
+              storageBucket: "wad2-smuth-ride.appspot.com",
+              messagingSenderId: "738000465812",
+              appId: "1:738000465812:web:9d74b4f15684ed2a83a981",
+              measurementId: "G-E7M5LHMTL8"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+      
+            import {getStorage,ref as sRef, uploadBytesResumable, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js"
+
+            function uploadImage(e){
+                const storage = getStorage()
+                const storageReference = storageReference(storage, 'public/myfile')
+                const uploadTask = uploadBytesResumable(storageReference, e.target.files[0]);
+
+                console.log(uploadTask)
+            }
+
+            
+        </script>      
     </body>
 </html>

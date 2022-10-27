@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Firebase Image Upload in Javascript</title>
+  </head>
+  <body>
+     <img id="myimg" style="height: 200px;width:200px;border:2px black solid">
+   <input type = "file"  ref="fileInput" id="photo">
+    
+    <button>Upload Image</button>
+
+
+
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCCVjpCi9lziMF130jj2UtJGiPc0MamUkY",
+        authDomain: "wad2-smuth-ride.firebaseapp.com",
+        databaseURL: "https://wad2-smuth-ride-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "wad2-smuth-ride",
+        storageBucket: "wad2-smuth-ride.appspot.com",
+        messagingSenderId: "738000465812",
+        appId: "1:738000465812:web:9d74b4f15684ed2a83a981",
+        measurementId: "G-E7M5LHMTL8"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      import {getStorage,ref as sRef, uploadBytesResumable, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js"
+
+      
+
+      var files = []
+      var reader = new FileReader()
+      var input = document.createElement('input')
+      input.type = 'file'
+      var myimg = document.getElementById('myimg')
+      input.onchange = e =>{
+         files = e.target.files
+
+// var extention = GetExtName(files[0])
+
+         reader.readAsDataURL(files[0])
+
+         
+         
+      }
+      
+      reader.onload = function() {
+         myimg.src = reader.result
+         }
+
+      
+    </script>
+    
+  </body>
