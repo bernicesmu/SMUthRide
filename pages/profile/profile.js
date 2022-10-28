@@ -1,5 +1,3 @@
-
-
 Vue.createApp({
     data() {
         return {
@@ -19,6 +17,9 @@ Vue.createApp({
             linkedinLink: "https://www.linkedin.com/in/",
             facebookLink: "https://www.facebook.com/",
             instagramLink: "https://www.instagram.com/",
+            linkedinLinkInput: "",
+            facebookLinkInput: "",
+            instagramLinkInput: "",
             selectedFile: null,
 
             ccaInput: "",
@@ -70,14 +71,23 @@ Vue.createApp({
     computed: {
         showSocials() {
             if (
-                this.linkedinLink !== "" &&
-                this.facebookLink !== "" &&
-                this.instagramLink !== ""
+                this.linkedinLinkInput !== "" ||
+                this.facebookLinkInput !== "" ||
+                this.instagramLinkInput !== ""
             ) {
                 return true;
             } else {
                 return false;
             }
+        },
+        fullFacebookLink() {
+            return this.facebookLink + this.facebookLinkInput;
+        },
+        fullInstagramLink() {
+            return this.instagramLink + this.instagramLinkInput;
+        },
+        fullLinkedinLink() {
+            return this.linkedinLink + this.linkedinLinkInput;
         },
     },
     methods: {
@@ -128,8 +138,6 @@ Vue.createApp({
         //         console.log(url)
         //     })
         // }
-      
-    
     },
     created() {
         // @bernice I have temporarily hardcoded values
@@ -153,6 +161,8 @@ Vue.createApp({
         speed = localStorage.getItem("speed");
         rs_status = localStorage.getItem("status");
         year = localStorage.getItem("year");
+        // console.log(facebook);
+        // console.log(this.fullFacebookLink);
 
         cca = cca.split(",");
         cca.push("");
@@ -170,9 +180,9 @@ Vue.createApp({
         this.prefConvenience = convenience;
         this.prefSpeed = speed;
         this.ccas = cca;
-        this.linkedinLink = linkedin;
-        this.facebookLink = facebook;
-        this.instagramLink = instagram;
+        this.linkedinLinkInput = linkedin;
+        this.facebookLinkInput = facebook;
+        this.instagramLinkInput = instagram;
     },
     mounted() {
         for (let element of document.getElementsByClassName("preference")) {
