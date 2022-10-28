@@ -167,8 +167,8 @@ Vue.createApp({
         // console.log(this.fullFacebookLink);
 
         // I (kenming) COMMENTED THIS CODE OUT CAUSE IT WAS THROWING ERRORS
-        // cca = cca.split(",");
-        // cca.push("");
+        cca = cca.split(",");
+        cca.push("");
 
         this.displayname = displayname;
         this.degree = degree;

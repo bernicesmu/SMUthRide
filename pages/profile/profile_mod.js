@@ -8,13 +8,25 @@ import {
 import {getStorage,ref as sRef, uploadBytesResumable, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js"
 
 // database
-
 import { getDatabase, ref, set, child, get, update, remove, onValue} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js"
 
 // var username = localStorage.getItem("username_x");
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const username = urlParams.get('user')
+
+
+const url = window.location.href
+
+if (url.includes("profile_edit.html")) { 
+    var username = localStorage.getItem("username_x")
+    document.getElementById("profile_form").action = `./profile.html?user=${username}`
+}
+else { 
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var username = urlParams.get('user')
+    if (username != localStorage.getItem("username_x")) { 
+        document.getElementById("edit-profile").innerHTML = ""
+    }
+}
 
 find_user_profile(username);
 find_name_from_username(username);
@@ -105,7 +117,10 @@ var input = document.createElement("input")
 
 input.type = "file"
 
-// document.getElementById("buttons").appendChild(input)
+if (document.getElementById("buttons")) { 
+    document.getElementById("buttons").appendChild(input)
+    UpBtn.onclick = UploadProcess
+}
 
 input.onchange = e =>{
     files = e.target.files
@@ -211,8 +226,6 @@ function GetFileName(file){
     let filename = temp.slice(0,-1).join('.')
     return filename
 }
-
-UpBtn.onclick = UploadProcess
 
 
 
