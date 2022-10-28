@@ -66,6 +66,7 @@ Vue.createApp({
                 "ESFP",
                 "ABCD",
             ],
+            picture_link : ""
         };
     },
     computed: {
@@ -113,6 +114,7 @@ Vue.createApp({
             element.style.height = "5px";
             element.style.height = element.scrollHeight + "px";
         },
+        
         // onFileSelect(event){
         //     console.log(event.target.files[0])
         //     this.selectedFile= event.target.files[0]
@@ -164,8 +166,9 @@ Vue.createApp({
         // console.log(facebook);
         // console.log(this.fullFacebookLink);
 
-        cca = cca.split(",");
-        cca.push("");
+        // I (kenming) COMMENTED THIS CODE OUT CAUSE IT WAS THROWING ERRORS
+        // cca = cca.split(",");
+        // cca.push("");
 
         this.displayname = displayname;
         this.degree = degree;
