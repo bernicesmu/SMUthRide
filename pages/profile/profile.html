@@ -117,7 +117,7 @@
                         <ul class="socials-ul" v-if=" showSocials ">
                             <li v-if=" linkedinLinkInput !== '' ">
                                 <a
-                                    href="https://www.linkedin.com/in/"
+                                    :href="linkedinLink + linkedinLinkInput"
                                     target="_blank"
                                     ><i
                                         class="fab fa-linkedin fa-2x profile-fab"
@@ -127,7 +127,7 @@
                             </li>
                             <li v-if=" facebookLinkInput !== '' ">
                                 <a
-                                    href="https://www.facebook.com/"
+                                    :href="facebookLink + facebookLinkInput"
                                     target="_blank"
                                     ><i
                                         class="fab fa-facebook-square fa-2x profile-fab"
@@ -137,7 +137,7 @@
                             </li>
                             <li v-if=" instagramLinkInput !== '' ">
                                 <a
-                                    href="https://www.instagram.com/"
+                                    :href="instagramLink + instagramLinkInput"
                                     target="_blank"
                                     ><i
                                         class="fab fa-instagram fa-2x profile-fab"
