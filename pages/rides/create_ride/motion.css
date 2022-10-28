@@ -5,7 +5,7 @@
 }
 
 @keyframes wave {
-    0% {
+    left_right{
         transform: translate(0px,10px);
 }
     20% {
