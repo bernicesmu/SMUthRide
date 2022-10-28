@@ -4,7 +4,12 @@ import {
     write_user_profile,
 } from "../../index.js";
 
-import {getStorage,ref as sRef, uploadBytesResumable, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js"
+// firebase storage
+import {getStorage,ref as sRef, uploadBytesResumable, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js"
+
+// database
+
+import { getDatabase, ref, set, child, get, update, remove, onValue} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js"
 
 // var username = localStorage.getItem("username_x");
 const queryString = window.location.search;
@@ -100,7 +105,7 @@ var input = document.createElement("input")
 
 input.type = "file"
 
-document.getElementById("buttons").appendChild(input)
+// document.getElementById("buttons").appendChild(input)
 
 input.onchange = e =>{
     files = e.target.files
@@ -127,6 +132,14 @@ async function UploadProcess(){
     var ImgToUpload = files[0]
 
     var ImgName = files[0].name
+    console.log(ImgName)
+    var filename = GetFileName(files[0])
+    if(!ValidateName(filename)){
+        alert("You cannot upload files with file name . # $ [ ]")
+        return
+    }
+
+
     const metadata = {
         contenType: ImgToUpload.type
     }
@@ -144,11 +157,62 @@ async function UploadProcess(){
     },
     ()=>{
         getDownloadURL(UploadTask.snapshot.ref).then((downloadURL)=>{
-            console.log(downloadURL)
+            // console.log(downloadURL)
+            toDatabase(downloadURL,ImgName)
         })
     })
 
 
 }
 
+
+// save pictures to database
+
+function toDatabase(url, ImgName){
+    const db = getDatabase();
+    console.log(url)
+    const username = localStorage.getItem("username_x")
+    set(ref(db,"users/" + username),{
+        picture_name : ImgName,
+        profile_url: url
+    })
+}
+
+// getting the image
+// MIGHT NEED TO MOVE THIS FUNCTION OUT OF THIS JS FILE
+async function GetProfilePicUrl(){
+    let username = localStorage.getItem("username_x")
+    console.log(username)
+    const db = getDatabase();
+
+    const data = ref(db, 'users/' + username);
+    onValue(data, (snapshot) => {
+        console.log(snapshot)
+        console.log(snapshot.val().profile_url)
+        // SHOULD NOT BE RETURNING
+        // return snapshot.val().profile_url
+    });
+
+    // get(child(db, `users/${username}`)).then((snapshot)=>{
+    //     if(snapshot.exists()){
+    //         console.log(snapshot.val().profile_url)
+    //         return snapshot.val().profile_url
+    //     }
+    // })
+}
+
+function ValidateName(filename){
+    var regex = /[\.#$\[\]]/
+    return !regex.test(filename)
+}
+
+function GetFileName(file){
+    let temp = file.name.split('.')
+    let filename = temp.slice(0,-1).join('.')
+    return filename
+}
+
 UpBtn.onclick = UploadProcess
+
+
+

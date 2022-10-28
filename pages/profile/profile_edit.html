@@ -385,13 +385,13 @@
       
             import {getStorage,ref as sRef, uploadBytesResumable, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js"
 
-            function uploadImage(e){
-                const storage = getStorage()
-                const storageReference = storageReference(storage, 'public/myfile')
-                const uploadTask = uploadBytesResumable(storageReference, e.target.files[0]);
+            // function uploadImage(e){
+            //     const storage = getStorage()
+            //     const storageReference = storageReference(storage, 'public/myfile')
+            //     const uploadTask = uploadBytesResumable(storageReference, e.target.files[0]);
 
-                console.log(uploadTask)
-            }
+            //     console.log(uploadTask)
+            // }
 
             
         </script>      

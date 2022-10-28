@@ -65,6 +65,7 @@ Vue.createApp({
                 "ESFP",
                 "ABCD",
             ],
+            picture_link : ""
         };
     },
     computed: {
@@ -103,31 +104,7 @@ Vue.createApp({
             element.style.height = "5px";
             element.style.height = element.scrollHeight + "px";
         },
-        // onFileSelect(event){
-        //     console.log(event.target.files[0])
-        //     this.selectedFile= event.target.files[0]
-        // },
-        // uploadImage(){
-        //     const ref = firebase.storage().ref()
-
-        //     const file = document.querySelector("#photo").files[0]
-
-        //     const name = new Date() + '-' + file.name
-
-        //     const metadata = {
-        //         contentType:file.type
-        //     }
-
-        //     const task = ref.child(name).put(file,metadata)
-
-        //     task
-        //     .then(snapshot => {
-        //         snapshot.ref.getDownloadURL()
-        //     })
-        //     .then(url => {
-        //         console.log(url)
-        //     })
-        // }
+        
       
     
     },
@@ -154,8 +131,9 @@ Vue.createApp({
         rs_status = localStorage.getItem("status");
         year = localStorage.getItem("year");
 
-        cca = cca.split(",");
-        cca.push("");
+        // I (kenming) COMMENTED THIS CODE OUT CAUSE IT WAS THROWING ERRORS
+        // cca = cca.split(",");
+        // cca.push("");
 
         this.displayname = displayname;
         this.degree = degree;
