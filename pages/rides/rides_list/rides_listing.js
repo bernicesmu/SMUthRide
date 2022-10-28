@@ -2,6 +2,7 @@
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyCCVjpCi9lziMF130jj2UtJGiPc0MamUkY",
     authDomain: "wad2-smuth-ride.firebaseapp.com",
@@ -23,10 +24,23 @@ const listings = Vue.createApp({
             listings: [],
             to_from : "From",
             display_listings: [],
+            search: '',
+            results: [],
+            isOpen: false,
+            possible_locations: ['Changi', 'Sengkang', 'Marina', "People's Park"],
 
         }
     },
     methods: {
+        searchResults() {
+            this.results = this.possible_locations.filter(item => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
+
+            this.isOpen = this.search !== '';
+        },
+        selectResult(location){
+            this.search = location
+            this.isOpen = false;
+        },
         change_direction(){
             this.to_from = this.to_from === "To" ? "From" : "To";
             this.check_and_populate()
@@ -73,7 +87,19 @@ const listings = Vue.createApp({
             this.listings = snapshot.val()
             this.check_and_populate()
         })
-        }
+        },
+    watch: {
+        search: function(value,oldValue){
+            if (value.length >1){
+            
+                this.isOpen = true;
+                this.display_listings = this.listings.filter(x => x.smu_to_from == this.to_from && "users_offered" in x && x.area.toLowerCase().indexOf(value.toLowerCase()) > -1);
+            }
+            }
+    },
+
 })
+// listings.component('autocomplete', {})
+
 
 listings.mount('#populate_listings')

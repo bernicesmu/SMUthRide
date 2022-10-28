@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../../navbar/nav_styles.css">
     <link rel="stylesheet" href="../../../main.css">
     <link rel="stylesheet" href="toggle_button.css">
+    <link rel="stylesheet" href="dropdown.css">
     <style>
 
 
@@ -73,6 +74,7 @@
             width: 100%;
             /*border: #ffba08 2px solid;*/
         }
+
 
         .form-control::placeholder {
             text-align: center;
@@ -164,7 +166,14 @@
             <div class=" inputs col-6 my-auto">
 
                 <i class="bi bi-search"></i>
-                <input name="search_rides" type="text" class="form-control" placeholder="Search Rides...">
+                <input name="search_rides" type="text" class="form-control"
+                       placeholder="Search Rides..." v-model="search" @input="searchResults()">
+                <div v-show="isOpen" class="dropdown">
+                    <ul v-for="location of results">
+                        <li class="result" v-on:click="selectResult(location)">{{location}}</li>
+                    </ul>
+                </div>
+
 
             </div>
             <div class="col-3 my-auto lh-lg d-flex justify-content-center">
@@ -181,7 +190,7 @@
 
     <div class="d-flex flex-wrap ">
 
-        <div class="card   col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings">
+        <div class="card col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings">
 
             <div class="card-body col py-0">
 
