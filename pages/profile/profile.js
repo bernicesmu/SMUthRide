@@ -183,9 +183,9 @@ Vue.createApp({
         this.prefConvenience = convenience;
         this.prefSpeed = speed;
         this.ccas = cca;
-        this.linkedinLinkInput = linkedin;
-        this.facebookLinkInput = facebook;
-        this.instagramLinkInput = instagram;
+        this.linkedinLinkInput += linkedin;
+        this.facebookLinkInput += facebook;
+        this.instagramLinkInput += instagram;
     },
     mounted() {
         for (let element of document.getElementsByClassName("preference")) {
