@@ -111,41 +111,42 @@
                         <!-- </p> -->
                     </div>
                 </div>
-                <div class="card profile-card p-1" v-if=" showSocials ">
+                <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title">Socials</h5>
-                        <ul class="socials-ul">
-                            <li v-if=" linkedinLink !== '' ">
+                        <ul class="socials-ul" v-if=" showSocials ">
+                            <li v-if=" linkedinLinkInput !== '' ">
                                 <a
                                     href="https://www.linkedin.com/in/"
                                     target="_blank"
                                     ><i
                                         class="fab fa-linkedin fa-2x profile-fab"
                                     ></i
-                                    >{{ linkedinLink }}</a
+                                    >{{ fullLinkedinLink }}</a
                                 >
                             </li>
-                            <li v-if=" facebookLink !== '' ">
+                            <li v-if=" facebookLinkInput !== '' ">
                                 <a
                                     href="https://www.facebook.com/"
                                     target="_blank"
                                     ><i
-                                        class="fab fa-facebook fa-2x profile-fab"
+                                        class="fab fa-facebook-square fa-2x profile-fab"
                                     ></i
-                                    >{{ facebookLink }}</a
+                                    >{{ fullFacebookLink }}</a
                                 >
                             </li>
-                            <li v-if=" instagramLink !== '' ">
+                            <li v-if=" instagramLinkInput !== '' ">
                                 <a
                                     href="https://www.instagram.com/"
                                     target="_blank"
                                     ><i
                                         class="fab fa-instagram fa-2x profile-fab"
                                     ></i
-                                    >{{ instagramLink }}</a
+                                    >{{ fullInstagramLink }}</a
                                 >
                             </li>
                         </ul>
+                        <p v-else>No socials added!!!</p>
                     </div>
                 </div>
             </main>
