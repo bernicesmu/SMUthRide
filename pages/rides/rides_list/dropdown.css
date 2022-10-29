@@ -1,0 +1,21 @@
+.dropdown {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+}
+.dropdown .result {
+  width: 100%;
+  padding: 4px;
+  background-color: #f5f7fa;
+  border-left: 1px solid #e6e9ed;
+  border-right: 1px solid #e6e9ed;
+  cursor: pointer;
+}
+.dropdown .result:last-child {
+  border-bottom: 1px solid #e6e9ed;
+}
+.dropdown .result:hover, .dropdown .result.selected {
+  background-color: #37bc9b;
+}
+
+/*# sourceMappingURL=dropdown.css.map */

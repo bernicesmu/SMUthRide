@@ -1,0 +1,19 @@
+.dropdown {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  .result {
+    width: 100%;
+    padding: 4px;
+    background-color: #f5f7fa;
+    border-left: 1px solid #e6e9ed;
+    border-right: 1px solid #e6e9ed;
+    cursor: pointer;
+    &:last-child {
+      border-bottom: 1px solid #e6e9ed;
+    }
+    &:hover, &.selected {
+      background-color: #37bc9b;
+    }
+  }
+}
