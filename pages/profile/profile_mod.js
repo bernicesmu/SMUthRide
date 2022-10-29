@@ -5,26 +5,42 @@ import {
 } from "../../index.js";
 
 // firebase storage
-import {getStorage,ref as sRef, uploadBytesResumable, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js"
+import {
+    getStorage,
+    ref as sRef,
+    uploadBytesResumable,
+    getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
 
 // database
-import { getDatabase, ref, set, child, get, update, remove, onValue} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js"
+import {
+    getDatabase,
+    ref,
+    set,
+    child,
+    get,
+    update,
+    remove,
+    onValue,
+} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 
 // var username = localStorage.getItem("username_x");
 
+const url = window.location.href;
 
-const url = window.location.href
-
-if (url.includes("profile_edit.html")) { 
-    var username = localStorage.getItem("username_x")
-    document.getElementById("profile_form").action = `./profile.html?user=${username}`
-}
-else { 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    var username = urlParams.get('user')
-    if (username != localStorage.getItem("username_x")) { 
-        document.getElementById("edit-profile").innerHTML = ""
+if (url.includes("profile_edit.html")) {
+    let username = localStorage.getItem("username_x");
+    let username_elem = document.createElement("input");
+    username_elem.setAttribute("type", "hidden");
+    username_elem.setAttribute("name", "user");
+    username_elem.setAttribute("value", username);
+    document.getElementById("profile_form").appendChild(username_elem);
+} else {
+    let queryString = window.location.search;
+    let urlParams = new URLSearchParams(queryString);
+    let username = urlParams.get("user");
+    if (username != localStorage.getItem("username_x")) {
+        document.getElementById("edit-profile").innerHTML = "";
     }
 }
 
@@ -38,7 +54,7 @@ if (elem) {
 
 function update_user_database() {
     var inputs = document.getElementsByClassName("target-input");
-    var cca_options = document.getElementsByClassName('cca_options');
+    var cca_options = document.getElementsByClassName("cca_options");
     console.log(inputs);
     console.log(cca_options);
 
@@ -58,10 +74,10 @@ function update_user_database() {
     var rs_status = inputs.status.value;
     var year = inputs.year.value;
 
-    var cca = []
-    for (var cca_op of cca_options) { 
-        if (cca_op.value != "") { 
-            cca.push(cca_op.value)
+    var cca = [];
+    for (var cca_op of cca_options) {
+        if (cca_op.value != "") {
+            cca.push(cca_op.value);
         }
     }
 
@@ -85,9 +101,6 @@ function update_user_database() {
         year
     );
 
-   
-
-
     // function uploadImage(e){
     //     console.log("hello")
     //     const storage = getStorage()
@@ -101,109 +114,104 @@ function update_user_database() {
     // }
 
     // document.getElementById("upload").addEventListener("click",uploadImage)
-  
 }
 
-var files = []
-var reader = new FileReader()
+var files = [];
+var reader = new FileReader();
 
-var SelBtn = document.getElementById("selbtn")
-var UpBtn = document.getElementById("upbtn")
-var myimg = document.getElementById("myimg")
+var SelBtn = document.getElementById("selbtn");
+var UpBtn = document.getElementById("upbtn");
+var myimg = document.getElementById("myimg");
 
-var input = document.createElement("input")
+var input = document.createElement("input");
 
+input.type = "file";
 
-
-input.type = "file"
-
-if (document.getElementById("buttons")) { 
-    document.getElementById("buttons").appendChild(input)
-    UpBtn.onclick = UploadProcess
+if (document.getElementById("buttons")) {
+    document.getElementById("buttons").appendChild(input);
+    UpBtn.onclick = UploadProcess;
 }
 
-input.onchange = e =>{
-    files = e.target.files
+input.onchange = (e) => {
+    files = e.target.files;
 
     // var extension = GetFileExt(files[0])
     // var name = GetFileName(files[0])
-    reader.readAsDataURL(files[0])
+    reader.readAsDataURL(files[0]);
+};
 
+reader.onload = function () {
+    myimg.src = reader.result;
+
+    console.log(files[0].name);
+};
+
+function GetFileExt(file) {
+    var temp = file.name.split(".");
+    var ext = temp.slice;
 }
 
-reader.onload = function(){
-    myimg.src = reader.result
-    
-    console.log(files[0].name)
-}
+async function UploadProcess() {
+    var ImgToUpload = files[0];
 
-
-function GetFileExt(file){
-    var temp = file.name.split(".")
-    var ext = temp.slice
-}
-
-async function UploadProcess(){
-    var ImgToUpload = files[0]
-
-    var ImgName = files[0].name
-    console.log(ImgName)
-    var filename = GetFileName(files[0])
-    if(!ValidateName(filename)){
-        alert("You cannot upload files with file name . # $ [ ]")
-        return
+    var ImgName = files[0].name;
+    console.log(ImgName);
+    var filename = GetFileName(files[0]);
+    if (!ValidateName(filename)) {
+        alert("You cannot upload files with file name . # $ [ ]");
+        return;
     }
-
 
     const metadata = {
-        contenType: ImgToUpload.type
-    }
-    const storage = getStorage()
-    const storageRef = sRef(storage, "Users/" + ImgName)
+        contenType: ImgToUpload.type,
+    };
+    const storage = getStorage();
+    const storageRef = sRef(storage, "Users/" + ImgName);
 
-    const UploadTask = uploadBytesResumable(storageRef, ImgToUpload,metadata)
+    const UploadTask = uploadBytesResumable(storageRef, ImgToUpload, metadata);
 
-    UploadTask.on('state-changed',(snapshot)=>{
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        console.log(progress)
-    },
-    (error) =>{
-        alert("error: img not uploaded")
-    },
-    ()=>{
-        getDownloadURL(UploadTask.snapshot.ref).then((downloadURL)=>{
-            // console.log(downloadURL)
-            toDatabase(downloadURL,ImgName)
-        })
-    })
-
-
+    UploadTask.on(
+        "state-changed",
+        (snapshot) => {
+            var progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log(progress);
+        },
+        (error) => {
+            alert("error: img not uploaded");
+        },
+        () => {
+            getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
+                // console.log(downloadURL)
+                toDatabase(downloadURL, ImgName);
+            });
+        }
+    );
 }
-
 
 // save pictures to database
 
-function toDatabase(url, ImgName){
+function toDatabase(url, ImgName) {
     const db = getDatabase();
-    console.log(url)
-    const username = localStorage.getItem("username_x")
-    set(ref(db,"users/" + username),{
-        picture_name : ImgName,
-        profile_url: url
-    })
+    console.log(url);
+    const username = localStorage.getItem("username_x");
+    set(ref(db, "users/" + username), {
+        picture_name: ImgName,
+        profile_url: url,
+    });
 }
 
 // getting the image
 // MIGHT NEED TO MOVE THIS FUNCTION OUT OF THIS JS FILE
-async function GetProfilePicUrl(){
-    let username = localStorage.getItem("username_x")
-    console.log(username)
+async function GetProfilePicUrl() {
+    let username = localStorage.getItem("username_x");
+    console.log(username);
     const db = getDatabase();
 
-    const data = ref(db, 'users/' + username);
+    const data = ref(db, "users/" + username);
     onValue(data, (snapshot) => {
-        console.log(snapshot)
-        console.log(snapshot.val().profile_url)
+        console.log(snapshot);
+        console.log(snapshot.val().profile_url);
         // SHOULD NOT BE RETURNING
         // return snapshot.val().profile_url
     });
@@ -216,16 +224,13 @@ async function GetProfilePicUrl(){
     // })
 }
 
-function ValidateName(filename){
-    var regex = /[\.#$\[\]]/
-    return !regex.test(filename)
+function ValidateName(filename) {
+    var regex = /[\.#$\[\]]/;
+    return !regex.test(filename);
 }
 
-function GetFileName(file){
-    let temp = file.name.split('.')
-    let filename = temp.slice(0,-1).join('.')
-    return filename
+function GetFileName(file) {
+    let temp = file.name.split(".");
+    let filename = temp.slice(0, -1).join(".");
+    return filename;
 }
-
-
-
