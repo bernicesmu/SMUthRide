@@ -67,6 +67,29 @@
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
 
+        .error {
+            background-color: coral;
+            display: none;
+            width: 500px;
+            height: 30px;
+        }
+
+        #id {
+            margin: 0;
+            display: block;
+            justify-content: center;
+        }
+
+        .error.display-error {
+            display: block;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            border-radius: 10px;
+            transform: translateY(10px);
+            margin-top: 0;
+        }
+
         #problematic {
             display: block;
             justify-content: center;
@@ -457,8 +480,10 @@
                         <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required/>
                         <span class="highlight"></span>
                         <label class="text-label">Drop off address</label>
-                        <p class="error"></p>
                     </div>
+                </div>
+                <div id="kms" class="mx-auto">
+                    <p id='error' class="error mx-auto"></p>
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
@@ -475,14 +500,14 @@
                 console.log(document.forms['location_form'].location_field.value)
 
                 function showError(errorMessage){
-                    list = document.forms['location_form'].classList
+                    list = document.getElementsByTagName('p')['error'].classList
                     console.log(list)
                     list.add("display-error");
-                    document.getElementsByClassName("error").innerText = errorMessage
+                    document.getElementsByTagName('p')['error'].innerHTML = errorMessage
                 }
 
                 function clearError() {
-                    document.forms['location_form'].classList.remove("display-error");
+                    document.getElementsByTagName('p')['error'].classList.remove("display-error");
                     console.log("this kinda works")
                 }
 
