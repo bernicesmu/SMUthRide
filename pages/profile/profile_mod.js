@@ -39,6 +39,7 @@ if (url.includes("profile_edit.html")) {
     let queryString = window.location.search;
     let urlParams = new URLSearchParams(queryString);
     let username = urlParams.get("user");
+    GetProfilePicUrl()
     if (username != localStorage.getItem("username_x")) {
         document.getElementById("edit-profile").innerHTML = "";
     }
@@ -157,10 +158,10 @@ async function UploadProcess() {
     var ImgName = files[0].name;
     console.log(ImgName);
     var filename = GetFileName(files[0]);
-    if (!ValidateName(filename)) {
-        alert("You cannot upload files with file name . # $ [ ]");
-        return;
-    }
+    // if (!ValidateName(filename)) {
+    //     alert("You cannot upload files with file name . # $ [ ]");
+    //     return;
+    // }
 
     const metadata = {
         contenType: ImgToUpload.type,
@@ -214,6 +215,7 @@ async function GetProfilePicUrl() {
         console.log(snapshot.val().profile_url);
         // SHOULD NOT BE RETURNING
         // return snapshot.val().profile_url
+        document.getElementById('profile-picture').setAttribute('src', snapshot.val().profile_url)
     });
 
     // get(child(db, `users/${username}`)).then((snapshot)=>{
@@ -224,10 +226,10 @@ async function GetProfilePicUrl() {
     // })
 }
 
-function ValidateName(filename) {
-    var regex = /[\.#$\[\]]/;
-    return !regex.test(filename);
-}
+// function ValidateName(filename) {
+//     var regex = /[\.#$\[\]]/;
+//     return !regex.test(filename);
+// }
 
 function GetFileName(file) {
     let temp = file.name.split(".");
