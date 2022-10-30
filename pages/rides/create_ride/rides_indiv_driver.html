@@ -451,23 +451,19 @@
                 console.log(document.forms['location_form'].location_field.value)
 
                 function showError(errorMessage){
-                    console.log(document.querySelector("error").classList)
-                    list = document.querySelector("error").classList
+                    list = document.forms['location_form'].classList
                     console.log(list)
                     list.add("display-error");
-                    document.querySelector("error").innerHTML = errorMessage
+                    document.getElementsByClassName("error").innerText = errorMessage
                 }
 
                 function clearError() {
-                    let errors = document.querySelectorAll("error");
-                    for(let error of errors){
-                        console.log(error)
-                        error.classList.remove("display-error")
-                        console.log("this kinda works")
-                    }
+                    document.forms['location_form'].classList.remove("display-error");
+                    console.log("this kinda works")
                 }
 
                 let form = document.forms['location_form']
+                console.log(form['location_field'].classList)
 
                 form.onclick = function(event){
                     
