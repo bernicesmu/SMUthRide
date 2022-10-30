@@ -75,7 +75,6 @@
             /*border: #ffba08 2px solid;*/
         }
 
-
         .form-control::placeholder {
             text-align: center;
         }
@@ -97,7 +96,6 @@
             transform: scale(1.1);
 
         }
-
 
         .bi-person-fill{
             font-size: 32px;
@@ -203,9 +201,8 @@
                     <div class="bd-highlight col-4 my-auto">
 
                         <div class="d-flex justify-content-center">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
-                                 alt="Generic placeholder image" class="img-fluid rounded-circle border"
-                            >
+                            <img v-bind:src="get_url(listing.driver_username)"
+                                 alt="Generic image" class="img-fluid w-75 h-75 rounded-circle">
                         </div>
 
                     </div>
