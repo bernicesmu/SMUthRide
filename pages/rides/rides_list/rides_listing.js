@@ -78,10 +78,13 @@ const listings = Vue.createApp({
         format_date(date){
             date = date.split("-")
             let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
-            return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
+            return [day[0],`${day[2]} ${day[1]} ${day[3]}`]
         },
         get_user_name(username){
             return this.users[username].name
+        },
+        get_url(username){
+            return this.users[username].profile_url
         }
     },
     mounted() {

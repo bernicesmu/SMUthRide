@@ -1,25 +1,39 @@
 import {writeUserData, write_ride, find_rid} from '../../../index.js'
 // writeUserData(username, "regine@hello.com", 1)
 
-const ride_form = Vue.createApp({
+const form_alerts = Vue.createApp({
     data() {
         return {
             date: "",
-
+            drop_off: "",
+            today: new Date().toISOString().split("T")[0],
+            location_input: "",
+            location_alert: false,
         }
     },
     methods:{
         check_date(){
-
-            if (date===""){return false}
+            if (this.date===""){return false}
             let selected_date = this.date.split("-")
-            selected_date = new Date(selected_date[0], selected_date[1], selected_date[2])
+            selected_date = new Date(selected_date)
             const today = new Date()
-            return selected_date - today <= 1000 * 60 * 60 * 24 * 365;
+            let res = selected_date - today >= 1000 * 60 * 60 * 24 * 365;
+            console.log(res)
+            return res
+        },
+        check_drop_off(){
+            if (this.drop_off===""){return true}
+            return false;
+        }
+    },
+    watch:{
+        location_input(value,oldValue){
+            this.location_alert = value === "" && oldValue !== "";
         }
     }
 })
-// ride_form.mount('#ride_form')
+
+form_alerts.mount('#form_alerts')
 
 document.getElementById('rides').addEventListener('click', write_ride_local) 
 
