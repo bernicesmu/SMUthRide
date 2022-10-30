@@ -19,8 +19,32 @@
     transition: top 0.8s ease, background-color 0.8s ease;
 }
 
+.street {
+	background:#999999;
+	height:30px;
+	width:102%;
+	position:absolute;
+	bottom:0px;
+    left: 0px;
+    transition: top 0.8s ease, background-color 0.8s ease;
+    z-index: 0;
+}
+
+.street-stripe {
+	background:#d4d4d4;
+	height:5px;
+	width:80px;
+	position:absolute;
+	bottom:13px;
+    left: 0px;
+	border-radius:2px;
+	box-shadow:180px 0 0 #d4d4d4, 360px 0 0 #d4d4d4 , 540px 0 0 #d4d4d4 , 720px 0 0 #d4d4d4 , 900px 0 0 #d4d4d4 , 1080px 0 0 #d4d4d4 , 1260px 0 0 #d4d4d4 , 1440px 0 0 #d4d4d4 , 1620px 0 0 #d4d4d4 , 1800px 0 0 #d4d4d4;
+    transition: top 0.8s ease, background-color 0.8s ease;
+}
+
 .nav-item {
     padding-left: 0.5rem;
+    z-index: 3;
 }
 
 .nav-link {
@@ -38,6 +62,7 @@
 .nav-item a:hover,
 .nav-item a:active {
     font-weight: 900;
+    color: #efb700;
     transition: 0.4s ease;
 }
 
@@ -46,11 +71,26 @@
 }
 
 .nav-item-down {
-    color: #b7b7b7;
+    color: #b31c13;
 }
 
-.active-page {
-    color: black;
+.active-page-top {
+    color: #d8c7a3;
+}
+
+.active-page-down {
+    color: #00804f;
+}
+
+#side-car { 
+    height: 55px;
+    transform: translateY(-4px);
+    position: relative;
+    /* animation: beep-beep 5s linear infinite;  */
+}
+
+.navbar-brand { 
+    z-index: 10;
 }
 
 .profile-img {
@@ -61,4 +101,78 @@
     .nav-link {
         text-align: center;
     }
+}
+
+@keyframes beep-beep {
+    0%, 4%, 8% { 
+        transform: translateY(-4px);
+    }
+    2%, 6% { 
+        transform: translateY(0px);
+    }
+    54% { 
+        transform: translateX(100%) translateY(-4px);
+    }
+    100% { 
+        transform: translateX(0%) translateY(-4px);
+    }
+}
+
+@keyframes tyre-beep {
+    0% { 
+        transform: rotate(0deg);
+    }
+    8% { 
+        transform: rotate(0deg);
+    }
+    54% { 
+        transform: rotate(360deg);
+    }
+    100% { 
+        transform: rotate(0deg);
+    }
+}
+
+.tyre {
+	width:30px;
+	height:30px;
+	border-radius:50%;
+	background:#3f3f40;
+	position:absolute;
+	z-index:2;
+	left:9px;
+	top:20px;
+    animation: tyre-beep 5s infinite linear;
+    /* -moz-animation:tyre-rotate 5s infinite linear;
+    -webkit-animation:tyre-rotate 5s infinite linear; */
+}
+
+#div-car { 
+    animation: beep-beep 5s infinite linear;
+}
+
+#tyre-back { 
+    
+}
+
+#div-car { 
+    position: relative;
+}
+
+.navbar-toggler { 
+    z-index: 5;
+}
+
+.navbar-toggler-icon { 
+    z-index: 10;
+}
+
+@-moz-keyframes tyre-rotate {
+    from{-moz-transform:rotate(-360deg);}
+    to{-moz-transform:rotate(0deg);}	
+}
+
+@-webkit-keyframes tyre-rotate {
+    from{-webkit-transform:rotate(-360deg);}
+    to{-webkit-transform:rotate(0deg);}
 }
