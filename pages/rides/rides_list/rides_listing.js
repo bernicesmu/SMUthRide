@@ -17,7 +17,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-var locations = ['Boat Quay', 'Raffles Place', 'Marina', 'Chinatown', 'Tanjong Pagar', 'Alexandra', 'Commonwealth', 'Harbourfront', 'Telok Blangah', 'Buona Vista', 'West Coast', 'Clementi New Town', 'City Hall', 'Clarke Quay', 'Beach Road', 'Bugis', 'Rochor', 'Farrer Park', 'Serangoon', 'Orchard', 'River Valley', 'Tanglin', 'Holland', 'Bukit Timah', 'Newton', 'Novena', 'Balestier', 'Toa Payoh', 'Macpherson', 'Potong Pasir', 'Eunos', 'Geylang', 'Paya Lebar', 'East Coast', 'Marine Parade', 'Bedok', 'Upper East Coast', 'Changi Airport', 'Changi Village', 'Pasir Ris', 'Tampines', 'Hougang', 'Punggol', 'Sengkang', 'Ang Mo Kio', 'Bishan', 'Thomson', 'Clementi Park', 'Upper Bukit Timah', 'Boon Lay', 'Jurong', 'Tuas', 'Dairy Farm', 'Bukit Panjang', 'Choa Chu Kang', 'Lim Chu Kang', 'Tengah', 'Admiralty', 'Woodlands', 'Mandai', 'Upper Thomson', 'Sembawang', 'Yishun', 'Seletar', 'Yio Chu Kang']
+
+var locations = ['Boat Quay', 'Raffles Place', 'Marina', 'Chinatown', 'Tanjong Pagar', 'Alexandra', 'Commonwealth', 'Harbourfront', 'Telok Blangah', 'Buona Vista', 'West Coast', 'Clementi New Town', 'City Hall', 'Clarke Quay', 'Beach Road', 'Bugis', 'Rochor', 'Farrer Park', 'Serangoon', 'Orchard', 'River Valley', 'Tanglin', 'Holland', 'Bukit Timah', 'Newton', 'Novena', 'Balestier', 'Toa Payoh', 'Macpherson', 'Potong Pasir', 'Eunos', 'Geylang', 'Paya Lebar', 'East Coast', 'Marine Parade', 'Bedok', 'Upper East Coast', 'Changi', 'Pasir Ris', 'Tampines', 'Hougang', 'Punggol', 'Sengkang', 'Ang Mo Kio', 'Bishan', 'Thomson', 'Clementi Park', 'Upper Bukit Timah', 'Boon Lay', 'Jurong', 'Tuas', 'Dairy Farm', 'Bukit Panjang', 'Choa Chu Kang', 'Lim Chu Kang', 'Tengah', 'Admiralty', 'Woodlands', 'Mandai', 'Upper Thomson', 'Sembawang', 'Yishun', 'Seletar', 'Yio Chu Kang']
 
 const listings = Vue.createApp({
     data() {
@@ -97,6 +98,7 @@ const listings = Vue.createApp({
             this.check_and_populate()
         })
 
+
         },
     watch: {
         results(value,oldValue){
@@ -107,6 +109,12 @@ const listings = Vue.createApp({
                 document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani_backward")
                 document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani_forward");
             }
+        },
+        search(value,oldValue){
+            if (value !== ''){
+                this.display_listings = this.listings.filter(x => x.smu_to_from == this.to_from && "users_offered" in x && x.area.toLowerCase().indexOf(value.toLowerCase()) > -1);
+            }
+
         }
     }
 })
