@@ -105,7 +105,7 @@ var input = document.createElement("input")
 
 input.type = "file"
 
-// document.getElementById("buttons").appendChild(input)
+document.getElementById("buttons").appendChild(input)
 
 input.onchange = e =>{
     files = e.target.files
