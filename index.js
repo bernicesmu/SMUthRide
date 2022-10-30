@@ -77,7 +77,7 @@ export function write_ride(smu_location,smu_to_from,username,rideid,user_address
   set(ref(db, `rides/${rideid}`), {
     smu_location: smu_location, 
     smu_to_from : smu_to_from, 
-    username: username, 
+    driver_username: username, 
     user_address: user_address, 
     cost : cost, 
     area: area, 
@@ -104,7 +104,7 @@ export function find_rid() {
 
 export function create_chat(uid1, uid2) { 
   const db = getDatabase();
-  set(ref(db, `messages/${uid1}_${uid2}/`), {
+  set(ref(db, `messages/${uid1};${uid2}/`), {
     text: "hello world",
     user: "kenming",
     datetime: "13/10 5:49PM"
@@ -144,43 +144,162 @@ export function signin_user(email, password) {
   });
 }
 
-export function find_chat(){
+export function find_chat(username){
   const db = getDatabase()
   const reference = ref(db, 'messages')
-  var final_output = []
 // Attach an asynchronous callback to read the data at our posts reference
   onValue(reference, (snapshot) => {
     const data = snapshot.val();
     var values = Object.entries(data)
 
     for(var entry of values){
-      let username_array = []
-      let chat_id = entry[0]
-    if(chat_id.includes("001")){      
-      find_last_chat_message(chat_id)
+      let chatid = entry[0]
+      console.log(chatid)
+    if(chatid.includes(username)){     
+      find_last_chat_message(chatid)
       let message = localStorage.getItem("latest_message")
       // console.log(message)
-      get_name(chat_id,"001")
-      let other_user = localStorage.getItem("other_user_name")
-      print_user(message,other_user)
+      var chatusers = chatid.split(";")
+      for (var users of chatusers) { 
+        if (users != username) { 
+          var other_username = users
+        }
+      }
+      console.log(other_username)
+      find_name_from_username(other_username)
+      let other_user = localStorage.getItem("displayname")
+      localStorage.removeItem("displayname")
+      // NO PROFILE PAGE
+      print_user(message, other_user, other_username, chatid)
       localStorage.removeItem("latest_message")
       localStorage.removeItem("other_user_name")
+      const mychats = document.getElementsByClassName("chatbox")
+      console.log(mychats)
+      for (var mychat of mychats) {
+        console.log(mychat)
+        mychat.addEventListener("click",populate_chat2)
+      }
+    }
   }
+});
 }
 
-});
+export function populate_chat2() { 
+  const username = localStorage.getItem("username_x")
+  let chatid = this.id 
+  let usernames = chatid.split(";")
 
+  document.getElementById("message-form").addEventListener("submit", sendMessage);
+  localStorage.setItem("send_chatid", chatid)
+
+  const db = firebase.database(); 
+  const fetchChat = db.ref(`messages/${chatid}`); 
+  console.log(chatid)
+
+  fetchChat.on("child_added", function (snapshot) {
+    const messages = snapshot.val();
+    if (messages.dummy != 0) { 
+      const message = `<li class=${
+        username === messages.username ? "sent" : "receive"
+      }><span><p>${messages.username}: ${messages.message}</p></span></li>`;
+      // append the message on the page
+      document.getElementById("messages").innerHTML += message;
+    }
+  });
+}
+
+export function find_mid(chatid) { 
+  const database = getDatabase(); 
+  const chats = ref(database, `messages/${chatid}`)
+  onValue(chats, (snapshot) => { 
+    if (!snapshot.exists()) { 
+      set(ref(database, `messages/${chatid}/0`), {
+        dummy: 0
+      })
+    }
+    const data = snapshot.val();
+    var mid = 0
+    for (var i of data) { 
+      mid += 1 
+    }
+    localStorage.setItem("new_mid", mid)
+  })
+}
+
+export function sendMessage(e) {
+  e.preventDefault();
+  var chatid = localStorage.getItem("send_chatid")
+  const db = firebase.database(); 
+  var username = localStorage.getItem("username_x")
+
+  // get values to be submitted
+  const timestamp = Date.now();
+  const messageInput = document.getElementById("message-input");
+  const message = messageInput.value;
+
+  // clear the input box
+  messageInput.value = "";
+
+  //auto scroll to bottom
+  document
+    .getElementById("messages")
+    .scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+
+  // create db collection and send in the data
+  // need to get your username plus your partner username
+  find_mid(chatid)
+  var new_mid = parseInt(localStorage.getItem("new_mid"))  
+  if (new_mid == 0) {
+    new_mid = 1 
+  }
+  localStorage.removeItem("new_mid")
+  db.ref(`messages/${chatid}/${new_mid}`).set({
+    // probably want to have a from and to so that we can identify...if from == username then we display as you sent it. Otherwise, we display as you receiving it
+    username,
+    message,
+  });
+}
+
+export function populate_chat(){
+  const username = localStorage.getItem("username_x")
+
+  // console.log(thing.id)
+  // I NEED TO GET THE USERNAME PAIR BEFORE I CAN READ THE DATABASE
+
+  let chatid = this.id
+  // chat_usernames = "ber7;joleneusername" // hardcode1010
+  let usernames = chatid.split(";")
+  
+  //READ THE DATABASE GET THE CHATROOM
+  const database = getDatabase(); 
+  const chats = ref(database, `messages`)
+
+  onValue(chats, (snapshot) => { 
+      let chatrooms = snapshot.val()
+      console.log(chatrooms)
+      for(var chatroom in chatrooms){
+        if(chatroom.includes(usernames[0]) && chatroom.includes(usernames[1])){
+          console.log(chatroom)
+          let messages = chatrooms[chatroom]
+          for(var message of messages){
+            // START POPULATING THE CRAP
+            console.log(message)
+          }
+        }
+        
+      }
+  })
 }
 
 //NEED TO UPDATE WITH VUE FOR DYNAMIC RETREIVAL
-export function find_last_chat_message(paired_id){
+export function find_last_chat_message(paired_usernames){
   const db = getDatabase()
   const reference = ref(db, 'messages')
   onValue(reference, (snapshot) => {
     const data = snapshot.val();
-    paired_id = '001_002'
+    // paired_id = '001_002'
     for(var id in data){
-      if(id == paired_id){
+      if(id == paired_usernames){
         let messages = data[id]
         let last_message = messages[messages.length - 1]
         localStorage.setItem("latest_message", last_message.message)
@@ -188,33 +307,15 @@ export function find_last_chat_message(paired_id){
       
     }
   });
-
-
 }
 
-export function get_name(chat_id, user_id){
-  const db = getDatabase()
-  const reference = ref(db, 'users')
-  let ids = chat_id.split("_")
-  for(var id of ids){
-    if(id != user_id){
-      //get the user name
-      onValue(reference, (snapshot) => {
-        const data = snapshot.val();
-        localStorage.setItem("other_user_name", data[id].name)
-      });
-
-
-    }
-  }
-}
-
-export function print_user(message,other_user){
-  var username = "joleneusername" // hardcoded for now 
+export function print_user(message, other_user, other_username, chatid){
+  // var username = "joleneusername" // hardcoded for now 
+  var username = localStorage.getItem("username_x")
   var all_chatrooms = document.getElementsByClassName("chatbox")
   var exist = false
   for (var cr of all_chatrooms) { 
-    if (cr.id == username) { 
+    if (cr.id == chatid) { 
       exist = true 
     }
   }
@@ -227,11 +328,11 @@ export function print_user(message,other_user){
           ${message}
         </div>
       </div>`
-    document.getElementById(username).innerHTML = html_string
+    document.getElementById(chatid).innerHTML = html_string
   }
   else { 
     let html_string =
-    `<div id="${username}" class="chatbox" style="padding:10px; display: flex;">
+    `<div id="${username};${other_username}" class="chatbox" style="padding:10px; display: flex;">
         <div id="photo"></div>
         <div style="margin-left: 20px;align-self: start;width: 70%;"> 
           <b>${other_user}</b>
@@ -288,4 +389,43 @@ export function write_user_profile(username, displayname, age, bio, cca, comfort
   const updates = {};
   updates[`users/${username}/name`] = displayname
   return update(ref(db), updates)
+}
+
+export function get_ride_details(rideid) { 
+  const db = getDatabase();
+  const rides = ref(db, `rides/${rideid}`)
+  onValue(rides, (snapshot) => {
+    const data = snapshot.val();
+    var k = "";
+    var v = "";
+    for ([k, v] of Object.entries(data)) { 
+      localStorage.setItem(k, v)
+    }
+  });
+}
+
+export function formatAMPM(date) {
+
+  let hours = Number(date.split(":")[0]);
+  let minutes = Number(date.split(":")[1]);
+  let ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  return hours + ':' + minutes + ' ' + ampm;
+}
+
+export function format_date(date){
+  date = date.split("-")
+  let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
+  return [day[0],`${day[2]} ${day[1]} ${day[3]}`]
+}
+
+export function get_all_usernames() { 
+  const db = getDatabase();
+  const users = ref(db, `users`)
+  onValue(users, (snapshot) => {
+    const data = snapshot.val();
+    localStorage.setItem("all_usernames", Object.keys(data))
+  });
 }

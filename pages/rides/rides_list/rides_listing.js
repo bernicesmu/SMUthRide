@@ -2,6 +2,7 @@
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyCCVjpCi9lziMF130jj2UtJGiPc0MamUkY",
     authDomain: "wad2-smuth-ride.firebaseapp.com",
@@ -16,6 +17,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
+var locations = ['Boat Quay', 'Raffles Place', 'Marina', 'Chinatown', 'Tanjong Pagar', 'Alexandra', 'Commonwealth', 'Harbourfront', 'Telok Blangah', 'Buona Vista', 'West Coast', 'Clementi New Town', 'City Hall', 'Clarke Quay', 'Beach Road', 'Bugis', 'Rochor', 'Farrer Park', 'Serangoon', 'Orchard', 'River Valley', 'Tanglin', 'Holland', 'Bukit Timah', 'Newton', 'Novena', 'Balestier', 'Toa Payoh', 'Macpherson', 'Potong Pasir', 'Eunos', 'Geylang', 'Paya Lebar', 'East Coast', 'Marine Parade', 'Bedok', 'Upper East Coast', 'Changi Airport', 'Changi Village', 'Pasir Ris', 'Tampines', 'Hougang', 'Punggol', 'Sengkang', 'Ang Mo Kio', 'Bishan', 'Thomson', 'Clementi Park', 'Upper Bukit Timah', 'Boon Lay', 'Jurong', 'Tuas', 'Dairy Farm', 'Bukit Panjang', 'Choa Chu Kang', 'Lim Chu Kang', 'Tengah', 'Admiralty', 'Woodlands', 'Mandai', 'Upper Thomson', 'Sembawang', 'Yishun', 'Seletar', 'Yio Chu Kang']
+
 const listings = Vue.createApp({
     data() {
         return{
@@ -23,10 +26,27 @@ const listings = Vue.createApp({
             listings: [],
             to_from : "From",
             display_listings: [],
+            search: '',
+            results: [],
+
+            possible_locations: locations
 
         }
     },
     methods: {
+        searchResults() {
+            this.results = this.possible_locations.filter(item => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
+            if (this.search == '') {
+                this.results = []
+            }
+            // this.isOpen ? document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani"): document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani");
+        },
+        selectResult(location){
+            this.search = location
+            document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani_forward");
+            document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani_backward");
+            setTimeout(function () {this.results = []}, 500);
+        },
         change_direction(){
             this.to_from = this.to_from === "To" ? "From" : "To";
             this.check_and_populate()
@@ -34,9 +54,9 @@ const listings = Vue.createApp({
         check_and_populate(){
 
             if (this.to_from === "To"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from === "To");
+                this.display_listings = this.listings.filter(x => x.smu_to_from == "To" && "users_offered" in x);
             } else if (this.to_from === "From"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from === "From");
+                this.display_listings = this.listings.filter(x => x.smu_to_from == "From" && "users_offered" in x);
             }
 
         },
@@ -46,7 +66,7 @@ const listings = Vue.createApp({
             let minutes = Number(date.split(":")[1]);
             let ampm = hours >= 12 ? 'pm' : 'am';
             hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
+            hours = hours ? hours : 12; // the h`our '0' should be '12'
             minutes = minutes < 10 ? '0'+minutes : minutes;
             return hours + ':' + minutes + ' ' + ampm;
 
@@ -57,9 +77,7 @@ const listings = Vue.createApp({
             return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
         },
         get_user_name(username){
-
-            let user = this.users.filter(x => x.user_name === username)
-            return user[0].name
+            return this.users[username].name
         }
     },
     mounted() {
@@ -68,19 +86,27 @@ const listings = Vue.createApp({
         const rides = ref(db, `rides/`)
         const users = ref(db, `users/`)
         onValue(users, (snapshot) => {
-            for (const key in snapshot.val()){
-                this.users.push(snapshot.val()[key])
-            }
+            this.users = snapshot.val();
         });
 
         onValue(rides, (snapshot) => {
-
             this.listings = snapshot.val()
-            this.listings.splice(0, 1)
-            console.log(this.listings)
             this.check_and_populate()
         })
+        },
+    watch: {
+        results(value,oldValue){
+            // console.log( typeof value)
+            // console.log(typeof oldValue)
+            // console.log(document.getElementsByClassName('dropdown')[0])
+            if (Object.keys(oldValue) == 0 && Object.keys(value) != 0){
+                document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani_backward")
+                document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani_forward");
+            }
         }
+    }
 })
+// listings.component('autocomplete', {})
+
 
 listings.mount('#populate_listings')

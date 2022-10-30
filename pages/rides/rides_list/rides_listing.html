@@ -6,37 +6,17 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap5-toggle@4.3.4/css/bootstrap5-toggle.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap5-toggle@4.3.4/js/bootstrap5-toggle.ecmas.min.js"></script>
-
     <link rel="stylesheet" href="../../../navbar/nav_styles.css">
-
     <link rel="stylesheet" href="../../../main.css">
+    <link rel="stylesheet" href="toggle_button.css">
+    <link rel="stylesheet" href="dropdown.css">
     <style>
 
 
         h1 {
             color: #4e7570;
         }
-        .toggle{
-            border-radius: 15px;
-            width: 100px;
-        }
-        .toggle-on{
-            /*border-radius: 15px;*/
-            background-color: #4e7570;
-        }
-        .toggle.toFromToggle.toggle-handle{
-            border-radius: 20rem;
-        }
 
-
-        #add_ride_icon{
-            position: absolute;
-            z-index: 3;
-            top: 120px;
-            right: 20px;
-        }
         .card {
             background-color: #FFFFFF;
             border: none;
@@ -89,12 +69,12 @@
 
         .form-control {
             text-indent: 15px;
-            background-color: #bedad6;
             border: none;
             height: 45px;
             width: 100%;
             /*border: #ffba08 2px solid;*/
         }
+
 
         .form-control::placeholder {
             text-align: center;
@@ -120,13 +100,20 @@
             font-size: 32px;
         }
 
+        .btn-secondary { 
+            background-color: #4c86a2 !important;
+        }
+
+        .btn-success { 
+            background-color: #4e7570 !important;
+        }
+
+        .toggle.toggle-group.toggle-handle{
+            width: 36px;
+            border-radius: 50%;
+        }
+
         @media only screen and (max-width: 600px) {
-            #add_ride_icon{
-                position: fixed;
-                z-index: 3;
-                top: 32px;
-                right: 20px;
-            }
             .card {
                 border: none;
                 width: 300px;
@@ -141,7 +128,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: #FFFFFF">
 
 <div id="navbarVue">
     <div
@@ -152,39 +139,59 @@
 </div>
 <div id="populate_listings">
 
-    <div class="col px-5">
+    <div class="col px-5 py-0">
+        <div class=" text-center">
 
-        <a href="" id="add_ride_icon">
-            <i class="bi bi-plus-circle-fill"></i>
-        </a>
+            <h1>Rides</h1>
+
+        </div>
         <div class="d-flex justify-content-between">
 
-            <div class="col-3">
-
-                <h1 class="text-center ">Rides</h1>
-
-            </div>
-            <div class=" inputs col-6 my-auto">
-
-                <i class="bi bi-search"></i>
-                <input name="search_rides" type="text" class="form-control" placeholder="Search Rides...">
-
-            </div>
             <div class="col-3 my-auto lh-lg d-flex justify-content-center">
 
                 <label class="switch">
-                    <input type="checkbox" data-toggle="toggle" data-style="toFromToggle"
-                           data-on="To SMU" data-off="From SMU" v-on:change="change_direction()" data-onstyle="success">
+                    <input type="checkbox" id="togBtn" v-on:change="change_direction()">
+                    <div class="slider round">
+                        <!--ADDED HTML -->
+                        <span class="on" style=" position:absolute; right:17px; top:15px"> To</span>
+                        <span class="on" style=" position:absolute; right:1px; top: 31px"> SMU</span>
+                        <span class="off" style=" position:absolute; right:17px; top:15px"> From</span>
+                        <span class="off" style=" position:absolute; right:20px; top: 31px"> SMU</span>
+                        <!--END-->
+                    </div>
                 </label>
 
             </div>
 
+            <div class=" inputs col-6 my-auto justify-content-center">
+
+                <i class="bi bi-search"></i>
+                <input name="search_rides" type="text" class="form-control"
+                       placeholder="Search Rides..." v-model="search" @input="searchResults()">
+                <div class="dropdown ms-0 mt-1 d-flex flex-column flex-wrap mx-auto" style="padding-bottom: -5px;">
+                    <ul  class="my-0 px-0 justify-content-center">
+                        <li v-for="location of results" class="result my-0 py-1"
+                            @click="selectResult(location)">{{location}}</li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="col-3 my-auto lh-lg d-flex justify-content-center">
+
+                <a href="" id="add_ride_icon" class="">
+                    <i class="bi bi-plus-circle-fill"></i>
+                </a>
+
+            </div>
+
         </div>
+
     </div>
 
-    <div class="row d-flex flex-wrap align-items-center">
+    <div class="d-flex flex-wrap ">
 
-        <div class="card col-xl-2 col-lg-6 col-md-3 mx-auto" v-for="listing in display_listings">
+        <div class="card col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings">
 
             <div class="card-body col py-0">
 
@@ -210,7 +217,7 @@
 
                         <div class="text-center overflow-visible ">
 
-                            <h5 class="mb-0 py-2 ">{{get_user_name(listing.driver_id)}}</h5>
+                            <h5 class="mb-0 py-2 ">{{get_user_name(listing.driver_username)}}</h5>
                             <h5 class="my-0 fw-bold">{{format_date(listing.date)[1]}}</h5>
                             <h5 class="my-0 fw-bold">{{format_date(listing.date)[0]}} {{formatAMPM(listing.time)}}</h5>
 
@@ -230,6 +237,7 @@
                     <div class="d-flex my-2">
 
                         <h1 class="me-auto">${{listing.cost}}</h1>
+
                         <h1>{{listing.users_offered.length}}<i class="bi bi-person-fill"></i></h1>
 
                     </div>

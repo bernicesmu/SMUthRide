@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="../../navbar/nav_styles.css" />
     <!-- icon library -->
     <script src="https://kit.fontawesome.com/943156cb0b.js" crossorigin="anonymous"></script>
-    <script type="module" src="../../index.js"></script>
-    <script type="module" src="chat.js"></script>
     <title>Chat</title>
 </head>
 <body>
@@ -66,7 +64,7 @@
           
           <span id="confirm_cancel">
             <button type="button" class="btn btn-danger" onclick="off()">Cancel</button>
-            <button type="button" class="btn btn-success" onclick="off()">Confirm</button>
+            <button type="button" class="btn btn-success" onclick="off()" id="confirmOffer">Confirm</button>
           </span>
         </div>
       </div>
@@ -80,27 +78,12 @@
       </div>
       
 
-      <div class="container d-flex">
-
-        <div id="chatroom">
-          <!-- need to make sure that circle either shrinks or just dissapears  -->
-          <div id="joleneusername" class="chatbox" style="border: 3px solid red; ;padding:10px; display: flex;">
-            <div id="photo"></div>
-            <div style="margin-left: 20px;border: blue solid 3px;align-self: start;width: 70%;"> 
-              <b>Jolene</b>
-              <div style="text-overflow: ellipsis; display: block;border: 3px solid yellow; width:50%;white-space: nowrap; width: 100%; overflow: hidden;
-              ">
-                Lorem ipsum dolor sit Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate expedita alias odit commodi obcaecati! Laborum magnam, debitis fugit quaerat at omnis libero accusantium dignissimos asperiores cupiditate molestias, quia autem.
-              </div>
-            </div>
-        </div>
-        </div>
 
         <div class="container d-flex">
             <div id="chatroom">
                 <!-- need to make sure that circle either shrinks or just dissapears  -->
                 <div
-                    id="joleneusername"
+                    id="ber4;rrnoie"
                     class="chatbox"
                     style="border: 3px solid red; padding: 10px; display: flex"
                 >
@@ -133,7 +116,7 @@
                             molestias, quia autem.
                         </div>
                     </div>
-                </div>
+                </div>    
             </div>
 
             <div id="chat" onscroll="sticky()">
@@ -178,7 +161,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+       
 
         <!-- scripts -->
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
@@ -224,6 +207,8 @@
         ></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../../navbar/navbar.js"></script>
+        <script type="module" src="../../index.js"></script>
+        <script type="module" src="./chat.js"></script>
         
     </body>
 </html>

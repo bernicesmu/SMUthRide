@@ -31,6 +31,14 @@
     
     <link rel="stylesheet" href="../../../main.css" />
     <style>
+        #navbar_html {
+            margin-bottom: 20px;
+        }
+
+        .offer {
+            margin-top: 100px;
+        }
+
         select,
         option {
             width: 200px;
@@ -41,6 +49,22 @@
             width: auto;
             margin-bottom: 50px;
             border-radius: 20px;
+        }
+        
+        .wrong_loc {
+            display: block;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            border-radius: 20px;
+            background-color: coral;
+            margin-bottom: 40px;
+        }
+
+        #wrongloc {
+            display: block;
+            justify-content: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
 
         #problematic {
@@ -82,6 +106,11 @@
             background: rgba(0, 0, 0, 0);
             opacity: 1;
             transition: 0.2s ease;
+        }
+
+        .error {
+            padding: 10px;
+            display: none;
         }
 
         #getRoute {
@@ -294,14 +323,14 @@
     <div id="navbarVue">
         <div v-html="navbar_html" @scroll="nav_animation" data-page="rides"></div>
     </div>
-
-    <div class="text-center my-5 ">
+    
+    <div class="offer text-center">
         <h1>Offer a ride</h1>
     </div>
 
     <!-- this div section handles the selection between SMU and Location -->
     
-    <div class="trip d-flex my-3 justify-content-evenly" style="position: relative">
+    <div class="trip d-flex mt-3 justify-content-evenly" style="position: relative">
         <div class="d-flex flex-wrap" style="width:30px">
 
         </div>
@@ -353,33 +382,34 @@
     </div>
 
     <div class="content d-flex justify-content-center text-align-center">
-        <form action="../rides_list/rides_listing.html" class="d-inline-block my-3">
+        <form name="location_form" action="../rides_list/rides_listing.html" class="d-inline-block my-3">
             <!-- get the input from the user from here -->
-            <div class="row d-flex justify-content-center my-2">
+            <div class="row d-flex justify-content-center mb-2">
                 <div class="col-md-6 d-flex justify-content-center py-3">
-                    <div class="wheresmu px-auto">
-                        <label for="smubuildings">SMU </label>
+                    <div class="wheresmu px-auto my-2">
+                        <label for="smubuildings">SMU</label>
                         <select
                             name="smubuildings"
                             id="smulocation"
                             onchange="getSMUloc('gohome')"
-                        
                         >
-                            <option value="Singapore 178902">SCIS</option>
-                            <option value="Singapore 178903">SOE</option>
-                            <option value="Singapore 179943">SOL</option>
-                            <option value="Singapore 178900">SOA</option>
-                            <option value="Singapore 178899">SOB</option>
-                            <option value="Singapore 179873">SOSS</option>
+                            <option value="Singapore 178902,SCIS">SCIS</option>
+                            <option value="Singapore 178903,SOE">SOE</option>
+                            <option value="55 Armenian St Singapore 179943,SOL">SOL</option>
+                            <option value="Singapore 178900,SOA">SOA</option>
+                            <option value="Singapore 178899,SOB">SOB</option>
+                            <option value="Singapore 179873,SOSS">SOSS</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-center py-3">
-                    <div class="group">
-                        <input type="text" name="address" class="location-input" id="location_field" required/>
+                    <div class="group my-2">
+
+                        <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required/>
                         <span class="highlight"></span>
-                        <!-- <label class="text-label">Drop off address</label> -->
+                        <label class="text-label">Drop off address</label>
+                        <p class="error"></p>
                     </div>
                 </div>
             </div>
@@ -389,6 +419,46 @@
                 <br>
                 <p id="display" class="lead text-center"></p> 
             </div>
+
+
+            <!-- FIX THIS PLEASE IM DYING IN MY HEAD -->
+            <script>
+
+                console.log(document.forms['location_form'].location_field.value)
+
+                function showError(errorMessage){
+                    console.log(document.querySelector("error").classList)
+                    list = document.querySelector("error").classList
+                    console.log(list)
+                    list.add("display-error");
+                    document.querySelector("error").innerHTML = errorMessage
+                }
+
+                function clearError() {
+                    let errors = document.querySelectorAll("error");
+                    for(let error of errors){
+                        console.log(error)
+                        error.classList.remove("display-error")
+                        console.log("this kinda works")
+                    }
+                }
+
+                let form = document.forms['location_form']
+
+                form.onclick = function(event){
+                    
+                    clearError();
+
+                    if (form.location_field.value === '')
+                    {
+                        showError("Please enter a valid address twat .");
+                        return false;
+                    }
+                    
+                    // preventDefault stops data from being sent to the server
+                    event.preventDefault();
+                }
+            </script>
 
             
 
@@ -420,7 +490,6 @@
             }
             //directionsDisplay
             var chosenloc = document.getElementById('location_field').value
-            console.log(chosenloc)
             var chosentrans = encodeURI(chosenloc)
             
             smuLatLng = []
@@ -432,8 +501,9 @@
             // creates the map
 
             function getSMUloc() {
-                var smuloc = document.getElementById('smulocation').value
-                var smutrans = smuloc.replace(' ', '%20')
+                sch_value = document.getElementById('smulocation').value
+                sch_deets = sch_value.split(',')
+                smutrans = encodeURI(sch_deets[0])
 
                 var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + smutrans + "&key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q";
 
@@ -444,7 +514,6 @@
                         try {
                             var data = JSON.parse(this.responseText);
                             
-                            console.log(smutrans)
                             var location = data["results"][0]['geometry']['location'];
                             console.log(location)
                             smuLatLng = [location['lat'],location['lng']]
@@ -467,14 +536,19 @@
                 xhttp.send();
             }
             
-            document.getElementById("getRoute").addEventListener("click", calcRoute)
             function calcRoute() 
             {
+                sch_value = document.getElementById('smulocation').value
+                sch_deets = sch_value.split(',')
+
+                sch_postal = sch_deets[0]
+                sch_name = sch_deets[1]
+
                 if (smu_position == 'from')
                 {
                     var request = 
                     {
-                        origin: document.getElementById('smulocation').value,
+                        origin: sch_postal,
                         destination: document.getElementById('location_field').value,
                         travelMode: google.maps.TravelMode['DRIVING'],
                         unitSystem: google.maps.UnitSystem['METRIC']
@@ -487,21 +561,22 @@
                     var request = 
                     {
                     origin: document.getElementById('location_field').value,
-                    destination: document.getElementById('smulocation').value,
+                    destination: sch_postal,
                     travelMode: google.maps.TravelMode['DRIVING'], 
                     unitSystem: google.maps.UnitSystem['METRIC'],
                     }
                 }
                 
-                if (directionsDisplay != null) { 
-                    directionsDisplay.setMap(null);
-                    directionsDisplay = null; }
-                
-                var directionsService = new google.maps.DirectionsService();
-                var directionsDisplay = new google.maps.DirectionsRenderer();
+                if (document.getElementById('problematic').innerHTML != ''){
+                    console.log('===wtf===')
+                    directionsDisplay.setDirections({routes: []});
+                }
 
-                
+                directionsService = new google.maps.DirectionsService();
+                directionsDisplay = new google.maps.DirectionsRenderer();
 
+                // restrict to singapore...ish
+                var strictBounds = [1.290270, 103.851959]
 
                 directionsDisplay.setOptions({
                     polylineOptions: {
@@ -510,37 +585,64 @@
                   });
 
                 directionsService.route(request, function(result, status) {
+                    const output = document.querySelector('#problematic');
+                    const loc_outofsg = document.querySelector('#wrongloc');
+                    
                     if (status == "OK") 
                     {
-                         
-                        // this gets distance and time taken for route
-                        const output = document.querySelector('#problematic');
-                        directionsDisplay.setMap(null)
-                        // from smu to indicated location, display route and duration
-                        if (smu_position == 'from') 
-                        {
-                            directionsDisplay.setDirections({routes: []});
-                            output.innerHTML = `<div class='alert-info'> From: ${document.getElementById('smulocation').value} <br>To: ${document.getElementById('location_field').value}<br>Driving distance: ${result.routes[0].legs[0].distance.text}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
-                            marker.setMap(null)
-                            directionsDisplay.setMap(null)
-                            directionsDisplay.setDirections({routes: []});
+                        // get the distance of the route in km
+                        distance = result.routes[0].legs[0].distance.text;
 
-                            directionsDisplay.setDirections(result);
-                            directionsDisplay.setMap(map);
+                        if (smu_position == 'from')
+                        {
+                            loc_lat = result.routes[0].legs[0].end_location.lat(),
+                            loc_lng = result.routes[0].legs[0].end_location.lng()
                         }
-                        // from indicated to smu, display route and duration
-                        else 
-                        {
-                            directionsDisplay.setMap(null)
-                            directionsDisplay.setDirections({routes: []});
-                            output.innerHTML = `<div class='alert-info'> From: ${document.getElementById('location_field').value} <br>To: ${document.getElementById('smulocation').value}<br>Driving distance: ${result.routes[0].legs[0].distance.text}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
+                        else {
+                            loc_lat = result.routes[0].legs[0].start_location.lat(),
+                            loc_lng = result.routes[0].legs[0].start_location.lng()
+                        }
 
-                            marker.setMap(null)
-                            directionsDisplay.setMap(null)
 
-                            directionsDisplay.setDirections(result);
-                            directionsDisplay.setMap(map);
+                        if (1.15948>loc_lat || loc_lat>1.47475){
+                            loc_outofsg.innerHTML = `<div class='wrong_loc'>Can you put some location within Singapore .</div>`
                             
+                        }
+
+                        else if (103.60468>loc_lng || loc_lat>104.08872){
+                            loc_outofsg.innerHTML = `<div class='wrong_loc'>Can you put some location within Singapore .</div>`
+                        }
+
+                        else 
+
+                            {
+                            // get distance of route in min
+                            duration = parseInt(result.routes[0].legs[0].duration.text.split(' '))
+                            recc_price = parseInt(distance)*0.15 + 2.8 + duration*0.15
+            
+                            // from smu to indicated location, display route and duration
+                            if (smu_position == 'from') 
+                            {
+                                output.innerHTML = `<div class='alert-info'> From: ${sch_name} <br>To: ${document.getElementById('location_field').value}<br>Driving distance: ${distance}<br>Recommended Pricing: $${recc_price.toFixed(2)}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
+                                marker.setMap(null)
+                                directionsDisplay.setMap(null)
+                                directionsDisplay.setDirections({routes: []});
+
+                                directionsDisplay.setDirections(result);
+                                directionsDisplay.setMap(map);
+                            }
+                            // from indicated to smu, display route and duration
+                            else 
+                            {
+                                output.innerHTML = `<div class='alert-info'> From: ${document.getElementById('location_field').value} <br>To: ${sch_name}<br>Driving distance: ${distance}<br>Recommended Pricing: $${recc_price.toFixed(2)}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
+
+                                marker.setMap(null)
+                                directionsDisplay.setMap(null)
+
+                                directionsDisplay.setDirections(result);
+                                directionsDisplay.setMap(map);
+                                
+                            }
                         }
                     }
 
@@ -551,7 +653,7 @@
                         map.setCenter(coords[0], coords[1])
 
                         // error message for invalid address
-                        output.innerHTML = `<div class='alert-danger'>Stop it. Get some help.</div>`
+                        output.innerHTML = `<div class='wrong_loc'>Stop it. Get some help. Put correct location please.</div>`
                     }
                 })
             }

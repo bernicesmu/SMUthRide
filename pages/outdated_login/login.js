@@ -1,4 +1,4 @@
-import {writeUserData, create_user, signin_user, get_all_usernames} from '../../index.js'
+import {writeUserData, create_user, signin_user} from '../../index.js'
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 
 var firebaseConfig = {
@@ -12,17 +12,6 @@ var firebaseConfig = {
     databaseURL: "https://wad2-smuth-ride-default-rtdb.asia-southeast1.firebasedatabase.app/"
   };
 
-const sign_in_btn = document.querySelector("#sign-in-btn");
-const register_btn = document.querySelector("#register-btn");
-const container = document.querySelector(".container")
-
-register_btn.addEventListener('click', () => {
-    container.classList.add("register-mode");
-})
-
-sign_in_btn.addEventListener('click', () => {
-    container.classList.remove("register-mode");
-})
 
 document.getElementById('registration').addEventListener('submit', register_user)
 document.getElementById('login').addEventListener('submit', login_user)
@@ -46,18 +35,6 @@ function register_user() {
         valid = false 
     }
 
-    if (username.includes(";") | username.includes(",")) { 
-        alert("Username cannot contain comma (,) or semicolon (;).")
-        valid = false 
-    }
-
-    get_all_usernames()
-    var all_usernames = localStorage.getItem("all_usernames")
-    if (all_usernames.includes(username)) { 
-        alert("Someone else has the same username! Please choose another one.")
-        valid = false
-    }
-
     if (valid) { 
         create_user(email, password)
         writeUserData(username, name, email)
@@ -75,6 +52,22 @@ function find_email_from_username(username) {
     localStorage.setItem("email", email)
   })
 }
+
+// function login_user() { 
+//     var inputs = document.getElementsByTagName('input')
+//     var useroremail = inputs.useroremail.value 
+//     var password = inputs.password.value
+
+//     if (!useroremail.includes("@")) { 
+//         find_email_from_username(useroremail)
+//         var email = localStorage.getItem("email")
+//     }
+//     else { 
+//         var email = useroremail
+//     }
+
+//     signin_user(email, password)
+// }
 
 function login_user() { 
     var inputs = document.getElementsByTagName('input')

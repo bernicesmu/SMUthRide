@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="./profile.css" />
     </head>
     <body>
+        <form id="profile_form"></form>
         <div id="navbarVue">
             <div
                 v-html="navbar_html"
@@ -37,18 +38,21 @@
                 <div class="additional-profile">
                     <p class=""><strong>Age</strong>: {{ age }}</p>
                     <p class=""><strong>Status</strong>: {{ status }}</p>
-                    <p class=""><strong>Location</strong>: {{ location_user }}</p>
+                    <p class="">
+                        <strong>Location</strong>: {{ location_user }}
+                    </p>
                     <p class="">
                         <strong>MBTI</strong>:
                         <a
                             :href="'https://www.16personalities.com/' + mbti.toLowerCase() + '-personality'"
                             class="personality"
+                            target="_blank"
                             >{{ mbti }}</a
                         >
                     </p>
                     <!-- the link can jus change the intp part to any other personality, eg infj etc -->
                 </div>
-                <div class="edit-profile">
+                <div class="edit-profile" id="edit-profile">
                     <a href="./profile_edit.html"
                         ><button class="btn btn-edit-profile w-100">
                             Edit profile
@@ -102,7 +106,7 @@
                         <h5 class="card-title">CCAs</h5>
                         <!-- <p class="card-text ps-0"> -->
                         <ul class="cca">
-                            <li v-for="cca in ccas">{{ cca }}</li>
+                            <li v-for="cca in ccas.slice(0, -1) ">{{ cca }}</li>
                         </ul>
                         <!-- </p> -->
                     </div>
@@ -110,49 +114,50 @@
                 <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title">Socials</h5>
-                        <ul class="socials-ul">
-                            <li>
+                        <ul class="socials-ul" v-if=" showSocials ">
+                            <li v-if=" linkedinLinkInput !== '' ">
                                 <a
-                                    href="https://www.linkedin.com/in/"
+                                    :href="linkedinLink + linkedinLinkInput"
                                     target="_blank"
                                     ><i
                                         class="fab fa-linkedin fa-2x profile-fab"
                                     ></i
-                                    >{{ linkedinLink }}</a
+                                    >{{ fullLinkedinLink }}</a
                                 >
                             </li>
-                            <li>
+                            <li v-if=" facebookLinkInput !== '' ">
                                 <a
-                                    href="https://www.facebook.com/"
+                                    :href="facebookLink + facebookLinkInput"
                                     target="_blank"
                                     ><i
-                                        class="fab fa-facebook fa-2x profile-fab"
+                                        class="fab fa-facebook-square fa-2x profile-fab"
                                     ></i
-                                    >{{ facebookLink }}</a
+                                    >{{ fullFacebookLink }}</a
                                 >
                             </li>
-                            <li>
+                            <li v-if=" instagramLinkInput !== '' ">
                                 <a
-                                    href="https://www.instagram.com/"
+                                    :href="instagramLink + instagramLinkInput"
                                     target="_blank"
                                     ><i
                                         class="fab fa-instagram fa-2x profile-fab"
                                     ></i
-                                    >{{ instagramLink }}</a
+                                    >{{ fullInstagramLink }}</a
                                 >
                             </li>
                         </ul>
+                        <p v-else>No socials added!!!</p>
                     </div>
                 </div>
             </main>
         </div>
 
+        <script src="https://unpkg.com/vue@next"></script>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"
         ></script>
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../../navbar/navbar.js"></script>
         <script src="./profile_mod.js" type="module"></script>
         <script src="./profile.js"></script>
