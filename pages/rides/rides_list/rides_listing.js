@@ -45,14 +45,14 @@ const listings = Vue.createApp({
             this.search = location
             document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani_forward");
             document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani_backward");
-            setTimeout(function () {this.results = []}, 500);
+            setTimeout(function () {this.results = []}, 100);
         },
         change_direction(){
             this.to_from = this.to_from === "To" ? "From" : "To";
             this.check_and_populate()
         },
         check_and_populate(){
-
+            console.log(this.display_listings)
             if (this.to_from === "To"){
                 this.display_listings = this.listings.filter(x => x.smu_to_from == "To" && "users_offered" in x);
             } else if (this.to_from === "From"){
@@ -93,6 +93,7 @@ const listings = Vue.createApp({
             this.listings = snapshot.val()
             this.check_and_populate()
         })
+
         },
     watch: {
         results(value,oldValue){

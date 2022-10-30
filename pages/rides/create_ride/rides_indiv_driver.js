@@ -10,11 +10,12 @@ const ride_form = Vue.createApp({
     },
     methods:{
         check_date(){
-            if (date===""){return true}
+
+            if (date===""){return false}
             let selected_date = this.date.split("-")
             selected_date = new Date(selected_date[0], selected_date[1], selected_date[2])
             const today = new Date()
-            return selected_date - today >= 1000 * 60 * 60 * 24 * 365;
+            return selected_date - today <= 1000 * 60 * 60 * 24 * 365;
         }
     }
 })
