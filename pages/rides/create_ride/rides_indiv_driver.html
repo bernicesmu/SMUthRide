@@ -259,13 +259,13 @@
         #location_to{
             position: absolute;
             right: 32%;
-            z-index: 3;
+            z-index: 0;
             color: #4e7570;
         }
         #location_from{
             position: absolute;
             left: 32%;
-            z-index: 3;
+            z-index: 0;
             color: #4e7570;
         }
 
@@ -315,6 +315,32 @@
             margin: auto;
         }
 
+<<<<<<< Updated upstream
+=======
+        #SMU_label{
+            position: absolute;
+            left:10%;
+            top: -20%;
+            z-index: 1;
+        }
+        .wheresmu{
+            position: relative;
+        }
+        #smulocation{
+            font-size: calc(1.275rem + 0.3vw);
+            font-weight: 500;
+            height: 35px;
+            display: block;
+            width: 300px;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #4e7570;
+            color: #4e7570;
+            background: rgba(0, 0, 0, 0);
+            opacity: 1;
+            transition: 0.2s ease;
+        }
+>>>>>>> Stashed changes
     </style>
     
     <link rel="stylesheet" href="../../../navbar/nav_styles.css" />
@@ -387,6 +413,7 @@
             <div class="row d-flex justify-content-center mb-2">
                 <div class="col-md-6 d-flex justify-content-center py-3">
                     <div class="wheresmu px-auto my-2">
+<<<<<<< Updated upstream
                         <label for="smubuildings">SMU</label>
                         <select
                             name="smubuildings"
@@ -400,6 +427,27 @@
                             <option value="Singapore 178899,SOB">SOB</option>
                             <option value="Singapore 179873,SOSS">SOSS</option>
                         </select>
+=======
+
+                        <div class="group my-2">
+                            <select
+                                    class=""
+                                    name="smubuildings"
+                                    id="smulocation"
+                                    onchange="getSMUloc('gohome')"
+                            >
+                                <option value="Singapore 178902,SCIS">SCIS</option>
+                                <option value="Singapore 178903,SOE">SOE</option>
+                                <option value="55 Armenian St Singapore 179943,SOL">SOL</option>
+                                <option value="Singapore 178900,SOA">SOA</option>
+                                <option value="Singapore 178899,SOB">SOB</option>
+                                <option value="Singapore 179873,SOSS">SOSS</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <label class="text-label">SMU</label>
+                            <p class="error"></p>
+                        </div>
+>>>>>>> Stashed changes
                     </div>
                 </div>
 
