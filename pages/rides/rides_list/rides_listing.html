@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../../navbar/nav_styles.css">
     <link rel="stylesheet" href="../../../main.css">
     <link rel="stylesheet" href="toggle_button.css">
+    <link rel="stylesheet" href="dropdown.css">
     <style>
 
 
@@ -16,13 +17,6 @@
             color: #4e7570;
         }
 
-
-        #add_ride_icon{
-            position: absolute;
-            z-index: 3;
-            top: 120px;
-            right: 20px;
-        }
         .card {
             background-color: #FFFFFF;
             border: none;
@@ -81,6 +75,7 @@
             /*border: #ffba08 2px solid;*/
         }
 
+
         .form-control::placeholder {
             text-align: center;
         }
@@ -119,12 +114,6 @@
         }
 
         @media only screen and (max-width: 600px) {
-            #add_ride_icon{
-                position: fixed;
-                z-index: 3;
-                top: 90vh;
-                right: 20px;
-            }
             .card {
                 border: none;
                 width: 300px;
@@ -150,44 +139,59 @@
 </div>
 <div id="populate_listings">
 
-    <div class="col px-5">
+    <div class="col px-5 py-0">
+        <div class=" text-center">
 
-        <a href="" id="add_ride_icon">
-            <i class="bi bi-plus-circle-fill"></i>
-        </a>
+            <h1>Rides</h1>
+
+        </div>
         <div class="d-flex justify-content-between">
 
-            <div class="col-3">
-
-                <h1 class="text-center ">Rides</h1>
-
-            </div>
-            <div class=" inputs col-6 my-auto">
-
-                <i class="bi bi-search"></i>
-                <input name="search_rides" type="text" class="form-control" placeholder="Search Rides...">
-
-            </div>
             <div class="col-3 my-auto lh-lg d-flex justify-content-center">
 
                 <label class="switch">
                     <input type="checkbox" id="togBtn" v-on:change="change_direction()">
                     <div class="slider round">
                         <!--ADDED HTML -->
-                        <span class="on" >&nbsp To SMU</span>
-                        <span class="off" style="text-align: center; position:absolute; right:20px"> From SMU</span>
+                        <span class="on" style=" position:absolute; right:17px; top:15px"> To</span>
+                        <span class="on" style=" position:absolute; right:1px; top: 31px"> SMU</span>
+                        <span class="off" style=" position:absolute; right:17px; top:15px"> From</span>
+                        <span class="off" style=" position:absolute; right:20px; top: 31px"> SMU</span>
                         <!--END-->
                     </div>
                 </label>
 
             </div>
 
+            <div class=" inputs col-6 my-auto justify-content-center">
+
+                <i class="bi bi-search"></i>
+                <input name="search_rides" type="text" class="form-control"
+                       placeholder="Search Rides..." v-model="search" @input="searchResults()">
+                <div class="dropdown ms-0 mt-1 d-flex flex-column flex-wrap mx-auto" style="padding-bottom: -5px;">
+                    <ul  class="my-0 px-0 justify-content-center">
+                        <li v-for="location of results" class="result my-0 py-1"
+                            @click="selectResult(location)">{{location}}</li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="col-3 my-auto lh-lg d-flex justify-content-center">
+
+                <a href="" id="add_ride_icon" class="">
+                    <i class="bi bi-plus-circle-fill"></i>
+                </a>
+
+            </div>
+
         </div>
+
     </div>
 
     <div class="d-flex flex-wrap ">
 
-        <div class="card   col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings">
+        <div class="card col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings">
 
             <div class="card-body col py-0">
 

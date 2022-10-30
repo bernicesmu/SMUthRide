@@ -207,7 +207,6 @@
                             class="meter target-input"
                             id="prefPrice"
                             name="prefPrice"
-                            :value="prefPrice"
                             v-model="prefPrice"
                         />
                         <h6>Comfort</h6>
@@ -216,7 +215,6 @@
                             class="meter target-input"
                             id="prefComfort"
                             name="prefComfort"
-                            :value="prefComfort"
                             v-model="prefComfort"
                         />
                         <h6>Convenience</h6>
@@ -225,7 +223,6 @@
                             class="meter target-input"
                             id="prefConvenience"
                             name="prefConvenience"
-                            :value="prefConvenience"
                             v-model="prefConvenience"
                         />
                         <h6>Speed</h6>
@@ -234,7 +231,6 @@
                             class="meter target-input"
                             id="prefSpeed"
                             name="prefSpeed"
-                            :value="prefSpeed"
                             v-model="prefSpeed"
                         />
                     </div>
@@ -301,7 +297,7 @@
                                 <label for="linkedin">{{ linkedinLink }}</label>
                                 <input
                                     type="text"
-                                    class="form-control text-center d-inline w-25 target-input"
+                                    class="form-control text-start d-inline w-25 target-input"
                                     name="linkedin"
                                     v-model="linkedinLinkInput"
                                 />
@@ -313,7 +309,7 @@
                                 <label for="facebook">{{ facebookLink }}</label>
                                 <input
                                     type="text"
-                                    class="form-control text-center d-inline w-25 target-input"
+                                    class="form-control text-start d-inline w-25 target-input"
                                     name="facebook"
                                     v-model="facebookLinkInput"
                                 />
@@ -327,7 +323,7 @@
                                 >
                                 <input
                                     type="text"
-                                    class="form-control text-center d-inline w-25 target-input"
+                                    class="form-control text-start d-inline w-25 target-input"
                                     name="instagram"
                                     v-model="instagramLinkInput"
                                 />
@@ -337,13 +333,12 @@
                 </div>
             </main>
         </div>
-
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"
         ></script>
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://unpkg.com/vue@next"></script>
         <script src="../../navbar/navbar.js"></script>
         <script src="./profile.js"></script>
         <script src="./profile_mod.js" type="module"></script>

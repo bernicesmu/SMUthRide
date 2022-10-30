@@ -52,7 +52,7 @@
                     </p>
                     <!-- the link can jus change the intp part to any other personality, eg infj etc -->
                 </div>
-                <div class="edit-profile">
+                <div class="edit-profile" id="edit-profile">
                     <a href="./profile_edit.html"
                         ><button class="btn btn-edit-profile w-100">
                             Edit profile
@@ -117,7 +117,7 @@
                         <ul class="socials-ul" v-if=" showSocials ">
                             <li v-if=" linkedinLinkInput !== '' ">
                                 <a
-                                    href="https://www.linkedin.com/in/"
+                                    :href="linkedinLink + linkedinLinkInput"
                                     target="_blank"
                                     ><i
                                         class="fab fa-linkedin fa-2x profile-fab"
@@ -127,7 +127,7 @@
                             </li>
                             <li v-if=" facebookLinkInput !== '' ">
                                 <a
-                                    href="https://www.facebook.com/"
+                                    :href="facebookLink + facebookLinkInput"
                                     target="_blank"
                                     ><i
                                         class="fab fa-facebook-square fa-2x profile-fab"
@@ -137,7 +137,7 @@
                             </li>
                             <li v-if=" instagramLinkInput !== '' ">
                                 <a
-                                    href="https://www.instagram.com/"
+                                    :href="instagramLink + instagramLinkInput"
                                     target="_blank"
                                     ><i
                                         class="fab fa-instagram fa-2x profile-fab"
@@ -152,12 +152,12 @@
             </main>
         </div>
 
+        <script src="https://unpkg.com/vue@next"></script>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"
         ></script>
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../../navbar/navbar.js"></script>
         <script src="./profile_mod.js" type="module"></script>
         <script src="./profile.js"></script>

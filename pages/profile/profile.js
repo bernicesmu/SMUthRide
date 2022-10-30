@@ -167,8 +167,8 @@ Vue.createApp({
         // console.log(this.fullFacebookLink);
 
         // I (kenming) COMMENTED THIS CODE OUT CAUSE IT WAS THROWING ERRORS
-        // cca = cca.split(",");
-        // cca.push("");
+        cca = cca.split(",");
+        cca.push("");
 
         this.displayname = displayname;
         this.degree = degree;
@@ -183,9 +183,9 @@ Vue.createApp({
         this.prefConvenience = convenience;
         this.prefSpeed = speed;
         this.ccas = cca;
-        this.linkedinLinkInput = linkedin;
-        this.facebookLinkInput = facebook;
-        this.instagramLinkInput = instagram;
+        this.linkedinLinkInput += linkedin;
+        this.facebookLinkInput += facebook;
+        this.instagramLinkInput += instagram;
     },
     mounted() {
         for (let element of document.getElementsByClassName("preference")) {
