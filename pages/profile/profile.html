@@ -31,25 +31,37 @@
         </div>
 
         <div id="profileVue" class="wrapper">
-            <div class="profile text-center justify-content-center h-100">
-                <img class="profile-pic" src="ded.png" alt="profile picture" />
+            <div class="profile text-center justify-content-center">
+                <img
+                    id="profile-picture"
+                    class="profile-pic"
+                    src="ded.png"
+                    alt="profile picture"
+                />
                 <h2 class="name"><strong>{{ displayname }}</strong></h2>
                 <p class="degree-text">{{ degree }}, {{ yearOfStudy }}</p>
                 <div class="additional-profile">
-                    <p class=""><strong>Age</strong>: {{ age }}</p>
-                    <p class=""><strong>Status</strong>: {{ status }}</p>
-                    <p class="">
-                        <strong>Location</strong>: {{ location_user }}
-                    </p>
-                    <p class="">
-                        <strong>MBTI</strong>:
+                    <div>
+                        <p class=""><strong>Age</strong>:</p>
+                        <p class="add-profile-fields">{{ age }}</p>
+                    </div>
+                    <div>
+                        <p class=""><strong>Status</strong>:</p>
+                        <p class="add-profile-fields">{{ status }}</p>
+                    </div>
+                    <div>
+                        <p class=""><strong>Location</strong>:</p>
+                        <p class="add-profile-fields">{{ location_user }}</p>
+                    </div>
+                    <div>
+                        <p class=""><strong>MBTI</strong>:</p>
                         <a
                             :href="'https://www.16personalities.com/' + mbti.toLowerCase() + '-personality'"
-                            class="personality"
+                            class="personality add-profile-fields"
                             target="_blank"
                             >{{ mbti }}</a
                         >
-                    </p>
+                    </div>
                     <!-- the link can jus change the intp part to any other personality, eg infj etc -->
                 </div>
                 <div class="edit-profile" id="edit-profile">

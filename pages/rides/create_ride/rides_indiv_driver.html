@@ -67,6 +67,29 @@
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
 
+        .error {
+            background-color: coral;
+            display: none;
+            width: 500px;
+            height: 30px;
+        }
+
+        #id {
+            margin: 0;
+            display: block;
+            justify-content: center;
+        }
+
+        .error.display-error {
+            display: block;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            border-radius: 10px;
+            transform: translateY(10px);
+            margin-top: 0;
+        }
+
         #problematic {
             display: block;
             justify-content: center;
@@ -259,13 +282,13 @@
         #location_to{
             position: absolute;
             right: 32%;
-            z-index: 3;
+            z-index: 0;
             color: #4e7570;
         }
         #location_from{
             position: absolute;
             left: 32%;
-            z-index: 3;
+            z-index: 0;
             color: #4e7570;
         }
 
@@ -315,6 +338,29 @@
             margin: auto;
         }
 
+        #SMU_label{
+            position: absolute;
+            left:10%;
+            top: -20%;
+            z-index: 1;
+        }
+        .wheresmu{
+            position: relative;
+        }
+        #smulocation{
+            font-size: calc(1.275rem + 0.3vw);
+            font-weight: 500;
+            height: 35px;
+            display: block;
+            width: 300px;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #4e7570;
+            color: #4e7570;
+            background: rgba(0, 0, 0, 0);
+            opacity: 1;
+            transition: 0.2s ease;
+        }
     </style>
     
     <link rel="stylesheet" href="../../../navbar/nav_styles.css" />
@@ -387,6 +433,7 @@
             <div class="row d-flex justify-content-center mb-2">
                 <div class="col-md-6 d-flex justify-content-center py-3">
                     <div class="wheresmu px-auto my-2">
+
                         <label for="smubuildings">SMU</label>
                         <select
                             name="smubuildings"
@@ -400,6 +447,7 @@
                             <option value="Singapore 178899,SOB">SOB</option>
                             <option value="Singapore 179873,SOSS">SOSS</option>
                         </select>
+
                     </div>
                 </div>
 
@@ -409,8 +457,10 @@
                         <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required/>
                         <span class="highlight"></span>
                         <label class="text-label">Drop off address</label>
-                        <p class="error"></p>
                     </div>
+                </div>
+                <div id="kms" class="mx-auto">
+                    <p id='error' class="error mx-auto"></p>
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
@@ -427,23 +477,19 @@
                 console.log(document.forms['location_form'].location_field.value)
 
                 function showError(errorMessage){
-                    console.log(document.querySelector("error").classList)
-                    list = document.querySelector("error").classList
+                    list = document.getElementsByTagName('p')['error'].classList
                     console.log(list)
                     list.add("display-error");
-                    document.querySelector("error").innerHTML = errorMessage
+                    document.getElementsByTagName('p')['error'].innerHTML = errorMessage
                 }
 
                 function clearError() {
-                    let errors = document.querySelectorAll("error");
-                    for(let error of errors){
-                        console.log(error)
-                        error.classList.remove("display-error")
-                        console.log("this kinda works")
-                    }
+                    document.getElementsByTagName('p')['error'].classList.remove("display-error");
+                    console.log("this kinda works")
                 }
 
                 let form = document.forms['location_form']
+                console.log(form['location_field'].classList)
 
                 form.onclick = function(event){
                     
@@ -772,5 +818,4 @@
     ></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="../../../navbar/navbar.js"></script>
-    
-</body>
+

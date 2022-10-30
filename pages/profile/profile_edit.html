@@ -49,28 +49,17 @@
             min-height: 5rem !important;
             max-height: 10rem;
         }
-        .additional-profile div {
-            display: flex;
-        }
-        .add-profile-fields {
-            margin-left: auto;
-            max-width: 55%;
-        }
         .ccaDiv {
             display: flex;
         }
     </style>
     <body>
         <div id="navbarVue">
-            <div
-                v-html="navbar_html"
-                @scroll="nav_animation"
-                data-page="profile"
-            ></div>
+            <div @scroll="nav_animation" data-page="profile"></div>
         </div>
 
         <div id="profileVue" class="wrapper">
-            <div class="profile text-center justify-content-center h-100">
+            <div class="profile text-center justify-content-center">
                 <!-- <img class="profile-pic" src="ded.png" alt="profile picture" /> -->
                 <!-- <img class="profile-pic" v-bind:src="selectedFile" alt="profile picture" /> 
                 {{selectedFile}} -->
@@ -79,9 +68,9 @@
                 <!-- <button @click="$refs.fileInput.click()">Pick File</button> -->
                 <!-- <button id="upload">Upload</button> -->
                 <img id="myimg" width="50" height="50" />
-                <div id="buttons">
-                    <!-- <button id="selbtn">Select Image</button> -->
-                    <button id="upbtn">Upload Image</button>
+                <div>
+                    <!-- <button>Upload Image</button> -->
+                    <input type="file" id="imageInput" />
                 </div>
 
                 <h2 class="name">
@@ -175,7 +164,7 @@
                     <form id="profile_form" action="./profile.html">
                         <input
                             type="submit"
-                            class="btn btn-edit-profile w-100"
+                            class="btn btn-edit-profile w-100 edit-profile-button"
                             value="Save edits"
                         />
                     </form>
