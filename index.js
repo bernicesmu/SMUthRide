@@ -75,6 +75,7 @@ export function writeUserData(username, name, email) {
 export function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area) { 
   const db = getDatabase();
   set(ref(db, `rides/${rideid}`), {
+    ride_id: rideid,
     smu_location: smu_location, 
     smu_to_from : smu_to_from, 
     driver_username: username, 

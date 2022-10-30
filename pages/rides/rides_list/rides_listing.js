@@ -17,6 +17,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
+
+var locations = ['Boat Quay', 'Raffles Place', 'Marina', 'Chinatown', 'Tanjong Pagar', 'Alexandra', 'Commonwealth', 'Harbourfront', 'Telok Blangah', 'Buona Vista', 'West Coast', 'Clementi New Town', 'City Hall', 'Clarke Quay', 'Beach Road', 'Bugis', 'Rochor', 'Farrer Park', 'Serangoon', 'Orchard', 'River Valley', 'Tanglin', 'Holland', 'Bukit Timah', 'Newton', 'Novena', 'Balestier', 'Toa Payoh', 'Macpherson', 'Potong Pasir', 'Eunos', 'Geylang', 'Paya Lebar', 'East Coast', 'Marine Parade', 'Bedok', 'Upper East Coast', 'Changi', 'Pasir Ris', 'Tampines', 'Hougang', 'Punggol', 'Sengkang', 'Ang Mo Kio', 'Bishan', 'Thomson', 'Clementi Park', 'Upper Bukit Timah', 'Boon Lay', 'Jurong', 'Tuas', 'Dairy Farm', 'Bukit Panjang', 'Choa Chu Kang', 'Lim Chu Kang', 'Tengah', 'Admiralty', 'Woodlands', 'Mandai', 'Upper Thomson', 'Sembawang', 'Yishun', 'Seletar', 'Yio Chu Kang']
+
 const listings = Vue.createApp({
     data() {
         return{
@@ -26,27 +29,34 @@ const listings = Vue.createApp({
             display_listings: [],
             search: '',
             results: [],
-            isOpen: false,
-            possible_locations: ['Changi', 'Sengkang', 'Marina', "People's Park"],
+
+            possible_locations: locations
 
         }
     },
     methods: {
         searchResults() {
-            this.results = this.possible_locations.filter(item => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
 
-            this.isOpen = this.search !== '';
+            this.results = this.possible_locations.filter(item => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
+            if (this.search == '') {
+                this.results = []
+            }
+
+            // this.isOpen ? document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani"): document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani");
         },
         selectResult(location){
             this.search = location
-            this.isOpen = false;
+            this.searchResults()
+            document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani_forward");
+            document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani_backward");
+            setTimeout(function () {this.results = []}, 100);
         },
         change_direction(){
             this.to_from = this.to_from === "To" ? "From" : "To";
             this.check_and_populate()
         },
         check_and_populate(){
-
+            console.log(this.display_listings)
             if (this.to_from === "To"){
                 this.display_listings = this.listings.filter(x => x.smu_to_from == "To" && "users_offered" in x);
             } else if (this.to_from === "From"){
@@ -87,17 +97,26 @@ const listings = Vue.createApp({
             this.listings = snapshot.val()
             this.check_and_populate()
         })
+
+
         },
     watch: {
-        search: function(value,oldValue){
-            if (value.length >1){
-            
-                this.isOpen = true;
+        results(value,oldValue){
+            // console.log( typeof value)
+            // console.log(typeof oldValue)
+            // console.log(document.getElementsByClassName('dropdown')[0])
+            if (Object.keys(oldValue) == 0 && Object.keys(value) != 0){
+                document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani_backward")
+                document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani_forward");
+            }
+        },
+        search(value,oldValue){
+            if (value !== ''){
                 this.display_listings = this.listings.filter(x => x.smu_to_from == this.to_from && "users_offered" in x && x.area.toLowerCase().indexOf(value.toLowerCase()) > -1);
             }
-            }
-    },
 
+        }
+    }
 })
 // listings.component('autocomplete', {})
 
