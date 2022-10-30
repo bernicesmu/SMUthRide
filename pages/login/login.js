@@ -26,7 +26,8 @@ sign_in_btn.addEventListener('click', () => {
 
 document.getElementById('registration').addEventListener('submit', register_user)
 document.getElementById('login').addEventListener('submit', login_user)
-
+var email_check_r = true
+var pwd_check_r = true
 function register_user() { 
     var inputs = document.getElementsByTagName('input')
     var name = inputs.name.value
@@ -34,16 +35,21 @@ function register_user() {
     var email = inputs.email.value
     var password = inputs.pw.value
     var cfmpassword = inputs.cfmpassword.value
-    
+
     var valid = true 
-    if (!email.includes('smu.edu.sg')) { 
-        alert("You must have a valid SMU email address to register on SMUth Ride.")
+    if (!email.includes('smu.edu.sg')) {
+        email_check_r = false
         valid = false 
+    } else{
+        email_check_r = true
     }
 
-    if (password != cfmpassword) { 
-        alert("The passwords do not match! Please try again.")
+    if (password != cfmpassword) {
+        pwd_check_r = false
+        console.log(pwd_check_r)
         valid = false 
+    } else{
+        pwd_check_r = true
     }
 
     if (username.includes(";") | username.includes(",")) { 
@@ -88,3 +94,13 @@ function login_user() {
     localStorage.clear()
     localStorage.setItem("username_x", username)
 }
+
+const register = Vue.createApp({
+    data() {
+        return {
+            email_r: email_check_r,
+            pwd_r: pwd_check_r,
+        }
+    }
+})
+register.mount('#registration')
