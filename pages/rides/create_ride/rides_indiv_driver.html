@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 
+<!-- note to self to get some changes in the rides indiv driver
+        1. SMU where? scis? soe? sol?
+        2. Interactive? or make it next page?
+        3. Maybe put in where the default locations are actually at
+        4. this html is from the driver's perspective
+    -->
+
 <head>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -277,12 +284,6 @@
             opacity: 0.8;
         }
 
-        .info_icon {
-            color: #4e7570;
-            width: 10px;
-            height: auto;
-        }
-
         .highlight {
             position: absolute;
             height: 60%;
@@ -389,7 +390,7 @@
             font-size: 1rem;
             font-weight: normal;
             position: absolute;
-            opacity: 0.5;
+            opacity: 0.3;
             left: 45px;
             top: -30px;
         }
@@ -428,7 +429,6 @@
                     fill="#4e7570"
                     class="bi bi-arrow-right align-text-bottom my-auto"
                     viewBox="0 0 16 16"
-                    onmouseover="console.log('i wanna passaway')"
             >
                 <path
                         fill-rule="evenodd"
@@ -465,16 +465,10 @@
         <form name="location_form" action="../rides_list/rides_listing.html" class="d-inline-block my-3">
             <!-- get the input from the user from here -->
             <div class="row d-flex justify-content-center mb-2">
-                <div class="col-md-6 d-flex justify-content-center py-3">
-                    <div class="wheresmu px-auto my-2">
-
-                        <label for="smubuildings" id="SMU_label">SMU </label>
-
                 <div class="col-md-6 d-flex justify-content-center py-3" style="position: relative">
 
 
                         <label for="smubuildings" id="SMU_label">School</label>
-
                         <select
                             name="smubuildings"
                             id="smulocation"
@@ -488,9 +482,6 @@
                             <option value="Singapore 178899,SOB">SOB</option>
                             <option value="Singapore 179873,SOSS">SOSS</option>
                         </select>
-                    </div>
-
-
 
 
                 </div>
@@ -504,7 +495,6 @@
                         <label class="location_alert text-danger" role="alert" v-if="location_alert">
                             Please input an address*
                         </label>
-
                     </div>
                 </div>
                 <div id="kms" class="mx-auto">
@@ -518,7 +508,9 @@
                 <p id="display" class="lead text-center"></p>
                 <div id="problematic"></div> 
             </div>
-            <!-- FIX THIS PLEASE IM DYING IN MY HEAD -->           
+
+
+            <!-- FIX THIS PLEASE IM DYING IN MY HEAD -->
 
             <div id="map">
             </div>
@@ -706,10 +698,7 @@
                                 
                                 directionsDisplay.setDirections(result);
                                 directionsDisplay.setMap(map);
-                                // initialise pain / tooltips
-                                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-                                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-                                }
+                            }
                             // from indicated to smu, display route and duration
                             else 
                             {
