@@ -1,4 +1,4 @@
-import {writeUserData, create_user, signin_user, get_all_usernames} from '../../index.js'
+import {writeUserData, create_user, signin_user} from '../../index.js'
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 
 var firebaseConfig = {
@@ -12,22 +12,10 @@ var firebaseConfig = {
     databaseURL: "https://wad2-smuth-ride-default-rtdb.asia-southeast1.firebasedatabase.app/"
   };
 
-const sign_in_btn = document.querySelector("#sign-in-btn");
-const register_btn = document.querySelector("#register-btn");
-const container = document.querySelector(".container")
-
-register_btn.addEventListener('click', () => {
-    container.classList.add("register-mode");
-})
-
-sign_in_btn.addEventListener('click', () => {
-    container.classList.remove("register-mode");
-})
 
 document.getElementById('registration').addEventListener('submit', register_user)
 document.getElementById('login').addEventListener('submit', login_user)
-var email_check_r = true
-var pwd_check_r = true
+
 function register_user() { 
     var inputs = document.getElementsByTagName('input')
     var name = inputs.name.value
@@ -35,33 +23,16 @@ function register_user() {
     var email = inputs.email.value
     var password = inputs.pw.value
     var cfmpassword = inputs.cfmpassword.value
-
+    
     var valid = true 
-    if (!email.includes('smu.edu.sg')) {
-        email_check_r = false
-        valid = false 
-    } else{
-        email_check_r = true
-    }
-
-    if (password != cfmpassword) {
-        pwd_check_r = false
-        console.log(pwd_check_r)
-        valid = false 
-    } else{
-        pwd_check_r = true
-    }
-
-    if (username.includes(";") | username.includes(",")) { 
-        alert("Username cannot contain comma (,) or semicolon (;).")
+    if (!email.includes('smu.edu.sg')) { 
+        alert("You must have a valid SMU email address to register on SMUth Ride.")
         valid = false 
     }
 
-    get_all_usernames()
-    var all_usernames = localStorage.getItem("all_usernames")
-    if (all_usernames.includes(username)) { 
-        alert("Someone else has the same username! Please choose another one.")
-        valid = false
+    if (password != cfmpassword) { 
+        alert("The passwords do not match! Please try again.")
+        valid = false 
     }
 
     if (valid) { 
@@ -82,6 +53,22 @@ function find_email_from_username(username) {
   })
 }
 
+// function login_user() { 
+//     var inputs = document.getElementsByTagName('input')
+//     var useroremail = inputs.useroremail.value 
+//     var password = inputs.password.value
+
+//     if (!useroremail.includes("@")) { 
+//         find_email_from_username(useroremail)
+//         var email = localStorage.getItem("email")
+//     }
+//     else { 
+//         var email = useroremail
+//     }
+
+//     signin_user(email, password)
+// }
+
 function login_user() { 
     var inputs = document.getElementsByTagName('input')
     var username = inputs.useroremail.value //name of the input in the HTML form is useroremail, but for now we leave it as username only
@@ -94,13 +81,3 @@ function login_user() {
     localStorage.clear()
     localStorage.setItem("username_x", username)
 }
-
-const register = Vue.createApp({
-    data() {
-        return {
-            email_r: email_check_r,
-            pwd_r: pwd_check_r,
-        }
-    }
-})
-register.mount('#registration')

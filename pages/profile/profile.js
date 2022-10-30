@@ -17,6 +17,10 @@ Vue.createApp({
             linkedinLink: "https://www.linkedin.com/in/",
             facebookLink: "https://www.facebook.com/",
             instagramLink: "https://www.instagram.com/",
+            linkedinLinkInput: "",
+            facebookLinkInput: "",
+            instagramLinkInput: "",
+            selectedFile: null,
 
             ccaInput: "",
 
@@ -62,19 +66,29 @@ Vue.createApp({
                 "ESFP",
                 "ABCD",
             ],
+            picture_link : ""
         };
     },
     computed: {
         showSocials() {
             if (
-                this.linkedinLink !== "" &&
-                this.facebookLink !== "" &&
-                this.instagramLink !== ""
+                this.linkedinLinkInput !== "" ||
+                this.facebookLinkInput !== "" ||
+                this.instagramLinkInput !== ""
             ) {
                 return true;
             } else {
                 return false;
             }
+        },
+        fullFacebookLink() {
+            return this.facebookLink + this.facebookLinkInput;
+        },
+        fullInstagramLink() {
+            return this.instagramLink + this.instagramLinkInput;
+        },
+        fullLinkedinLink() {
+            return this.linkedinLink + this.linkedinLinkInput;
         },
     },
     methods: {
@@ -100,6 +114,32 @@ Vue.createApp({
             element.style.height = "5px";
             element.style.height = element.scrollHeight + "px";
         },
+        
+        // onFileSelect(event){
+        //     console.log(event.target.files[0])
+        //     this.selectedFile= event.target.files[0]
+        // },
+        // uploadImage(){
+        //     const ref = firebase.storage().ref()
+
+        //     const file = document.querySelector("#photo").files[0]
+
+        //     const name = new Date() + '-' + file.name
+
+        //     const metadata = {
+        //         contentType:file.type
+        //     }
+
+        //     const task = ref.child(name).put(file,metadata)
+
+        //     task
+        //     .then(snapshot => {
+        //         snapshot.ref.getDownloadURL()
+        //     })
+        //     .then(url => {
+        //         console.log(url)
+        //     })
+        // }
     },
     created() {
         // @bernice I have temporarily hardcoded values
@@ -123,7 +163,10 @@ Vue.createApp({
         speed = localStorage.getItem("speed");
         rs_status = localStorage.getItem("status");
         year = localStorage.getItem("year");
+        // console.log(facebook);
+        // console.log(this.fullFacebookLink);
 
+        // I (kenming) COMMENTED THIS CODE OUT CAUSE IT WAS THROWING ERRORS
         cca = cca.split(",");
         cca.push("");
 
@@ -140,9 +183,9 @@ Vue.createApp({
         this.prefConvenience = convenience;
         this.prefSpeed = speed;
         this.ccas = cca;
-        this.linkedinLink = linkedin;
-        this.facebookLink = facebook;
-        this.instagramLink = instagram;
+        this.linkedinLinkInput += linkedin;
+        this.facebookLinkInput += facebook;
+        this.instagramLinkInput += instagram;
     },
     mounted() {
         for (let element of document.getElementsByClassName("preference")) {
