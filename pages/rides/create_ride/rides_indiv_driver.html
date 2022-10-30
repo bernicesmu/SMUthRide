@@ -304,6 +304,30 @@
             margin: auto;
         }
 
+        #SMU_label{
+            position: absolute;
+            left:10%;
+            top: -20%;
+            z-index: 1;
+        }
+        .wheresmu{
+            position: relative;
+        }
+        #smulocation{
+            font-size: calc(1.275rem + 0.3vw);
+            font-weight: 500;
+            height: 25px;
+            padding: 10px 10px 18px 5px;
+            display: block;
+            width: 300px;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #4e7570;
+            color: #4e7570;
+            background: rgba(0, 0, 0, 0);
+            opacity: 1;
+            transition: 0.2s ease;
+        }
     </style>
     
     <link rel="stylesheet" href="../../../navbar/nav_styles.css" />
@@ -376,13 +400,14 @@
             <div class="row d-flex justify-content-center my-2">
                 <div class="col-md-6 d-flex justify-content-center py-3">
                     <div class="wheresmu px-auto">
-                        <label for="smubuildings">SMU </label>
+                        <label for="smubuildings" id="SMU_label">SMU </label>
                         <select
                             name="smubuildings"
                             id="smulocation"
                             onchange="getSMUloc('gohome')"
                         
                         >
+
                             <option value="Singapore 178902,School of Computing and Information Systems">SCIS</option>
                             <option value="Singapore 178903,School of Economics">SOE</option>
                             <option value="Singapore 179943,School of Law">SOL</option>

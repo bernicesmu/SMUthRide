@@ -32,6 +32,8 @@
     transition: .4s;
 }
 
+
+
 input:checked + .slider {
     background-color: #4e7570;
 }
@@ -89,4 +91,11 @@ input:checked + .slider .off
 }
 
 .slider.round:before {
-    border-radius: 50%;}
+    border-radius: 50%;
+}
+
+/*idk if want grow*/
+/*.slider.round:hover{*/
+/*    transition: all 0.2s ease-in-out;*/
+/*    transform: scale(1.1);*/
+/*}*/

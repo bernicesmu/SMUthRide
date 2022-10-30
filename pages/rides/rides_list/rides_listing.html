@@ -92,20 +92,15 @@
             color: #4e7570;
         }
 
-        .small-ratings i{
-            color:#cecece;
+        .bi-plus-circle-fill:hover {
+            transition: all 0.2s ease-in-out;
+            transform: scale(1.1);
+
         }
+
 
         .bi-person-fill{
             font-size: 32px;
-        }
-
-        .btn-secondary { 
-            background-color: #4c86a2 !important;
-        }
-
-        .btn-success { 
-            background-color: #4e7570 !important;
         }
 
         .toggle.toggle-group.toggle-handle{
@@ -168,7 +163,8 @@
                 <i class="bi bi-search"></i>
                 <input name="search_rides" type="text" class="form-control"
                        placeholder="Search Rides..." v-model="search" @input="searchResults()">
-                <div class="dropdown ms-0 mt-1 d-flex flex-column flex-wrap mx-auto" style="padding-bottom: -5px;">
+                <div class="dropdown ms-0 mt-1 d-flex flex-column flex-wrap mx-auto"
+                     v-show="Object.keys(results).length >0" style="padding-bottom: -5px;">
                     <ul  class="my-0 px-0 justify-content-center">
                         <li v-for="location of results" class="result my-0 py-1"
                             @click="selectResult(location)">{{location}}</li>
@@ -179,7 +175,7 @@
             </div>
             <div class="col-3 my-auto lh-lg d-flex justify-content-center">
 
-                <a href="" id="add_ride_icon" class="">
+                <a href="./../create_ride/rides_indiv_driver.html" id="add_ride_icon" class="">
                     <i class="bi bi-plus-circle-fill"></i>
                 </a>
 
@@ -194,7 +190,7 @@
         <div class="card col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings">
 
             <div class="card-body col py-0">
-
+                <a class="stretched-link" v-bind:href="'./../ride_details/rides_indiv_rider.html?rideid=' + listing.ride_id"></a>
                 <span class="badge rounded-pill px-1" v-if="listing.frequency === 'recurring'" hidden>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
                         <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>

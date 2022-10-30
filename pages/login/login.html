@@ -15,6 +15,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
       *{
         font-family: Arial, Helvetica, sans-serif;
@@ -585,6 +586,15 @@
 
       }
 
+      .message_alert {
+          font-size: 0.8rem;
+          font-weight: normal;
+          position: absolute;
+          opacity: 0.5;
+          left:0px;
+          top: 45px;
+      }
+
 
 
       
@@ -677,6 +687,9 @@
                       <input type="text" name='email' required />
                       <span></span>
                       <label>Email</label>
+                        <span class="message_alert text-danger" v-if="email_r!= true">
+                            You must register with a SMU email address.
+                        </span>
                     </div>
                     <div class="txt_field">
                       <input type="password" name='pw' required />
@@ -687,6 +700,9 @@
                       <input type="password" name='cfmpassword' required />
                       <span></span>
                       <label>Confirm Password</label>
+                        <span class="message_alert text-danger" v-if="pwd_r !=true">
+                            *The passwords do not match!
+                        </span>
                     </div>
                     <input type="submit" value="Register" />
                     </form>
