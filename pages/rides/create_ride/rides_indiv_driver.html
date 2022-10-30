@@ -85,16 +85,21 @@
 
         #problematic {
             display: block;
-            justify-content: center;
+            justify-content: right;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            position: relative;
+            
         }
 
         .alert-info {
-            padding: 20px;
             height: auto;
             width: auto;
-            margin-bottom: 40px;
             border-radius: 20px;
+            display: block;
+            justify-content: right;
+            position: absolute;
+            right: -22px;
+            bottom: 16px;
         }
 
         .group {
@@ -137,6 +142,11 @@
             border-color: #b1b1b1;
             display: inline-block;
             padding-top: 2px;
+        }
+
+        .location {
+            margin-top: 36.8px;
+            margin-bottom: 0px;
         }
 
         .location-input {
@@ -202,6 +212,11 @@
             opacity: 0.5;
             left: 5px;
             transition: 0.2s ease all;
+        }
+
+        .custom-tooltip {
+            --bs-tooltip-bg: #4e7570;
+            --bs-tooltip-max-width: 100%
         }
 
         .date-label {
@@ -452,7 +467,7 @@
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-center py-3">
-                    <div class="group my-2">
+                    <div class="group location">
 
                         <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required/>
                         <span class="highlight"></span>
@@ -463,11 +478,12 @@
                     <p id='error' class="error mx-auto"></p>
                 </div>
             </div>
-            <div class="row d-flex justify-content-center">
+            <div class="row d-flex justify-content-center position-relative">
 
                 <input type="button" id="getRoute" value="Find route!" class="btn button w-25 d-block align-center" onclick="calcRoute()">
                 <br>
-                <p id="display" class="lead text-center"></p> 
+                <p id="display" class="lead text-center"></p>
+                <div id="problematic"></div> 
             </div>
 
 
@@ -511,12 +527,13 @@
 
             
 
-            <div id="map"></div>
+            <div id="map">
+            </div>
             <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>  -->
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&callback=initMap" type="text/javascript" async defer></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
             
-            <div id="problematic"></div>
+            
             <script>
         
             var map;
@@ -634,7 +651,7 @@
                   });
 
                 directionsService.route(request, function(result, status) {
-                    const output = document.querySelector('#problematic');
+                    const output = document.getElementById('problematic');
                     const loc_outofsg = document.querySelector('#wrongloc');
                     
                     if (status == "OK") 
@@ -672,25 +689,28 @@
                             // from smu to indicated location, display route and duration
                             if (smu_position == 'from') 
                             {
-                                output.innerHTML = `<div class='alert-info'> 
-                                From: ${sch_name}
-                                <a class="d-inline-block" data-bs-toggle="tooltip" data-bs-title="${sch_postal}">
+                                output.innerHTML = `<div class='alert-info'>
+                                <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip" 
+                                data-bs-html='true'
+                                data-bs-placement="right"
+                                data-bs-title="From: ${sch_name}, ${sch_postal}
+                                <br>To: ${document.getElementById('location_field').value}
+                                <br>Driving distance: ${distance}
+                                <br>Recommended Pricing: $${recc_price.toFixed(2)}
+                                <br>Duration: ${result.routes[0].legs[0].duration.text}</div>"
+                                data-bs-custom-class="custom-tooltip">
                                     <svg xmlns="http://www.w3.org/2000/svg" 
-                                    width='15'
-                                    height='15'
+                                    width='30'
+                                    height='30'
                                     viewBox="0 0 512 512"
                                     fill="#4e7570">
                                     <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                     </svg>
-                                </a>
-                                <br>To: ${document.getElementById('location_field').value}    
-                                <br>Driving distance: ${distance}
-                                <br>Recommended Pricing: $${recc_price.toFixed(2)}
-                                <br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
+                                </a>`
                                 marker.setMap(null)
                                 directionsDisplay.setMap(null)
                                 directionsDisplay.setDirections({routes: []});
-
+                                
                                 directionsDisplay.setDirections(result);
                                 directionsDisplay.setMap(map);
                                 // initialise pain / tooltips
@@ -700,7 +720,24 @@
                             // from indicated to smu, display route and duration
                             else 
                             {
-                                output.innerHTML = `<div class='alert-info'> From: ${document.getElementById('location_field').value} <br>To: ${sch_name}<br>Driving distance: ${distance}<br>Recommended Pricing: $${recc_price.toFixed(2)}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
+                                output.innerHTML = `<div class='alert-info'>
+                                    <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip" 
+                                    data-bs-html='true'
+                                    data-bs-placement="right"
+                                    data-bs-title="From: ${document.getElementById('location_field').value}
+                                    <br>To: ${sch_name}, ${sch_postal} 
+                                    <br>Driving distance: ${distance}
+                                    <br>Recommended Pricing: $${recc_price.toFixed(2)}
+                                    <br>Duration: ${result.routes[0].legs[0].duration.text}</div>"
+                                    data-bs-custom-class="custom-tooltip">
+                                        <svg xmlns="http://www.w3.org/2000/svg" 
+                                        width='30'
+                                        height='30'
+                                        viewBox="0 0 512 512"
+                                        fill="#4e7570">
+                                        <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
+                                        </svg>
+                                    </a>`
 
                                 marker.setMap(null)
                                 directionsDisplay.setMap(null)
@@ -708,6 +745,8 @@
                                 directionsDisplay.setDirections(result);
                                 directionsDisplay.setMap(map);
                                 
+                                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
                             }
                         }
                     }
