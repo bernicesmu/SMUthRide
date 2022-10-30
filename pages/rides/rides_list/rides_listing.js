@@ -35,14 +35,17 @@ const listings = Vue.createApp({
     },
     methods: {
         searchResults() {
+
             this.results = this.possible_locations.filter(item => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
             if (this.search == '') {
                 this.results = []
             }
+
             // this.isOpen ? document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani"): document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani");
         },
         selectResult(location){
             this.search = location
+            this.searchResults()
             document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani_forward");
             document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani_backward");
             setTimeout(function () {this.results = []}, 500);
