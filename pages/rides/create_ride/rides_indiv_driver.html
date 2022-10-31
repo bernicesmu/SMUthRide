@@ -363,15 +363,10 @@
                 color: #4e7570;
 
             }
-
             #arrow{
                 transform: rotate(90deg);
             }
-
             }
-        .wheresmu{
-            position: relative;
-        }
         #smulocation{
             font-size: calc(1.275rem + 0.3vw);
             font-weight: 500;
@@ -555,7 +550,8 @@
                 <div class="col-xs-12 col-md-5 justify-content-center py-3">
                     <div class=" justify-content-center" style="position: relative">
 
-                        <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required="false" v-model="location_input"/>
+                        <input type="text" class="location-input text-input" name="location-input"
+                               id="location_field" onclick="frequency_click()" required="false" v-model="location_input"/>
                         <span class="highlight"></span>
                         <label class="text-label pt-2" id="address-text">Drop off address</label>
                         <label class="location_alert text-danger " role="alert" v-if="location_alert">
@@ -744,7 +740,7 @@
                             if (smu_position == 'from')
                             {
                                 output.innerHTML = `<div class='alert-info'>
-                                <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip" 
+                                <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip"
                                 data-bs-html='true'
                                 data-bs-placement="right"
                                 data-bs-title="From: ${sch_name}, ${sch_postal}
@@ -753,7 +749,7 @@
                                 <br>Recommended Pricing: $${recc_price.toFixed(2)}
                                 <br>Duration: ${result.routes[0].legs[0].duration.text}</div>"
                                 data-bs-custom-class="custom-tooltip">
-                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                    <svg xmlns="http://www.w3.org/2000/svg"
                                     width='30'
                                     height='30'
                                     viewBox="0 0 512 512"
@@ -764,7 +760,7 @@
                                 marker.setMap(null)
                                 directionsDisplay.setMap(null)
                                 directionsDisplay.setDirections({routes: []});
-                                
+
                                 directionsDisplay.setDirections(result);
                                 directionsDisplay.setMap(map);
                             }
@@ -772,16 +768,16 @@
                             else
                             {
                                 output.innerHTML = `<div class='alert-info'>
-                                    <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip" 
+                                    <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip"
                                     data-bs-html='true'
                                     data-bs-placement="right"
                                     data-bs-title="From: ${document.getElementById('location_field').value}
-                                    <br>To: ${sch_name}, ${sch_postal} 
+                                    <br>To: ${sch_name}, ${sch_postal}
                                     <br>Driving distance: ${distance}
                                     <br>Recommended Pricing: $${recc_price.toFixed(2)}
                                     <br>Duration: ${result.routes[0].legs[0].duration.text}</div>"
                                     data-bs-custom-class="custom-tooltip">
-                                        <svg xmlns="http://www.w3.org/2000/svg" 
+                                        <svg xmlns="http://www.w3.org/2000/svg"
                                         width='30'
                                         height='30'
                                         viewBox="0 0 512 512"
@@ -795,7 +791,7 @@
 
                                 directionsDisplay.setDirections(result);
                                 directionsDisplay.setMap(map);
-                                
+
                                 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
                                 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
@@ -869,6 +865,22 @@
 </body>
 
 <script>
+
+    var smu_position = "from";
+
+    window.addEventListener('resize', (event) => {
+        console.log(smu_position)
+        if (window.innerWidth < 768 && smu_position == "to") {
+            document.getElementById('arrow').style.transform = 'rotate(270deg)'
+        } else if (window.innerWidth < 768 && smu_position == "from") {
+            document.getElementById('arrow').style.transform = 'rotate(90deg)'
+        } else if (window.innerWidth > 768 && smu_position == "to") {
+            document.getElementById('arrow').style.transform = 'rotate(180deg)'
+        } else if (window.innerWidth > 768 && smu_position == "from") {
+            document.getElementById('arrow').style.transform = 'rotate(0deg)'
+        }
+    })
+
     let username = "bob"
     email = 'bob@hello.com' // this username can be read in the riders_indiv_driver.js file 
 </script>
@@ -876,8 +888,7 @@
 <script type="module" src="../../../index.js"></script>
 <script type="module" src="./rides_indiv_driver.js"></script>
 
-    <script>
-        smu_position = "from";
+<script>
 
         function frequency_click() {
             document.getElementById("frequency-label").style = "opacity:0.8";
