@@ -1,5 +1,6 @@
-import {writeUserData, write_ride, find_rid} from '../../../index.js'
+   import {writeUserData, write_ride, find_rid} from '../../../index.js'
 // writeUserData(username, "regine@hello.com", 1)
+
 
 const form_alerts = Vue.createApp({
     data() {
@@ -9,6 +10,8 @@ const form_alerts = Vue.createApp({
             today: new Date().toISOString().split("T")[0],
             location_input: "",
             location_alert: false,
+            school_input: "",
+
         }
     },
     methods:{
