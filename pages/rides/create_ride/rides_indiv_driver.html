@@ -150,7 +150,7 @@
         .location-input {
             font-size: calc(1.275rem + 0.3vw);
             font-weight: 500;
-            height: 25px;
+            height: 37px;
             display: block;
             width: 100%;
             border: none;
@@ -342,16 +342,16 @@
             position: absolute;
             left:6%;
             top: -5%;
-            z-index: 1;
+            z-index: 0;
         }
         @media (max-width: 768px) {
 
 
             #SMU_label{
                 position: absolute;
-                left:28.5%;
+                left:4.5%;
                 top: -5%;
-                z-index: 1;
+                z-index: 0;
             }
 
             #arrow{
@@ -375,6 +375,7 @@
             background: rgba(0, 0, 0, 0);
             opacity: 1;
             transition: 0.2s ease;
+
         }
         #location_alert{
             font-size: 1rem;
@@ -384,6 +385,33 @@
             left: 45px;
             top: -30px;
         }
+
+        .rotate-forward {
+            animation: rotate-180-cw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @keyframes rotate-180-cw {
+            0% {
+                transform: rotate(0);
+            }
+            100% {
+                transform: rotate(180deg);
+            }
+        }
+
+        .rotate-backward {
+            animation: rotate-180-cw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @keyframes rotate-180-cw {
+            0% {
+                transform: rotate(0);
+            }
+            100% {
+                transform: rotate(180deg);
+            }
+        }
+
     </style>
     
     <link rel="stylesheet" href="../../../navbar/nav_styles.css" />
@@ -394,8 +422,31 @@
     </div>
 
 <div id="form_alerts">
-    <div class="offer text-center">
-        <h1>Offer a ride</h1>
+    <div class="offer d-flex justify-content-evenly">
+        <div style= "width:20px"></div>
+        <h1 class="mb-0">Offer a ride</h1>
+<!--            <button></button>-->
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="#4e7570"
+
+                    class="bi bi-arrow-repeat align-text-top ms-3 my-auto"
+                    viewBox="0 0 16 16"
+                    onclick="rotate_location()"
+
+            >
+                <path
+                        d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
+                />
+                <path
+                        fill-rule="evenodd"
+                        d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+                />
+            </svg>
+
+
     </div>
 
     <!-- this div section handles the selection between SMU and Location -->
@@ -414,30 +465,14 @@
 <!--        &lt;!&ndash; GET from input &ndash;&gt;-->
 <!--       -->
 
-<!--        <svg-->
-<!--            xmlns="http://www.w3.org/2000/svg"-->
-<!--            width="20"-->
-<!--            height="20"-->
-<!--            fill="#4e7570"-->
-<!--            class="bi bi-arrow-repeat align-text-top ms-3 my-auto"-->
-<!--            viewBox="0 0 16 16"-->
-<!--            onclick="rotate_location()"-->
-<!--        >-->
-<!--            <path-->
-<!--                d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"-->
-<!--            />-->
-<!--            <path-->
-<!--                fill-rule="evenodd"-->
-<!--                d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"-->
-<!--            />-->
-<!--        </svg>-->
+
 <!--    </div>-->
 
-    <div class="content d-flex justify-content-center text-align-center">
-        <form name="location_form" action="../rides_list/rides_listing.html" class="d-inline-block my-3">
+    <div class="text-center">
+        <form name="location_form" action="../rides_list/rides_listing.html" class="d-inline-block ">
             <!-- get the input from the user from here -->
-            <div class="row d-flex justify-content-center mb-2">
-                <div class="col-sm-5 d-flex justify-content-center py-3" style="position: relative">
+            <div class=" d-flex row mb-2">
+                <div class="col-xs-12 col-md-5 d-flex justify-content-center py-3" style="position: relative">
 
 
                         <label for="smubuildings" id="SMU_label">School</label>
@@ -447,6 +482,7 @@
                             onchange="getSMUloc('gohome')"
 
                         >
+                            <option value="0" class="opacity-50" disabled selected>Select School</option>
                             <option value="Singapore 178902,SCIS">SCIS</option>
                             <option value="Singapore 178903,SOE">SOE</option>
                             <option value="55 Armenian St Singapore 179943,SOL">SOL</option>
@@ -458,15 +494,16 @@
 
                 </div>
 
-                <div class="col-sm-2 justify-content-center" id="arrow">
-
+                <div class="col-md-2" id="arrow" style="position: relative">
+                    <div style="height:40px"></div>
                     <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="30"
                             height="30"
                             fill="#4e7570"
-                            class="bi bi-arrow-right align-text-bottom my-auto mx-auto"
+                            class="bi bi-arrow-right "
                             viewBox="0 0 16 16"
+                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
                     >
                         <path
                                 fill-rule="evenodd"
@@ -476,12 +513,12 @@
 
                 </div>
 
-                <div class="col-sm-5 d-flex justify-content-center pb-3">
-                    <div class="group my-2">
+                <div class="col-xs-12 col-md-5 justify-content-center py-3">
+                    <div class=" justify-content-center" style="position: relative">
 
                         <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required v-model="location_input"/>
                         <span class="highlight"></span>
-                        <label class="text-label">Drop off address</label>
+                        <label class="text-label pt-2">Drop off address</label>
                         <label class="location_alert text-danger" role="alert" v-if="location_alert">
                             Please input an address*
                         </label>
@@ -491,11 +528,12 @@
                     <p id='error' class="error mx-auto"></p>
                 </div>
             </div>
-            <div class="row d-flex justify-content-center">
-
-                <input type="button" id="getRoute" value="Find route!" class="btn button w-25 d-block align-center" onclick="calcRoute()">
+            <div class="row d-flex justify-content-center ">
+                <div class="w-50">
+                <input type="button" id="getRoute" value="Find route!" class="btn button w-100 d-block text-center" onclick="calcRoute()">
                 <br>
                 <p id="display" class="lead text-center"></p>
+                </div>
             </div>
 
 
@@ -783,8 +821,7 @@
 
         function rotate_location() {
             if (smu_position == "from") {
-                document.getElementById("location_from").innerHTML = "Location";
-                document.getElementById("location_to").innerHTML = "SMU";
+                document.getElementById("arrow").classList.add("rotate-forward");
                 document.getElementById("location_field").innerHTML =
                     "Pick up address";
                 smu_position = "to";
