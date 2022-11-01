@@ -29,9 +29,14 @@ const form_alerts = Vue.createApp({
             return false;
         }
     },
-    watch:{
-        location_input(value,oldValue){
-            this.location_alert = value === "" && oldValue !== "";
+    watch: {
+
+        location_input: {
+            handler(value, oldValue) {
+
+                this.location_alert = value === "" && oldValue !== "";
+            },
+            deep: true
         }
     }
 })

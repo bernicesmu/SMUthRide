@@ -107,6 +107,16 @@ const listings = Vue.createApp({
                 document.getElementsByClassName('dropdown')[0].classList.remove("dropdown_ani_backward")
                 document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani_forward");
             }
+        },
+        search:{
+            handler(value,oldValue) {
+                if (value !== '') {
+                    this.display_listings = this.listings.filter(x => x.smu_to_from == this.to_from && "users_offered" in x && x.area.toLowerCase().indexOf(value.toLowerCase()) > -1);
+                }else if (oldValue !== '' && value === ''){
+                    this.check_and_populate()
+                }
+            },
+            deep: true
         }
     }
 })
