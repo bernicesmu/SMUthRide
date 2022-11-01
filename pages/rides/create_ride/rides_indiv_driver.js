@@ -67,23 +67,23 @@ function write_ride_local() {
 
     var inputs = document.getElementsByTagName('input')
 
-    if (document.getElementById("location_from").innerHTML == "SMU"){
-        var smu_to_from = "From"
-    }
-    else{
-        var smu_to_from = "To"
-    }
+    // if (document.getElementById("location_from").innerHTML == "SMU"){
+    //     var smu_to_from = "From"
+    // }
+    // else{
+    //     var smu_to_from = "To"
+    // }
     
     var user_address = inputs.address.value 
-    // console.log(address)
+
     var smu_location = document.getElementById("smulocation").options[document.getElementById("smulocation").selectedIndex].text;
     var cost = parseFloat(inputs.cost.value)
     var max_capacity = parseInt(inputs.capacity.value)
-    var frequency = document.querySelector('input[name="frequency"]:checked').value
     var date = inputs.date.value
     var time = inputs.time.value 
     var users_offered = [""]
     var area = "Changi Prison"
-    write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area)
+    console.log(smu_position)
+    write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area)
 
 }

@@ -481,7 +481,7 @@
                             name="smubuildings"
                             id="smulocation"
                             onchange="getSMUloc('gohome')"
-                            v-model="school_input"
+
                         >
                             <option value="0" class="opacity-50" hidden selected>Select School</option>
                             <option value="Singapore 178902,SCIS">SCIS</option>
@@ -491,7 +491,8 @@
                             <option value="Singapore 178899,SOB">SOB</option>
                             <option value="Singapore 179873,SOSS">SOSS</option>
                         </select>
-<!--                    <label class="location_alert text-danger " role="alert" v-if="location_alert && school_alert.length==0">-->
+<!--                    <label class="location_alert text-danger " role="alert"-->
+<!--                           v-if="document.getElementsByTagName('select')[0].value=='0'">-->
 <!--                        Please select a School*-->
 <!--                    </label>-->
 
