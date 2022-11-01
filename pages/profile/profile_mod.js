@@ -121,6 +121,7 @@ let imgInput = document.getElementById("imageInput");
 if (imgInput) {
     imgInput.addEventListener("change", uploadImage);
 }
+GetProfilePicUrl()
 
 function uploadImage(event) {
     let files = [];
@@ -129,7 +130,7 @@ function uploadImage(event) {
     files = event.target.files;
     reader.readAsDataURL(files[0]);
 
-    let myimg = document.getElementById("myimg");
+    let myimg = document.getElementById("profile-picture");
     reader.onload = function () {
         myimg.src = reader.result;
     };
@@ -182,7 +183,7 @@ function toDatabase(url, ImgName) {
 
 // getting the image
 // MIGHT NEED TO MOVE THIS FUNCTION OUT OF THIS JS FILE
-async function GetProfilePicUrl() {
+function GetProfilePicUrl() {
     let username = localStorage.getItem("username_x");
     console.log(username);
     const db = getDatabase();
