@@ -8,10 +8,10 @@
     -->
 
 <head>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- <script src="asset/public.js?version={{lastModifiedDate('asset/public.js')}}"></script> -->
-    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
         function lastModifiedDate(url) {
         try {
@@ -93,15 +93,35 @@
         #problematic {
             display: block;
             justify-content: center;
+        }
+
+        .error.display-error {
+            display: block;
+            justify-content: center;
+            text-align: center;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            border-radius: 10px;
+            transform: translateY(10px);
+            margin-top: 0;
+        }
+
+        #problematic {
+            display: block;
+            justify-content: right;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            position: relative;
+            
         }
 
         .alert-info {
-            padding: 20px;
             height: auto;
             width: auto;
-            margin-bottom: 40px;
             border-radius: 20px;
+            display: block;
+            justify-content: right;
+            position: absolute;
+            right: -22px;
+            bottom: 16px;
         }
 
         .group {
@@ -116,12 +136,13 @@
         }
 
         .text-input {
+            margin: 0 auto;
             font-size: calc(1.275rem + 0.3vw);
             font-weight: 500;
             height: 25px;
             padding: 10px 10px 18px 5px;
-            display: block;
-            width: 600px;
+            /*display: flex;*/
+            width: 100%;
             border: none;
             outline: none;
             border-bottom: 1px solid #4e7570;
@@ -146,13 +167,17 @@
             padding-top: 2px;
         }
 
+        .location {
+            margin-top: 36.8px;
+            margin-bottom: 0px;
+        }
+
         .location-input {
             font-size: calc(1.275rem + 0.3vw);
             font-weight: 500;
-            height: 25px;
-            padding: 10px 10px 18px 5px;
+            height: 37px;
             display: block;
-            width: 290px;
+            width: 100%;
             border: none;
             outline: none;
             border-bottom: 1px solid #4e7570;
@@ -211,6 +236,11 @@
             transition: 0.2s ease all;
         }
 
+        .custom-tooltip {
+            --bs-tooltip-bg: #4e7570;
+            --bs-tooltip-max-width: 100%
+        }
+
         .date-label {
             color: #4e7570;
             font-size: 1rem;
@@ -229,16 +259,6 @@
             opacity: 0.5;
             left: 45px;
             top: -30px;
-        }
-
-        .radio-label {
-            color: #4e7570;
-            font-size: calc(1.275rem + 0.3vw);
-            font-weight: 500;
-        }
-
-        .form-check-input {
-            margin-top: 10px;
         }
 
         .datetime-input {
@@ -277,19 +297,6 @@
             left: 0;
             pointer-events: none;
             opacity: 0.5;
-        }
-
-        #location_to{
-            position: absolute;
-            right: 32%;
-            z-index: 0;
-            color: #4e7570;
-        }
-        #location_from{
-            position: absolute;
-            left: 32%;
-            z-index: 0;
-            color: #4e7570;
         }
 
         /* active state */
@@ -334,25 +341,38 @@
         }
 
         .map-styles {
-            width: 90%;
+            width: 100%;
             margin: auto;
         }
 
         #SMU_label{
             position: absolute;
-            left:10%;
-            top: -20%;
-            z-index: 1;
+            left:6%;
+            top: -5%;
+            z-index: 0;
+            color: #4e7570;
         }
-        .wheresmu{
-            position: relative;
-        }
+        @media (max-width: 768px) {
+
+
+            #SMU_label{
+                position: absolute;
+                left:3%;
+                top: -5%;
+                z-index: 0;
+                color: #4e7570;
+
+            }
+            #arrow{
+                transform: rotate(90deg);
+            }
+            }
         #smulocation{
             font-size: calc(1.275rem + 0.3vw);
             font-weight: 500;
-            height: 35px;
+            height: 37px;
             display: block;
-            width: 300px;
+            width: 100%;
             border: none;
             outline: none;
             border-bottom: 1px solid #4e7570;
@@ -360,7 +380,71 @@
             background: rgba(0, 0, 0, 0);
             opacity: 1;
             transition: 0.2s ease;
+
         }
+        .location_alert{
+            font-size: 1rem;
+            font-weight: normal;
+            position: absolute;
+            opacity: 0.7;
+            left: 0px;
+
+
+        }
+
+        .rotate-forward {
+            animation: rotate-180-cw 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @keyframes rotate-180-cw {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(180deg);
+            }
+        }
+
+        .rotate-backward {
+            animation: rotate-180-back 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @keyframes rotate-180-back {
+            0% {
+                transform: rotate(180deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .rotate-top {
+            animation: rotate-180-top 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @keyframes rotate-180-top {
+            0% {
+                transform: rotate(90deg);
+            }
+            100% {
+                transform: rotate(270deg);
+            }
+        }
+
+        .rotate-down {
+            animation: rotate-180-down 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @keyframes rotate-180-down {
+            0% {
+                transform: rotate(270deg);
+            }
+            100% {
+                transform: rotate(90deg);
+            }
+        }
+
+
     </style>
     
     <link rel="stylesheet" href="../../../navbar/nav_styles.css" />
@@ -369,77 +453,68 @@
     <div id="navbarVue">
         <div v-html="navbar_html" @scroll="nav_animation" data-page="rides"></div>
     </div>
-    
-    <div class="offer text-center">
-        <h1>Offer a ride</h1>
-    </div>
 
-    <!-- this div section handles the selection between SMU and Location -->
-    
-    <div class="trip d-flex mt-3 justify-content-evenly" style="position: relative">
-        <div class="d-flex flex-wrap" style="width:30px">
-
-        </div>
-        <!-- dropdown list of all the buildings -->
-        <div class="d-flex flex-wrap h2" id="location_from">
-            <div class="">
-                SMU
-            </div>
-        </div>
-        <div class="d-flex flex-wrap">
-
+<div id="form_alerts">
+    <div class="offer d-flex justify-content-evenly">
+        <div style= "width:20px"></div>
+        <h1 class="mb-0">Offer a ride</h1>
+<!--            <button></button>-->
             <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="30"
-                    height="30"
+                    width="20"
+                    height="20"
                     fill="#4e7570"
-                    class="bi bi-arrow-right align-text-bottom my-auto"
+                    class="bi bi-arrow-repeat align-text-top ms-3 my-auto"
                     viewBox="0 0 16 16"
+                    onclick="rotate_location()"
+
             >
                 <path
+                        d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
+                />
+                <path
                         fill-rule="evenodd"
-                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                        d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
                 />
             </svg>
 
-        </div>
-        <!-- GET from input -->
-        <div class="d-flex flex-wrap h2" id="location_to">
-            Location
-        </div>
 
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            fill="#4e7570"
-            class="bi bi-arrow-repeat align-text-top ms-3 my-auto"
-            viewBox="0 0 16 16"
-            onclick="rotate_location()"
-        >
-            <path
-                d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
-            />
-            <path
-                fill-rule="evenodd"
-                d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
-            />
-        </svg>
     </div>
 
-    <div class="content d-flex justify-content-center text-align-center">
-        <form name="location_form" action="../rides_list/rides_listing.html" class="d-inline-block my-3">
-            <!-- get the input from the user from here -->
-            <div class="row d-flex justify-content-center mb-2">
-                <div class="col-md-6 d-flex justify-content-center py-3">
-                    <div class="wheresmu px-auto my-2">
+    <!-- this div section handles the selection between SMU and Location -->
 
-                        <label for="smubuildings">SMU</label>
+<!--    <div class="trip d-flex mt-3 justify-content-evenly" style="position: relative" >-->
+<!--        <div class="d-flex flex-wrap" style="width:30px">-->
+
+<!--        </div>-->
+<!--        &lt;!&ndash; dropdown list of all the buildings &ndash;&gt;-->
+<!--        <div class="d-flex flex-wrap h2" id="location_from">-->
+<!--            <div class="">-->
+<!--                SMU-->
+<!--            </div>-->
+<!--        </div>-->
+<!--       -->
+<!--        &lt;!&ndash; GET from input &ndash;&gt;-->
+<!--       -->
+
+
+<!--    </div>-->
+
+    <div class="text-center">
+        <form name="location_form" action="../rides_list/rides_listing.html" class="d-inline-block ">
+            <!-- get the input from the user from here -->
+            <div class=" d-flex row mb-2">
+                <div class="col-xs-12 col-md-5 d-flex justify-content-center py-3" style="position: relative">
+
+
+                        <label for="smubuildings" id="SMU_label">School</label>
                         <select
                             name="smubuildings"
                             id="smulocation"
                             onchange="getSMUloc('gohome')"
+
                         >
+                            <option value="0" class="opacity-50" hidden selected>Select School</option>
                             <option value="Singapore 178902,SCIS">SCIS</option>
                             <option value="Singapore 178903,SOE">SOE</option>
                             <option value="55 Armenian St Singapore 179943,SOL">SOL</option>
@@ -447,81 +522,76 @@
                             <option value="Singapore 178899,SOB">SOB</option>
                             <option value="Singapore 179873,SOSS">SOSS</option>
                         </select>
+                        <label class="location_alert text-danger " role="alert" v-if="location_alert && school_alert.length==0">
+                            Please select a School*
+                        </label>
 
-                    </div>
                 </div>
 
-                <div class="col-md-6 d-flex justify-content-center py-3">
-                    <div class="group my-2">
+                <div class="col-md-2" id="arrow" style="position: relative">
+                    <div style="height:40px"></div>
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="30"
+                            height="30"
+                            fill="#4e7570"
+                            class="bi bi-arrow-right "
+                            viewBox="0 0 16 16"
+                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                    >
+                        <path
+                                fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                        />
+                    </svg>
 
-                        <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required/>
+                </div>
+
+                <div class="col-xs-12 col-md-5 justify-content-center py-3">
+                    <div class=" justify-content-center" style="position: relative">
+
+                        <input type="text" class="location-input text-input" name="location-input"
+                               id="location_field" onclick="frequency_click()" required="false" v-model="location_input"/>
                         <span class="highlight"></span>
-                        <label class="text-label">Drop off address</label>
+                        <label class="text-label pt-2" id="address-text">Drop off address</label>
+                        <label class="location_alert text-danger " role="alert" v-if="location_alert">
+                             Please input an address*
+                        </label>
                     </div>
                 </div>
                 <div id="kms" class="mx-auto">
                     <p id='error' class="error mx-auto"></p>
                 </div>
             </div>
-            <div class="row d-flex justify-content-center">
-
-                <input type="button" id="getRoute" value="Find route!" class="btn button w-25 d-block align-center" onclick="calcRoute()">
+            <div class="row d-flex justify-content-center ">
+                <div class="w-50">
+                <input type="button" id="getRoute" value="Find route!" v-bind:disabled="location_input.length == 0 && school_input.length ==0"
+                       class="btn button w-100 d-block text-center" onclick="calcRoute()">
                 <br>
-                <p id="display" class="lead text-center"></p> 
+                <p id="display" class="lead text-center"></p>
+                </div>
             </div>
 
 
             <!-- FIX THIS PLEASE IM DYING IN MY HEAD -->
-            <script>
 
-                console.log(document.forms['location_form'].location_field.value)
 
-                function showError(errorMessage){
-                    list = document.getElementsByTagName('p')['error'].classList
-                    console.log(list)
-                    list.add("display-error");
-                    document.getElementsByTagName('p')['error'].innerHTML = errorMessage
-                }
 
-                function clearError() {
-                    document.getElementsByTagName('p')['error'].classList.remove("display-error");
-                    console.log("this kinda works")
-                }
 
-                let form = document.forms['location_form']
-                console.log(form['location_field'].classList)
-
-                form.onclick = function(event){
-                    
-                    clearError();
-
-                    if (form.location_field.value === '')
-                    {
-                        showError("Please enter a valid address twat .");
-                        return false;
-                    }
-                    
-                    // preventDefault stops data from being sent to the server
-                    event.preventDefault();
-                }
-            </script>
-
-            
-
-            <div id="map"></div>
+            <div id="map" ></div>
             <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>  -->
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&callback=initMap" type="text/javascript" async defer></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-            
+
             <div id="problematic"></div>
             <script>
-        
+
             var map;
             function initMap() {
-                
+
                 map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: coords[0], lng: coords[1]},
-                zoom: 17, 
+                zoom: 17,
                 mapTypeControl: false,
                 //mapTypeID: google.maps.mapTypeID
                 });
@@ -537,11 +607,11 @@
             //directionsDisplay
             var chosenloc = document.getElementById('location_field').value
             var chosentrans = encodeURI(chosenloc)
-            
+
             smuLatLng = []
             coords = [1.296568, 103.852119] // auto starts center at SCIS
 
-            
+
             // directionservice allows use of route method, directionrenderer displays the route
 
             // creates the map
@@ -559,30 +629,30 @@
                     if (this.readyState == 4 && this.status == 200) {
                         try {
                             var data = JSON.parse(this.responseText);
-                            
+
                             var location = data["results"][0]['geometry']['location'];
                             console.log(location)
                             smuLatLng = [location['lat'],location['lng']]
                             console.log(smuLatLng)
 
-                            
+
                             coords = [smuLatLng[0], smuLatLng[1]]
-                        
+
                             initMap();
 
                         } catch(err) {
                             document.getElementById('display').innerHTML = "Sorry, invalid address. Please try a valid address!";
                         }
-                    } 
+                    }
                     else if (this.readyState != 4 || this.status != 200){
-                        
+
                     }
                 }
                 xhttp.open("GET", url, true);
                 xhttp.send();
             }
-            
-            function calcRoute() 
+
+            function calcRoute()
             {
                 sch_value = document.getElementById('smulocation').value
                 sch_deets = sch_value.split(',')
@@ -592,7 +662,7 @@
 
                 if (smu_position == 'from')
                 {
-                    var request = 
+                    var request =
                     {
                         origin: sch_postal,
                         destination: document.getElementById('location_field').value,
@@ -602,17 +672,17 @@
                     console.log("is it working???")
                 }
 
-                else 
+                else
                 {
-                    var request = 
+                    var request =
                     {
                     origin: document.getElementById('location_field').value,
                     destination: sch_postal,
-                    travelMode: google.maps.TravelMode['DRIVING'], 
+                    travelMode: google.maps.TravelMode['DRIVING'],
                     unitSystem: google.maps.UnitSystem['METRIC'],
                     }
                 }
-                
+
                 if (document.getElementById('problematic').innerHTML != ''){
                     console.log('===wtf===')
                     directionsDisplay.setDirections({routes: []});
@@ -631,10 +701,10 @@
                   });
 
                 directionsService.route(request, function(result, status) {
-                    const output = document.querySelector('#problematic');
+                    const output = document.getElementById('problematic');
                     const loc_outofsg = document.querySelector('#wrongloc');
-                    
-                    if (status == "OK") 
+
+                    if (status == "OK")
                     {
                         // get the distance of the route in km
                         distance = result.routes[0].legs[0].distance.text;
@@ -652,24 +722,41 @@
 
                         if (1.15948>loc_lat || loc_lat>1.47475){
                             loc_outofsg.innerHTML = `<div class='wrong_loc'>Can you put some location within Singapore .</div>`
-                            
+
                         }
 
                         else if (103.60468>loc_lng || loc_lat>104.08872){
                             loc_outofsg.innerHTML = `<div class='wrong_loc'>Can you put some location within Singapore .</div>`
                         }
 
-                        else 
+                        else
 
                             {
                             // get distance of route in min
                             duration = parseInt(result.routes[0].legs[0].duration.text.split(' '))
                             recc_price = parseInt(distance)*0.15 + 2.8 + duration*0.15
-            
+
                             // from smu to indicated location, display route and duration
-                            if (smu_position == 'from') 
+                            if (smu_position == 'from')
                             {
-                                output.innerHTML = `<div class='alert-info'> From: ${sch_name} <br>To: ${document.getElementById('location_field').value}<br>Driving distance: ${distance}<br>Recommended Pricing: $${recc_price.toFixed(2)}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
+                                output.innerHTML = `<div class='alert-info'>
+                                <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip"
+                                data-bs-html='true'
+                                data-bs-placement="right"
+                                data-bs-title="From: ${sch_name}, ${sch_postal}
+                                <br>To: ${document.getElementById('location_field').value}
+                                <br>Driving distance: ${distance}
+                                <br>Recommended Pricing: $${recc_price.toFixed(2)}
+                                <br>Duration: ${result.routes[0].legs[0].duration.text}</div>"
+                                data-bs-custom-class="custom-tooltip">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                    width='30'
+                                    height='30'
+                                    viewBox="0 0 512 512"
+                                    fill="#4e7570">
+                                    <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
+                                    </svg>
+                                </a>`
                                 marker.setMap(null)
                                 directionsDisplay.setMap(null)
                                 directionsDisplay.setDirections({routes: []});
@@ -678,21 +765,41 @@
                                 directionsDisplay.setMap(map);
                             }
                             // from indicated to smu, display route and duration
-                            else 
+                            else
                             {
-                                output.innerHTML = `<div class='alert-info'> From: ${document.getElementById('location_field').value} <br>To: ${sch_name}<br>Driving distance: ${distance}<br>Recommended Pricing: $${recc_price.toFixed(2)}<br>Duration: ${result.routes[0].legs[0].duration.text}</div>`
+                                output.innerHTML = `<div class='alert-info'>
+                                    <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip"
+                                    data-bs-html='true'
+                                    data-bs-placement="right"
+                                    data-bs-title="From: ${document.getElementById('location_field').value}
+                                    <br>To: ${sch_name}, ${sch_postal}
+                                    <br>Driving distance: ${distance}
+                                    <br>Recommended Pricing: $${recc_price.toFixed(2)}
+                                    <br>Duration: ${result.routes[0].legs[0].duration.text}</div>"
+                                    data-bs-custom-class="custom-tooltip">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        width='30'
+                                        height='30'
+                                        viewBox="0 0 512 512"
+                                        fill="#4e7570">
+                                        <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
+                                        </svg>
+                                    </a>`
 
                                 marker.setMap(null)
                                 directionsDisplay.setMap(null)
 
                                 directionsDisplay.setDirections(result);
                                 directionsDisplay.setMap(map);
-                                
+
+                                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
                             }
                         }
                     }
 
-                    else 
+                    else
                     {
                         directionsDisplay.setDirections({routes: []});
 
@@ -704,8 +811,8 @@
                 })
             }
             // autocomplete objects for all input
-      
-            var options = 
+
+            var options =
             {
                 types: ['(cities)']
             }
@@ -715,11 +822,11 @@
 
              var input2 = document.getElementById('location_field')
              var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
-            
+
             </script>
-                
-                <div class="group" id="cost_group">  
-                    <span class="currencyinput" id="dollarsign"></span>    
+
+                <div class="group" id="cost_group">
+                    <span class="currencyinput" id="dollarsign"></span>
                     <input type="number" name='cost' min="0" step="0.1" class="text-input cost-input" oninput="cost_click()" required>
                     <span class="highlight"></span>
                     <label class="text-label">Cost per person</label>
@@ -730,26 +837,17 @@
                     <span class="highlight"></span>
                     <label class="text-label">Seat capacity per ride</label>
                 </div>
-                <div class="other-group">      
-                    <label class="other-label" id="frequency-label">Frequency</label><br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="frequency" value="adhoc" id="frequency-adhoc" onclick="frequency_click()">
-                        <label class="form-check-label radio-label" for="frequency-adhoc">Ad-hoc</label><br>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="frequency" value="recurring" id="frequency-recurring" onclick="frequency_click()">
-                        <label class="form-check-label radio-label" for="frequency-recurring">Recurring</label> 
-                    </div>
-                </div>
-                <div class="group">      
-                    <input type="date" name="date" class="text-input datetime-input" oninput="date_click()" v-model="date" required>
-                    <span class="highlight"></span>
+                <div class="group">
+                    <input type="date" name="date" class="text-input datetime-input"
+                           v-bind:min="today" oninput="date_click()" v-model="date" required>
+
+
                     <label class="date-label" id="date-label">Date</label>
                     <label class="date_alert text-danger" role="alert" v-if="check_date()">
                         please select a date not more than 1 year from today *
                     </label>
                 </div>
-                <div class="group">      
+                <div class="group">
                     <input type="time" name="time" class="text-input datetime-input" oninput="time_click()" required>
                     <span class="highlight"></span>
                     <label class="date-label" id="time-label">Time</label>
@@ -763,19 +861,34 @@
                 </button>
         </form>
     </div>
-
+</div>
 </body>
 
 <script>
-    username = "bob"
+
+    var smu_position = "from";
+
+    window.addEventListener('resize', (event) => {
+        console.log(smu_position)
+        if (window.innerWidth < 768 && smu_position == "to") {
+            document.getElementById('arrow').style.transform = 'rotate(270deg)'
+        } else if (window.innerWidth < 768 && smu_position == "from") {
+            document.getElementById('arrow').style.transform = 'rotate(90deg)'
+        } else if (window.innerWidth > 768 && smu_position == "to") {
+            document.getElementById('arrow').style.transform = 'rotate(180deg)'
+        } else if (window.innerWidth > 768 && smu_position == "from") {
+            document.getElementById('arrow').style.transform = 'rotate(0deg)'
+        }
+    })
+
+    let username = "bob"
     email = 'bob@hello.com' // this username can be read in the riders_indiv_driver.js file 
 </script>
 
 <script type="module" src="../../../index.js"></script>
 <script type="module" src="./rides_indiv_driver.js"></script>
 
-    <script>
-        smu_position = "from";
+<script>
 
         function frequency_click() {
             document.getElementById("frequency-label").style = "opacity:0.8";
@@ -796,15 +909,38 @@
 
         function rotate_location() {
             if (smu_position == "from") {
-                document.getElementById("location_from").innerHTML = "Location";
-                document.getElementById("location_to").innerHTML = "SMU";
-                document.getElementById("location_field").innerHTML =
-                    "Pick up address";
+                if (window.innerWidth > 768) {
+                    document.getElementById("arrow").classList.remove("rotate-top");
+                    document.getElementById("arrow").classList.remove("rotate-down");
+                    document.getElementById("arrow").classList.remove("rotate-backward");
+                    document.getElementById("arrow").classList.add("rotate-forward");
+                } else{
+                    document.getElementById("arrow").classList.remove("rotate-forward");
+                    document.getElementById("arrow").classList.remove("rotate-down");
+                    document.getElementById("arrow").classList.remove("rotate-backward");
+                    document.getElementById("arrow").classList.add("rotate-top");
+
+                }
+
+                document.getElementById("address-text").innerHTML = "Pick up address";
                 smu_position = "to";
+
             } else {
-                document.getElementById("location_from").innerHTML = "SMU";
-                document.getElementById("location_to").innerHTML = "Location";
-                document.getElementById("location_field").innerHTML =
+                if (window.innerWidth > 768) {
+                    document.getElementById("arrow").classList.remove("rotate-top");
+                    document.getElementById("arrow").classList.remove("rotate-down");
+                    document.getElementById("arrow").classList.remove("rotate-forward");
+                    document.getElementById("arrow").classList.add("rotate-backward");
+                } else{
+                    document.getElementById("arrow").classList.remove("rotate-forward");
+                    document.getElementById("arrow").classList.remove("rotate-top");
+                    document.getElementById("arrow").classList.remove("rotate-backward");
+                    document.getElementById("arrow").classList.add("rotate-down");
+
+                }
+                document.getElementById("arrow").classList.remove("rotate-forward");
+                document.getElementById("arrow").classList.add("rotate-backward");
+                document.getElementById("address-text").innerHTML =
                     "Drop off address";
                 smu_position = "from";
             }
@@ -816,6 +952,6 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"
     ></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
     <script src="../../../navbar/navbar.js"></script>
 
