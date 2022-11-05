@@ -1,0 +1,76 @@
+h1 {
+    color: #4e7570;
+}
+
+.card {
+    background-color: #ffffff;
+    border: none;
+    width: 300px;
+    margin: 20px auto;
+    min-width: 251px;
+    min-height: 235px;
+    max-width: 300px;
+    max-height: 300px;
+    transition: all 0.2s ease-in-out;
+}
+
+.card-body {
+    border-radius: 15px;
+    background-color: #e3f1ef;
+    color: #4e7570;
+}
+
+.card:hover {
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.1);
+}
+
+.rounded-circle {
+    width: 60px;
+    border-color: #4e7570;
+}
+
+.badge {
+    background-color: #4c86a2;
+    position: absolute;
+    top: 10px;
+    left: 25px;
+}
+
+.inputs {
+    position: relative;
+}
+
+input[type="text"] {
+    background-color: #bedad6;
+    border-radius: 15px;
+}
+
+input[type="text"]:focus {
+    background-color: #bedad6;
+    border-radius: 15px;
+    box-shadow: 0 0 5px #4e7570;
+}
+
+.bi-person-fill {
+    font-size: 32px;
+}
+
+@media only screen and (max-width: 600px) {
+    #add_ride_icon {
+        position: fixed;
+        z-index: 3;
+        top: 90vh;
+        right: 20px;
+    }
+    .card {
+        border: none;
+        width: 300px;
+        margin: 20px auto;
+        min-width: 251px;
+        min-height: 235px;
+        max-width: 300px;
+        max-height: 300px;
+        transition: all 0.2s ease-in-out;
+    }
+}
