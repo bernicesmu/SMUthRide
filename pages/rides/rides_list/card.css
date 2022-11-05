@@ -1,0 +1,35 @@
+
+.card {
+    background-color: #e3f1ef;;
+    border: none;
+    width: 300px;
+    margin: 20px auto;
+    min-width: 251px;
+    min-height: 235px;
+    max-width: 300px;
+    max-height: 300px;
+    transition: all 0.2s ease-in-out;
+}
+
+.card-body {
+    border-radius: 15px;
+    background-color: #e3f1ef;;
+    color: #4e7570;
+}
+
+.card:hover {
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.1);
+}
+
+.rounded-circle {
+    width: 60px;
+    border-color: #4e7570;
+}
+
+.badge {
+    background-color: #4c86a2;
+    position: absolute;
+    top: 10px;
+    left: 25px;
+}
