@@ -2,6 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Ride Listings</title>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <link
@@ -130,6 +132,8 @@
 
             }
      </style>
+        <link rel="stylesheet" href="rides_listing.css" />
+        <link rel="stylesheet" href="card.css">
     </head>
     <body style="background-color: #FFFFFF">
 
@@ -142,64 +146,64 @@
     </div>
     <div id="populate_listings">
 
-        <div class="col px-5 py-0">
-            <div class=" text-center">
+        <div class="col px-md-5 px-1 py-0 d-flex flex-wrap justify-content-center">
 
-                <h1>Rides</h1>
+            <div class="col-4 col-md-3 order-md-1 my-auto lh-lg d-flex justify-content-center">
 
-            </div>
-            <div class="d-flex justify-content-between">
-
-                <div class="col-3 my-auto lh-lg d-flex justify-content-center">
-
-                    <label class="switch">
-                        <input type="checkbox" id="togBtn" v-on:change="change_direction()">
-                        <div class="slider round">
-                            <!--ADDED HTML -->
-                            <span class="on" style=" position:absolute; right:17px; top:15px"> To</span>
-                            <span class="on" style=" position:absolute; right:1px; top: 31px"> SMU</span>
-                            <span class="off" style=" position:absolute; right:17px; top:15px"> From</span>
-                            <span class="off" style=" position:absolute; right:20px; top: 31px"> SMU</span>
-                            <!--END-->
-                        </div>
-                    </label>
-
-                </div>
-                
-
-                <div class=" inputs col-6 my-auto justify-content-center">
-
-                    <i class="bi bi-search"></i>
-                    <input name="search_rides" type="text" class="form-control"
-                           placeholder="Search Rides..." v-model="search" @input="searchResults()">
-                    <div class="dropdown ms-0 mt-1 d-flex flex-column flex-wrap mx-auto"
-                         v-show="Object.keys(results).length >0" style="padding-bottom: -5px;">
-                        <ul  class="my-0 px-0 justify-content-center">
-                            <li v-for="location of results" class="result my-0 py-1"
-                                @click="selectResult(location)">{{location}}</li>
-                        </ul>
+                <label class="switch">
+                    <input type="checkbox" id="togBtn" v-on:change="change_direction()">
+                    <div class="slider round">
+                        <!--ADDED HTML -->
+                        <span class="on" style=" position:absolute; right:17px; top:15px"> To</span>
+                        <span class="on" style=" position:absolute; right:1px; top: 31px"> SMU</span>
+                        <span class="off" style=" position:absolute; right:17px; top:15px"> From</span>
+                        <span class="off" style=" position:absolute; right:20px; top: 31px"> SMU</span>
+                        <!--END-->
                     </div>
+                </label>
 
+            </div>
 
-                </div>
-                <div class="col-3 my-auto lh-lg d-flex justify-content-center">
+            <div class=" col-4 col-md-12 d-flex order-md-0 text-center align-items-center justify-content-center">
 
-                    <a href="./../create_ride/rides_indiv_driver.html" id="add_ride_icon" class="">
-                        <i class="bi bi-plus-circle-fill"></i>
-                    </a>
+                <h1 class="mb-0">Rides</h1>
 
+            </div>
+
+            <div class="col-4 col-md-3 order-md-3 my-auto lh-lg d-flex justify-content-center">
+
+                <a href="./../create_ride/rides_indiv_driver.html" id="add_ride_icon" class="">
+                    <i class="bi bi-plus-circle-fill"></i>
+                </a>
+
+            </div>
+
+            <div class=" inputs col-10 col-md-6 order-md-2 my-auto justify-content-center">
+
+                <i class="bi bi-search"></i>
+                <input name="search_rides" type="text" class="form-control"
+                       placeholder="Search Rides..." v-model="search" @input="searchResults()">
+                <div class="dropdown ms-0 mt-1 d-flex flex-column flex-wrap mx-auto"
+                     v-show="Object.keys(results).length >0" style="padding-bottom: -5px;">
+                    <ul  class="my-0 px-0 justify-content-center">
+                        <li v-for="location of results" class="result my-0 py-1"
+                            @click="selectResult(location)">{{location}}</li>
+                    </ul>
                 </div>
 
             </div>
+
+
 
         </div>
 
         <div class="d-flex flex-wrap ">
 
-            <div class="card col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings">
-
+            <div class="card col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings"
+                 onclick= "">
                 <div class="card-body col py-0">
-                    <a class="stretched-link" @href="'./../ride_details/rides_indiv_rider.html?rideid=' + listing.ride_id"></a>
+
+                    <a class="stretched-link" v-bind:href="'./../ride_details/rides_indiv_rider.html?rideid=' + listing.ride_id"></a>
                     <span class="badge rounded-pill px-1" v-if="listing.frequency === 'recurring'" hidden>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
                         <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
