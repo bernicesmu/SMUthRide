@@ -168,7 +168,7 @@
             display: none;
         }
 
-        #getRoute {
+        .getRoute-buttons {
             width: 100px;
             border-radius: 10px;
             background-color: #4e7570;
@@ -176,6 +176,10 @@
             border-color: #b1b1b1;
             display: inline-block;
             padding-top: 2px;
+        }
+
+        .map-buttons { 
+            display: inline-flex !important;
         }
 
         .location {
@@ -463,10 +467,9 @@
 
     <div id="form_alerts">
         <div class="offer d-flex justify-content-evenly">
-            <div style="width: 20px"></div>
-            <h1 class="mb-0">Offer a ride</h1>
+            <h1 class="mb-0 pb-3">Offer a ride</h1>
             <!--            <button></button>-->
-            <button
+            <!-- <button
                 type="button"
                 class="btn btn-floating"
                 data-mdb-ripple-color="dark"
@@ -490,7 +493,7 @@
                         color: white;
                     "
                 ></i>
-            </button>
+            </button> -->
         </div>
 
         <!-- this div section handles the selection between SMU and Location -->
@@ -607,13 +610,22 @@
                     </div>
                 </div>
                 <div class="row d-flex justify-content-center">
-                    <div class="w-50">
+                    <div class="w-50 map-buttons mb-3">
+                        <button
+                            type="button"
+                            class="btn button w-100 d-block text-center getRoute-buttons"
+                            data-mdb-ripple-color="dark"
+                            onclick="rotate_location()"
+                            id="bottomtip"
+                            title="Change Direction"
+                        >Switch directions!
+                        </button>
                         <input
                             type="button"
                             id="getRoute"
                             value="Find route!"
                             v-bind:disabled="location_input.length == 0"
-                            class="btn button w-100 d-block text-center"
+                            class="btn button w-100 d-block text-center getRoute-buttons"
                             onclick="calcRoute()"
                         />
                         <br />
@@ -1032,7 +1044,7 @@
     });
 
     function frequency_click() {
-        document.getElementById("location_field").style = "opacity:0.8";
+        document.getElementById("location_field").style = "opacity:1";
     }
 
     function date_click() {
