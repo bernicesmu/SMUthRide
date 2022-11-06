@@ -144,65 +144,64 @@ const navbar = Vue.createApp({
             });
         },
     },
-    methods: {
-        nav_animation() {
-            // let currentScrollPos = window.pageYOffset;
-            // if (elem.innerText.toLowerCase() === this.page) {
-            //     elem.classList.add("active-page-down");
-            //     elem.classList.remove("active-page-top");
-            // }
-            // if (currentScrollPos == 0) {
-            //     document
-            //         .getElementById("navbar")
-            //         .classList.remove("navbar-down");
-            //     document.getElementById("navbar").classList.add("navbar-top");
-            //     document
-            //         .querySelectorAll("#navbarSupportedContent li a")
-            //         .forEach((currentValue) => {
-            //             currentValue.classList.remove("nav-item-down");
-            //             currentValue.classList.add("nav-item-top");
-            //         });
-            //     document.getElementById("street").classList.remove("street");
-            //     document.getElementById("street-stripe").classList.remove("street-stripe");
-            //     for (const elem of document.getElementsByClassName("nav-link")) {
-            //         if (elem.innerText.toLowerCase() === this.page) {
-            //             elem.classList.add("active-page-top");
-            //             elem.classList.remove("active-page-down");
-            //         }
-            //     }
-                
-            // } else {
-            //     document
-            //         .getElementById("navbar")
-            //         .classList.remove("navbar-top");
-            //     document.getElementById("navbar").classList.add("navbar-down");
-            //     document.getElementById("street").classList.add("street");
-            //     document.getElementById("street-stripe").classList.add("street-stripe");
-            //     document
-            //         .querySelectorAll("#navbarSupportedContent li a")
-            //         .forEach((currentValue) => {
-            //             currentValue.classList.remove("nav-item-top");
-            //             currentValue.classList.add("nav-item-down");
-            //         });
-            //     for (const elem of document.getElementsByClassName("nav-link")) {
-            //         if (elem.innerText.toLowerCase() === this.page) {
-            //             elem.classList.add("active-page-down");
-            //             elem.classList.remove("active-page-top");
-            //         }
-            //     }
-            // }
-        },
-    },
-    mounted() {
-        window.addEventListener("scroll", this.nav_animation);
+    // methods: {
+    // nav_animation() {
+    // let currentScrollPos = window.pageYOffset;
+    // if (elem.innerText.toLowerCase() === this.page) {
+    //     elem.classList.add("active-page-down");
+    //     elem.classList.remove("active-page-top");
+    // }
+    // if (currentScrollPos == 0) {
+    //     document
+    //         .getElementById("navbar")
+    //         .classList.remove("navbar-down");
+    //     document.getElementById("navbar").classList.add("navbar-top");
+    //     document
+    //         .querySelectorAll("#navbarSupportedContent li a")
+    //         .forEach((currentValue) => {
+    //             currentValue.classList.remove("nav-item-down");
+    //             currentValue.classList.add("nav-item-top");
+    //         });
+    //     document.getElementById("street").classList.remove("street");
+    //     document.getElementById("street-stripe").classList.remove("street-stripe");
+    //     for (const elem of document.getElementsByClassName("nav-link")) {
+    //         if (elem.innerText.toLowerCase() === this.page) {
+    //             elem.classList.add("active-page-top");
+    //             elem.classList.remove("active-page-down");
+    //         }
+    //     }
+    // } else {
+    //     document
+    //         .getElementById("navbar")
+    //         .classList.remove("navbar-top");
+    //     document.getElementById("navbar").classList.add("navbar-down");
+    //     document.getElementById("street").classList.add("street");
+    //     document.getElementById("street-stripe").classList.add("street-stripe");
+    //     document
+    //         .querySelectorAll("#navbarSupportedContent li a")
+    //         .forEach((currentValue) => {
+    //             currentValue.classList.remove("nav-item-top");
+    //             currentValue.classList.add("nav-item-down");
+    //         });
+    //     for (const elem of document.getElementsByClassName("nav-link")) {
+    //         if (elem.innerText.toLowerCase() === this.page) {
+    //             elem.classList.add("active-page-down");
+    //             elem.classList.remove("active-page-top");
+    //         }
+    //     }
+    // }
+    // },
+    // },
+    // mounted() {
+    //     window.addEventListener("scroll", this.nav_animation);
 
-        for (const elem of document.getElementsByClassName("nav-link")) {
-            if (elem.innerText.toLowerCase() === this.page) {
-                let currentScrollPos = window.pageYOffset;
-                elem.classList.add("active-page-top");
-            }
-        }
-    },
+    //     for (const elem of document.getElementsByClassName("nav-link")) {
+    //         if (elem.innerText.toLowerCase() === this.page) {
+    //             let currentScrollPos = window.pageYOffset;
+    //             elem.classList.add("active-page-top");
+    //         }
+    //     }
+    // },
 });
 
 navbar.mount("#navbarVue");

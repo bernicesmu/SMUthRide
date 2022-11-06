@@ -1,130 +1,19 @@
 // const { TabsPlugin } = require("bootstrap-vue");
 
-const pageData = document.querySelector("#navbarVue div").dataset.page;
-
-const navbar = Vue.createApp({
-    data() {
-        return {
-            page: pageData,
-        };
-    },
-    template: `
-        <nav id="navbar" class="navbar navbar-expand-md fixed-top">
-            <a class="navbar-brand" href="#">
-                <!-- <img
-                    class=""
-                    src=""
-                    alt="brand_logo"
-                /> -->
-                BRAND
-            </a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div
-                class="collapse navbar-collapse"
-                id="navbarSupportedContent"
-            >
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link nav-item-top" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/rides/rides_list/rides_listing.html'">Rides</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/offers/offers.html'">Offers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/chats/chat.html'">Chat</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href="relativePath + 'pages/profile/profile.html'"><img :src="relativePath + 'pages/profile/ded.png'" class="profile-img"/></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    `,
-    computed: {
-        relativePath() {
-            if (
-                this.page === "profile" ||
-                this.page === "chat" ||
-                this.page === "offers"
-            ) {
-                return "../../";
-            } else {
-                return "../../../";
-            }
-        },
-    },
-    methods: {
-        nav_animation() {
-            let currentScrollPos = window.pageYOffset;
-            if (currentScrollPos == 0) {
-                document
-                    .getElementById("navbar")
-                    .classList.remove("navbar-down");
-                document.getElementById("navbar").classList.add("navbar-top");
-                document
-                    .querySelectorAll("#navbarSupportedContent li a")
-                    .forEach((currentValue) => {
-                        currentValue.classList.remove("nav-item-down");
-                        currentValue.classList.add("nav-item-top");
-                    });
-            } else {
-                document
-                    .getElementById("navbar")
-                    .classList.remove("navbar-top");
-                document.getElementById("navbar").classList.add("navbar-down");
-                document
-                    .querySelectorAll("#navbarSupportedContent li a")
-                    .forEach((currentValue) => {
-                        currentValue.classList.remove("nav-item-top");
-                        currentValue.classList.add("nav-item-down");
-                    });
-            }
-        },
-    },
-    mounted() {
-        window.addEventListener("scroll", this.nav_animation);
-
-        for (const elem of document.getElementsByClassName("nav-link")) {
-            if (elem.innerText.toLowerCase() === this.page) {
-                elem.classList.add("active-page");
-            }
-        }
-    },
-});
-
-navbar.mount("#navbarVue");
-
-
-document.getElementById("swap").addEventListener("click", swap_to_frm)
+document.getElementById("swap").addEventListener("click", swap_to_frm);
 
 function swap_to_frm() {
-    var from  = document.getElementById("from")
-    var to = document.getElementById("to")
-    var sen = document.getElementById("trip-sen")
+    var from = document.getElementById("from");
+    var to = document.getElementById("to");
+    var sen = document.getElementById("trip-sen");
 
     if (from.innerHTML == "SMU") {
-        from.innerHTML = "Location"
-        to.innerHTML = "SMU"
-        sen.innerHTML = "Booking a ride to SMU"
+        from.innerHTML = "Location";
+        to.innerHTML = "SMU";
+        sen.innerHTML = "Booking a ride to SMU";
+    } else {
+        from.innerHTML = "SMU";
+        to.innerHTML = "Location";
+        sen.innerHTML = "Booking a ride from SMU";
     }
-    else {
-        from.innerHTML = "SMU"
-        to.innerHTML = "Location"
-        sen.innerHTML = "Booking a ride from SMU"
-    }
-
-
 }
