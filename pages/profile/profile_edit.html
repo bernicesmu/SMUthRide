@@ -67,10 +67,20 @@
                 <!-- <input type = "file" ref="fileInput" id="photo"> -->
                 <!-- <button @click="$refs.fileInput.click()">Pick File</button> -->
                 <!-- <button id="upload">Upload</button> -->
-                <img id="profile-picture" style="width: 12rem;"/>
+                <!-- <div style="border-radius: 50%;border:blueviolet 3px solid;width: 100px;height:100px;"> -->
+                <img id="profile-picture" style="width: 12rem"/>
+                <!-- </div> -->
+                
                 <div>
                     <!-- <button>Upload Image</button> -->
-                    <input type="file" id="imageInput" />
+                    <input type="file" id="imageInput" ref="fileInput" style="display: none;"/>
+                    <label for="imageInput">
+                        <img src="./Inputs_icon.svg" alt="" style="height:50px;width:50px">
+                    </label>
+                    <button class="btn btn-sm bg-secondary text-white" @click="$refs.fileInput.click()">Edit Profile Picture</button>
+                    <!-- <label for="imageInput">
+                        
+                    </label> -->
                 </div>
 
                 <h2 class="name">
