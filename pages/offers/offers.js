@@ -32,6 +32,7 @@ const listings = Vue.createApp({
             this.check_and_populate()
         },
         check_and_populate(){
+<<<<<<< Updated upstream
             if (this.to_from === "To"){
                 this.display_listings = this.listings.filter(x => x.smu_to_from === "To");
             } else if (this.to_from === "From"){
@@ -39,6 +40,12 @@ const listings = Vue.createApp({
             }
             this.driver_listings= this.display_listings.filter(x=> x.driver_username === localStorage.getItem("user"))
             this.rider_listings=  this.display_listings.filter(x=> x.users_offered.includes(localStorage.getItem('user')))
+=======
+            this.driver_listings= this.listings.filter(x=>
+                x.driver_username === this.user).sort((a,b) => a.time.localeCompare(b.time));
+            this.rider_listings=  this.listings.filter(x=> x.users_offered!= undefined &&
+                x.users_offered.includes(this.user)).sort((a,b) => a.time.localeCompare(b.time));
+>>>>>>> Stashed changes
             console.log(this.rider_listings)
         },
         formatAMPM(date){

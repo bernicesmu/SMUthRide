@@ -1,9 +1,7 @@
-h1 {
-    color: #4e7570;
-}
 
 .card {
-    background-color: #ffffff;
+
+    background-color: #e3f1ef;;
     border: none;
     width: 300px;
     margin: 20px auto;
@@ -15,8 +13,8 @@ h1 {
 }
 
 .card-body {
-    border-radius: 15px;
-    background-color: #e3f1ef;
+    border-radius: 20px;
+    background-color: rgba(255,255,255,0.5);
     color: #4e7570;
 }
 
@@ -37,32 +35,9 @@ h1 {
     left: 25px;
 }
 
-.inputs {
-    position: relative;
-}
 
-input[type="text"] {
-    background-color: #bedad6;
-    border-radius: 15px;
-}
 
-input[type="text"]:focus {
-    background-color: #bedad6;
-    border-radius: 15px;
-    box-shadow: 0 0 5px #4e7570;
-}
-
-.bi-person-fill {
-    font-size: 32px;
-}
-
-@media only screen and (max-width: 600px) {
-    #add_ride_icon {
-        position: fixed;
-        z-index: 3;
-        top: 90vh;
-        right: 20px;
-    }
+@media only screen and (max-width: 768px) {
     .card {
         border: none;
         width: 300px;
@@ -73,8 +48,5 @@ input[type="text"]:focus {
         max-height: 300px;
         transition: all 0.2s ease-in-out;
     }
-}
 
-tbody {
-    border-bottom: none;
 }
