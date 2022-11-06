@@ -22,6 +22,7 @@
       }
       body {
         background-color: #ffffff;
+        margin-top: 100px !important;
       }
 
       .page-box{
@@ -600,8 +601,13 @@
       
 
     </style>
+    
+    <link rel="stylesheet" href="../../navbar/nav_styles.css" />
   </head>
   <body>
+    <div id="navbarVue">
+      <div @scroll="nav_animation" data-page="profile"></div>
+    </div>
     <div class="container page-box">
       <div class="row">
         <div class="col col-lg-7 col-md-6 col-sm-12 col-xs-12 content" >
@@ -771,5 +777,6 @@
         }  
         form.addEventListener('submit', handleForm);
       </script>
+      <script type="module" src="../../navbar/navbar.js"></script>
 </body>
 </html>
