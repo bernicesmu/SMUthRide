@@ -31,9 +31,9 @@ const listings = Vue.createApp({
         check_and_populate(){
             this.driver_listings= this.listings.filter(x=>
                 x.driver_username === this.user).sort((a,b) => a.time.localeCompare(b.time));
-            this.rider_listings=  this.listings.filter(x=>
+            this.rider_listings=  this.listings.filter(x=> x.users_offered!= undefined &&
                 x.users_offered.includes(this.user)).sort((a,b) => a.time.localeCompare(b.time));
-            // console.log(this.rider_listings)
+            // // console.log(this.rider_listings)
         },
         formatAMPM(date){
 
