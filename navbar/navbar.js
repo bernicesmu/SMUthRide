@@ -1,9 +1,23 @@
+import {
+    getDatabase,
+    ref,
+    set,
+    child,
+    get,
+    update,
+    remove,
+    onValue,
+} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+
+import "../index.js";
+
 const pageData = document.querySelector("#navbarVue div").dataset.page;
 
 const navbar = Vue.createApp({
     data() {
         return {
             page: pageData,
+            url : ""
         };
     },
     template: `
@@ -57,7 +71,7 @@ const navbar = Vue.createApp({
                         <a class="nav-link nav-item-top" :href=" chatURL ">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href=" profileURL "><img :src="relativePath + 'pages/profile/ded.png'" class="profile-img"/></a>
+                        <a class="nav-link nav-item-top" :href=" profileURL "><img :src="url" class="profile-img" v-on:load="profilePic"/></a>
                     </li>
                 </ul>
             </div>
@@ -72,6 +86,7 @@ const navbar = Vue.createApp({
                 this.page === "chat" ||
                 this.page === "offers"
             ) {
+                
                 return "../../";
             } else {
                 return "../../../";
@@ -105,6 +120,23 @@ const navbar = Vue.createApp({
                 return this.relativePath + "pages/login/login.html";
             }
         },
+        profilePic(){
+            let username = localStorage.getItem("username_x");
+            console.log(username);
+            const db = getDatabase();
+
+            const data = ref(db, "users/" + username);
+            onValue(data, (snapshot) => {
+                console.log(snapshot);
+                console.log(snapshot.val().profile_url);
+                // SHOULD NOT BE RETURNING
+                // return snapshot.val().profile_url
+                this.url = snapshot.val().profile_url
+                // document
+                //     .getElementById("profile-picture")
+                //     .setAttribute("src", snapshot.val().profile_url);
+            });
+        }
     },
     methods: {
         nav_animation() {

@@ -63,6 +63,7 @@ input {
   list-style-position: outside;
   margin-left: 50%;
   padding: 0px;
+  
 }
 
 .sent p {
@@ -243,10 +244,10 @@ button {
 
 #confirm_cancel {
   text-align: center;
-}
+}/*# sourceMappingURL=chat.css.map */
 
 .chat-container {
-  display: flex;
+  display:flex;
 }
 
 @media (max-width: 1200px) {
@@ -272,20 +273,29 @@ button {
   }
 }
 @media (max-width: 767px) {
+
   .chat-container {
+    
     display: grid;
     grid-template-columns: 1fr;
   }
-  #chatroom, #chat {
+
+  #chatroom, #chat{
     width: 100%;
-    grid-column: 1/2;
-    grid-row: 1/2;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
   }
+
   #chatroom {
     z-index: 2;
   }
+
   #chat {
     z-index: 1;
     /* opacity: 0; */
   }
-}/*# sourceMappingURL=chat.css.map */
+
+  .chat-container-active {
+    
+  }
+}

@@ -106,9 +106,9 @@ export function find_rid() {
 export function create_chat(uid1, uid2) { 
   const db = getDatabase();
   set(ref(db, `messages/${uid1};${uid2}/`), {
-    text: "hello world",
-    user: "kenming",
-    datetime: "13/10 5:49PM"
+    text: "hello world", // HARDCODE
+    user: "kenming", // HARDCODE
+    datetime: "13/10 5:49PM" // HARDCODE
   })
 }
 
