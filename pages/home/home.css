@@ -90,8 +90,42 @@ body {
     font-size: 1.5em;
 }
 
-.welcome h1, .welcome p {
-    /* margin-left: 20px; */
+
+.trip {
+	margin-bottom: 2rem;
+	margin-top: 2rem;
+}
+
+#trip-sen {
+	margin-top: 2rem;
+}
+
+#swap {
+	background-color: #4e7570;
+	height: 4rem;
+	border-radius: 4rem;
+}
+
+.col {
+	max-height: 342px;
+}
+#carousel {
+	height: 100%;
+}
+
+img {
+	height: 342px;
+
+}
+
+#go {
+	background-color: #4e7570;
+	height: 4rem;
+	width: 12rem;
+	border-radius: 4rem;
+	font-size: 2rem;
+	font-weight: bold;
+	margin-top: 1.5rem;
 }
 
 /* MOVING CAR */
