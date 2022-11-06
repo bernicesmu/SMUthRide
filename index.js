@@ -399,7 +399,8 @@ export function get_ride_details(rideid) {
     const data = snapshot.val();
     var k = "";
     var v = "";
-    for ([k, v] of Object.entries(data)) { 
+    for ([k, v] of Object.entries(data)) {
+      console.log(k, v)
       localStorage.setItem(k, v)
     }
   });
