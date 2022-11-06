@@ -21,7 +21,7 @@ const navbar = Vue.createApp({
         };
     },
     template: `
-        <nav id="navbar" class="navbar navbar-expand-md fixed-top">
+        <nav id="navbar" class="navbar navbar-expand-md fixed-top navbar-down">
             <a class="navbar-brand" href="#">
                 <div id="div-car">
                     <img
@@ -58,24 +58,24 @@ const navbar = Vue.createApp({
             >
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href=" homeURL ">Home</a>
+                        <a class="nav-link nav-item-down" :href=" homeURL ">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href=" rideURL ">Rides</a>
+                        <a class="nav-link nav-item-down" :href=" rideURL ">Rides</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href=" offerURL ">Offers</a>
+                        <a class="nav-link nav-item-down" :href=" offerURL ">Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href=" chatURL ">Chat</a>
+                        <a class="nav-link nav-item-down" :href=" chatURL ">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href=" profileURL "><img :src="url" class="profile-img" v-on:load="profilePic"/></a>
+                        <a class="nav-link nav-item-down" :href=" profileURL "><img :src="url" class="profile-img" v-on:load="profilePic"/></a>
                     </li>
                 </ul>
             </div>
-            <div id="street"></div>
-            <div id="street-stripe"></div>
+            <div id="street" class="street"></div>
+            <div id="street-stripe" class="street-stripe"></div>
         </nav>
     `,
     computed: {
@@ -146,54 +146,51 @@ const navbar = Vue.createApp({
     },
     methods: {
         nav_animation() {
-            let currentScrollPos = window.pageYOffset;
-            if (currentScrollPos == 0) {
-                document
-                    .getElementById("navbar")
-                    .classList.remove("navbar-down");
-                document.getElementById("navbar").classList.add("navbar-top");
-                document
-                    .querySelectorAll("#navbarSupportedContent li a")
-                    .forEach((currentValue) => {
-                        currentValue.classList.remove("nav-item-down");
-                        currentValue.classList.add("nav-item-top");
-                    });
-                document.getElementById("street").classList.remove("street");
-                document
-                    .getElementById("street-stripe")
-                    .classList.remove("street-stripe");
-                for (const elem of document.getElementsByClassName(
-                    "nav-link"
-                )) {
-                    if (elem.innerText.toLowerCase() === this.page) {
-                        elem.classList.add("active-page-top");
-                        elem.classList.remove("active-page-down");
-                    }
-                }
-            } else {
-                document
-                    .getElementById("navbar")
-                    .classList.remove("navbar-top");
-                document.getElementById("navbar").classList.add("navbar-down");
-                document.getElementById("street").classList.add("street");
-                document
-                    .getElementById("street-stripe")
-                    .classList.add("street-stripe");
-                document
-                    .querySelectorAll("#navbarSupportedContent li a")
-                    .forEach((currentValue) => {
-                        currentValue.classList.remove("nav-item-top");
-                        currentValue.classList.add("nav-item-down");
-                    });
-                for (const elem of document.getElementsByClassName(
-                    "nav-link"
-                )) {
-                    if (elem.innerText.toLowerCase() === this.page) {
-                        elem.classList.add("active-page-down");
-                        elem.classList.remove("active-page-top");
-                    }
-                }
-            }
+            // let currentScrollPos = window.pageYOffset;
+            // if (elem.innerText.toLowerCase() === this.page) {
+            //     elem.classList.add("active-page-down");
+            //     elem.classList.remove("active-page-top");
+            // }
+            // if (currentScrollPos == 0) {
+            //     document
+            //         .getElementById("navbar")
+            //         .classList.remove("navbar-down");
+            //     document.getElementById("navbar").classList.add("navbar-top");
+            //     document
+            //         .querySelectorAll("#navbarSupportedContent li a")
+            //         .forEach((currentValue) => {
+            //             currentValue.classList.remove("nav-item-down");
+            //             currentValue.classList.add("nav-item-top");
+            //         });
+            //     document.getElementById("street").classList.remove("street");
+            //     document.getElementById("street-stripe").classList.remove("street-stripe");
+            //     for (const elem of document.getElementsByClassName("nav-link")) {
+            //         if (elem.innerText.toLowerCase() === this.page) {
+            //             elem.classList.add("active-page-top");
+            //             elem.classList.remove("active-page-down");
+            //         }
+            //     }
+                
+            // } else {
+            //     document
+            //         .getElementById("navbar")
+            //         .classList.remove("navbar-top");
+            //     document.getElementById("navbar").classList.add("navbar-down");
+            //     document.getElementById("street").classList.add("street");
+            //     document.getElementById("street-stripe").classList.add("street-stripe");
+            //     document
+            //         .querySelectorAll("#navbarSupportedContent li a")
+            //         .forEach((currentValue) => {
+            //             currentValue.classList.remove("nav-item-top");
+            //             currentValue.classList.add("nav-item-down");
+            //         });
+            //     for (const elem of document.getElementsByClassName("nav-link")) {
+            //         if (elem.innerText.toLowerCase() === this.page) {
+            //             elem.classList.add("active-page-down");
+            //             elem.classList.remove("active-page-top");
+            //         }
+            //     }
+            // }
         },
     },
     mounted() {
@@ -202,13 +199,7 @@ const navbar = Vue.createApp({
         for (const elem of document.getElementsByClassName("nav-link")) {
             if (elem.innerText.toLowerCase() === this.page) {
                 let currentScrollPos = window.pageYOffset;
-                if (currentScrollPos == 0) {
-                    elem.classList.add("active-page-top");
-                    elem.classList.remove("active-page-down");
-                } else {
-                    elem.classList.add("active-page-down");
-                    elem.classList.remove("active-page-top");
-                }
+                elem.classList.add("active-page-top");
             }
         }
     },
