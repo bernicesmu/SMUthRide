@@ -17,7 +17,7 @@ const navbar = Vue.createApp({
     data() {
         return {
             page: pageData,
-            url : ""
+            url: "",
         };
     },
     template: `
@@ -58,11 +58,10 @@ const navbar = Vue.createApp({
             >
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link nav-item-down" href="#">Home</a>
+                        <a class="nav-link nav-item-down" :href=" homeURL ">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-down" :href=" relativePath +
-                        'pages/rides/rides_list/rides_listing.html' ">Rides</a>
+                        <a class="nav-link nav-item-down" :href=" rideURL ">Rides</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-item-down" :href=" offerURL ">Offers</a>
@@ -86,7 +85,6 @@ const navbar = Vue.createApp({
                 this.page === "chat" ||
                 this.page === "offers"
             ) {
-                
                 return "../../";
             } else {
                 return "../../../";
@@ -94,6 +92,14 @@ const navbar = Vue.createApp({
         },
         isLoggedIn() {
             return localStorage.getItem("username_x");
+        },
+        homeURL() {
+            return this.relativePath + "pages/home/home.html";
+        },
+        rideURL() {
+            return (
+                this.relativePath + "pages/rides/rides_list/rides_listing.html"
+            );
         },
         offerURL() {
             if (this.isLoggedIn) {
@@ -120,23 +126,23 @@ const navbar = Vue.createApp({
                 return this.relativePath + "pages/login/login.html";
             }
         },
-        profilePic(){
+        profilePic() {
             let username = localStorage.getItem("username_x");
-            console.log(username);
+            // console.log(username);
             const db = getDatabase();
 
             const data = ref(db, "users/" + username);
             onValue(data, (snapshot) => {
-                console.log(snapshot);
-                console.log(snapshot.val().profile_url);
+                // console.log(snapshot);
+                // console.log(snapshot.val().profile_url);
                 // SHOULD NOT BE RETURNING
                 // return snapshot.val().profile_url
-                this.url = snapshot.val().profile_url
+                this.url = snapshot.val().profile_url;
                 // document
                 //     .getElementById("profile-picture")
                 //     .setAttribute("src", snapshot.val().profile_url);
             });
-        }
+        },
     },
     methods: {
         nav_animation() {
