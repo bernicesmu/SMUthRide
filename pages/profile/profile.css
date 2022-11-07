@@ -53,10 +53,12 @@ main {
 
 .additional-profile div {
     display: flex;
+    margin-bottom: 0.1rem;
 }
 .add-profile-fields {
     margin-left: auto;
     max-width: 55%;
+    text-align: end;
 }
 
 .edit-profile {
@@ -162,8 +164,15 @@ main {
         display: flex;
         justify-content: center;
     }
+    .additional-profile div {
+        flex-direction: column;
+    }
     .additional-profile p {
         margin-right: 1rem;
+    }
+    .add-profile-fields {
+        margin: 0;
+        text-align: start;
     }
     main {
         margin-top: 1rem;
