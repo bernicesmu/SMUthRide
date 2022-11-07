@@ -10,6 +10,7 @@ main {
     padding: 0 2rem;
     padding-left: 0;
     width: 75%;
+    margin-bottom: 100px;
 }
 .wrapper {
     display: flex;
@@ -135,6 +136,7 @@ main {
     display: flex;
     padding-left: 2px;
     margin-left: 0rem;
+    margin-bottom: 0px;
     /* list-style-image: url("./tire.png"); */
 }
 
