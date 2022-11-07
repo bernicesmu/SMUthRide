@@ -29,7 +29,7 @@ import {
 const url = window.location.href;
 
 if (url.includes("profile_edit.html")) {
-    let username = localStorage.getItem("username_x");
+    var username = localStorage.getItem("username_x");
     let username_elem = document.createElement("input");
     username_elem.setAttribute("type", "hidden");
     username_elem.setAttribute("name", "user");
@@ -38,13 +38,15 @@ if (url.includes("profile_edit.html")) {
 } else {
     let queryString = window.location.search;
     let urlParams = new URLSearchParams(queryString);
-    let username = urlParams.get("user");
-    GetProfilePicUrl();
+    var username = urlParams.get("user");
+    console.log(username, 'wfiuhgreuh')
+    GetProfilePicUrl(username);
     if (username != localStorage.getItem("username_x")) {
         document.getElementById("edit-profile").innerHTML = "";
     }
 }
 
+console.log(username, 'oiewfjewo')
 find_user_profile(username);
 find_name_from_username(username);
 
@@ -121,7 +123,7 @@ let imgInput = document.getElementById("imageInput");
 if (imgInput) {
     imgInput.addEventListener("change", uploadImage);
 }
-GetProfilePicUrl()
+GetProfilePicUrl(username)
 
 function uploadImage(event) {
     let files = [];
@@ -175,28 +177,26 @@ function toDatabase(url, ImgName) {
     const db = getDatabase();
     console.log(url);
     const username = localStorage.getItem("username_x");
-    set(ref(db, "users/" + username), {
-        picture_name: ImgName,
-        profile_url: url,
-    });
+    const updates = {}; 
+    updates[`users/${username}/profile_url`] = url;
+    return update(ref(db), updates)
 }
 
 // getting the image
 // MIGHT NEED TO MOVE THIS FUNCTION OUT OF THIS JS FILE
-function GetProfilePicUrl() {
-    let username = localStorage.getItem("username_x");
+function GetProfilePicUrl(username) {
     console.log(username);
     const db = getDatabase();
 
     const data = ref(db, "users/" + username);
     onValue(data, (snapshot) => {
-        console.log(snapshot);
-        console.log(snapshot.val().profile_url);
+        var profile = snapshot.val() 
+        console.log(profile);
+        var profileurl = profile.profile_url
+        localStorage.setItem("profile_url", profileurl)
         // SHOULD NOT BE RETURNING
         // return snapshot.val().profile_url
-        document
-            .getElementById("profile-picture")
-            .setAttribute("src", snapshot.val().profile_url);
+        // document.getElementById("profile-picture").setAttribute("src", profileurl);
     });
 
     // get(child(db, `users/${username}`)).then((snapshot)=>{
