@@ -29,7 +29,6 @@ const listings = Vue.createApp({
             display_listings: [],
             search: '',
             results: [],
-
             possible_locations: locations
 
         }
@@ -98,6 +97,7 @@ const listings = Vue.createApp({
 
         onValue(rides, (snapshot) => {
             this.listings = snapshot.val()
+            // console.log(snapshot.val())
             this.check_and_populate()
         })
 

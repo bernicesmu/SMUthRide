@@ -1,4 +1,4 @@
-import { get_ride_details, find_user_profile, find_name_from_username, format_date, formatAMPM } from "../../../index.js";
+import { get_ride_details, find_user_profile, find_name_from_username, format_date, formatAMPM, create_chat } from "../../../index.js";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -29,5 +29,9 @@ localStorage.setItem("username_x", username)
 document.getElementById("gotochat").addEventListener("submit", gotochat)
 
 function gotochat() { 
+    let your_username = localStorage.getItem("username_x")
+    create_chat(driver_username, your_username)
     localStorage.setItem("driver_username", driver_username)
+
+
 }

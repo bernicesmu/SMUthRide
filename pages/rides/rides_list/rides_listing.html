@@ -200,7 +200,6 @@
 
 
         </div>
-
         <div class="d-flex flex-wrap ">
 
             <div class="card col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings"
@@ -220,9 +219,11 @@
                         <div class="bd-highlight col-4 my-auto">
 
                             <div class="d-flex justify-content-center">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
+                                <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
                                      alt="Generic placeholder image" class="img-fluid rounded-circle border"
-                                >
+                                > -->
+                                <!-- KEN MING REPLACED THE ABOVE WITH THIS -->
+                                <img :src="get_url(listing['driver_username'])" class="img-fluid rounded-circle border border-dark" style="height:50px; width:50px;overflow:hidden;">
                             </div>
 
                         </div>
