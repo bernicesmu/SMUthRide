@@ -5,7 +5,7 @@ html {
 body {
   background-color: #e3f1ef !important;
   margin-top: 130px !important;
-  height: 90%;
+  height: 83%;
 }
 
 * {
@@ -35,6 +35,7 @@ a:link {
 #messages {
   margin-left: 10px;
   overflow-anchor: auto;
+  padding-right: 32px;
 }
 
 li {
@@ -62,7 +63,8 @@ li span {
 }
 
 #send-label {
-  padding-left: 10px;
+  padding-right: 32px;
+  padding-top: 6px;
 }
 
 #message-form {
@@ -85,11 +87,10 @@ input {
 
 .sent p {
   margin-left: 5px;
-  color: black;
-  background-color: #4e7570;
+  color: #4e7570;
+  background-color: #bedad6;
   margin: 0px;
   word-break: break-all;
-  color: white;
 }
 
 .receive {
@@ -101,11 +102,10 @@ input {
 
 .receive p {
   margin-left: 5px;
-  color: black;
-  background-color: #bedad6;
+  background-color: #d8c7a3;
   margin: 0px;
   word-break: break-all;
-  color: #4e7570;
+  color: #8A6F42;
 }
 
 p {
@@ -135,12 +135,17 @@ p {
   bottom: 0px;
   width: 100%;
   background-color: #4e7570;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #leftbar {
-  background-color: #4c86a2;
+  background-color: #8A6F42;
+  color: #FFF;
   width: 30%;
   margin-right: 3%;
+  border-radius: 20px;
   height: 100vh;
   overflow-y: auto;
 }
@@ -160,11 +165,9 @@ p {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 30px 30px 0px 0px;
-}
-
-#contact > h3 {
-  color: white;
-  padding: 10px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #photo {
@@ -177,6 +180,20 @@ p {
   margin-right: 10px;
 }
 
+#other-user {
+  margin-bottom: 0px;
+  color: white;
+  padding: 10px;
+  height: 50px;
+}
+
+#make-offer-button {
+  margin-right: 10px;
+  background-color: #BFACD3;
+  border: #BFACD3;
+  color: #451F6A;
+}
+
 button {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -186,10 +203,10 @@ button {
 }
 
 #message-input {
-  width: 70%;
+  width: 85%;
   margin-top: 5px;
   margin-bottom: 5px;
-  margin-left: 5px;
+  margin-left: 15px;
   border-radius: 30px;
   padding-left: 5px;
   color: #FFFFFF;
