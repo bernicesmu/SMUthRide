@@ -74,20 +74,26 @@ export function writeUserData(username, name, email) {
 
 export function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area) { 
   const db = getDatabase();
+
   set(ref(db, `rides/${rideid}`), {
     ride_id: rideid,
-    smu_location: smu_location, 
-    smu_to_from : smu_to_from, 
-    driver_username: username, 
-    user_address: user_address, 
-    cost : cost, 
-    area: area, 
-    max_capacity: max_capacity, 
+    smu_location: smu_location,
+    smu_to_from : smu_to_from,
+    driver_username: username,
+    user_address: user_address,
+    cost : cost,
+    area: area,
+    max_capacity: max_capacity,
     // frequency,
-    date: date, 
-    time: time, 
-    users_offered: users_offered 
+    date: date,
+    time: time,
+    users_offered: users_offered
   })
+  //     .then(() => {
+  //   console.log("Rideid: " + rideid + " has been added to the database")
+  // }).catch((error) => {
+  //   console.log(error)
+  // })
 }
 
 export function find_rid() { 
@@ -95,10 +101,9 @@ export function find_rid() {
   const rides = ref(db, `rides/`)
   onValue(rides, (snapshot) => {
     const data = snapshot.val();
-    var rid = 0
-    for (var i of Object.keys(data)) { 
-      rid = i 
-    }
+    console.log(data)
+    let rid = Object.keys(data).length
+    console.log(rid)
     localStorage.setItem("rideid", rid)
   });
 }
