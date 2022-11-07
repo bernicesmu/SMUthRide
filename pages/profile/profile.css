@@ -130,6 +130,7 @@ main {
 }
 
 .cca {
+    display: flex;
     padding-left: 2px;
     margin-left: 0rem;
     /* list-style-image: url("./tire.png"); */
@@ -137,12 +138,15 @@ main {
 
 .cca li {
     margin-bottom: 0;
-    padding-left: 1.5rem;
+    padding: 0.2rem 1rem;
+    margin: 5px;
     list-style: none;
-    background-image: url("./tire.png");
+    background-color: #4e7570;
+    color: #bedad6;
+    /* background-image: url("./tire.png");
     background-repeat: no-repeat;
     background-position: left center;
-    background-size: 10px;
+    background-size: 10px; */
 }
 
 .profile-fab {

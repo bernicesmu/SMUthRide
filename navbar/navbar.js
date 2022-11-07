@@ -22,7 +22,7 @@ const navbar = Vue.createApp({
     },
     template: `
         <nav id="navbar" class="navbar navbar-expand-md fixed-top navbar-down">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" :href=" homeURL ">
                 <div id="div-car">
                     <img
                         class=""
