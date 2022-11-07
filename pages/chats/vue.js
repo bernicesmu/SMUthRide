@@ -12,7 +12,10 @@ const chat_left = Vue.createApp({
             message_to_send: "",
             new_mid : 0,
             other_user: "",
-            image_url:""
+            image_url:"",
+            offer_price: "",
+            offer_template: "",
+            is_offer : false
         }
     },
     computed:{
@@ -109,6 +112,35 @@ const chat_left = Vue.createApp({
                 let image = user_profile["profile_url"]
                 this.image_url = image
             })
+
+        },
+        send_offer(){
+            this.offer_template = ""
+
+            this.offer_template = false
+            let offer_price = this.offer_price
+
+            this.offer_template = `
+            
+       
+                <div>
+                    I am offering a price of $${offer_price}!
+                </div>
+                <div>
+                <button class="btn btn-success">Accept Offer</button>
+                <button class="btn btn-danger">Decline Offer</button>
+                </div>
+
+        
+            
+    
+    
+           `
+            // send as a normal message but with an additional attribute called status. If status, then we will add the buttons as necessary
+            this.is_offer = true
+
+
+
 
         }
     },
