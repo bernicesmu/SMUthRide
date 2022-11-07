@@ -2,6 +2,7 @@ Vue.createApp({
     data() {
         return {
             displayname: "Tan Ah Gao",
+            profile_url: "./edit_button.png",
             degree: "Accountancy",
             yearOfStudy: "Year 2",
             age: "20",
@@ -148,6 +149,7 @@ Vue.createApp({
         // feel free to change all the values to null if needed
         username = localStorage.getItem("username_x");
         displayname = localStorage.getItem("displayname");
+        profile_url = localStorage.getItem("profile_url")
         age = String(localStorage.getItem("age"));
         bio = localStorage.getItem("bio");
         cca = localStorage.getItem("cca");
@@ -167,10 +169,13 @@ Vue.createApp({
         // console.log(this.fullFacebookLink);
 
         // I (kenming) COMMENTED THIS CODE OUT CAUSE IT WAS THROWING ERRORS
-        cca = cca.split(",");
-        cca.push("");
+        if (cca != "") { 
+            cca = cca.split(",");
+            cca.push("");
+        }
 
         this.displayname = displayname;
+        this.profile_url = profile_url;
         this.degree = degree;
         this.yearOfStudy = year;
         this.age = age;

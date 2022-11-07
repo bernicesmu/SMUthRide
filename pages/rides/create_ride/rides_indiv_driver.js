@@ -35,7 +35,6 @@ const form_alerts = Vue.createApp({
         },
         location_input: {
             handler(value, oldValue) {
-
                 this.location_alert = value === "" && oldValue !== "";
             },
             deep: true

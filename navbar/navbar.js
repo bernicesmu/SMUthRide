@@ -1,20 +1,45 @@
+import {
+    getDatabase,
+    ref,
+    set,
+    child,
+    get,
+    update,
+    remove,
+    onValue,
+} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+
+import "../index.js";
+
 const pageData = document.querySelector("#navbarVue div").dataset.page;
 
 const navbar = Vue.createApp({
     data() {
         return {
             page: pageData,
+            url: "",
         };
     },
     template: `
-        <nav id="navbar" class="navbar navbar-expand-md fixed-top">
-            <a class="navbar-brand" href="#">
-                <!-- <img
-                    class=""
-                    src=""
-                    alt="brand_logo"
-                /> -->
-                BRAND
+        <nav id="navbar" class="navbar navbar-expand-md fixed-top navbar-down">
+            <a class="navbar-brand" :href=" homeURL ">
+                <div id="div-car">
+                    <img
+                        class=""
+                        :src=" relativePath + 'navbar/car_side_v2.svg'"
+                        id="side-car"
+                    /> 
+                    <img
+                        class="tyre"
+                        :src=" relativePath + 'navbar/tyre.svg'"
+                        id="tyre-back"
+                    /> 
+                    <img
+                        class="tyre"
+                        :src=" relativePath + 'navbar/tyre.svg'"
+                        id="tyre-front"
+                    /> 
+                </div>
             </a>
             <button
                 class="navbar-toggler"
@@ -33,23 +58,24 @@ const navbar = Vue.createApp({
             >
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" href="#">Home</a>
+                        <a class="nav-link nav-item-down" :href=" homeURL ">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href=" relativePath +
-                        'pages/rides/rides_list/rides_listing.html' ">Rides</a>
+                        <a class="nav-link nav-item-down" :href=" rideURL ">Rides</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href=" offerURL ">Offers</a>
+                        <a class="nav-link nav-item-down" :href=" offerURL ">Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href=" chatURL ">Chat</a>
+                        <a class="nav-link nav-item-down" :href=" chatURL ">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-top" :href=" profileURL "><img :src="relativePath + 'pages/profile/ded.png'" class="profile-img"/></a>
+                        <a class="nav-link nav-item-down" :href=" profileURL "><img :src="url" class="profile-img img-fluid rounded-circle" v-on:load="profilePic"/></a>
                     </li>
                 </ul>
             </div>
+            <div id="street" class="street"></div>
+            <div id="street-stripe" class="street-stripe"></div>
         </nav>
     `,
     computed: {
@@ -66,6 +92,14 @@ const navbar = Vue.createApp({
         },
         isLoggedIn() {
             return localStorage.getItem("username_x");
+        },
+        homeURL() {
+            return this.relativePath + "pages/home/home.html";
+        },
+        rideURL() {
+            return (
+                this.relativePath + "pages/rides/rides_list/rides_listing.html"
+            );
         },
         offerURL() {
             if (this.isLoggedIn) {
@@ -92,41 +126,79 @@ const navbar = Vue.createApp({
                 return this.relativePath + "pages/login/login.html";
             }
         },
-    },
-    methods: {
-        nav_animation() {
-            let currentScrollPos = window.pageYOffset;
-            if (currentScrollPos == 0) {
-                document
-                    .getElementById("navbar")
-                    .classList.remove("navbar-down");
-                document.getElementById("navbar").classList.add("navbar-top");
-                document
-                    .querySelectorAll("#navbarSupportedContent li a")
-                    .forEach((currentValue) => {
-                        currentValue.classList.remove("nav-item-down");
-                        currentValue.classList.add("nav-item-top");
-                    });
-            } else {
-                document
-                    .getElementById("navbar")
-                    .classList.remove("navbar-top");
-                document.getElementById("navbar").classList.add("navbar-down");
-                document
-                    .querySelectorAll("#navbarSupportedContent li a")
-                    .forEach((currentValue) => {
-                        currentValue.classList.remove("nav-item-top");
-                        currentValue.classList.add("nav-item-down");
-                    });
-            }
+        profilePic() {
+            let username = localStorage.getItem("username_x");
+            // console.log(username);
+            const db = getDatabase();
+
+            const data = ref(db, "users/" + username);
+            onValue(data, (snapshot) => {
+                // console.log(snapshot);
+                // console.log(snapshot.val().profile_url);
+                // SHOULD NOT BE RETURNING
+                // return snapshot.val().profile_url
+                this.url = snapshot.val().profile_url;
+                // document
+                //     .getElementById("profile-picture")
+                //     .setAttribute("src", snapshot.val().profile_url);
+            });
         },
     },
+    // methods: {
+    // nav_animation() {
+    // let currentScrollPos = window.pageYOffset;
+    // if (elem.innerText.toLowerCase() === this.page) {
+    //     elem.classList.add("active-page-down");
+    //     elem.classList.remove("active-page-top");
+    // }
+    // if (currentScrollPos == 0) {
+    //     document
+    //         .getElementById("navbar")
+    //         .classList.remove("navbar-down");
+    //     document.getElementById("navbar").classList.add("navbar-top");
+    //     document
+    //         .querySelectorAll("#navbarSupportedContent li a")
+    //         .forEach((currentValue) => {
+    //             currentValue.classList.remove("nav-item-down");
+    //             currentValue.classList.add("nav-item-top");
+    //         });
+    //     document.getElementById("street").classList.remove("street");
+    //     document.getElementById("street-stripe").classList.remove("street-stripe");
+    //     for (const elem of document.getElementsByClassName("nav-link")) {
+    //         if (elem.innerText.toLowerCase() === this.page) {
+    //             elem.classList.add("active-page-top");
+    //             elem.classList.remove("active-page-down");
+    //         }
+    //     }
+    // } else {
+    //     document
+    //         .getElementById("navbar")
+    //         .classList.remove("navbar-top");
+    //     document.getElementById("navbar").classList.add("navbar-down");
+    //     document.getElementById("street").classList.add("street");
+    //     document.getElementById("street-stripe").classList.add("street-stripe");
+    //     document
+    //         .querySelectorAll("#navbarSupportedContent li a")
+    //         .forEach((currentValue) => {
+    //             currentValue.classList.remove("nav-item-top");
+    //             currentValue.classList.add("nav-item-down");
+    //         });
+    //     for (const elem of document.getElementsByClassName("nav-link")) {
+    //         if (elem.innerText.toLowerCase() === this.page) {
+    //             elem.classList.add("active-page-down");
+    //             elem.classList.remove("active-page-top");
+    //         }
+    //     }
+    // }
+    // },
+    // },
     mounted() {
         window.addEventListener("scroll", this.nav_animation);
 
         for (const elem of document.getElementsByClassName("nav-link")) {
             if (elem.innerText.toLowerCase() === this.page) {
-                elem.classList.add("active-page");
+                let currentScrollPos = window.pageYOffset;
+                elem.classList.add("active-page-top");
             }
         }
     },

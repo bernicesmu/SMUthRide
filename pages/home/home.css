@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
@@ -72,77 +72,280 @@
 
 /* NAVBAR */
 
-
 body {
     background-color: #e3f1ef;
+    margin-top: 130px !important;
 }
 
-.welcome_txt {
-    margin: 5.2em 2em;
-}
-
-.txt_content {
-    margin: 1em 2em;
-}
-
-.rec_rides {
-    margin: 5em 2em;
-
-
-}
-
-.rec_rides_cards {
-    padding: 0%;
-    align-content: center;
-}
-
-.ride_card {
-    margin: 1.5em 3em;
-}
-
-.row {
-    margin:2em 0;
-    height: 80vh;
-}
-
-.card {
-    display:flex;
-    width: 100%;
-}
-
-.profile {
-    display:flex;
-    margin:1em 1em 1em 1em;
-    
-    
-}
-
-.profile img {
-    display: inline-block;
-    aspect-ratio: 1/1;
-    width: 50%;
-    border-radius: 50%;
-    object-fit: cover;
-
-}
-
-.pro_info {
-    margin: 1.5em 0 0 1em;
-}
-
-.recurring_symbol {
-    background-color: #4e7570;
-    border-radius: 1em;
+.welcome {
     text-align: center;
-    padding:0.4em 0;
-    width:40%;
-    aspect-ratio: 1/0.1;
-    margin: 0 1em 1em 1em;
-
-}
-.ride_deets {
-    margin: 0 0 0 1em;
-    line-height: 0.8em;
 }
 
+.welcome h1 {
+    font-size: 5em;
+}
+.welcome p {
+    font-size: 1.5em;
+}
 
+.trip {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+#trip-sen {
+    margin-top: 2rem;
+}
+
+#swap {
+    background-color: #4e7570;
+    height: 4rem;
+    border-radius: 4rem;
+}
+
+.col {
+    max-height: 342px;
+}
+#carousel {
+    height: 100%;
+}
+
+img {
+    height: 342px;
+}
+
+#go {
+    background-color: #4e7570;
+    height: 4rem;
+    width: 12rem;
+    border-radius: 4rem;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+}
+
+/* MOVING CAR */
+
+.street {
+    background: #999999;
+    height: 80px;
+    width: 102%;
+    position: absolute;
+    bottom: 5px;
+}
+
+.street-stripe {
+    background: #d4d4d4;
+    height: 8px;
+    width: 100px;
+    position: absolute;
+    bottom: 44px;
+    border-radius: 2px;
+    box-shadow: 200px 0 0 #d4d4d4, 400px 0 0 #d4d4d4, 600px 0 0 #d4d4d4,
+        800px 0 0 #d4d4d4, 1000px 0 0 #d4d4d4, 1200px 0 0 #d4d4d4,
+        1400px 0 0 #d4d4d4, 1600px 0 0 #d4d4d4, 1800px 0 0 #d4d4d4,
+        2000px 0 0 #d4d4d4;
+}
+
+/*styles for car*/
+.car {
+    position: absolute;
+    top: -35%;
+    z-index: 10;
+    -moz-animation: myfirst 10s linear infinite;
+    -webkit-animation: myfirst 10s linear infinite;
+}
+
+@-moz-keyframes myfirst {
+    0% {
+        left: -25%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@-webkit-keyframes myfirst {
+    0% {
+        left: -25%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.tyre {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #3f3f40;
+    position: absolute;
+    z-index: 2;
+    left: 9px;
+    top: 20px;
+    -moz-animation: tyre-rotate 1s infinite linear;
+    -webkit-animation: tyre-rotate 1s infinite linear;
+}
+
+@-moz-keyframes tyre-rotate {
+    from {
+        -moz-transform: rotate(-360deg);
+    }
+    to {
+        -moz-transform: rotate(0deg);
+    }
+}
+
+@-webkit-keyframes tyre-rotate {
+    from {
+        -webkit-transform: rotate(-360deg);
+    }
+    to {
+        -webkit-transform: rotate(0deg);
+    }
+}
+
+.tyre:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #bdc2bd;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.gap {
+    background: #3f3f40;
+    width: 2px;
+    height: 4px;
+    position: absolute;
+    left: 14px;
+    top: 8px;
+    box-shadow: 0 9px 0 #3f3f40;
+}
+
+.gap:before {
+    content: "";
+    display: block;
+    width: 2px;
+    height: 4px;
+    position: absolute;
+    background: #3f3f40;
+    box-shadow: 0 12px 0 #3f3f40;
+    -webkit-transform: rotate(-90deg);
+    -webkit-transform-origin: 0 7px;
+    -moz-transform: rotate(-90deg);
+    -moz-transform-origin: 0 7px;
+    z-index: 3;
+}
+
+.tyre.front {
+    left: 60px;
+}
+
+.car-body {
+    border-bottom: 34px solid #4e7570;
+    border-radius: 11px;
+    border-top-right-radius: 20px;
+    top: 5px;
+    width: 100px;
+    position: relative;
+}
+
+.car-body:before {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 34px;
+    position: absolute;
+    right: -5px;
+    background: #4e7570;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 10px;
+    z-index: 1;
+}
+
+.car-top-back {
+    background: none repeat scroll 0 0 #4e7570;
+    border-radius: 20px 0 0 0;
+    height: 20px;
+    left: 8px;
+    position: absolute;
+    top: -20px;
+    width: 54px;
+}
+
+.car-top-back:before {
+    width: 40px;
+    height: 18px;
+    background: #c6c6c6;
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 12px;
+    border-radius: 20px 4px 0px 4px;
+    z-index: 3;
+}
+
+.car-top-back:after {
+    content: "";
+    background: #4e7570;
+    border-radius: 40%;
+    height: 5px;
+    left: 15px;
+    position: absolute;
+    top: -1px;
+    width: 39px;
+}
+
+.car-top-front {
+    top: -19px;
+    position: absolute;
+    left: 47px;
+    width: 20px;
+    height: 20px;
+    background: #4e7570;
+    border-radius: 2px 10px 0 0;
+}
+
+.car-top-front:after {
+    width: 16px;
+    height: 22px;
+    -webkit-transform: skew(37deg);
+    -moz-transform: skew(37deg);
+    background: #4e7570;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 14px;
+    border-radius: 10px 10px 0px 2px;
+}
+
+.back-curve {
+    background: none repeat scroll 0 0 #4e7570;
+    border-radius: 960% 100% 0 0;
+    height: 20px;
+    left: -3px;
+    position: absolute;
+    top: 1px;
+    transform: rotate(6deg);
+    width: 5px;
+}
+
+.front-curve {
+    width: 16px;
+    height: 18px;
+    -webkit-transform: skew(30deg);
+    -moz-transform: skew(30deg);
+    background: #c6c6c6;
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 45px;
+    border-radius: 7px 10px 4px 0px;
+    z-index: 3;
+}
+
+/* MOVING CAR */

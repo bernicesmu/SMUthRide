@@ -24,33 +24,15 @@
     <!-- navbar -->
     <div id="navbarVue">
       <div
+          v-html="navbar_html"
+          @scroll="nav_animation"
           data-page="chat"
       ></div>
     </div>
-
-
-    
-
-
-
-
-    
-      <!-- chatpage -->
-      <div class="container text-center mt-3">
-        <header>
-            <h2>SMUth Chat</h2>
-            <h6>Chat With Your Group and Agree on Price</h6>
-        </header>
-      </div>
-      
-
-
-        <div class="container chat-container" id="chatroom">
-            <!-- {{ messages }} -->
-            <!-- Offer Overlay -->
+    <!-- Offer Overlay -->
       <div id="overlay" class="my-auto">
         <div id="text" class="mb-6">
-          <img src="./6-2-taxi-cab-png-images.png" alt="" class="img-fluid">
+          <img src="./6-2-taxi-cab-png-images.png" alt="">
           <h1 class="text-center mb-5">Make an Offer</h1>
           
           <div class="d-flex justify-content-evenly mb-4">
@@ -59,10 +41,10 @@
             </p>
             
             <select class="form-select form-select mb-3 w-50" aria-label=".form-select example">
-              <option selected>{{ other_user }}</option>
-              <!-- <option value="1">Use vue for this</option>
+              <option selected>Ride</option>
+              <option value="1">Use vue for this</option>
               <option value="2">Two</option>
-              <option value="3">Three</option> -->
+              <option value="3">Three</option>
             </select>
             <div></div>
             </div>
@@ -85,16 +67,33 @@
             <p>
               Price:
             </p>
-            <input type="number" id = "offer_price" name='cost' min="0" step="0.1" class="text-input cost-input text-label" v-model="offer_price" required>
+            <input type="number" id = "offer_price" name='cost' min="0" step="0.1" class="text-input cost-input text-label" required>
           </div>
           
           
           <span id="confirm_cancel">
             <button type="button" class="btn btn-danger" onclick="off()">Cancel</button>
-            <button type="button" class="btn btn-success" onclick="off()" id="confirmOffer" v-on:click="send_offer">Confirm</button>
+            <button type="button" class="btn btn-success" onclick="off()" id="confirmOffer">Confirm</button>
           </span>
         </div>
       </div>
+
+
+
+
+    
+      <!-- chatpage -->
+      <div class="container text-center mt-3">
+        <header>
+            <h2>SMUth Chat</h2>
+            <h6>Chat With Your Group and Agree on Price</h6>
+        </header>
+      </div>
+      
+
+
+        <div class="container chat-container" id="chatroom">
+            <!-- {{ messages }} -->
             
             <div style="height:min-content" id="leftbar">
 
@@ -140,22 +139,10 @@
                 
             </div>
 
-            <div id="chat" onscroll="sticky()" style="max-height: 100vh;">
+            <div id="chat" onscroll="sticky()">
                 <div id="contact" class="d-flex">
-                  <div class="d-flex">
-                    <div id="photo"><img :src="image_url" class="img-fluid rounded-circle"></div>
-                    <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
-                  </div>
-                  <div>
-                    <button
-                    type="button"
-                    class="btn btn-light"
-                    onclick="overlay()"
-                    id="make-offer-button"
-                    >
-                    Make Offer
-                    </button>
-                  </div>
+                    <div id="photo"></div>
+                    <h3 class="font-weight-bolder">{{ other_user }}</h3>
                 </div>
                 <!-- messages will display here -->
                 <!-- <div id="messages">
@@ -165,21 +152,27 @@
                 username === messages.username ? "sent" : "receive"
               } -->
                 <ul id="messages">
-                    <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}"><p><b>{{ message.username }}</b>: {{ message.message}}</p></li>
-                  
+                    <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}"><p>{{ message.username }} : {{ message.message}}</p></li>
                 </ul>
 
-                <div style="background-color:azure; width: fit-content;border-radius: 30px; float: right; padding: 20px;" v-if="is_offer" class="sent" v-html="offer_template"></div>
+        
 
                 <!-- form to send message -->
-                <div class="sub_div d-flex">
+                <div class="sub_div">
                     <!-- <form action="" id="message-form"> -->
+                        <button
+                            type="button"
+                            class="btn btn-success"
+                            onclick="overlay()"
+                        >
+                            Make Offer
+                        </button>
                         <input
                             id="message-input"
                             type="text"
                             placeholder="Type Message..."
                             v-model="message_to_send"
-                            @keyup.enter="send_message"
+                            @keyup.space="send_message"
                         />
 
                         <button
@@ -189,12 +182,10 @@
                             onclick="test()"
                             
                             v-on:click="send_message"
-                        ></button>
-                        <label for="message-btn" id="send-label">
-                          <svg xmlns="http://www.w3.org/2000/svg" id="send-button" width="25" height="25" fill="#FFFFFF" class="bi bi-send" viewBox="0 0 16 16">
-                            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-                          </svg>
-                        </label>
+  
+                        >
+                            <i class="fa-solid fa-taxi"></i>
+                        </button>
 
                         <!-- <button class="btn btn-outline-dark" id="message-btn" type="submit"><i class="fa-solid fa-taxi"></i></button> -->
 
@@ -253,7 +244,7 @@
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script type="module" src="../../navbar/navbar.js"></script>
         <script type="module" src="../../index.js"></script>
-        <!-- <script type="module" src="./chat.js"></script> -->
+        <script type="module" src="./chat.js"></script>
         <script src="vue.js" type="module"></script>
         
         

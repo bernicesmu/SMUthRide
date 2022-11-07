@@ -19,34 +19,21 @@ const listings = Vue.createApp({
     data() {
         return{
             listings: [],
-            to_from : "From",
-            display_listings: [],
             driver_listings:[],
-            rider_listings: []
+            rider_listings: [],
+            user: localStorage.getItem('user'),
         }
     },
     methods: {
-        change_direction(){
-            this.to_from = this.to_from === "To" ? "From" : "To";
-            console.log(this.to_from)
-            this.check_and_populate()
+        redirect(id){
+            window.location.href='../rides/ride_details/rides_indiv_rider.html?rideid=' + id
         },
         check_and_populate(){
-<<<<<<< Updated upstream
-            if (this.to_from === "To"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from === "To");
-            } else if (this.to_from === "From"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from === "From");
-            }
-            this.driver_listings= this.display_listings.filter(x=> x.driver_username === localStorage.getItem("user"))
-            this.rider_listings=  this.display_listings.filter(x=> x.users_offered.includes(localStorage.getItem('user')))
-=======
             this.driver_listings= this.listings.filter(x=>
                 x.driver_username === this.user).sort((a,b) => a.time.localeCompare(b.time));
             this.rider_listings=  this.listings.filter(x=> x.users_offered!= undefined &&
                 x.users_offered.includes(this.user)).sort((a,b) => a.time.localeCompare(b.time));
->>>>>>> Stashed changes
-            console.log(this.rider_listings)
+            // // console.log(this.rider_listings)
         },
         formatAMPM(date){
 
