@@ -1,6 +1,11 @@
+html {
+  height: 100%;
+}
+
 body {
   background-color: #e3f1ef !important;
   margin-top: 130px !important;
+  height: 90%;
 }
 
 * {
@@ -45,6 +50,19 @@ li {
 li span {
   font-weight: bolder;
   color: #b5b0b9;
+}
+
+#message-btn {
+  display: none;
+}
+
+#send-button {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+#send-label {
+  padding-left: 10px;
 }
 
 #message-form {
@@ -103,19 +121,20 @@ p {
 #chat {
   background-color: white;
   width: 70%;
-  height: 100vh;
+  height: 100%;
   overflow-y: scroll;
   padding-top: 0;
   position: relative;
   scroll-behavior: smooth;
   z-index: inherit;
+  border-radius: 30px;
 }
 
 .sub_div {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  background-color: black;
+  background-color: #4e7570;
 }
 
 #leftbar {
@@ -132,10 +151,15 @@ p {
   top: 0px;
   width: 100%;
   background-color: #4e7570;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 10px;
   margin-bottom: 10px;
+  border-radius: 30px 30px 0px 0px;
 }
 
 #contact > h3 {
@@ -154,7 +178,9 @@ p {
 }
 
 button {
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 5px;
   margin-top: 5px;
 }
@@ -163,8 +189,29 @@ button {
   width: 70%;
   margin-top: 5px;
   margin-bottom: 5px;
+  margin-left: 5px;
   border-radius: 30px;
   padding-left: 5px;
+  color: #FFFFFF;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+#message-input::-webkit-input-placeholder {
+  color: #FFFFFF;
+}
+
+#message-input:-ms-input-placeholder {
+  color: #FFFFFF;
+}
+
+#message-input::-ms-input-placeholder {
+  color: #FFFFFF;
+}
+
+#message-input::placeholder {
+  color: #FFFFFF;
 }
 
 #overlay {
@@ -188,7 +235,8 @@ button {
   left: 50%;
   width: 400px;
   color: white;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   height: 600px;
   background-color: #a7c7d6;
@@ -230,6 +278,7 @@ button {
   color: #4e7570;
   background: rgba(0, 0, 0, 0);
   opacity: 1;
+  -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }
 
@@ -246,7 +295,10 @@ button {
 }
 
 .chat-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  height: 80%;
 }
 
 @media (max-width: 1200px) {
@@ -260,6 +312,7 @@ button {
     margin-right: 10px;
   }
 }
+
 @media (max-width: 990px) {
   #photo {
     background-color: grey;
@@ -271,22 +324,26 @@ button {
     margin-right: 10px;
   }
 }
+
 @media (max-width: 767px) {
   .chat-container {
+    display: -ms-grid;
     display: grid;
-    grid-template-columns: 1fr;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
   }
   #chatroom, #chat {
     width: 100%;
-    grid-column: 1/2;
-    grid-row: 1/2;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1 / 2;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    grid-row: 1 / 2;
     z-index: -1;
   }
   #chatroom {
     z-index: 2;
   }
-  #chat {
-    z-index: 1;
-    /* opacity: 0; */
-  }
-}/*# sourceMappingURL=chat.css.map */
+}
+/*# sourceMappingURL=chat.css.map */
