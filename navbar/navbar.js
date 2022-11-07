@@ -192,16 +192,16 @@ const navbar = Vue.createApp({
     // }
     // },
     // },
-    // mounted() {
-    //     window.addEventListener("scroll", this.nav_animation);
+    mounted() {
+        window.addEventListener("scroll", this.nav_animation);
 
-    //     for (const elem of document.getElementsByClassName("nav-link")) {
-    //         if (elem.innerText.toLowerCase() === this.page) {
-    //             let currentScrollPos = window.pageYOffset;
-    //             elem.classList.add("active-page-top");
-    //         }
-    //     }
-    // },
+        for (const elem of document.getElementsByClassName("nav-link")) {
+            if (elem.innerText.toLowerCase() === this.page) {
+                let currentScrollPos = window.pageYOffset;
+                elem.classList.add("active-page-top");
+            }
+        }
+    },
 });
 
 navbar.mount("#navbarVue");
