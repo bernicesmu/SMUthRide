@@ -29,10 +29,10 @@
           data-page="chat"
       ></div>
     </div>
-
     <!-- Offer Overlay -->
       <div id="overlay" class="my-auto">
         <div id="text" class="mb-6">
+          <img src="./6-2-taxi-cab-png-images.png" alt="">
           <h1 class="text-center mb-5">Make an Offer</h1>
           
           <div class="d-flex justify-content-evenly mb-4">
@@ -172,6 +172,7 @@
                             type="text"
                             placeholder="Type Message..."
                             v-model="message_to_send"
+                            @keyup.space="send_message"
                         />
 
                         <button
@@ -181,6 +182,7 @@
                             onclick="test()"
                             
                             v-on:click="send_message"
+  
                         >
                             <i class="fa-solid fa-taxi"></i>
                         </button>

@@ -59,10 +59,13 @@ const chat_left = Vue.createApp({
                 let all_messages = snapshot.val()
                 // console.log(all_chats)
                 // console.log(all_messages)
-                for(var message of all_messages){
-                    // console.log(message)
-                    this.messages.push(message)
+                if(all_messages.length > 0){
+                    for(var message of all_messages){
+                        // console.log(message)
+                        this.messages.push(message)
+                    }
                 }
+                
                 
             })
 
@@ -121,7 +124,7 @@ chat_left.component('chat-box', {
     <div id="photo"></div>
     <div style="margin-left: 20px;align-self: start;width: 70%;"> 
       <b>{{ receipient_username }}</b>
-      <div style="text-overflow: ellipsis; display: block; width:50%;white-space: nowrap; width: 100%; overflow: hidden;">
+      <div v-if="latest_message.length > 0" style="text-overflow: ellipsis; display: block; width:50%;white-space: nowrap; width: 100%; overflow: hidden;">
         {{ sender_latest_message }}: {{ latest_message }}
       </div>
     </div>
@@ -132,14 +135,18 @@ chat_left.component('chat-box', {
         get_latest_message(){
             const db = getDatabase()
             const reference = ref(db, 'messages/' + this.chat_id)
+            console.log(reference)
             onValue(reference, (snapshot) => {
-
+                console.log(snapshot.val())
                 // console.log(snapshot.val())
                 let all_messages = snapshot.val()
-
-                let latest_message = all_messages[all_messages.length - 1]
-                this.latest_message = latest_message.message
-                this.sender_latest_message = latest_message.username
+                
+                if(all_messages.length > 0){
+                    let latest_message = all_messages[all_messages.length - 1]
+                    this.latest_message = latest_message.message
+                    this.sender_latest_message = latest_message.username
+                }
+                
 
             })
 

@@ -10,7 +10,7 @@ const form_alerts = Vue.createApp({
             today: new Date().toISOString().split("T")[0],
             location_input: "",
             location_alert: false,
-            school_input: "",
+            school_input: document.getElementById("smulocation"),
 
         }
     },
@@ -30,7 +30,9 @@ const form_alerts = Vue.createApp({
         }
     },
     watch: {
-
+        school_input(val,oldVal) {
+        console.log(val)
+        },
         location_input: {
             handler(value, oldValue) {
                 this.location_alert = value === "" && oldValue !== "";
