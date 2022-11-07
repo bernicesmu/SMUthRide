@@ -70,7 +70,7 @@ const navbar = Vue.createApp({
                         <a class="nav-link nav-item-down" :href=" chatURL ">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-down" :href=" profileURL "><img :src="url" class="profile-img" v-on:load="profilePic"/></a>
+                        <a class="nav-link nav-item-down" :href=" profileURL "><img :src="url" class="profile-img img-fluid rounded-circle" v-on:load="profilePic"/></a>
                     </li>
                 </ul>
             </div>

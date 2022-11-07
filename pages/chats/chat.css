@@ -108,6 +108,7 @@ p {
   padding-top: 0;
   position: relative;
   scroll-behavior: smooth;
+  z-index: inherit;
 }
 
 .sub_div {
@@ -193,7 +194,6 @@ button {
   background-color: #a7c7d6;
   border-radius: 30px;
   padding: 20px;
-  padding-top: 120px;
 }
 
 #text span {
@@ -280,6 +280,7 @@ button {
     width: 100%;
     grid-column: 1/2;
     grid-row: 1/2;
+    z-index: -1;
   }
   #chatroom {
     z-index: 2;
