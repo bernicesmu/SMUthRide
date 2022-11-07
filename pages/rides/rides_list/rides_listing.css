@@ -60,16 +60,3 @@ input[type=text]:focus {
     border-radius: 50%;
 }
 
-@media only screen and (max-width: 600px) {
-    .card {
-        border: none;
-        width: 300px;
-        margin: 20px auto;
-        min-width: 251px;
-        min-height: 235px;
-        max-width: 300px;
-        max-height: 300px;
-        transition: all 0.2s ease-in-out;
-    }
-
-}
