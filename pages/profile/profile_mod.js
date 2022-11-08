@@ -39,14 +39,14 @@ if (url.includes("profile_edit.html")) {
     let queryString = window.location.search;
     let urlParams = new URLSearchParams(queryString);
     var username = urlParams.get("user");
-    console.log(username, 'wfiuhgreuh')
+    console.log(username, "wfiuhgreuh");
     GetProfilePicUrl(username);
     if (username != localStorage.getItem("username_x")) {
         document.getElementById("edit-profile").innerHTML = "";
     }
 }
 
-console.log(username, 'oiewfjewo')
+console.log(username, "oiewfjewo");
 find_user_profile(username);
 find_name_from_username(username);
 
@@ -58,8 +58,8 @@ if (elem) {
 function update_user_database() {
     var inputs = document.getElementsByClassName("target-input");
     var cca_options = document.getElementsByClassName("cca_options");
-    console.log(inputs);
-    console.log(cca_options);
+    // console.log(inputs);
+    // console.log(cca_options);
 
     var displayname = inputs.displayname.value;
     var age = String(inputs.age.value);
@@ -70,7 +70,7 @@ function update_user_database() {
     var facebook = inputs.facebook.value;
     var instagram = inputs.instagram.value;
     var linkedin = inputs.linkedin.value;
-    var location_user = "Jurong"; //hardcoded. softcode after regine is done
+    var location_user = inputs.location_user.value; //hardcoded. softcode after regine is done
     var mbti = inputs.mbti.value;
     var price = inputs.prefPrice.value;
     var speed = inputs.prefSpeed.value;
@@ -82,6 +82,10 @@ function update_user_database() {
         if (cca_op.value != "") {
             cca.push(cca_op.value);
         }
+    }
+
+    if (cca.length == 0) {
+        cca = [""];
     }
 
     write_user_profile(
@@ -123,7 +127,7 @@ let imgInput = document.getElementById("imageInput");
 if (imgInput) {
     imgInput.addEventListener("change", uploadImage);
 }
-GetProfilePicUrl(username)
+GetProfilePicUrl(username);
 
 function uploadImage(event) {
     let files = [];
@@ -177,9 +181,9 @@ function toDatabase(url, ImgName) {
     const db = getDatabase();
     console.log(url);
     const username = localStorage.getItem("username_x");
-    const updates = {}; 
+    const updates = {};
     updates[`users/${username}/profile_url`] = url;
-    return update(ref(db), updates)
+    return update(ref(db), updates);
 }
 
 // getting the image
@@ -190,10 +194,10 @@ function GetProfilePicUrl(username) {
 
     const data = ref(db, "users/" + username);
     onValue(data, (snapshot) => {
-        var profile = snapshot.val() 
+        var profile = snapshot.val();
         console.log(profile);
-        var profileurl = profile.profile_url
-        localStorage.setItem("profile_url", profileurl)
+        var profileurl = profile.profile_url;
+        localStorage.setItem("profile_url", profileurl);
         // SHOULD NOT BE RETURNING
         // return snapshot.val().profile_url
         // document.getElementById("profile-picture").setAttribute("src", profileurl);
