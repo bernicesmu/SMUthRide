@@ -2,7 +2,7 @@ Vue.createApp({
     data() {
         return {
             displayname: "Tan Ah Gao",
-            profile_url: "./edit_button.png",
+            profile_url: "./default_profile.png",
             degree: "Accountancy",
             yearOfStudy: "Year 2",
             age: "20",
@@ -22,7 +22,6 @@ Vue.createApp({
             facebookLinkInput: "",
             instagramLinkInput: "",
             selectedFile: null,
-          
 
             ccaInput: "",
 
@@ -68,7 +67,7 @@ Vue.createApp({
                 "ESFP",
                 "ABCD",
             ],
-            picture_link : ""
+            picture_link: "",
         };
     },
     computed: {
@@ -110,14 +109,15 @@ Vue.createApp({
             if (index !== -1) {
                 this.ccas.splice(index, 1);
             }
+            var cca_options = document.getElementsByClassName("cca_options");
+            console.log(cca_options);
         },
         auto_grow() {
             element = this.$refs.bio;
             element.style.height = "5px";
             element.style.height = element.scrollHeight + "px";
         },
-      
-        
+
         // onFileSelect(event){
         //     console.log(event.target.files[0])
         //     this.selectedFile= event.target.files[0]
@@ -151,7 +151,6 @@ Vue.createApp({
         // feel free to change all the values to null if needed
         username = localStorage.getItem("username_x");
         displayname = localStorage.getItem("displayname");
-        profile_url = localStorage.getItem("profile_url")
         age = String(localStorage.getItem("age"));
         bio = localStorage.getItem("bio");
         cca = localStorage.getItem("cca");
@@ -170,15 +169,20 @@ Vue.createApp({
         // console.log(facebook);
         // console.log(this.fullFacebookLink);
 
-        
-        if (cca != "") { 
+        if (cca != "") {
             cca = cca.split(",");
             cca.push("");
+        } else {
+            cca = [""];
         }
 
-        this.username = username
+        db_profile_url = localStorage.getItem("profile_url");
+        if (db_profile_url != "undefined") {
+            this.profile_url = db_profile_url;
+        }
+
+        this.username = username;
         this.displayname = displayname;
-        this.profile_url = profile_url;
         this.degree = degree;
         this.yearOfStudy = year;
         this.age = age;

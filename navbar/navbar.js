@@ -17,7 +17,7 @@ const navbar = Vue.createApp({
     data() {
         return {
             page: pageData,
-            url: "./default_profile.png",
+            url: "",
         };
     },
     template: `
@@ -85,7 +85,8 @@ const navbar = Vue.createApp({
             if (
                 this.page === "profile" ||
                 this.page === "chat" ||
-                this.page === "offers"
+                this.page === "offers" ||
+                this.page === "home"
             ) {
                 return "../../";
             } else {
@@ -139,7 +140,20 @@ const navbar = Vue.createApp({
                 // console.log(snapshot.val().profile_url);
                 // SHOULD NOT BE RETURNING
                 // return snapshot.val().profile_url
-                this.url = snapshot.val().profile_url;
+                if (snapshot.val().profile_url) {
+                    this.url = snapshot.val().profile_url;
+                } else {
+                    if (
+                        this.page === "profile" ||
+                        this.page === "chat" ||
+                        this.page === "offers" ||
+                        this.page === "home"
+                    ) {
+                        this.url = "../../pages/profile/default_profile.png";
+                    } else {
+                        this.url = "../../../pages/profile/default_profile.png";
+                    }
+                }
                 // document
                 //     .getElementById("profile-picture")
                 //     .setAttribute("src", snapshot.val().profile_url);
