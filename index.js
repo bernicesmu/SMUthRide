@@ -51,6 +51,7 @@ export function writeUserData(username, name, email) {
       userid: latest_uid,
       name: name,
       email: email,
+      profile_url: 'https://firebasestorage.googleapis.com/v0/b/wad2-smuth-ride.appspot.com/o/Users%2FFrame%2031.png?alt=media&token=d957f524-3239-4a6f-b587-5bef84342a37',
   });
   set(ref(db, `users/${username}/userprofile`), {
     degree: "Bachelor",
@@ -64,10 +65,10 @@ export function writeUserData(username, name, email) {
     comfort: 0,
     convenience: 0, 
     speed: 0, 
-    cca: [""],
-    linkedin: "https://www.linkedin.com/in/",
-    facebook: "https://www.facebook.com/",
-    instagram: "https://www.instagram.com/",
+    cca: ["SMUSA"],
+    linkedin: "",
+    facebook: "",
+    instagram: "",
   }) 
 }
 
