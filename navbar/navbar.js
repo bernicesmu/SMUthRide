@@ -17,7 +17,7 @@ const navbar = Vue.createApp({
     data() {
         return {
             page: pageData,
-            url: "",
+            url: "./default_profile.png",
         };
     },
     template: `
