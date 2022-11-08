@@ -830,7 +830,8 @@
                                 <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip"
                                 data-bs-html='true'
                                 data-bs-placement="right"
-                                data-bs-title="From: ${sch_name}, ${sch_postal}
+                                
+                                title='From: ${sch_name}, ${sch_postal}
                                 <br>To: ${
                                     document.getElementById("location_field")
                                         .value
@@ -841,7 +842,7 @@
                                 )}
                                 <br>Duration: ${
                                     result.routes[0].legs[0].duration.text
-                                }</div>"
+                                }</div>'
                                 data-bs-custom-class="custom-tooltip">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                     width='30'
