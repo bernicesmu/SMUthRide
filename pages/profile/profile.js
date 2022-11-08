@@ -169,7 +169,7 @@ Vue.createApp({
         // console.log(facebook);
         // console.log(this.fullFacebookLink);
 
-        if (cca != "") {
+        if (cca.length != 0) {
             cca = cca.split(",");
             cca.push("");
         } else {
