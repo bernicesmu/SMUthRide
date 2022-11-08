@@ -155,7 +155,22 @@
                             </option>
                         </select>
                     </div>
-                    <div class=""><strong>Location</strong>: Jurong</div>
+                    <div class="">
+                        <strong>Location</strong>: 
+                        <input id="pac-input" class="form-control text-center d-inline target-input add-profile-fields" type="text" placeholder="AAAAAA"></div>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&region=SG&callback=initAutocomplete&libraries=places&v=weekly" async defer></script>
+                    
+                    <script>
+                        function initAutocomplete() {
+                            const input = document.getElementById('pac-input')
+                            const options = {
+                                componentRestrictions: { country: "SG" },  
+                                strictBounds: true, 
+                            } 
+                            const autocomplete = new google.maps.places.Autocomplete(input, options);
+                            autocomplete.setTypes(['neighborhood'])
+                        }
+                    </script>
                     <div class="">
                         <strong>MBTI</strong>:
                         <select
