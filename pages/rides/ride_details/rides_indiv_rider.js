@@ -61,21 +61,6 @@ const app = Vue.createApp({
     },
     computed:{
        
-        getName(){
-            const database = getDatabase(); 
-            const user = ref(database, `users/${this.driver_username}`)
-            onValue(user, (snapshot) => { 
-                console.log(snapshot.val())
-                let details = snapshot.val()
-                this.driver_name = details.name
-                this.picture_url = details.profile_url
-
-                // year 2 information systems NOT in
-               
-            })
-        }
-       
-        
 
     },
     methods:{
@@ -87,19 +72,72 @@ const app = Vue.createApp({
                 let details = snapshot.val()
             
                 this.driver_username = details.driver_username
-                this.getName
                 this.cost_per_pax = details.cost
                 this.current_riders = details.users_offered
                 this.max_capacity = details.max_capacity
                 this.address = details.user_address
+                console.log(this.address)
                 this.time = details.time
                 this.time = formatAMPM(this.time)
                 this.date = details.date
                 this.date = format_date(this.date)
                 this.smu_location = details.smu_location
                 this.to_from = details.to_from
+
+                var map;
+                var chosenloc = this.address;
+                console.log(this.address)
+                var prof_loc = encodeURI(chosenloc);
+        
+                var url =
+                "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                prof_loc +
+                "&key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q";
+        
+                axios.get(url)
+                .then(response => {
+                    var results = response.data.results[0]
+                    var lat = results.geometry.location.lat
+                    var lng = results.geometry.location.lng
+                    var coords = [lat, lng]
+                    this.initMap(coords)
+                })
             })
-        }
+        },
+        
+        initMap(coords) {
+            var map = new google.maps.Map(
+                document.getElementById("map"),
+                {
+                    center: { lat: coords[0], lng: coords[1] },
+                    zoom: 17,
+                    mapTypeControl: false,
+                    //mapTypeID: google.maps.mapTypeID
+                }
+            );
+            var marker = new google.maps.Marker({
+                map,
+                draggable: true,
+                animation: google.maps.Animation.DROP,
+                position: { lat: coords[0], lng: coords[1]},
+                preserveViewport: true,
+            });
+        },
+
+        getName(){
+            const database = getDatabase(); 
+            const user = ref(database, `users/${this.driver_username}`)
+            onValue(user, (snapshot) => { 
+                console.log(snapshot.val())
+                let details = snapshot.val()
+                console.log(details[this.driver_username]['profile_url'])
+                this.driver_name = details[this.driver_username]['name']
+                this.picture_url = details[this.driver_username]['profile_url']
+
+                // year 2 information systems NOT in
+               
+            })
+        },
         
     },
     created(){
@@ -109,6 +147,7 @@ const app = Vue.createApp({
         const rideid = urlParams.get('rideid')
         this.rideid = rideid
         this.getData()
+        this.getName()
     }
 });
 

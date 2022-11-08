@@ -76,13 +76,59 @@
         <div class="row">
             <div class="col-md-6 d-flex">
                 <!-- <p>test</p> -->
-                <div class="block-placeholder"></div>
+                <!-- <div class="block-placeholder"></div> -->
+                <div id="map" style="width: 90%; height:90%" class="mx-auto m-2 rounded-3"></div>
+                        <script
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&callback=initMap"
+                            type="text/javascript" async defer></script>
+                        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+                        <script>
+                            // var map;
+                            // var chosenloc = "sengkang";
+                            // var prof_loc = encodeURI(chosenloc);
+
+                            // var url =
+                            // "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                            // prof_loc +
+                            // "&key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q";
+
+                            // axios.get(url)
+                            // .then(response => {
+                            //     results = response.data.results[0]
+                            //     lat = results.geometry.location.lat
+                            //     lng = results.geometry.location.lng
+                            //     coords = [lat, lng]
+                            //     initMap()
+                            // })
+                            
+                            // function initMap() {
+                            //     map = new google.maps.Map(
+                            //         document.getElementById("map"),
+                            //         {
+                            //             center: { lat: coords[0], lng: coords[1] },
+                            //             zoom: 17,
+                            //             mapTypeControl: false,
+                            //             //mapTypeID: google.maps.mapTypeID
+                            //         }
+                            //     );
+                            //     marker = new google.maps.Marker({
+                            //         map,
+                            //         draggable: true,
+                            //         animation: google.maps.Animation.DROP,
+                            //         position: { lat: coords[0], lng: coords[1]},
+                            //         preserveViewport: true,
+                            //     });
+                            // }
+                            
+                        </script>
                 <!-- <div class="map d-inline-block align-middle mx-5">
                 </div> -->
             </div>
             <div class="col-md-6 text-center">
                 <div class="user d-flex">
-                    <a v-bind:href="'http://localhost/SMUthRide/pages/profile/profile.html?user=' + driver_username" style="text-decoration: none;">
+                    <a v-bind:href="'../../profile/profile.html?user=' + driver_username" style="text-decoration: none;">
                     <!-- need to customise photo? -->
                     <div class="profilepic d-inline me-2">
                         <img class="user-pic" :src="picture_url" />

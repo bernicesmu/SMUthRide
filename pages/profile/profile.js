@@ -7,7 +7,7 @@ Vue.createApp({
             yearOfStudy: "Year 2",
             age: "20",
             status: "Single",
-            location_user: "Jurong",
+            location_user: "lalaland",
             mbti: "INTP",
             bio: "lorem ipsum",
             prefPrice: "70",
@@ -161,6 +161,7 @@ Vue.createApp({
         instagram = localStorage.getItem("instagram");
         linkedin = localStorage.getItem("linkedin");
         location_user = localStorage.getItem("location_user");
+        console.log(location_user)
         mbti = localStorage.getItem("mbti");
         price = localStorage.getItem("price");
         speed = localStorage.getItem("speed");

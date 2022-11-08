@@ -186,12 +186,12 @@
                     </div>
                     <div class="">
                         <strong>Location</strong>: 
-                        <input id="pac-input" class="form-control text-center d-inline target-input add-profile-fields" type="text" placeholder="AAAAAA"></div>
+                        <input id="location_user" class="form-control text-center d-inline target-input add-profile-fields" type="text" :value="location_user"></div>
                     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&region=SG&callback=initAutocomplete&libraries=places&v=weekly" async defer></script>
                     
                     <script>
                         function initAutocomplete() {
-                            const input = document.getElementById('pac-input')
+                            const input = document.getElementById('location_user')
                             const options = {
                                 componentRestrictions: { country: "SG" },  
                                 strictBounds: true, 
@@ -200,6 +200,7 @@
                             autocomplete.setTypes(['neighborhood'])
                         }
                     </script>
+
                     <div class="">
                         <strong>MBTI</strong>:
                         <select
