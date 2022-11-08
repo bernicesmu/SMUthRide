@@ -70,7 +70,7 @@ function update_user_database() {
     var facebook = inputs.facebook.value;
     var instagram = inputs.instagram.value;
     var linkedin = inputs.linkedin.value;
-    var location_user = "Jurong"; //hardcoded. softcode after regine is done
+    var location_user = inputs.location_user.value; //hardcoded. softcode after regine is done
     var mbti = inputs.mbti.value;
     var price = inputs.prefPrice.value;
     var speed = inputs.prefSpeed.value;
