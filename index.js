@@ -42,15 +42,135 @@ export function retrieve_rides_list() {
 }
 
 export function writeUserData(username, name, email) {
-    const db = getDatabase();
-    const users = ref(db, `users`);
-    onValue(users, (snapshot) => {
-        const data = snapshot.val();
-        var uid = 0;
-        for (var i of Object.values(data)) {
-            if (i.userid > uid) {
-                uid = i.userid;
-            }
+  const db = getDatabase();
+  const users = ref(db, `users`)
+  onValue(users, (snapshot) => {
+    const data = snapshot.val();
+    var uid = 0
+    for (var i of Object.values(data)) { 
+      if (i.userid > uid) { 
+        uid = i.userid
+      }
+    }
+    localStorage.setItem("userid", uid)
+  });
+  var str_uid = String(parseInt(localStorage.getItem("userid")) + 1)
+  var latest_uid = "0".repeat(3-str_uid.length) + str_uid 
+  set(ref(db, `users/${username}`), {
+      userid: latest_uid,
+      name: name,
+      email: email,
+  });
+  set(ref(db, `users/${username}/userprofile`), {
+    degree: "Bachelor",
+    year: "Year X",
+    status: "It's Complicated",
+    location_user: "Singapore", 
+    mbti: "ABCD",
+    age: 0,
+    bio: "I have no bio", 
+    price: 0,
+    comfort: 0,
+    convenience: 0, 
+    speed: 0, 
+    cca: [""],
+    linkedin: "https://www.linkedin.com/in/",
+    facebook: "https://www.facebook.com/",
+    instagram: "https://www.instagram.com/",
+  }) 
+}
+
+
+export async function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area) {
+  const db = getDatabase();
+
+  await set(ref(db, `rides/${rideid}`), {
+    ride_id: rideid,
+    smu_location: smu_location,
+    smu_to_from: smu_to_from,
+    driver_username: username,
+    user_address: user_address,
+    cost: cost,
+    area: area,
+    max_capacity: max_capacity,
+    date: date,
+    time: time,
+    users_offered: users_offered
+  });
+   return true
+}
+
+export function find_rid() { 
+  const db = getDatabase();
+  const rides = ref(db, `rides/`)
+  onValue(rides, (snapshot) => {
+    const data = snapshot.val();
+    var rid = Object.keys(data).length
+    localStorage.setItem("rideid", rid)
+  });
+}
+
+export function create_chat(uid1, uid2) { 
+  const db = getDatabase();
+  let thing  = `${uid1};${uid2}`
+  set(ref(db, `messages/${thing}/0`), {
+    message :"Hello",
+    username : uid2
+  })
+}
+
+export function create_user(email, password) { 
+  const auth = getAuth();
+  createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+  })
+  .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage)
+      // ..
+  });
+};
+
+export function signin_user(email, password) { 
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    localStorage.setItem("username", user)
+    console.log(user)
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage)
+  });
+}
+
+export function find_chat(username){
+  const db = getDatabase()
+  const reference = ref(db, 'messages')
+// Attach an asynchronous callback to read the data at our posts reference
+  onValue(reference, (snapshot) => {
+    const data = snapshot.val();
+    var values = Object.entries(data)
+
+    for(var entry of values){
+      let chatid = entry[0]
+      console.log(chatid)
+    if(chatid.includes(username)){     
+      find_last_chat_message(chatid)
+      let message = localStorage.getItem("latest_message")
+      // console.log(message)
+      var chatusers = chatid.split(";")
+      for (var users of chatusers) { 
+        if (users != username) { 
+          var other_username = users
         }
         localStorage.setItem("userid", uid);
     });
@@ -435,19 +555,18 @@ export function write_user_profile(
     updates[`users/${username}/name`] = displayname;
     return update(ref(db), updates);
 }
+export function get_ride_details(rideid) { 
+  const db = getDatabase();
+  const rides = ref(db, `rides/${rideid}`)
+  onValue(rides, (snapshot) => {
+    const data = snapshot.val();
+    var k = "";
+    var v = "";
+    for ([k, v] of Object.entries(data)) {
 
-export function get_ride_details(rideid) {
-    const db = getDatabase();
-    const rides = ref(db, `rides/${rideid}`);
-    onValue(rides, (snapshot) => {
-        const data = snapshot.val();
-        var k = "";
-        var v = "";
-        for ([k, v] of Object.entries(data)) {
-            console.log(k, v);
-            localStorage.setItem(k, v);
-        }
-    });
+      localStorage.setItem(k, v)
+    }
+  });
 }
 
 export function formatAMPM(date) {
