@@ -685,10 +685,7 @@ Custom tooltip
                         sch_deets = sch_value.split(",");
                         smutrans = encodeURI(sch_deets[0]);
 
-                        var url =
-                            "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                            smutrans +
-                            "&key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q";
+                        var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + smutrans + "&key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&region=SG";
 
                         var xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = function () {
