@@ -101,9 +101,12 @@
             margin-top: 0;
         }
 
-        #problematic {
-            display: block;
-            justify-content: center;
+        #info_hover {
+            /* display: block; */
+            justify-content: right;
+            
+            position: relative;
+            display: inline-block;
         }
 
         .error.display-error {
@@ -117,14 +120,6 @@
             margin-top: 0;
         }
 
-        #problematic {
-            display: block;
-            justify-content: right;
-            font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-                "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-            position: relative;
-        }
-
         .alert-info {
             height: auto;
             width: auto;
@@ -134,6 +129,26 @@
             position: absolute;
             right: -22px;
             bottom: 16px;
+        }
+
+        #info_hover > .tooltiptext { 
+            visibility: hidden;
+            width: 300px;
+            background-color: #BFACD3;
+            color: #451F6A;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+
+            /* Position the tooltip */
+            position: absolute;
+            top: 40px;
+            left: -135px;
+            z-index: 1;
+        }
+
+        #info_hover:hover > .tooltiptext { 
+            visibility: visible;
         }
 
         .group {
@@ -460,12 +475,6 @@
     <div id="navbarVue">
         <div data-page="rides"></div>
     </div>
-    <button type="button" class="btn btn-secondary"
-    data-bs-toggle="tooltip" data-bs-placement="bottom"
-    data-bs-custom-class="custom-tooltip"
-    data-bs-title="This top tooltip is themed via CSS variables.">
-Custom tooltip
-</button>
     <div id="form_alerts">
         <div class="offer d-flex justify-content-evenly">
             <h1 class="mb-0 pb-3">Offer a ride</h1>
@@ -647,7 +656,8 @@ Custom tooltip
                 ></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-                <div id="problematic"></div>
+                <div id="info_hover">
+                </div>
                 <script>
                     var map;
                     function initMap() {
@@ -754,7 +764,7 @@ Custom tooltip
                         }
 
                         if (
-                            document.getElementById("problematic").innerHTML !=
+                            document.getElementById("info_hover").innerHTML !=
                             ""
                         ) {
                             console.log("===wtf===");
@@ -777,8 +787,8 @@ Custom tooltip
                         directionsService.route(
                             request,
                             function (result, status) {
-                                const output =
-                                    document.getElementById("problematic");
+                                const info_hover =
+                                    document.getElementById("info_hover");
                                 const loc_outofsg =
                                     document.querySelector("#wrongloc");
 
@@ -823,31 +833,20 @@ Custom tooltip
 
                                         // from smu to indicated location, display route and duration
                                         if (smu_position == "from") {
-                                            output.innerHTML = `<div class='alert-info'>
-                                <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip"
-                                data-bs-html="true"
-                                data-bs-placement="right"
-                                data-bs-title="From: ${sch_name}, ${sch_postal}
-                                <br>To: ${
-                                    document.getElementById("location_field")
-                                        .value
-                                }
-                                <br>Driving distance: ${distance}
-                                <br>Recommended Pricing: $${recc_price.toFixed(
-                                    2
-                                )}
-                                <br>Duration: ${
-                                    result.routes[0].legs[0].duration.text
-                                }</div>"
-                                data-bs-custom-class="custom-tooltip">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                    width='30'
-                                    height='30'
-                                    viewBox="0 0 512 512"
-                                    fill="#4e7570">
-                                    <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
-                                    </svg>
-                                </a>`;
+                                            info_hover.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width='30'
+                                                                        height='30'
+                                                                        viewBox="0 0 512 512"
+                                                                        fill="#4e7570">
+                                                                        <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
+                                                                    </svg>
+                                                                    <span class="tooltiptext">
+                                                                        From: <b>${sch_name}, ${sch_postal}</b>
+                                                                        <br>To: <b>${document.getElementById("location_field").value}</b>
+                                                                        <br>Driving distance: <b>${distance}</b>
+                                                                        <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
+                                                                        <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
+                                                                    </span>`  
                                             marker.setMap(null);
                                             directionsDisplay.setMap(null);
                                             directionsDisplay.setDirections({
@@ -860,33 +859,21 @@ Custom tooltip
                                             directionsDisplay.setMap(map);
                                         }
                                         // from indicated to smu, display route and duration
-                                        else {
-                                            output.innerHTML = `<div class='alert-info'>
-                                    <a class="d-inline-block text-align mx-5" data-bs-toggle="tooltip"
-                                    data-bs-html='true'
-                                    data-bs-placement="right"
-                                    data-bs-title="From: ${
-                                        document.getElementById(
-                                            "location_field"
-                                        ).value
-                                    }
-                                    <br>To: ${sch_name}, ${sch_postal}
-                                    <br>Driving distance: ${distance}
-                                    <br>Recommended Pricing: $${recc_price.toFixed(
-                                        2
-                                    )}
-                                    <br>Duration: ${
-                                        result.routes[0].legs[0].duration.text
-                                    }</div>"
-                                    data-bs-custom-class="custom-tooltip">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                        width='30'
-                                        height='30'
-                                        viewBox="0 0 512 512"
-                                        fill="#4e7570">
-                                        <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
-                                        </svg>
-                                    </a>`;
+                                        else { 
+                                            info_hover.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width='30'
+                                                                        height='30'
+                                                                        viewBox="0 0 512 512"
+                                                                        fill="#4e7570">
+                                                                        <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
+                                                                    </svg>
+                                                                    <span class="tooltiptext">
+                                                                        From: <b>${document.getElementById("location_field").value}</b>
+                                                                        <br>To: <b>${sch_name}, ${sch_postal}</b>
+                                                                        <br>Driving distance: <b>${distance}</b>
+                                                                        <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
+                                                                        <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
+                                                                    </span>`   
 
                                             marker.setMap(null);
                                             directionsDisplay.setMap(null);
@@ -918,7 +905,7 @@ Custom tooltip
                                     map.setCenter(coords[0], coords[1]);
 
                                     // error message for invalid address
-                                    output.innerHTML = `<div class='wrong_loc'>Stop it. Get some help. Put correct location please.</div>`;
+                                    info_hover.innerHTML = `<div class='wrong_loc'>Stop it. Get some help. Put correct location please.</div>`;
                                 }
                             }
                         );
