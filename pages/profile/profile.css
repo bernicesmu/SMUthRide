@@ -10,6 +10,7 @@ main {
     padding: 0 2rem;
     padding-left: 0;
     width: 75%;
+    margin-bottom: 100px;
 }
 .wrapper {
     display: flex;
@@ -54,10 +55,12 @@ main {
 
 .additional-profile div {
     display: flex;
+    margin-bottom: 0.1rem;
 }
 .add-profile-fields {
     margin-left: auto;
     max-width: 55%;
+    text-align: end;
 }
 
 .edit-profile {
@@ -65,16 +68,23 @@ main {
 }
 
 .btn-edit-profile {
-    color: white;
-    background: url("edit_button.png") no-repeat;
-    background-size: auto 50%;
-    background-color: #4e7570;
-    background-position: 20%;
+    color: #8A6F42;
+    background-color: #d8c7a3;
 }
 
 .btn-edit-profile:hover {
-    background-color: #bedad6;
     color: white;
+    background-color: #d8c7a3;
+}
+
+.btn-logout { 
+    color: #451F6A;
+    background-color: #BFACD3;
+}
+
+.btn-logout:hover {
+    color: white;
+    background-color: #BFACD3;
 }
 
 .socials-ul {
@@ -130,19 +140,24 @@ main {
 }
 
 .cca {
+    display: flex;
     padding-left: 2px;
     margin-left: 0rem;
+    margin-bottom: 0px;
     /* list-style-image: url("./tire.png"); */
 }
 
 .cca li {
     margin-bottom: 0;
-    padding-left: 1.5rem;
+    padding: 0.2rem 1rem;
+    margin: 5px;
     list-style: none;
-    background-image: url("./tire.png");
+    background-color: #4e7570;
+    color: #bedad6;
+    /* background-image: url("./tire.png");
     background-repeat: no-repeat;
     background-position: left center;
-    background-size: 10px;
+    background-size: 10px; */
 }
 
 .profile-fab {
@@ -159,8 +174,15 @@ main {
         display: flex;
         justify-content: center;
     }
+    .additional-profile div {
+        flex-direction: column;
+    }
     .additional-profile p {
         margin-right: 1rem;
+    }
+    .add-profile-fields {
+        margin: 0;
+        text-align: start;
     }
     main {
         margin-top: 1rem;

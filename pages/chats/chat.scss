@@ -4,9 +4,14 @@ $light-green: #e3f1ef;
 $dark-blue: #4c86a2; 
 $light-blue: #a7c7d6; 
 
+html { 
+  height: 100%;
+}
+
 body {
   background-color: $light-green !important;
   margin-top: 130px !important; 
+  height: 83%;
   
 }
 
@@ -41,6 +46,7 @@ a:link{
   // margin-bottom: 30px;
   margin-left: 10px;
   overflow-anchor: auto;
+  padding-right: 32px;
   // padding-bottom: 15%
   
   
@@ -67,6 +73,18 @@ li span {
   color: #b5b0b9;
 }
 
+#message-btn { 
+  display: none;
+}
+
+#send-button { 
+  transform: rotate(45deg);
+}
+
+#send-label { 
+  padding-right: 32px;
+  padding-top: 6px;
+}
 
 
 #message-form {
@@ -106,12 +124,11 @@ input {
 
 .sent p{
   margin-left: 5px;
-  color: black;
-  background-color: #4e7570;
+  color: $dark-green;
+  background-color: $medium-green;
   margin: 0px;
   word-break: break-all;
   // padding: 10px;
-  color: white;
   
   
 }
@@ -129,12 +146,11 @@ input {
 .receive p{
   
     margin-left: 5px;
-    color: black;
-    background-color: $medium-green;
+    background-color: #d8c7a3;
     margin: 0px;
     word-break: break-all;
     // padding: 10px;
-    color: $dark-green;
+    color: #8A6F42;
     
 }
 
@@ -154,13 +170,13 @@ p{
   background-color: white;
   width: 70%;
   // need to make more dynamic??
-  height: 100vh;
+  height: 100%;
   overflow-y: scroll;
   padding-top: 0;
   position: relative;
   scroll-behavior: smooth;
   z-index: inherit;
-  
+  border-radius: 30px;
   
 }
 .sub_div {
@@ -170,8 +186,8 @@ p{
   // padding-top: 10px;
   // padding-left: 5px;
   // padding-right: 5px;
-  background-color: black;
-  
+  background-color: $dark-green;
+  justify-content: space-between;
 }
 
 // #chat {
@@ -186,10 +202,11 @@ p{
 // }
 
 #leftbar{
-  background-color: $dark-blue;
+  background-color: #8A6F42;
+  color: #FFF;
   width: 30%;
   margin-right: 3%;
-  // border-radius: 30px;
+  border-radius: 20px;
   // need to make more dynamic??
   height: 100vh;
   overflow-y: auto;
@@ -213,15 +230,9 @@ p{
   align-items: center;
   padding:10px;
   margin-bottom: 10px;
+  border-radius: 30px 30px 0px 0px;
             
-  
-}
-
-#contact > h3{
-  color: white;
-  padding:10px;
-  
-  
+  justify-content: space-between;
 }
 
 #photo{
@@ -236,6 +247,19 @@ p{
   margin-right: 10px;
 }
 
+#other-user { 
+  margin-bottom: 0px;
+  color: white;
+  padding:10px;
+  height: 50px;
+}
+
+#make-offer-button { 
+  margin-right: 10px;
+  background-color: #BFACD3;
+  border: #BFACD3;
+  color: #451F6A;
+}
 
 button{
   align-items: center;
@@ -244,12 +268,21 @@ button{
 }
 
 #message-input{
-  width: 70%;
-  margin-top:5px;
+  width: 85%;
+  margin-top: 5px;
   margin-bottom: 5px;
+  margin-left: 15px;
   border-radius: 30px;
   padding-left: 5px;
-  
+  // opacity: 0%;
+  color: #FFFFFF;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+#message-input::placeholder { 
+  color: #FFFFFF;
 }
 
 
@@ -346,6 +379,7 @@ button{
 
 .chat-container {
   display:flex;
+  height: 80%;
 }
 
 @media (max-width: 1200px) {
@@ -389,10 +423,11 @@ button{
     z-index: 2;
   }
 
-  #chat {
-    z-index: 1;
-    /* opacity: 0; */
-  }
+  // #chat {
+  //   z-index: 1;
+  //   height: 10px;
+  //   /* opacity: 0; */
+  // }
 
   .chat-container-active {
     
