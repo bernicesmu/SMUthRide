@@ -55,13 +55,15 @@ const listings = Vue.createApp({
             this.check_and_populate()
         },
         check_and_populate(){
-            console.log(this.display_listings)
-            if (this.to_from === "To"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from == "To" && "users_offered" in x);
-            } else if (this.to_from === "From"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from == "From" && "users_offered" in x);
-            }
+            console.log(this.to_from)
+            console.log(this.listings)
 
+            if (this.to_from === "To"){
+                this.display_listings = this.listings.filter(x => x.smu_to_from == "To" && x.users_offered!=undefined);
+            } else if (this.to_from === "From"){
+                this.display_listings = this.listings.filter(x => x.smu_to_from == "From" && x.users_offered!=undefined);
+            }
+            console.log(this.display_listings)
         },
         formatAMPM(date) {
 

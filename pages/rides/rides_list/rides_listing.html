@@ -135,12 +135,7 @@
      <link rel="stylesheet" href="rides_listing.css"/>
      <link rel="stylesheet" href="card.css">
     </head>
-    <!-- <body style="background-color: #ffffff;">
-        <div id="navbarVue">
-            <div
-         -->
-        
-    
+  
     <body style="background-color: #FFFFFF">
 
     <div id="navbarVue">
@@ -150,9 +145,10 @@
     </div>
     <div id="populate_listings">
 
-        <div class="col px-md-5 px-1 py-0 d-flex flex-wrap justify-content-center">
+        <div class="col px-md-5 px-1 py-1 d-flex flex-wrap justify-content-center"
+             style="position: fixed; z-index: 1; background-color:#e3f1ef; top:16vh">
 
-            <div class="col-4 col-md-3 order-md-1 my-auto lh-lg d-flex justify-content-center">
+            <div class="col-4 col-md-3 order-md-1 my-auto lh-lg d-flex justify-content-center" >
 
                 <label class="switch">
                     <input type="checkbox" id="togBtn" v-on:change="change_direction()">
@@ -242,11 +238,13 @@
                     <hr class="mb-1 mt-2" />
                     <div>
 
-                        <h2 class="card-title fw-bold text-center mb-3">
-
+                        <h2 class="card-title fw-bold text-center mb-3" v-if="to_from == `From`" style="color: #BFACD3">
                             <i class="bi bi-geo-alt-fill"></i>{{listing.area}}
-
                         </h2>
+                        <h2 class="card-title fw-bold text-center mb-3" v-else-if="to_from == `To`" style="color: #d8c7a3">
+                            <i class="bi bi-geo-alt-fill"></i>{{listing.area}}
+                        </h2>
+
                         <div class="d-flex my-2">
 
                             <h1 class="me-auto">${{listing.cost}}</h1>
