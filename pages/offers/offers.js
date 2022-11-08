@@ -53,6 +53,9 @@ const listings = Vue.createApp({
         },
         get_user_name(username){
             return this.users[username].name
+        },
+        get_url(username){
+            return this.users[username].profile_url
         }
     },
     mounted() {

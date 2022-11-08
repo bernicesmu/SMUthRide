@@ -93,7 +93,13 @@
 }
 
 .profile-img {
-    max-height: 2.4rem;
+    /* max-height: 2.4rem;
+    max-width: 2.4rem; */
+    /* width: 2.4rem;
+    height: 2.4rem; */
+    width: 2.4rem;
+    height: 2.4rem;
+    object-fit: contain; object-position: 50% 50%;border:black solid 1px
 }
 
 @keyframes beep-beep {
