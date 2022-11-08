@@ -116,8 +116,14 @@
                 width: 36px;
                 border-radius: 50%;
             }
-
-            @media only screen and (max-width: 600px) {
+            #top_row{
+                width:100%;
+                position: fixed;
+                z-index: 1;
+                background-color:#e3f1ef;
+                top:10.5vh
+            }
+            @media only screen and (max-width: 768px) {
                 .card {
                     border: none;
                     width: 300px;
@@ -129,6 +135,13 @@
                     transition: all 0.2s ease-in-out;
                 }
 
+                #top_row {
+                    width:100%;
+                    position: fixed;
+                    z-index: 1;
+                 
+                    top:14.6vh
+                }
             }
 
      </style>
@@ -143,12 +156,12 @@
                 data-page="rides"
         ></div>
     </div>
-    <div id="populate_listings">
+    <div id="populate_listings" style="position: relative">
 
         <div class="col px-md-5 px-1 py-1 d-flex flex-wrap justify-content-center"
-             style="position: fixed; z-index: 1; background-color:#e3f1ef; top:16vh">
+             id="top_row">
 
-            <div class="col-4 col-md-3 order-md-1 my-auto lh-lg d-flex justify-content-center" >
+            <div class="col-4 col-md-3 order-md-1 my-2 lh-lg d-flex justify-content-center" >
 
                 <label class="switch">
                     <input type="checkbox" id="togBtn" v-on:change="change_direction()">
@@ -164,16 +177,16 @@
 
             </div>
 
-            <div class=" col-4 col-md-12 d-flex order-md-0 text-center align-items-center justify-content-center">
+            <div class=" col-4 col-md-12 d-flex flex-wrap order-md-0 text-center align-items-center justify-content-center my-2">
 
                 <h1 class="mb-0">Rides</h1>
 
             </div>
 
-            <div class="col-4 col-md-3 order-md-3 my-auto lh-lg d-flex justify-content-center">
+            <div class="col-4 col-md-3 order-md-3 my-2 lh-lg d-flex flex-wrap justify-content-center">
 
-                <a href="./../create_ride/rides_indiv_driver.html" id="add_ride_icon" class="">
-                    <i class="bi bi-plus-circle-fill"></i>
+                <a href="./../create_ride/rides_indiv_driver.html" id="add_ride_icon" >
+                    <i class="bi bi-plus-circle-fill d-flex overflow-hidden"></i>
                 </a>
 
             </div>
@@ -196,7 +209,7 @@
 
 
         </div>
-        <div class="d-flex flex-wrap ">
+        <div class="d-flex flex-wrap " style="margin-top: 15rem">
 
             <div class="card col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings"
                  onclick= "">
