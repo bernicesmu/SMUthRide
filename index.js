@@ -74,7 +74,6 @@ export function writeUserData(username, name, email) {
 
 export async function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area) {
   const db = getDatabase();
-  try {
 
   await set(ref(db, `rides/${rideid}`), {
     ride_id: rideid,
@@ -89,9 +88,7 @@ export async function write_ride(smu_location,smu_to_from,username,rideid,user_a
     time: time,
     users_offered: users_offered
   });
-    } catch (error) {
-    console.log(error)
-  }
+   return true
 }
 
 export function find_rid() { 

@@ -71,7 +71,9 @@ async function write_ride_local() {
     console.log(check)
     if (check){
         console.log("success")
-        document.getElementsByClassName("modal").style.display = "block";
+        document.getElementById("backdrop").style.display = "block"
+        document.getElementById("exampleModal").style.display = "block"
+        document.getElementById("exampleModal").classList.add("show")
         localStorage.clear('rideid')
 
     }
