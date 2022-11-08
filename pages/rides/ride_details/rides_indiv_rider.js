@@ -99,7 +99,15 @@ const app = Vue.createApp({
                 this.smu_location = details.smu_location
                 this.to_from = details.to_from
             })
+        },
+        gotochat() { 
+            let your_username = localStorage.getItem("username_x")
+            create_chat(this.driver_username, your_username)
+            localStorage.setItem("driver_username", driver_username)
+        
+        
         }
+
         
     },
     created(){

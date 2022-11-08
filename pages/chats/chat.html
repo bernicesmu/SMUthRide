@@ -34,12 +34,14 @@
         <header>
             <h2>SMUth Chat</h2>
             <h6>Chat With Your Group and Agree on Price</h6>
+           
         </header>
       </div>
       
 
 
         <div class="container chat-container" id="chatroom">
+          
             <!-- {{ messages }} -->
             <!-- Offer Overlay -->
             <div id="overlay" class="my-auto">
@@ -93,8 +95,10 @@
             
             <!-- LEFT BAR -->
             <!-- NEED TO BOOTSTRAP THIS THING -->
-            {{swapping}}
-            <div style="height:min-content" id="leftbar" v-show="swapping == true" class="d-none d-md-block col-md-12">
+        <div class="container-fluid" >
+          <div class="row">
+            <div class="col-md-4 col-xs-12 col-sm-12">
+              <div style="height:min-content" id="leftbar" v-show="swapping == true" class="d-none d-md-block">
              
                 <div class="mt-1">
                   <h3 class="text-white text-center d-block">Chats</h3>
@@ -102,78 +106,89 @@
                 </div>
                 <chat-box v-for="chat_id of chat_array" :chat_id="chat_id" v-on:get_chat="retreive_chat"></chat-box>
                 
-                
+               </div>
+
             </div>
+            
             <!-- LEFT BAR END -->
+            <div class="col-md-8 col-xs-12 col-sm-12">
 
-            <div id="chat" onscroll="sticky()" style="max-height: 100vh;">
-                <div id="contact" class="d-flex">
-                  <div class="d-flex">
-                    <!-- back icon -->
-                    <!-- <button class="d-block d-md-none clearfix" @click="swap"> -->
-                      <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i>
-                    <!-- </button> -->
+                <div id="chat" onscroll="sticky()" style="min-height: 80vh; max-height: 80vh;">
+                  <div id="contact" class="d-flex">
+                    <div class="d-flex">
+                      <!-- back icon -->
+                      <!-- <button class="d-block d-md-none clearfix" @click="swap"> -->
+                        <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i>
+                      <!-- </button> -->
+                      
+                      <div id="photo"><img :src="image_url" class="img-fluid rounded-circle"
+                        style="object-fit:contain"> </div>
+                      <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
+                    </div>
+                    <div>
+                      <button
+                      type="button"
+                      class="btn btn-light"
+                      onclick="overlay()"
+                      id="make-offer-button"
+                      >
+                      Make Offer
+                      </button>
+                    </div>
+                  </div>
+                  <!-- messages will display here -->
+                  <!-- <div id="messages">
+                <ul id = "message_list"></ul>
+              </div> -->
+              <!-- class=${
+                  username === messages.username ? "sent" : "receive"
+                } -->
+                
+                  <ul id="messages">
+                      <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}"><p><b>{{ message.username }}</b>: {{ message.message}}</p></li>
                     
-                    <div id="photo"><img :src="image_url" class="img-fluid rounded-circle"
-                      style="object-fit:contain"> </div>
-                    <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
+                  </ul>
+
+                  <div style="background-color:azure; width: fit-content;border-radius: 30px; float: right; padding: 20px;" v-if="is_offer" class="sent" v-html="offer_template"></div>
+
+                  <!-- form to send message -->
+                  <div class="sub_div d-flex">
+                      <!-- <form action="" id="message-form"> -->
+                          <input
+                              id="message-input"
+                              type="text"
+                              placeholder="Type Message..."
+                              v-model="message_to_send"
+                              @keyup.enter="send_message"
+                          />
+
+                          <button
+                              type="submit"
+                              id="message-btn"
+                              class="btn btn-success"
+                              onclick="test()"
+                              
+                              v-on:click="send_message"
+                          ></button>
+                          <label for="message-btn" id="send-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" id="send-button" width="25" height="25" fill="#FFFFFF" class="bi bi-send" viewBox="0 0 16 16">
+                              <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                            </svg>
+                          </label>
+
+                          <!-- <button class="btn btn-outline-dark" id="message-btn" type="submit"><i class="fa-solid fa-taxi"></i></button> -->
+
+                          <!-- <button id="message-btn" type="submit" class="btn-primary"><i class="fa-solid fa-taxi"></i></button> -->
+                      <!-- </form> -->
+                      <!-- {{swapping}} -->
                   </div>
-                  <div>
-                    <button
-                    type="button"
-                    class="btn btn-light"
-                    onclick="overlay()"
-                    id="make-offer-button"
-                    >
-                    Make Offer
-                    </button>
-                  </div>
-                </div>
-                <!-- messages will display here -->
-                <!-- <div id="messages">
-              <ul id = "message_list"></ul>
-            </div> -->
-            <!-- class=${
-                username === messages.username ? "sent" : "receive"
-              } -->
-                <ul id="messages">
-                    <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}"><p><b>{{ message.username }}</b>: {{ message.message}}</p></li>
-                  
-                </ul>
+              </div>
 
-                <div style="background-color:azure; width: fit-content;border-radius: 30px; float: right; padding: 20px;" v-if="is_offer" class="sent" v-html="offer_template"></div>
-
-                <!-- form to send message -->
-                <div class="sub_div d-flex">
-                    <!-- <form action="" id="message-form"> -->
-                        <input
-                            id="message-input"
-                            type="text"
-                            placeholder="Type Message..."
-                            v-model="message_to_send"
-                            @keyup.enter="send_message"
-                        />
-
-                        <button
-                            type="submit"
-                            id="message-btn"
-                            class="btn btn-success"
-                            onclick="test()"
-                            
-                            v-on:click="send_message"
-                        ></button>
-                        <label for="message-btn" id="send-label">
-                          <svg xmlns="http://www.w3.org/2000/svg" id="send-button" width="25" height="25" fill="#FFFFFF" class="bi bi-send" viewBox="0 0 16 16">
-                            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-                          </svg>
-                        </label>
-
-                        <!-- <button class="btn btn-outline-dark" id="message-btn" type="submit"><i class="fa-solid fa-taxi"></i></button> -->
-
-                        <!-- <button id="message-btn" type="submit" class="btn-primary"><i class="fa-solid fa-taxi"></i></button> -->
-                    <!-- </form> -->
-                </div>
             </div>
+
+          </div>
+            
+        </div>
         </div>
 
 

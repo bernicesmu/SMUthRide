@@ -16,7 +16,7 @@ const chat_left = Vue.createApp({
             offer_price: "",
             offer_template: "",
             is_offer : false,
-            swapping: true
+            swapping: false
         }
     },
     computed:{
@@ -42,6 +42,15 @@ const chat_left = Vue.createApp({
             })
             
         },
+        window(){
+            if ($(window).width() < 960) {
+                alert('Less than 960');
+             }
+             else {
+                alert('More than 960');
+             }
+        }
+       
 
 
     },
@@ -160,6 +169,7 @@ const chat_left = Vue.createApp({
         this.user = localStorage.getItem("username_x")
         // console.log(user)
         this.get_related_chats
+        // this.retreive_chat(this.chat_array[0])
         this.get_userimage
     }
 });
