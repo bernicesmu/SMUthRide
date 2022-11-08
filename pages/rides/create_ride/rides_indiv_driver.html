@@ -355,11 +355,6 @@
             border-color: #4e7570;
         }
 
-        .map-styles {
-            width: 100%;
-            margin: auto;
-        }
-
         #SMU_label {
             position: absolute;
             left: 6%;
@@ -468,13 +463,6 @@
     <div id="form_alerts">
         <div class="offer d-flex justify-content-evenly">
             <h1 class="mb-0 pb-3">Offer a ride</h1>
-        </div>
-
-        <div class="text-center">
-            <form
-                name="location_form"
-                id="rides"
-                class="form"
             <!--            <button></button>-->
             <!-- <button
                 type="button"
@@ -521,8 +509,12 @@
 
         <!--    </div>-->
 
-                class="d-inline-block"
-            >
+        <div class="text-center">
+<!--            <form-->
+<!--                name="location_form"-->
+<!--                action="../rides_list/rides_listing.html"-->
+<!--                class="d-inline-block"-->
+<!--            >-->
                 <!-- get the input from the user from here -->
                 <div class="d-flex row mb-2">
                     <div
@@ -534,6 +526,7 @@
                             name="smubuildings"
                             id="smulocation"
                             onchange="getSMUloc('gohome')"
+                            required
                         >
                             <option
                                 value="0"
@@ -693,7 +686,7 @@
 
                         var xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = function () {
-                            // console.log(this.readyState, this.status)
+
                             if (this.readyState == 4 && this.status == 200) {
                                 try {
                                     var data = JSON.parse(this.responseText);
@@ -1006,10 +999,32 @@
                 <button
                     type="submit"
                     class="btn button d-block mx-auto mt-5 w-100 mb-5"
+                    id="rides"
                 >
                     Get in loser, we're going shopping.
                 </button>
-            </form>
+<!--            </form>-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true"
+                 role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+                            <button type="button" class="close" aria-label="Close" onclick="closeModal()">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Your ride has been successfully created!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="location.href='./../create_ride/rides_indiv_driver.html'" >Create New Ride</button>
+                            <button type="button" class="btn btn-primary" onclick="location.href='./../rides_list/ride_listing.html'" >Return To Listings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-backdrop fade show" id="backdrop" style="display: none;"></div>
         </div>
     </div>
 </body>
@@ -1117,7 +1132,7 @@
             smu_position = "from";
         }
     }
-    console.log(document.getElementsByTagName("input"));
+
 </script>
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

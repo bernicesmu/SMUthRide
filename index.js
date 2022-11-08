@@ -72,28 +72,26 @@ export function writeUserData(username, name, email) {
 }
 
 
-export function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area) { 
+export async function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area) {
   const db = getDatabase();
+  try {
 
-  set(ref(db, `rides/${rideid}`), {
+  await set(ref(db, `rides/${rideid}`), {
     ride_id: rideid,
     smu_location: smu_location,
-    smu_to_from : smu_to_from,
+    smu_to_from: smu_to_from,
     driver_username: username,
     user_address: user_address,
-    cost : cost,
+    cost: cost,
     area: area,
     max_capacity: max_capacity,
-    // frequency,
     date: date,
     time: time,
     users_offered: users_offered
-  })
-  //     .then(() => {
-  //   console.log("Rideid: " + rideid + " has been added to the database")
-  // }).catch((error) => {
-  //   console.log(error)
-  // })
+  });
+    } catch (error) {
+    console.log(error)
+  }
 }
 
 export function find_rid() { 
@@ -101,9 +99,7 @@ export function find_rid() {
   const rides = ref(db, `rides/`)
   onValue(rides, (snapshot) => {
     const data = snapshot.val();
-    console.log(data)
-    let rid = Object.keys(data).length
-    console.log(rid)
+    var rid = Object.keys(data).length
     localStorage.setItem("rideid", rid)
   });
 }
@@ -405,7 +401,7 @@ export function get_ride_details(rideid) {
     var k = "";
     var v = "";
     for ([k, v] of Object.entries(data)) {
-      console.log(k, v)
+
       localStorage.setItem(k, v)
     }
   });
