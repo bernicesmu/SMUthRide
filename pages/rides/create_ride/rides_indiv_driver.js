@@ -80,6 +80,3 @@ async function write_ride_local() {
     // window.location.href = "./../rides_list/rides_list.html"
 
 }
-
-
-
