@@ -21,7 +21,7 @@ const form_alerts = Vue.createApp({
             selected_date = new Date(selected_date)
             const today = new Date()
             let res = selected_date - today >= 1000 * 60 * 60 * 24 * 365;
-            console.log(res)
+
             return res
         },
         check_drop_off(){
@@ -31,7 +31,7 @@ const form_alerts = Vue.createApp({
     },
     watch: {
         school_input(val,oldVal) {
-        console.log(val)
+
         },
         location_input: {
             handler(value, oldValue) {
@@ -44,38 +44,20 @@ const form_alerts = Vue.createApp({
 
 form_alerts.mount('#form_alerts')
 
-document.getElementById('rides').addEventListener('click', write_ride_local) 
-
-var username = "rferefvc" // to use session management to dynamically retrieve the username
-find_rid(username)
-var rideid = parseInt(localStorage.getItem("rideid")) + 1
-
-// writeUserData(1, username, email, "regine.com")
-
-function write_ride_local() {
+document.getElementById('rides').addEventListener('click',event => {
+    event.preventDefault()
+    write_ride_local()
+})
+find_rid()
+async function write_ride_local() {
     
     var username = localStorage.getItem("username_x")
 
-    // const database = getDatabase(); 
-    // const chats = ref(database, `users/${username}`)
-    // onValue(chats, (snapshot) => { 
-      
-    //   const data = snapshot.val();
-    //   var userid
-        
-    // })
-    var rideid = find_rid() + 1
+    var rideid = parseInt(localStorage.getItem("rideid")) + 1
 
     var inputs = document.getElementsByTagName('input')
-
-    // if (document.getElementById("location_from").innerHTML == "SMU"){
-    //     var smu_to_from = "From"
-    // }
-    // else{
-    //     var smu_to_from = "To"
-    // }
     
-    var user_address = inputs.address.value 
+    var user_address = inputs.location_field.value
 
     var smu_location = document.getElementById("smulocation").options[document.getElementById("smulocation").selectedIndex].text;
     var cost = parseFloat(inputs.cost.value)
@@ -84,8 +66,18 @@ function write_ride_local() {
     var time = inputs.time.value 
     var users_offered = [""]
     var area = "Changi Prison"
-    console.log(smu_position)
-    write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area)
+
+    let check = await write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area)
+    console.log(check)
+    if (check){
+        console.log("success")
+        document.getElementById("backdrop").style.display = "block"
+        document.getElementById("exampleModal").style.display = "block"
+        document.getElementById("exampleModal").classList.add("show")
+        localStorage.clear('rideid')
+
+    }
+    // window.location.href = "./../rides_list/rides_list.html"
 
 }
 
