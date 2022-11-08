@@ -109,9 +109,7 @@ const app = Vue.createApp({
             let your_username = localStorage.getItem("username_x")
             create_chat(this.driver_username, your_username)
             localStorage.setItem("driver_username", driver_username)
-        
-        
-        }
+        },
         
         initMap(coords) {
             var map = new google.maps.Map(
