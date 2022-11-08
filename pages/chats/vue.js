@@ -16,7 +16,7 @@ const chat_left = Vue.createApp({
             offer_price: "",
             offer_template: "",
             is_offer : false,
-            swapping: false
+            swapping: false,
         }
     },
     computed:{
@@ -163,7 +163,7 @@ const chat_left = Vue.createApp({
             console.log(window.screen.width)
             document.getElementById("leftbar").className = "d-md-block"
             document.getElementById("chat").className = "d-none"
-        }
+        },
     },
     created(){
         this.user = localStorage.getItem("username_x")
@@ -183,7 +183,8 @@ chat_left.component('chat-box', {
             receipient_username: "",
             latest_message:"",
             sender_latest_message: "",
-            image_url : ""
+            image_url : "",
+            selected_chatroom: "",
 
         }
     },
@@ -191,7 +192,7 @@ chat_left.component('chat-box', {
 
     emits: ['get_chat'],
 
-    template: `<div :id="chat_id" class="chatbox" style="padding:10px; display: flex;" v-on:click="$emit('get_chat',chat_id)">
+    template: `<div :id="chat_id" class="chatbox" style="padding:10px; display: flex;" v-on:click="$emit('get_chat',chat_id)" @click="selected_chat(chat_id)">
     <div id="photo">
         <img :src="image_url" class="img-fluid rounded-circle">
     </div>
@@ -247,8 +248,7 @@ chat_left.component('chat-box', {
                 let image = user_profile["profile_url"]
                 this.image_url = image
             })
-
-        }
+        },
 
 
 
@@ -263,6 +263,26 @@ chat_left.component('chat-box', {
         
 
         // find the latest message
+    },
+
+    methods: {
+        selected_chat(chat_id) { 
+            var chatboxes = document.getElementsByClassName("chatbox")
+            for (var chatbox of chatboxes) { 
+                chatbox.style = "padding:10px; display: flex;"
+            }
+
+            var last_chat = chatboxes[chatboxes.length-1]['id']
+            this.selected_chatroom = chat_id;
+            var to_style = `color: #8A6F42;
+            background-color: #d8c7a3;
+            padding:10px; 
+            display: flex;`
+            if (chat_id == last_chat) { 
+                to_style += 'border-radius: 0px 0px 30px 30px;'
+            }
+            document.getElementById(chat_id).style = to_style
+        },
     }
 })
 
