@@ -17,7 +17,7 @@ const navbar = Vue.createApp({
     data() {
         return {
             page: pageData,
-            url: "",
+            url: "./default_profile.png",
         };
     },
     template: `
@@ -70,7 +70,9 @@ const navbar = Vue.createApp({
                         <a class="nav-link nav-item-down" :href=" chatURL ">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-item-down" :href=" profileURL "><img :src="url" class="profile-img img-fluid rounded-circle" v-on:load="profilePic"/></a>
+                        <a class="nav-link nav-item-down" :href=" profileURL "><img :src="url" class="img-fluid rounded-circle"
+                        style="width:2.4rem;height:2.4rem;object-fit:contain;border:black solid 1px"
+                     v-on:load="profilePic"/></a>
                     </li>
                 </ul>
             </div>

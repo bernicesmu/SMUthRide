@@ -15,7 +15,8 @@ const chat_left = Vue.createApp({
             image_url:"",
             offer_price: "",
             offer_template: "",
-            is_offer : false
+            is_offer : false,
+            swapping: true
         }
     },
     computed:{
@@ -40,7 +41,8 @@ const chat_left = Vue.createApp({
                 }
             })
             
-        }
+        },
+
 
     },
     methods:{
@@ -73,6 +75,8 @@ const chat_left = Vue.createApp({
                 
                 
             })
+            this.swapping = false
+            document.getElementById("chat").className = ""
 
         },
         send_message(){
@@ -90,12 +94,15 @@ const chat_left = Vue.createApp({
 
             })
             console.log(this.message_to_send)
-            
-            set(ref(db, `messages/${this.current_chatid}/${this.new_mid}`), {
-                message: this.message_to_send,
-                username: this.user
-               
-              })
+            if(this.message_to_send.trim().length > 0){
+                set(ref(db, `messages/${this.current_chatid}/${this.new_mid}`), {
+                    message: this.message_to_send,
+                    username: this.user
+                   
+                  })
+
+            }
+           
             this.message_to_send = ""
               
             this.retreive_chat(this.current_chatid)
@@ -138,10 +145,15 @@ const chat_left = Vue.createApp({
            `
             // send as a normal message but with an additional attribute called status. If status, then we will add the buttons as necessary
             this.is_offer = true
+            
 
 
-
-
+        },
+        swap(){
+            this.swapping = true
+            console.log(window.screen.width)
+            document.getElementById("leftbar").className = "d-md-block"
+            document.getElementById("chat").className = "d-none"
         }
     },
     created(){

@@ -154,9 +154,12 @@
                             <div class="bd-highlight col-4 my-auto">
 
                                 <div class="d-flex justify-content-center">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
+                                    <!-- this one to update -->
+                                    <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
                                          alt="Generic placeholder image" class="img-fluid rounded-circle border"
-                                    >
+                                    > -->
+                                    <img :src="get_url(listing['driver_username'])" class="profile-pic img-fluid rounded-circle rounded-circle-dp"
+                                style="object-fit: contain; height: 60px; width: 60px; object-position: 50% 50%;border:black solid 1px" >
                                 </div>
 
                             </div>
@@ -203,10 +206,10 @@
         localStorage.user = user_name;
     </script>
 
-<script>
+<!-- <script>
     const user_name = "BobTan123"
     localStorage.user= user_name
-</script>
+</script> -->
 <script src="offers.js" type="module"></script>
-<script src="../../navbar/navbar.js"></script>
+<script src="../../navbar/navbar.js" type="module"></script>
 </html>
