@@ -88,3 +88,6 @@ function write_ride_local() {
     write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area)
 
 }
+
+
+

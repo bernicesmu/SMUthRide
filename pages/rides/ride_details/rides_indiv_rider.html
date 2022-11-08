@@ -52,8 +52,10 @@
     <div id="navbarVue">
         <div data-page="rides"></div>
     </div>
+<div id="main">
     <div class="trip text-center my-5">
-        <h1 class="d-inline">SMU</h1>
+        <h1 class="d-inline" v-if="to_from == from">{{ smu_location }}</h1>
+        <h1 class="d-inline" v-else>{{ address }}</h1>
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"
@@ -67,7 +69,8 @@
                 d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
             />
         </svg>
-        <h1 class="d-inline">Location</h1>
+        <h1 class="d-inline" v-if="to_from == from">{{ address }}</h1>
+        <h1 class="d-inline" v-else>{{ smu_location }}</h1>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -79,21 +82,25 @@
             </div>
             <div class="col-md-6 text-center">
                 <div class="user d-flex">
+                    <a v-bind:href="'http://localhost/SMUthRide/pages/profile/profile.html?user=' + driver_username" style="text-decoration: none;">
+                    <!-- need to customise photo? -->
                     <div class="profilepic d-inline me-2">
-                        <img class="user-pic" src="sample_dp.jpeg" />
+                        <img class="user-pic" :src="picture_url" />
                     </div>
                     <div class="usertext d-block my-auto">
                         <div class="userinfo d-flex">
                             <h4 class="name me-2" id="displayname">
-                                James Tan
+                                {{ driver_name }}
+                                
                             </h4>
-                            <h4 class="username" id="username">@username</h4>
+                            <h4 class="username" id="username">@{{ driver_username }}</h4>
                         </div>
                         <div class="degree">
-                            <h6 class="degree" id="year_degree">
+                            <h6 class="degree" id="year_degree" v-if="degree.length > 0">
                                 Year 2, Information Systems
                             </h6>
                         </div>
+                    </a>
                     </div>
                 </div>
                 <div class="ride my-5 d-inline-block">
@@ -114,7 +121,7 @@
                             />
                         </svg>
                         <h4 class="d-inline" id="user_address">
-                            90 Stamford Road, S(512345)
+                            {{ address }}
                         </h4>
                     </div>
                     <div class="cost mb-4">
@@ -136,7 +143,7 @@
                                 d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
                             />
                         </svg>
-                        <h4 class="d-inline" id="costperpax">$9 per pax</h4>
+                        <h4 class="d-inline" id="costperpax">${{ cost_per_pax }} per pax</h4>
                     </div>
                     <div class="capacity mb-4">
                         <svg
@@ -156,7 +163,7 @@
                             />
                         </svg>
                         <h4 class="d-inline" id="capacity">
-                            2 / 4 seats available
+                            {{ max_capacity - current_riders.length }} / {{ max_capacity }} seats available
                         </h4>
                     </div>
                     <div class="datetime mb-4">
@@ -176,7 +183,9 @@
                             />
                         </svg>
                         <h4 class="d-inline" id="date_time">
-                            Every Monday, 12pm
+                            {{ date[0]}} ({{date[1]}})
+                            {{ time }}
+                        
                         </h4>
                     </div>
                 </div>
@@ -199,6 +208,7 @@
             </div>
         </div>
     </div>
+</div>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
