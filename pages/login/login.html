@@ -14,7 +14,7 @@
     <div class="forms-container">
         <div class="signin-register">
 
-            <form action="#" method="post" class="sign-in-form" id="login">
+            <form action="../rides/rides_list/rides_listing.html" method="post" class="sign-in-form" id="login">
                 <h2 class="title">
                     Login
                 </h2>
@@ -35,7 +35,7 @@
                 <input type="submit" value="Login">
             </form>
 
-            <form action="#" method="post" class="register-form" id="registration">
+            <form action="../rides/rides_list/rides_listing.html" method="post" class="register-form" id="registration">
                 <h2 class="title">
                     Register
                 </h2>
@@ -132,17 +132,17 @@
 <script type="module" src="login.js"></script>
 <script>
     // used to prevent the page from refreshing after submit, because its quite annoying lol
-    var form = document.getElementById("registration");
-    function handleForm(event) {
-        event.preventDefault();
-    }
-    form.addEventListener('submit', handleForm);
+    // var form = document.getElementById("registration");
+    // function handleForm(event) {
+    //     event.preventDefault();
+    // }
+    // form.addEventListener('submit', handleForm);
 
-    var form = document.getElementById("login");
-    function handleForm(event) {
-        event.preventDefault();
-    }
-    form.addEventListener('submit', handleForm);
+    // var form = document.getElementById("login");
+    // function handleForm(event) {
+    //     event.preventDefault();
+    // }
+    // form.addEventListener('submit', handleForm);
 </script>
 </body>
 </html>
