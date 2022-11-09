@@ -867,11 +867,11 @@
                                                                     </svg>
                                                                     <span class="tooltiptext">
                                                                         From: <b>${sch_name}</b>
-                                                                       
+                                                                        <br>To: <b>${formatted_address}</b>
                                                                         <br>Driving distance: <b>${distance}</b>
                                                                         <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
                                                                         <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
-                                                                    </span>`  
+                                                                    </span>`   
                                             marker.setMap(null);
                                             directionsDisplay.setMap(null);
                                             directionsDisplay.setDirections({
