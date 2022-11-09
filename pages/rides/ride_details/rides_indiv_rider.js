@@ -1,4 +1,4 @@
-import { get_ride_details, find_user_profile, find_name_from_username, format_date, formatAMPM, create_chat } from "../../../index.js";
+import { get_ride_details, find_user_profile, find_name_from_username, format_date, formatAMPM, create_chat, send_message_new } from "../../../index.js";
 
 // const queryString = window.location.search;
 // const urlParams = new URLSearchParams(queryString);
@@ -107,7 +107,14 @@ const app = Vue.createApp({
 
         gotochat() { 
             let your_username = localStorage.getItem("username_x")
+            if (this.to_from == 'from') { 
+                var chat_message_details = `Hello! I am interested in a ride from ${this.smu_location} to ${this.address} on ${this.date[1]} (${this.date[0]}), ${this.time}!`
+            }
+            else { 
+                var chat_message_details = `Hello! I am interested in a ride from ${this.address} to ${this.smu_location} on ${this.date[1]} (${this.date[0]}), ${this.time}!`
+            }
             create_chat(this.driver_username, your_username)
+            send_message_new(`${this.driver_username};${your_username}`, your_username, chat_message_details)
             localStorage.setItem("driver_username", driver_username)
         },
         
