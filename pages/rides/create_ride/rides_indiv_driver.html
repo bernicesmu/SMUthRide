@@ -168,6 +168,23 @@
             transition: 0.2s ease;
         }
 
+        .bottom_text-input {
+            margin: 0 auto;
+            font-size: calc(1.275rem + 0.3vw);
+            font-weight: 500;
+            height: 25px;
+            padding: 10px 10px 18px 5px;
+            /*display: flex;*/
+            width: 100%;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #4e7570;
+            color: #4e7570;
+            background: rgba(0, 0, 0, 0);
+            opacity: 1;
+            transition: 0.2s ease;
+        }
+
         .error {
             padding: 10px;
             display: none;
@@ -228,11 +245,30 @@
             opacity: 1;
         }
 
+        .bottom_text-input:focus {
+            outline: none;
+            opacity: 1;
+        }
+
         .cost-input {
             padding-left: 17px;
         }
 
         .text-label {
+            color: #4e7570;
+            font-size: 1rem;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 0px;
+            opacity: 0.5;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        .bottom_text-label {
             color: #4e7570;
             font-size: 1rem;
             font-weight: normal;
@@ -301,9 +337,17 @@
         }
 
         /* active state */
+        .bottom_text-input:focus ~ .bottom_text-label,
+        .bottom_text-input:valid ~ .bottom_text-label {
+            top: -30px;
+            font-size: 1rem;
+            color: #4e7570;
+            opacity: 0.8;
+        }
+
         .text-input:focus ~ .text-label,
         .text-input:valid ~ .text-label {
-            top: -30px;
+            top: -10%;
             font-size: 1rem;
             color: #4e7570;
             opacity: 0.8;
@@ -512,20 +556,16 @@
         <!--       -->
 
         <!--    </div>-->
-        <!-- {{ formatted_address }} -->
-        <!-- {{location_input}} -->
-        <div class="text-center">
+      
+        <div class="text-center container">
 <!--            <form-->
 <!--                name="location_form"-->
 <!--                action="../rides_list/rides_listing.html"-->
 <!--                class="d-inline-block"-->
 <!--            >-->
                 <!-- get the input from the user from here -->
-                <div class="d-flex row mb-2">
-                    <div
-                        class="col-xs-12 col-md-5 d-flex justify-content-center py-3"
-                        style="position: relative"
-                    >
+                <div class="d-flex row mb-2 justify-content-evenly">
+                    <div class="col-xs-12 col-md-5 d-flex justify-content-center py-4" style="position: relative; width: 300px">
                         <label for="smubuildings" id="SMU_label">School</label>
                         <select
                             name="smubuildings"
@@ -544,9 +584,7 @@
                             </option>
                             <option value="Singapore 178902,SCIS">SCIS</option>
                             <option value="Singapore 178903,SOE">SOE</option>
-                            <option value="55 Armenian St Singapore 179943,SOL">
-                                SOL
-                            </option>
+                            <option value="55 Armenian St Singapore 179943,SOL"> SOL </option>
                             <option value="Singapore 178900,SOA">SOA</option>
                             <option value="Singapore 178899,SOB">SOB</option>
                             <option value="Singapore 179873,SOSS">SOSS</option>
@@ -558,7 +596,8 @@
                     </div>
 
                     <div class="col-md-2" id="arrow" style="position: relative">
-                        <div style="height: 40px"></div>
+                        <!-- whats this div for -->
+                        <div style="height: 40px"></div> 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="30"
@@ -571,8 +610,7 @@
                                 top: 50%;
                                 left: 50%;
                                 transform: translate(-50%, -50%);
-                            "
-                        >
+                            ">
                             <path
                                 fill-rule="evenodd"
                                 d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
@@ -580,22 +618,11 @@
                         </svg>
                     </div>
 
-                    <div class="col-xs-12 col-md-5 justify-content-center py-3">
-                        <div
-                            class="justify-content-center"
-                            style="position: relative"
-                        >
-                            <input
-                                type="text"
-                                class="location-input text-input"
-                                name="location-input"
-                                id="location_field"
-                                onclick="frequency_click()"
-                                required="false"
-                                v-model="location_input"
-                            />
+                    <div class="col-xs-12 col-md-5 justify-content-center py-4" style="position: relative; width: 300px">
+                        <div class="justify-content-center" >
+                            <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required="false" v-model="location_input"/>
                             <span class="highlight"></span>
-                            <label class="text-label pt-2" id="address-text"
+                            <label class="text-label" id="address-text"
                                 >Drop off address</label
                             >
                             <label
@@ -611,44 +638,42 @@
                         <p id="error" class="error mx-auto"></p>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-center">
-                    <div class="w-50 map-buttons mb-3">
+                <div class="row d-flex justify-content-center" style="position: relative;">
+                    <div class="w-50 map-buttons mb-4 mx-auto">
                         <button
                             type="button"
-                            class="btn button w-100 d-block text-center getRoute-buttons"
+                            class="btn button w-50 d-block text-center getRoute-buttons mx-4"
                             data-mdb-ripple-color="dark"
                             onclick="rotate_location()"
                             id="bottomtip"
                             title="Change Direction"
                         >Switch directions!
                         </button>
-                        <input
+                        <button
                             type="button"
                             id="getRoute"
                             value="Find route!"
                             v-bind:disabled="location_input.length == 0"
-                            class="btn button w-100 d-block text-center getRoute-buttons"
+                            class="btn button w-50 d-block text-center getRoute-buttons mx-4"
                             onclick="calcRoute()"
-                        />
+                        >Find route!</button>
                         <br />
-                        <p id="display" class="lead text-center"></p>
+                        <div id="info_hover" class="my-auto"></div>
                     </div>
+                    <!-- <div id="info_hover"></div> -->
                 </div>
 
                 <!-- MAP MAP MAP MAP MAP MAP MAP MAP -->
 
-                <div id="map"></div>
+                <div id="map" class="mx-auto border-round w-75"></div>
                 <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>  -->
                 <script
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&callback=initMap"
-                    type="text/javascript"
-                    async
-                    defer
+                    type="text/javascript" async defer
                 ></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-                <div id="info_hover">
-                </div>
+                
                 <script>
 
                     var map;
@@ -936,12 +961,12 @@
                         name="cost"
                         min="0"
                         step="0.1"
-                        class="text-input cost-input"
+                        class="bottom_text-input cost-input"
                         oninput="cost_click()"
                         required
                     />
                     <span class="highlight"></span>
-                    <label class="text-label">Cost per person</label>
+                    <label class="bottom_text-label">Cost per person</label>
                 </div>
                 <div class="group">
                     <input
@@ -953,14 +978,14 @@
                         required
                     />
                     <span class="highlight"></span>
-                    <label class="text-label">Seat capacity per ride</label>
+                    <label class="bottom_text-label">Seat capacity per ride</label>
                 </div>
                 <div class="group">
                     <input type="hidden" id="hidden">
                     <input
                         type="date"
                         name="date"
-                        class="text-input datetime-input"
+                        class="bottom_text-input datetime-input"
                         v-bind:min="today"
                         oninput="date_click()"
                         v-model="date"
@@ -980,7 +1005,7 @@
                     <input
                         type="time"
                         name="time"
-                        class="text-input datetime-input"
+                        class="bottom_text-input datetime-input"
                         oninput="time_click()"
                         required
                     />
@@ -1015,7 +1040,7 @@
             <div class="modal-backdrop fade show" id="backdrop" style="display: none; width:100%; height: 100%"></div>
         </div>
     </div>
-    
+</div>
 </body>
 
 

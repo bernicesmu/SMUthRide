@@ -88,8 +88,6 @@ async function write_ride_local() {
         document.getElementById("backdrop").style.display = "block"
         document.getElementById("exampleModal").style.display = "block"
         document.getElementById("exampleModal").classList.add("show")
-        // localStorage.clear('rideid')
-
     }
     // window.location.href = "./../rides_list/rides_list.html"
 
