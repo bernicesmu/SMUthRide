@@ -527,9 +527,10 @@
                         <select
                             name="smubuildings"
                             id="smulocation"
-                            onchange="getSMUloc('gohome')"
+                            v-on:change="getSMUloc()"
                             v-model="school_input"
                         >
+                        <!-- ken ming remoed "go home" -->
                             <option
                                 value="0"
                                 class="opacity-50"
@@ -624,7 +625,7 @@
                             value="Find route!"
                             v-bind:disabled="location_input.length == 0"
                             class="btn button w-100 d-block text-center getRoute-buttons"
-                            onclick="calcRoute()"
+                            v-on:click="calcRoute"
                         />
                         <br />
                         <p id="display" class="lead text-center"></p>
@@ -646,6 +647,7 @@
                 <div id="info_hover">
                 </div>
                 <script>
+
                     var map;
                     function initMap() {
                         map = new google.maps.Map(
@@ -906,21 +908,21 @@
                     }
                     // autocomplete objects for all input
                     
-                    var options = {
-                        types: ["(cities)"],
-                    };
+                    // var options = {
+                    //     types: ["(cities)"],
+                    // };
 
-                    var input1 = document.getElementById("smulocation");
-                    var autocomplete1 = new google.maps.places.Autocomplete(
-                        input1,
-                        options
-                    );
+                    // var input1 = document.getElementById("smulocation");
+                    // var autocomplete1 = new google.maps.places.Autocomplete(
+                    //     input1,
+                    //     options
+                    // );
 
-                    var input2 = document.getElementById("location_field");
-                    var autocomplete2 = new google.maps.places.Autocomplete(
-                        input2,
-                        options
-                    );
+                    // var input2 = document.getElementById("location_field");
+                    // var autocomplete2 = new google.maps.places.Autocomplete(
+                    //     input2,
+                    //     options
+                    // );
                 </script>
 
                 <div class="group" id="cost_group">
