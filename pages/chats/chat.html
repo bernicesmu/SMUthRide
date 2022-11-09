@@ -148,7 +148,7 @@
                 } -->
                 
                   <ul id="messages">
-                      <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}"><p><b>{{ message.username }}</b>: {{ message.message}}</p></li>
+                      <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}"><p v-html="message_formatted(message)"></p></li>
                     
                   </ul>
 

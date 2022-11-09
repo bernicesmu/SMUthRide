@@ -164,6 +164,10 @@ const chat_left = Vue.createApp({
             document.getElementById("leftbar").className = "d-md-block"
             document.getElementById("chat").className = "d-none"
         },
+
+        message_formatted(message) { 
+            return `<b>${message.username}</b>: ${message.message}`
+        }
     },
     created(){
         this.user = localStorage.getItem("username_x")

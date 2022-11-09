@@ -1,4 +1,4 @@
-import { get_ride_details, find_user_profile, find_name_from_username, format_date, formatAMPM, create_chat, send_message_new } from "../../../index.js";
+import { get_ride_details, find_user_profile, find_name_from_username, format_date, formatAMPM, create_chat } from "../../../index.js";
 
 // const queryString = window.location.search;
 // const urlParams = new URLSearchParams(queryString);
@@ -56,7 +56,8 @@ const app = Vue.createApp({
             time: "",
             date : "",
             to_from : "",
-            smu_location: ""
+            smu_location: "",
+            new_mid: 0
         }
     },
     computed:{
@@ -106,15 +107,16 @@ const app = Vue.createApp({
         },
 
         gotochat() { 
-            let your_username = localStorage.getItem("username_x")
+            var your_username = localStorage.getItem("username_x")
             if (this.to_from == 'from') { 
-                var chat_message_details = `Hello! I am interested in a ride from ${this.smu_location} to ${this.address} on ${this.date[1]} (${this.date[0]}), ${this.time}!`
+                var chat_message_details = `Hello! I am interested in a ride <a class="ride_url" href="../rides/ride_details/rides_indiv_rider.html?rideid=${this.rideid}">from ${this.smu_location} to ${this.address} on ${this.date[1]} (${this.date[0]}), ${this.time}!</a>`
             }
             else { 
-                var chat_message_details = `Hello! I am interested in a ride from ${this.address} to ${this.smu_location} on ${this.date[1]} (${this.date[0]}), ${this.time}!`
+                var chat_message_details = `Hello! I am interested in a ride <a class="ride_url" href="../rides/ride_details/rides_indiv_rider.html?rideid=${this.rideid}">from ${this.address} to ${this.smu_location} on ${this.date[1]} (${this.date[0]}), ${this.time}!</a>`
             }
-            create_chat(this.driver_username, your_username)
-            send_message_new(`${this.driver_username};${your_username}`, your_username, chat_message_details)
+            // create_chat(this.driver_username, your_username)
+            this.send_message(`${this.driver_username};${your_username}`, your_username, chat_message_details)
+            localStorage.setItem("aaa", "ewfiuewiuefiu")
             localStorage.setItem("driver_username", driver_username)
         },
         
@@ -150,6 +152,26 @@ const app = Vue.createApp({
                 // year 2 information systems NOT in
                
             })
+        },
+
+        send_message(chat_id, user, message){
+            // console.log("hello")
+            const db = getDatabase()
+            
+            const reference = ref(db, 'messages/' + chat_id)
+            onValue(reference, (snapshot) => {
+                var all_messages = snapshot.val()
+                this.new_mid = all_messages.length
+                localStorage.setItem("aaa", this.new_mid)
+            })
+
+            if(message.trim().length > 0){
+                set(ref(db, `messages/${chat_id}/${this.new_mid}`), {
+                    message: message,
+                    username: user   
+                  })
+
+            }
         },
         
     },
