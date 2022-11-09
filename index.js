@@ -48,9 +48,9 @@ export function writeUserData(username, name, email) {
   var str_uid = String(parseInt(localStorage.getItem("userid")) + 1)
   var latest_uid = "0".repeat(3-str_uid.length) + str_uid 
   set(ref(db, `users/${username}`), {
-      userid: latest_uid,
       name: name,
       email: email,
+      profile_url: "https://firebasestorage.googleapis.com/v0/b/wad2-smuth-ride.appspot.com/o/Users%2FFrame%2031.png?alt=media&token=6fe4afa6-2c7d-4a44-b5a6-706a33ac17ca"
   });
   set(ref(db, `users/${username}/userprofile`), {
     degree: "Bachelor",
@@ -65,12 +65,21 @@ export function writeUserData(username, name, email) {
     convenience: 0, 
     speed: 0, 
     cca: [""],
-    linkedin: "https://www.linkedin.com/in/",
-    facebook: "https://www.facebook.com/",
-    instagram: "https://www.instagram.com/",
+    linkedin: "",
+    facebook: "",
+    instagram: "",
   }) 
 }
 
+export function find_email_from_username(username) {
+  const db = getDatabase();
+  const users = ref(db, `users/${username}`)
+  onValue(users, (snapshot) => {
+      const data = snapshot.val();
+      var email = data.email
+      localStorage.setItem("email", email)
+  })
+}
 
 export async function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area) {
   const db = getDatabase();
@@ -112,22 +121,6 @@ export function create_chat(uid1, uid2) {
     message_time : this_time
   })
 }
-
-export function create_user(email, password) { 
-  const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      // ...
-  })
-  .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage)
-      // ..
-  });
-};
 
 export function signin_user(email, password) { 
   const auth = getAuth();
@@ -440,13 +433,4 @@ export function format_date(date){
   date = date.split("-")
   let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
   return [day[0],`${day[2]} ${day[1]} ${day[3]}`]
-}
-
-export function get_all_usernames() { 
-  const db = getDatabase();
-  const users = ref(db, `users`)
-  onValue(users, (snapshot) => {
-    const data = snapshot.val();
-    localStorage.setItem("all_usernames", Object.keys(data))
-  });
 }

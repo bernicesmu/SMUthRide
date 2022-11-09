@@ -2,7 +2,7 @@ Vue.createApp({
     data() {
         return {
             displayname: "Tan Ah Gao",
-            profile_url: "./default_profile.png",
+            profile_url: "https://firebasestorage.googleapis.com/v0/b/wad2-smuth-ride.appspot.com/o/Users%2FFrame%2031.png?alt=media&token=6fe4afa6-2c7d-4a44-b5a6-706a33ac17ca",
             degree: "Accountancy",
             yearOfStudy: "Year 2",
             age: "20",
