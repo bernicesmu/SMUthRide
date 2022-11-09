@@ -507,6 +507,8 @@
         <div data-page="rides"></div>
     </div>
     <div id="form_alerts">
+        
+        
         <div class="offer d-flex justify-content-evenly">
             <h1 class="mb-0 pb-3">Offer a ride</h1>
             <!--            <button></button>-->
@@ -565,8 +567,19 @@
                 <div class="d-flex row mb-2 justify-content-evenly">
                     <div class="col-xs-12 col-md-5 d-flex justify-content-center py-4" style="position: relative; width: 300px">
                         <label for="smubuildings" id="SMU_label">School</label>
-                        <select name="smubuildings" id="smulocation" onchange="getSMUloc('gohome')" v-model="school_input">
-                            <option value="0" class="opacity-50" hidden selected>
+                        <select
+                            name="smubuildings"
+                            id="smulocation"
+                            onchange="getSMUloc()"
+                            v-model="school_input"
+                        >
+                        <!-- ken ming remoed "go home" -->
+                            <option
+                                value="0"
+                                class="opacity-50"
+                                hidden
+                                selected
+                            >
                                 Select School
                             </option>
                             <option value="Singapore 178902,SCIS">SCIS</option>
@@ -662,6 +675,7 @@
 
                 
                 <script>
+
                     var map;
                     function initMap() {
                         map = new google.maps.Map(
@@ -813,6 +827,7 @@
                                     .then(response => { 
                                         address_details = response.data.results[0]
                                         formatted_address = address_details.formatted_address
+                                        document.getElementById("hidden").value = formatted_address
                                         // kenming pls convert formatted addresss 
                                     })
                                     .catch(error => {
@@ -852,7 +867,7 @@
                                                                     </svg>
                                                                     <span class="tooltiptext">
                                                                         From: <b>${sch_name}</b>
-                                                                        <br>To: <b>${formatted_address}</b>
+                                                                       
                                                                         <br>Driving distance: <b>${distance}</b>
                                                                         <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
                                                                         <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
@@ -922,21 +937,21 @@
                     }
                     // autocomplete objects for all input
                     
-                    var options = {
-                        types: ["(cities)"],
-                    };
+                    // var options = {
+                    //     types: ["(cities)"],
+                    // };
 
-                    var input1 = document.getElementById("smulocation");
-                    var autocomplete1 = new google.maps.places.Autocomplete(
-                        input1,
-                        options
-                    );
+                    // var input1 = document.getElementById("smulocation");
+                    // var autocomplete1 = new google.maps.places.Autocomplete(
+                    //     input1,
+                    //     options
+                    // );
 
-                    var input2 = document.getElementById("location_field");
-                    var autocomplete2 = new google.maps.places.Autocomplete(
-                        input2,
-                        options
-                    );
+                    // var input2 = document.getElementById("location_field");
+                    // var autocomplete2 = new google.maps.places.Autocomplete(
+                    //     input2,
+                    //     options
+                    // );
                 </script>
 
                 <div class="group" id="cost_group">
@@ -966,6 +981,7 @@
                     <label class="bottom_text-label">Seat capacity per ride</label>
                 </div>
                 <div class="group">
+                    <input type="hidden" id="hidden">
                     <input
                         type="date"
                         name="date"
@@ -1026,6 +1042,7 @@
     </div>
 </div>
 </body>
+
 
 <script>
     username = "bob";

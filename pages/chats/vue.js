@@ -17,7 +17,9 @@ const chat_left = Vue.createApp({
             offer_template: "",
             is_offer : false,
             swapping: false,
-            message_time : ""
+            message_time : "",
+            selected_driver: "",
+            relevant_rides : []
         }
     },
     computed:{
@@ -178,6 +180,98 @@ const chat_left = Vue.createApp({
 
         message_formatted(message) { 
             return `<b>${message.username}</b>: ${message.message}`
+        },
+        get_relevant_rides(){
+            this.relevant_rides = []
+            let driver = this.selected_driver
+            const db = getDatabase()
+            const reference = ref(db, 'rides/')
+
+            onValue(reference, (snapshot) => {
+                // console.log(snapshot.val())
+                // console.log(snapshot.val())
+                let all_rides= snapshot.val()
+                console.log(all_rides)
+                for(var ride of all_rides){
+                    if(ride != null){
+                        console.log(ride)
+                        let driver = ride.driver_username
+                        if(driver == this.selected_driver){
+                            let ride_date = ride.date
+                            let users_offered_length = ride.users_offered.length
+                            let max_capacity = ride.max_capacity
+                            let current_date = new Date()
+                            let to_from = ride.smu_to_from
+                            let ride_date_array = ride_date.split("-")
+
+
+                            let ride_year = ride_date_array[0]
+                            let ride_month = ride_date_array[1]
+                            let ride_day = ride_date_array[2]
+
+
+                            let current_year = current_date.getFullYear()
+                            let current_month = current_date.getMonth() + 1
+                            let current_day = current_date.getDate()
+
+                           
+                            if(users_offered_length < max_capacity){
+                                if(Number(ride_year) > current_year){
+                                    // means ok
+                                   
+                                    // it is from then smu_location to area
+                                    // else area to smu_location
+                                    let result = this.to_from(to_from,ride)
+                                    this.relevant_rides.push(result)
+                                    this.offer_price = ride.cost
+                                }
+                                else if(Number(ride_year) == current_year){
+                                    if(Number(ride_month) > current_month){
+                                        // ok 
+                                        let result = this.to_from(to_from,ride)
+                                        this.relevant_rides.push(result)
+                                        this.offer_price = ride.cost
+                                    }
+                                    else if(Number(ride_month) == current_month){
+                                        if(Number(ride_day) > current_day){
+                                            // pl
+                                            let result = this.to_from(to_from,ride)
+                                            this.relevant_rides.push(result)
+                                            this.offer_price = ride.cost
+                                        }
+                                        else if(Number(ride_day) == current_day){
+                                            // ok
+                                            let result = this.to_from(to_from,ride)
+                                            this.relevant_rides.push(result)
+                                            this.offer_price = ride.cost
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                  
+                    
+                }
+               
+            })
+
+
+
+        },
+        to_from(to_from, ride){
+            let text = ""
+            if(to_from == "from"){
+                text = `${ride.smu_location} to ${ride.area}`
+
+            }
+            else{
+                text = `${ride.area} to ${ride.smu_location}`
+            }
+            return text
         }
     },
     created(){

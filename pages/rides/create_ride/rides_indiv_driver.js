@@ -1,4 +1,6 @@
    import {writeUserData, write_ride, find_rid} from '../../../index.js'
+
+//    import { main_map_function } from './vanilla_js_rides_indiv_driver.js'
 // writeUserData(username, "regine@hello.com", 1)
 
 
@@ -11,6 +13,7 @@ const form_alerts = Vue.createApp({
             location_input: "",
             location_alert: false,
             school_input: "Select School",
+            formatted_address : ""
 
         }
     },
@@ -27,7 +30,11 @@ const form_alerts = Vue.createApp({
         check_drop_off(){
             if (this.drop_off===""){return true}
             return false;
-        }
+        },
+
+
+
+       
     },
     watch: {
         school_input(val,oldVal) {
@@ -39,6 +46,12 @@ const form_alerts = Vue.createApp({
             },
             deep: true
         }
+    },
+    created()  {
+        // main_map_function()
+    },
+    computed:{
+       
     }
 })
 
@@ -65,7 +78,8 @@ async function write_ride_local() {
     var date = inputs.date.value
     var time = inputs.time.value 
     var users_offered = [""]
-    var area = "Changi Prison"
+    var area = document.getElementById("hidden").value
+    
 
     let check = await write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area)
     console.log(check)
