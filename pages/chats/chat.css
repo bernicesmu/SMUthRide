@@ -43,6 +43,14 @@ li span {
   color: #b5b0b9;
 }
 
+.ride_url {
+  color: #451F6A !important;
+}
+
+.ride_url:hover {
+  color: #BFACD3 !important;
+}
+
 #message-btn {
   display: none;
 }
