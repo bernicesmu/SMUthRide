@@ -1,41 +1,5 @@
-export function main_map_function(){
-    var map;
-    var chosenloc = document.getElementById("location_field").value;
-    var chosentrans = encodeURI(chosenloc);
-
-    // smuLatLng = [];
-    // coords = [1.296568, 103.852119]; // auto starts center at SCIS
-
-
-
-
-    // var options = {
-    //     types: ["(cities)"],
-    // };
-    
-    // var input1 = document.getElementById("smulocation");
-    // var autocomplete1 = new google.maps.places.Autocomplete(
-    //     input1,
-    //     options
-    // );
-    
-    // var input2 = document.getElementById("location_field");
-    // var autocomplete2 = new google.maps.places.Autocomplete(
-    //     input2,
-    //     options
-    // );
-
-
-
-}
-
-
-
-
-
-
-
-export function initMap() {
+var map;
+function initMap() {
     map = new google.maps.Map(
         document.getElementById("map"),
         {
@@ -55,14 +19,17 @@ export function initMap() {
     });
 }
 //directionsDisplay
+var chosenloc = document.getElementById("location_field").value;
+var chosentrans = encodeURI(chosenloc);
 
-
+smuLatLng = [];
+coords = [1.296568, 103.852119]; // auto starts center at SCIS
 
 // directionservice allows use of route method, directionrenderer displays the route
 
 // creates the map
 
-export function getSMUloc() {
+function getSMUloc() {
     sch_value = document.getElementById("smulocation").value;
     sch_deets = sch_value.split(",");
     smutrans = encodeURI(sch_deets[0]);
@@ -106,7 +73,7 @@ export function getSMUloc() {
     xhttp.send();
 }
 
-export function calcRoute() {
+function calcRoute() {
     sch_value =
         document.getElementById("smulocation").value;
     sch_deets = sch_value.split(",");
@@ -170,16 +137,23 @@ export function calcRoute() {
                     result.routes[0].legs[0].distance.text;
 
                 if (smu_position == "from") {
-                    (loc_lat =
-                        result.routes[0].legs[0].end_location.lat()),
-                        (loc_lng =
-                            result.routes[0].legs[0].end_location.lng());
+                    loc_lat = result.routes[0].legs[0].end_location.lat(),
+                    loc_lng = result.routes[0].legs[0].end_location.lng();
                 } else {
-                    (loc_lat =
-                        result.routes[0].legs[0].start_location.lat()),
-                        (loc_lng =
-                            result.routes[0].legs[0].start_location.lng());
+                    loc_lat = result.routes[0].legs[0].start_location.lat(),
+                    loc_lng = result.routes[0].legs[0].start_location.lng();
                 }
+
+                api_url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${loc_lat},${loc_lng}&key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q`
+                axios.get(api_url)
+                .then(response => { 
+                    address_details = response.data.results[0]
+                    formatted_address = address_details.formatted_address
+                    // kenming pls convert formatted addresss 
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
 
                 if (
                     1.15948 > loc_lat ||
@@ -213,8 +187,8 @@ export function calcRoute() {
                                                     <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                                 </svg>
                                                 <span class="tooltiptext">
-                                                    From: <b>${sch_name}, ${sch_postal}</b>
-                                                    <br>To: <b>${document.getElementById("location_field").value}</b>
+                                                    From: <b>${sch_name}</b>
+                                                    <br>To: <b>${formatted_address}</b>
                                                     <br>Driving distance: <b>${distance}</b>
                                                     <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
                                                     <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
@@ -240,8 +214,8 @@ export function calcRoute() {
                                                     <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                                 </svg>
                                                 <span class="tooltiptext">
-                                                    From: <b>${document.getElementById("location_field").value}</b>
-                                                    <br>To: <b>${sch_name}, ${sch_postal}</b>
+                                                    From: <b>${formatted_address}</b>
+                                                    <br>To: <b>${sch_name}</b>
                                                     <br>Driving distance: <b>${distance}</b>
                                                     <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
                                                     <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
@@ -284,3 +258,18 @@ export function calcRoute() {
 }
 // autocomplete objects for all input
 
+// var options = {
+//     types: ["(cities)"],
+// };
+
+// var input1 = document.getElementById("smulocation");
+// var autocomplete1 = new google.maps.places.Autocomplete(
+//     input1,
+//     options
+// );
+
+// var input2 = document.getElementById("location_field");
+// var autocomplete2 = new google.maps.places.Autocomplete(
+//     input2,
+//     options
+// );
