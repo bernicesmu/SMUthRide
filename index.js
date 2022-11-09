@@ -105,7 +105,7 @@ export function create_chat(uid1, uid2) {
   const db = getDatabase();
   let thing  = `${uid1};${uid2}`
   set(ref(db, `messages/${thing}/0`), {
-    message :"Hello, I am interested in a ride!",
+    message : `${uid2} has started a chat with ${uid1}!`,
     username : uid2
   })
 }
@@ -257,6 +257,24 @@ export function sendMessage(e) {
     username,
     message,
   });
+}
+
+export function send_message_new(chatid, user, message) { 
+  const db = getDatabase()
+            
+  const reference = ref(db, 'messages/' + chatid)
+  onValue(reference, (snapshot) => {
+    console.log(snapshot.val())
+    var all_messages = snapshot.val()
+    var new_mid = all_messages.length
+  })
+
+  if(message.trim().length > 0){
+    set(ref(db, `messages/${this.current_chatid}/${new_mid}`), {
+        message: message,
+        username: user
+    })
+  }
 }
 
 export function populate_chat(){

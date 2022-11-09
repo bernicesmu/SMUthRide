@@ -229,7 +229,7 @@
                             />
                         </svg>
                         <h4 class="d-inline" id="date_time">
-                            {{ date[0]}} ({{date[1]}})
+                            {{ date[1]}} ({{date[0]}})
                             {{ time }}
                         
                         </h4>
@@ -262,4 +262,12 @@
     ></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script type="module" src="../../../navbar/navbar.js"></script>
+    <script>
+        // used to prevent the page from refreshing after submit, because its quite annoying lol
+        var form = document.getElementById("gotochat");
+        function handleForm(event) {
+            event.preventDefault();
+        }
+        form.addEventListener('submit', handleForm);
+    </script>
 </body>
