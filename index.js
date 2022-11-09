@@ -104,9 +104,12 @@ export function find_rid() {
 export function create_chat(uid1, uid2) { 
   const db = getDatabase();
   let thing  = `${uid1};${uid2}`
+  
+  let this_time = Date.now()
   set(ref(db, `messages/${thing}/0`), {
     message : `${uid2} has started a chat with ${uid1}!`,
-    username : uid2
+    username : uid2,
+    message_time : this_time
   })
 }
 
