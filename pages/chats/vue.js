@@ -17,6 +17,7 @@ const chat_left = Vue.createApp({
             offer_template: "",
             is_offer : false,
             swapping: false,
+            message_time : ""
         }
     },
     computed:{
@@ -30,15 +31,18 @@ const chat_left = Vue.createApp({
                 this.chat_array = []
                 let all_chats = snapshot.val()
                 // console.log(all_chats)
-
+                console.log(all_chats)
                 for(var chat in all_chats){
                     // console.log(chat)
                     let usernames_in_chat = chat.split(";")
                     if(usernames_in_chat.includes(this.user)){
+                        // check the timing
+                        console.log(all_chats[chat])
                         this.chat_array.push(chat)
                     }
                     
                 }
+                console.log(this.chat_array)
             })
             
         },
@@ -104,11 +108,18 @@ const chat_left = Vue.createApp({
             })
             console.log(this.message_to_send)
             if(this.message_to_send.trim().length > 0){
+                this.message_time =  Date.now()
+               
                 set(ref(db, `messages/${this.current_chatid}/${this.new_mid}`), {
                     message: this.message_to_send,
-                    username: this.user
+                    username: this.user,
+                    message_time : this.message_time
                    
                   })
+
+                // let current_time = new Date()
+                // console.log(current_time)
+                // add to database the last message timing
 
             }
            
