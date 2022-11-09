@@ -427,3 +427,12 @@ input[type="submit"]:hover{
         margin-top: 2rem;
     }
 }
+
+.alert {
+    font-size: 1rem;
+    font-weight: normal;
+    position: absolute;
+    opacity: 0.5;
+    color: red;
+    top: 20rem;
+}

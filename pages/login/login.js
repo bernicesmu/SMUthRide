@@ -88,3 +88,78 @@ function login_user() {
     localStorage.clear()
     localStorage.setItem("username_x", username)
 }
+
+const registration_check = Vue.createApp({
+    data() {
+        return {
+            username: '',
+            email: '',
+            password: '',
+            cfmpassword: '',
+            rules: [
+                { message:'One lowercase letter required.', regex:/[a-z]+/ },
+                { message:"One uppercase letter required.",  regex:/[A-Z]+/ },
+                { message:"8 characters minimum.", regex:/.{8,}/ },
+                { message:"One number required.", regex:/[0-9]+/ }
+            ],
+        }
+    },
+    methods: {
+        check_username() {
+            if (this.username.includes(";") | this.username.includes(",")) {
+                return true
+            } return false
+        },
+        check_email() {
+            if (!this.email.includes('smu.edu.sg')) {
+                return true
+            }   return false
+        },
+        check_password_match() {
+            if (this.password != this.cfmpassword) {
+                return true
+            }   return false
+        }
+    },
+    computed: {
+        passwordValidation () {
+            let errors = []
+            for (let condition of this.rules) {
+                if (!condition.regex.test(this.password)) {
+                    errors.push(condition.message)
+                }
+            }
+            if (errors.length === 0) {
+                return { valid:true, errors }
+            } else {
+                return { valid:false, errors }
+            }
+        }
+    },
+
+    watch: {
+        username(oldValue, newValue) {
+            if (oldValue == "" && newValue != "") {
+                this.check_username()
+            }
+        },
+        email(oldValue, newValue) {
+            if (oldValue == "" && newValue != "") {
+                this.check_email()
+            }
+        },
+        password(oldValue, newValue) {
+            if (oldValue == "" && newValue != "") {
+                this.check_password()
+            }
+        },
+        cfm_password(oldValue, newValue) {
+            if (oldValue == "" && newValue != "") {
+                this.check_password_match()
+            }
+        }
+    }
+})
+
+registration_check.mount('#registration')
+

@@ -10,7 +10,7 @@ const form_alerts = Vue.createApp({
             today: new Date().toISOString().split("T")[0],
             location_input: "",
             location_alert: false,
-            school_input: document.getElementById("smulocation"),
+            school_input: "Select School",
 
         }
     },
