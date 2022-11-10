@@ -48,85 +48,96 @@ const registration_check = Vue.createApp({
             email: '',
             password: '',
             cfmpassword: '',
-            rules: [
-                { message:'One lowercase letter required.', regex:/[a-z]+/ },
-                { message:"One uppercase letter required.",  regex:/[A-Z]+/ },
-                { message:"8 characters minimum.", regex:/.{8,}/ },
-                { message:"One number required.", regex:/[0-9]+/ }
-            ],
+            errorMessages: {
+                username: [],
+                email: [],
+                password: [],
+                cfmpassword: [],
+
+            },
             all_usernames: [],
             registration_confirmation: "",
         }
     },
     methods: {
         check_username() {
+            this.errorMessages.username = []
             if (this.username.includes(";") | this.username.includes(",")) {
-                return true
-            } return false
+                this.errorMessages.username.push("Username cannot contain ; or ,")
+            }
+
         },
         check_email() {
+            this.errorMessages.email = []
             if (!this.email.includes('smu.edu.sg')) {
-                return true
-            }   return false
+                this.errorMessages.email.push("Email must be SMU email")
+            }
         },
         check_password_match() {
+            this.errorMessages.cfmpassword = []
             if (this.password != this.cfmpassword) {
-                return true
-            }   return false
+                this.errorMessages.cfmpassword.push("Passwords do not match")
+            }
+        },
+        check_same_name(){
+            if (this.all_usernames.includes(this.username) && this.errorMessages.username.includes("Username already exists")===false) {
+                this.errorMessages.username.push("Username already exists")
+            }
+        },
+        check_password() {
+            this.errorMessages.password = []
+            if (this.password.length < 8 | !this.password.match(/[a-z]/) | !this.password.match(/[A-Z]/) | !this.password.match(/[0-9]/)) {
+                this.errorMessages.password.push("Password must be at least 8 characters long, contain at least 1 uppercase letter, 1 lowercase letter and 1 number")
+            }
         },
 
-        register_user() {
-            var inputs = document.getElementsByTagName('input')
-            var name = inputs.name.value
-            var username = inputs.username.value
-            var email = inputs.email.value
-            var password = inputs.pw.value
-            var cfmpassword = inputs.cfmpassword.value
+        register_user: async()=> {
+            // var inputs = document.getElementsByTagName('input')
+            // var name = inputs.name.value
+            // var username = inputs.username.value
+            // var email = inputs.email.value
+            // var password = inputs.pw.value
+            // var cfmpassword = inputs.cfmpassword.value
         
             var valid = true
-            if (!email.includes('smu.edu.sg')) {
-                alert("You must have a valid SMU email address to register on SMUth Ride.")
-                valid = false
-            }
         
-            if (password != cfmpassword) {
-                alert("The passwords do not match! Please try again.")
-                valid = false
-            }
-        
-            if (username.includes(";") | username.includes(",")) {
-                alert("Username cannot contain comma (,) or semicolon (;).")
-                valid = false
-            }
-        
-            this.get_all_usernames()
+            await this.get_all_usernames()
             // var all_usernames = localStorage.getItem("all_usernames")
-            if (this.all_usernames.includes(username)) {
-                alert("Someone else has the same username! Please choose another one.")
-                valid = false
+            this.check_username()
+            this.check_email()
+            this.check_password()
+            this.check_password_match()
+            this.check_same_name()
+            for (key of Object.keys(this.errorMessages)) {
+                if (this.errorMessages[key].length > 0) {
+                    valid = false
+                }
             }
-        
             if (valid) {
-                this.create_user(email, password)
-                this.writeUserData(username, name, email)
-                localStorage.clear()
-                localStorage.setItem("username_x", username)
-                this.registration_confirmation = "Registration successful! Please log in to your account."
+                try {
+                    await this.create_user(this.email, this.password)
+                    await this.writeUserData(this.username, this.name, this.email)
+                    localStorage.clear()
+                    localStorage.setItem("username_x", username)
+                    this.registration_confirmation = "Registration successful! Please log in to your account."
+                } catch (error) {
+                    this.registration_confirmation = "Registration failed. Please try again."
+                }
                 console.log("wiufhewuf")
             }
         },
 
-        get_all_usernames() { 
+        get_all_usernames: async ()=> {
             const db = getDatabase();
             const users = ref(db, `users`)
-            onValue(users, (snapshot) => {
+            await onValue(users, (snapshot) => {
               const data = snapshot.val();
               this.all_usernames = Object.keys(data)
             //   localStorage.setItem("all_usernames", Object.keys(data))
             });
         },
 
-        create_user(email, password) { 
+        create_user: async (email, password) => {
             console.log("create userwereewfw")
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, email, password)
@@ -134,6 +145,7 @@ const registration_check = Vue.createApp({
                 // Signed in 
                 const user = userCredential.user;
                 // ...
+                return user
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -143,14 +155,15 @@ const registration_check = Vue.createApp({
             });
         },
 
-        writeUserData(username, name, email) {
+        writeUserData: async (username, name, email)=> {
             const db = getDatabase();
-            set(ref(db, `users/${username}`), {
+            await set(ref(db, `users/${username}`), {
                 name: name,
                 email: email,
                 profile_url: "https://firebasestorage.googleapis.com/v0/b/wad2-smuth-ride.appspot.com/o/Users%2FFrame%2031.png?alt=media&token=6fe4afa6-2c7d-4a44-b5a6-706a33ac17ca"
             });
-            set(ref(db, `users/${username}/userprofile`), {
+
+            await set(ref(db, `users/${username}/userprofile`), {
               degree: "Bachelor",
               year: "Year X",
               status: "It's Complicated",
@@ -169,25 +182,10 @@ const registration_check = Vue.createApp({
             }) 
           },
     },
-    computed: {
-        passwordValidation () {
-            let errors = []
-            for (let condition of this.rules) {
-                if (!condition.regex.test(this.password)) {
-                    errors.push(condition.message)
-                }
-            }
-            if (errors.length === 0) {
-                return { valid:true, errors }
-            } else {
-                return { valid:false, errors }
-            }
-        }
-    },
 
     watch: {
         username(oldValue, newValue) {
-            if (oldValue == "" && newValue != "") {
+            if(oldValue=="" && newValue!=""){
                 this.check_username()
             }
         },

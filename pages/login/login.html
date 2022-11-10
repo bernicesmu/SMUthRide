@@ -1,27 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>SMUth Ride</title>
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/fontawesome.min.css"
-            integrity="sha384-z4tVnCr80ZcL0iufVdGQSUzNvJsKjEtqYZjiQrrYKlpGow+btDHDfQWkFjoaz/Zr"
-            crossorigin="anonymous"
-        />
-        <link rel="stylesheet" href="login.css" />
-    </head>
-    <body>
-        <div class="container">
-            <div class="forms-container">
-                <div class="signin-register">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMUth Ride</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/fontawesome.min.css" integrity="sha384-z4tVnCr80ZcL0iufVdGQSUzNvJsKjEtqYZjiQrrYKlpGow+btDHDfQWkFjoaz/Zr" crossorigin="anonymous">
+    <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+<div class="container">
+    <div class="forms-container">
+        <div class="signin-register">
+
                     <form
                         action="../rides/rides_list/rides_listing.html"
-                        class="sign-in-form"
-                        id="login"
+                        class="register-form"
+                        id="registration"
+                    >
+                        <h2 class="title">Register</h2>
+                        <div class="txt_field" style="position: relative">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <input
+                                type="text"
+                                name="username"
+                                required
+                                v-model="username"
+                            />
+                            <span></span>
+                            <label> Username </label>
+                            <label
+                                class="alert text-danger"
+                                role="alert"
+                                v-if="errorMessages.username.length>0"
+                            >
+                             <span v-for="msg of errorMessages.username">{{msg}}</span>
+                            </label>
+                        </div>
+                        <div class="txt_field">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <input type="text" name="name" required />
+                            <span></span>
+                            <label> Display Name </label>
+                        </div>
+                        <div class="txt_field">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <input type="text" name="email" required />
+                            <span></span>
+                            <label> Email </label>
+                            <label
+                                    class="alert text-danger"
+                                    role="alert"
+                                    v-if="errorMessages.email.length>0"
+                            >
+                                <span v-for="msg of errorMessages.email">{{msg}} </span>
+                            </label>
+                        </div>
+
+                        <div class="txt_field">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                            <input type="password" name="pw" required />
+                            <span></span>
+                            <label> Password </label>
+                            <label
+                                    class="alert text-danger"
+                                    role="alert"
+                                    v-if="errorMessages.password.length>0"
+                            >
+                                <span v-for="msg of errorMessages.password">{{msg}}</span>
+                            </label>
+                        </div>
+                        <div class="txt_field">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                            <input
+                                type="password"
+                                name="cfmpassword"
+                                required
+                            />
+                            <span></span>
+                            <label> Confirm Password </label>
+                            <label
+                                    class="alert text-danger"
+                                    role="alert"
+                                    v-if="errorMessages.password.length>0"
+                            >
+                                <span v-for="msg of errorMessages.password">{{msg}} </span>
+                            </label>
+                        </div>
+                        <input
+                            type="submit"
+                            value="Register"
+                            @click="register_user()"
+                        />
+                        <p
+                            v-html="registration_confirmation"
+                            class="text-center"
+                        ></p>
+                    </form>
+                </div>
+                <input type="submit" value="Login">
+            </form>
+
+            <form action="#" method="post" class="register-form" id="registration">
+                <h2 class="title">
+                    Register
+                </h2>
+                <div class="txt_field" style="position: relative">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" name='username' required v-model="username">
+                    <span></span>
+                    <label>
+                        Username
+                    </label>
+                    <label
+                            class="alert text-danger"
+                            role="alert"
+                            v-if="check_username()"
                     >
                         <h2 class="title">Login</h2>
                         <div class="txt_field">
