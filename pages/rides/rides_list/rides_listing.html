@@ -112,14 +112,7 @@
                 width: 36px;
                 border-radius: 50%;
             }
-            #top_row {
-                width: 100%;
-                position: fixed;
-                z-index: 1;
-                background-color: #e3f1ef;
-                /* top: 17vh; */
-                top: 110px;
-            }
+            
             @media only screen and (max-width: 768px) {
                 .card {
                     border: none;
@@ -140,10 +133,15 @@
             }
             #top_row{
                 width:100%;
-                position: fixed;
+                position: relative;
                 z-index: 1;
                 background-color:#e3f1ef;
                 top:12.8vh
+            }
+
+            #navbarVue {
+                background-color: #e3f1ef;
+                position: relative
             }
 
      </style>
@@ -151,14 +149,16 @@
      <link rel="stylesheet" href="card.css">
     </head>
 
-    <body style="background-color: #ffffff">
-        <div id="navbarVue">
+    <body style="background-color: #ffffff; margin:0">
+        <div id="navbarVue"  style="position: relative">
             <div data-page="rides"></div>
         </div>
-        <div id="populate_listings" style="position: relative">
+               
+            <div id="populate_listings" class="row" style="position: relative">
             <div
-                class="col px-md-5 px-1 py-1 d-flex flex-wrap justify-content-center"
+                class="col px-md-5 px-1 py-3 d-flex flex-wrap justify-content-center"
                 id="top_row"
+                style="position:fixed; top:90px ; margin-top: 0px"
             >
                 <div
                     class="col-4 col-md-3 order-md-1 my-2 lh-lg d-flex justify-content-center"
@@ -264,7 +264,7 @@
                     </div>
                 </div>
         </div>
-        <div class="" style="margin-top: 15rem;">
+        <div class="" style="margin-top: 7rem;">
             <div class="d-flex flex-wrap justify-content-center">
             <div class="card mx-3" v-for="listing in display_listings">
                 <div class="card-body col py-0">
