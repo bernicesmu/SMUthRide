@@ -24,6 +24,14 @@
         tbody > tr:hover{
             background-color: #BEDAD6;
         }
+
+        #top_row{
+            width:100%;
+            position: fixed;
+            z-index: 1;
+            background-color:#e3f1ef;
+            top:12.8vh
+        }
         </style>
         <title>Offers</title>
     </head>
@@ -35,16 +43,16 @@
                 data-page="offers"
             ></div>
         </div>
-        <div id="populate_listings">
+        <div id="populate_listings" class="w-100 ">
 
-            <div class="container" style="position: absolute; background-color: #e3f1ef">
-                        <h1 class="text-center">Offers</h1>
+            <div id="top_row" style="text-align: center; background-color: #e3f1ef">
+                        <h1 class="">Offers</h1>
             </div>
-            <div style="height: 40px"></div>
-            <div id="driver" v-if="driver_listings.length>0">
 
-                <div class="col-10 col-md-8 mx-auto text-start">
-                    <h2>Driver</h2>
+            <div id="driver" v-if="driver_listings.length>0">
+                <div style="height: 40px"></div>
+                <div class="col-10 col-md-8 mx-auto text-start ">
+
                     <h4>My Scheduled Drives</h4>
                 <table class="table text-center mx-3 ">
                 <thead>
@@ -72,24 +80,24 @@
             </div>
             <div id="rider" v-if="rider_temp.length>0">
                 <div class="col-10 col-md-8 mx-auto text-start">
-                <div class="d-flex justify-content-evenly">
-                <div class="py-auto">
-                    <h4 class="my-auto">My Scheduled Rides</h4>
-                </div>
+                    <div class="d-flex justify-content-between">
 
-                <div>
-                    <label class="switch">
-                        <input type="checkbox" id="togBtn" v-on:change="change_direction()">
-                        <div class="slider round">
-                            <!--ADDED HTML -->
-                            <span class="on" style=" position:absolute; right:17px; top:15px"> To</span>
-                            <span class="on" style=" position:absolute; right:1px; top: 31px"> SMU</span>
-                            <span class="off" style=" position:absolute; right:17px; top:15px"> From</span>
-                            <span class="off" style=" position:absolute; right:20px; top: 31px"> SMU</span>
-                            <!--END-->
+                        <div class="py-auto">
+                            <h4 class="my-auto">My Scheduled Rides</h4>
                         </div>
-                    </label>
-                </div>
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="togBtn" v-on:change="change_direction()">
+                                <div class="slider round">
+                                    <!--ADDED HTML -->
+                                    <span class="on" style=" position:absolute; right:17px; top:15px"> To</span>
+                                    <span class="on" style=" position:absolute; right:1px; top: 31px"> SMU</span>
+                                    <span class="off" style=" position:absolute; right:17px; top:15px"> From</span>
+                                    <span class="off" style=" position:absolute; right:20px; top: 31px"> SMU</span>
+                                    <!--END-->
+                                </div>
+                            </label>
+                        </div>
                 </div>
                 <div class="d-flex flex-wrap justify-content-center">
                     <div class="card mx-3" v-for="listing in rider_listings">
