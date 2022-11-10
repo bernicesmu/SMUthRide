@@ -44,11 +44,10 @@ input[type=text]:focus {
     color: #4e7570;
 }
 
-.bi-plus-circle-fill:hover {
+/* .bi-plus-circle-fill:hover {
     transition: all 0.2s ease-in-out;
     transform: scale(1.1);
-
-}
+} */
 
 
 .bi-person-fill{
@@ -60,3 +59,30 @@ input[type=text]:focus {
     border-radius: 50%;
 }
 
+.neighbourhood > .tooltiptext { 
+    visibility: hidden;
+    width: 200px;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+
+    /* Position the tooltip */
+    position: absolute;
+    top: 40px;
+    left: 26px;
+    z-index: 1;
+}
+
+.neighbourhood:hover > .tooltiptext { 
+    visibility: visible;
+}
+
+.neighbourhood { 
+    position: relative;
+    z-index: 2;
+}
+
+.formatted-address { 
+    color: #451F6A;
+    margin: 0;
+}

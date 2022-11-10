@@ -19,6 +19,13 @@
 
         .username {
             font-weight: 300;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .name { 
+            margin-top: auto;
+            margin-bottom: auto;
         }
 
         .degree {
@@ -47,6 +54,10 @@
             height: 50vh;
             width: 90%;
         }
+
+        .profileinfo { 
+            text-decoration: none;
+        }
     </style>
 
     <link rel="stylesheet" href="../../../main.css" />
@@ -60,7 +71,7 @@
 <div id="main">
     <div class="trip text-center my-5">
         <h1 class="d-inline" v-if="to_from == from">{{ smu_location }}</h1>
-        <h1 class="d-inline" v-else>{{ address }}</h1>
+        <h1 class="d-inline" v-else>{{ neighbourhood }}</h1>
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"
@@ -74,7 +85,7 @@
                 d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
             />
         </svg>
-        <h1 class="d-inline" v-if="to_from == from">{{ address }}</h1>
+        <h1 class="d-inline" v-if="to_from == from">{{ neighbourhood }}</h1>
         <h1 class="d-inline" v-else>{{ smu_location }}</h1>
     </div>
     <div class="container-fluid">
@@ -133,7 +144,7 @@
             </div>
             <div class="col-md-6 text-center">
                 <div class="user d-flex pt-3">
-                    <a v-bind:href="'../../profile/profile.html?user=' + driver_username" style="text-decoration: none;">
+                    <a v-bind:href="'../../profile/profile.html?user=' + driver_username" class="profileinfo">
                     <!-- need to customise photo? -->
                     <div class="profilepic d-inline me-2">
                         <img class="user-pic" :src="picture_url" />

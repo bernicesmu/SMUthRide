@@ -153,10 +153,10 @@
                       <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}">
                         <p v-if="message.type != 'offer'" v-html="message_formatted(message)"></p>
                         <p v-else-if="message.type == 'offer' && user!= message.username">
-                          <offer-button :message="message" :selected_ride="message.selected_ride" :user="message.username" v-on:accept="accept"></offer-button>
+                          <offer-button :message="message" :selected_ride="message.selected_ride" :user="message.username" :message_status="message.accepted" v-on:accept="accept" v-on:decline="decline"></offer-button>
                         </p>
                         <p v-else-if="message.type == 'offer' && user== message.username">
-                          <b>{{ message.username }}</b>:{{message.message}}<br>
+                          <status-check :message="message"></status-check>
                         </p>
                       </li>
 
