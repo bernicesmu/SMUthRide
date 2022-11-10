@@ -121,8 +121,8 @@ const chat_left = Vue.createApp({
                     username: this.user,
                     type : "message",
                     accepted : "message",
-                    message_time : this.message_time
-                   
+                    message_time : this.message_time,
+                    mid : this.new_mid
                   })
 
                 // let current_time = new Date()
@@ -159,13 +159,13 @@ const chat_left = Vue.createApp({
                 let ride_details = snapshot.val()
                 let smu_location = ride_details.smu_location
                 let to_from = ride_details.smu_to_from
-                let user_address = ride_details.user_address
+                let neighbourhood = ride_details.neighbourhood
                 let ride_string = ""
                 if(to_from.toLowerCase() == "to"){
-                    ride_string = `${user_address} to ${smu_location}`
+                    ride_string = `${neighbourhood} to ${smu_location}`
                 }
                 else{
-                    ride_string = `${smu_location} to ${user_address}`
+                    ride_string = `${smu_location} to ${neighbourhood}`
                 }
                 this.offer_template = `I am offering $${this.offer_price} for ${ride_string}`
 
@@ -179,8 +179,8 @@ const chat_left = Vue.createApp({
                 type : "offer",
                 accepted : "pending",
                 message_time : this.message_time,
-                selected_ride : this.selected_ride
-               
+                selected_ride : this.selected_ride,
+                mid : this.new_mid
               })
 
 
@@ -353,19 +353,24 @@ const chat_left = Vue.createApp({
             }
             return text
         },
-        accept(selected_ride,user,length){
+        accept(selected_ride,user,length,mid){
             console.log(length + "YYY")
             const db = getDatabase()
-            set(ref(db, `rides/${selected_ride}/users_offered/${length}`), {
-                person : user
-              
-             })
-
-           
-          
-
-
+            // set(ref(db, `rides/${selected_ride}/users_offered/${length}`), {
+            //     person : user
+            //  })
+            const updates = {};
+            updates[`messages/${this.current_chatid}/${mid}/accepted`] = "accepted"
+            updates[`rides/${selected_ride}/users_offered/${length}`] = user
+            return update(ref(db), updates)
         },
+        decline(mid) { 
+            console.log("ewiufh decline")
+            const db = getDatabase()
+            const updates = {};
+            updates[`messages/${this.current_chatid}/${mid}/accepted`] = "declined"
+            return update(ref(db), updates)
+        }
      
 
     },
@@ -375,6 +380,7 @@ const chat_left = Vue.createApp({
         this.get_related_chats
         // this.retreive_chat(this.chat_array[0])
         this.get_userimage
+        console.log(this.messages)
     }
 });
 
@@ -382,23 +388,28 @@ const chat_left = Vue.createApp({
 chat_left.component('offer-button',{
     data(){
         return{
-            length : 0
+            length : 0,
         }
     },
 
-    props: ["message","selected_ride","user"],
+    props: ["message", "selected_ride", "user", "message_status"],
 
-    emits: ['accept'],
+    emits: ['accept', 'decline'],
 
-    template: `<b>{{ message.username }}</b>:{{message.message}}<br>
-    <button class="btn btn-success" v-on:click="$emit('accept',selected_ride, user,length)">Accept Offer</button>
-    <button class="btn btn-danger">Decline Offer</button>`,
-
-    computed:{
-        
-    },
-
-
+    template: `<b>{{ message.username }}</b>: {{message.message}}<br>
+    <div id="acc_dec_buttons" v-if="message_status == 'pending'">
+        <button class="btn btn-success" v-on:click="$emit('accept',selected_ride, user,length, message.mid)">
+            Accept Offer
+        </button>
+        <button class="btn btn-danger" v-on:click="$emit('decline',message.mid)">
+            Decline Offer
+        </button>
+    </div>
+    <div v-else class="offer-status" :style="result_status_bg_colour(message_status)"> 
+        <span :style="result_status_colour(message_status)">
+        {{message_status.charAt(0).toUpperCase() + message_status.substr(1).toLowerCase()}}
+        </span>
+    </div>`,
 
     methods: {
      
@@ -419,23 +430,74 @@ chat_left.component('offer-button',{
                 this.length = offered_people.length
            
             })
-        }
+        },
+
+        result_status_bg_colour(value) { 
+            if (value == "accepted") { 
+                return "background-color: #BFACD3"
+            }
+            else { 
+                return "background-color: #F3D8D8"
+            }
+        },
+
+        result_status_colour(value) {
+            if (value == "accepted") { 
+                return "color: #451F6A"
+            }
+            else { 
+                return "color: #894949"
+            }
+        },
 
         
     },
     created(){
-        this.get_length(this.selected_ride)
-        
+        this.get_length(this.selected_ride) 
     }
+})
 
+chat_left.component('status-check',{
+    data(){
+        return{
+        }
+    },
 
+    props: ["message"],
 
+    template: `<b>{{ message.username }}</b>: {{message.message}}<br>
+    <div class="offer-status" :style="offer_status_bg_colour(message.accepted)">
+        <span :style="offer_status_colour(message.accepted)">
+            {{message.accepted.charAt(0).toUpperCase() + message.accepted.substr(1).toLowerCase()}}
+        </span>
+    </div>`,
 
+    methods: {
+        offer_status_bg_colour(value) { 
+            if (value == "pending") { 
+                return "background-color: #BDBDBD"
+            }
+            else if (value == "accepted") { 
+                return "background-color: #BFACD3"
+            }
+            else { 
+                return "background-color: #F3D8D8"
+            }
+        },
 
-
-
-
-
+        offer_status_colour(value) {
+            if (value == "pending") { 
+                return "color: #888888"
+            }
+            else if (value == "accepted") { 
+                return "color: #451F6A"
+            }
+            else { 
+                return "color: #894949"
+            }
+        }
+        
+    },
 })
 
 

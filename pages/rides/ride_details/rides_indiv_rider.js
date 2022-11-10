@@ -52,6 +52,7 @@ const app = Vue.createApp({
             current_riders : [],
             max_capacity : "",
             address : "",
+            neighbourhood: "",
             degree :"Information Systems",
             year: "Year 1",
             time: "",
@@ -77,7 +78,8 @@ const app = Vue.createApp({
                 this.cost_per_pax = details.cost
                 this.current_riders = details.users_offered
                 this.max_capacity = details.max_capacity
-                this.address = details.user_address
+                this.address = details.formatted_address
+                this.neighbourhood = details.neighbourhood
                 console.log(this.address)
                 this.time = details.time
                 this.time = formatAMPM(this.time)
@@ -153,8 +155,8 @@ const app = Vue.createApp({
                 this.picture_url = details[this.driver_username]['profile_url']
 
                 // year 2 information systems NOT in
-                // this.year = details[this.driver_username]['userprofile']['year']
-                // this.degree = details[this.driver_username]['userprofile']['degree']
+                this.year = details[this.driver_username]['userprofile']['year']
+                this.degree = details[this.driver_username]['userprofile']['degree']
                
             })
         },

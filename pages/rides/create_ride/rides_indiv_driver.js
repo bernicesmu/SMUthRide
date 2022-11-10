@@ -78,10 +78,11 @@ async function write_ride_local() {
     var date = inputs.date.value
     var time = inputs.time.value 
     var users_offered = [""]
-    var area = document.getElementById("hidden").value
+    var area = document.getElementById("hidden_formatted_address").value
+    var neighbourhood = document.getElementById("hidden_neighbourhood").value 
     
 
-    let check = await write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area)
+    let check = await write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area,neighbourhood)
     console.log(check)
     if (check){
         console.log("success")

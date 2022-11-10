@@ -120,7 +120,7 @@ const listings = Vue.createApp({
         search:{
             handler(value,oldValue) {
                 if (value !== '') {
-                    this.display_listings = this.listings.filter(x => x.smu_to_from == this.to_from && "users_offered" in x && x.area.toLowerCase().indexOf(value.toLowerCase()) > -1);
+                    this.display_listings = this.listings.filter(x => x.smu_to_from == this.to_from && "users_offered" in x && x.neighbourhood.toLowerCase().indexOf(value.toLowerCase()) > -1);
                 }else if (oldValue !== '' && value === ''){
                     this.check_and_populate()
                 }

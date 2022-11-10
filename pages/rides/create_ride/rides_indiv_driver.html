@@ -827,8 +827,14 @@
                                     .then(response => { 
                                         address_details = response.data.results[0]
                                         formatted_address = address_details.formatted_address
-                                        document.getElementById("hidden").value = formatted_address
-                                        // kenming pls convert formatted addresss 
+                                        var neighbourhood = formatted_address
+                                        for (var add of address_details.address_components) { 
+                                            if (add.types.includes('neighborhood')) { 
+                                                neighbourhood = add.long_name
+                                            }
+                                        }
+                                        document.getElementById("hidden_formatted_address").value = formatted_address
+                                        document.getElementById("hidden_neighbourhood").value = neighbourhood
                                     })
                                     .catch(error => {
                                         console.log(error.message)
@@ -983,7 +989,8 @@
                     <label class="bottom_text-label">Seat capacity per ride</label>
                 </div>
                 <div class="group">
-                    <input type="hidden" id="hidden">
+                    <input type="hidden" id="hidden_formatted_address">
+                    <input type="hidden" id="hidden_neighbourhood">
                     <input
                         type="date"
                         name="date"

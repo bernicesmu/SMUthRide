@@ -81,7 +81,7 @@ export function find_email_from_username(username) {
   })
 }
 
-export async function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area) {
+export async function write_ride(smu_location,smu_to_from,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area,neighbourhood) {
   const db = getDatabase();
 
   await set(ref(db, `rides/${rideid}`), {
@@ -91,7 +91,8 @@ export async function write_ride(smu_location,smu_to_from,username,rideid,user_a
     driver_username: username,
     user_address: user_address,
     cost: cost,
-    area: area,
+    formatted_address: area,
+    neighbourhood: neighbourhood,
     max_capacity: max_capacity,
     date: date,
     time: time,

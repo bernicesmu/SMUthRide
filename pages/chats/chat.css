@@ -344,4 +344,20 @@ hr {
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.offer-status {
+  border-radius: 20px;
+  text-align: center;
+  padding: 5px 0px 5px 0px;
+  width: 80%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+.offer-status > span {
+  text-align: center;
+}
 /*# sourceMappingURL=chat.css.map */
