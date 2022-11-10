@@ -138,10 +138,15 @@
                 #top_row {
                     width:100%;
                     position: fixed;
-                    z-index: 1;
-                 
-                    top:14.6vh
+                    z-index: 0;
                 }
+            }
+            #top_row{
+                width:100%;
+                position: fixed;
+                z-index: 0;
+                background-color:#e3f1ef;
+                top:12.8vh
             }
 
      </style>
@@ -209,10 +214,9 @@
 
 
         </div>
-        <div class="d-flex flex-wrap " style="margin-top: 15rem">
-
-            <div class="card col-xl-2 col-lg-6 col-md-3 " v-for="listing in display_listings"
-                 onclick= "">
+        <div class="" style="margin-top: 15rem; position: relative; z-index: -1">
+            <div class="d-flex flex-wrap justify-content-center">
+            <div class="card mx-3" v-for="listing in display_listings">
                 <div class="card-body col py-0">
 
                     <a class="stretched-link" v-bind:href="'./../ride_details/rides_indiv_rider.html?rideid=' + listing.ride_id"></a>
@@ -263,7 +267,7 @@
 
                             <h1 class="me-auto">${{listing.cost}}</h1>
 
-                            <h1>{{listing.users_offered.length}}<i class="bi bi-person-fill"></i></h1>
+                            <h1>{{listing.max_capacity - listing.users_offered.length}}<i class="bi bi-person-fill"></i></h1>
 
                         </div>
 
@@ -271,6 +275,7 @@
 
                 </div>
 
+            </div>
             </div>
         </div>
     </div>
