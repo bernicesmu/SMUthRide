@@ -24,6 +24,7 @@
             h1 {
                 color: #4e7570;
             }
+
             .card {
                 background-color: #ffffff;
                 border: none;
@@ -35,37 +36,45 @@
                 max-height: 300px;
                 transition: all 0.2s ease-in-out;
             }
+
             .card-body {
                 border-radius: 15px;
                 background-color: #e3f1ef;
                 color: #4e7570;
             }
+
             .card:hover {
                 transition: all 0.2s ease-in-out;
                 transform: scale(1.1);
             }
+
             .rounded-circle-dp {
                 width: 60px;
                 border-color: #4e7570;
             }
+
             .badge {
                 background-color: #4c86a2;
                 position: absolute;
                 top: 10px;
                 left: 25px;
             }
+
             .inputs {
                 position: relative;
             }
+
             input[type="text"] {
                 background-color: #bedad6;
                 border-radius: 15px;
             }
+
             input[type="text"]:focus {
                 background-color: #bedad6;
                 border-radius: 15px;
                 box-shadow: 0 0 5px #4e7570;
             }
+
             .form-control {
                 text-indent: 15px;
                 border: none;
@@ -73,31 +82,44 @@
                 width: 100%;
                 /*border: #ffba08 2px solid;*/
             }
+
             .form-control::placeholder {
                 text-align: center;
             }
+
             .bi-search {
                 position: absolute;
                 top: 12px;
                 left: 8px;
                 color: #4e7570;
             }
+
             .bi-plus-circle-fill {
                 font-size: 3rem;
                 color: #4e7570;
             }
+
             .bi-plus-circle-fill:hover {
                 transition: all 0.2s ease-in-out;
                 transform: scale(1.1);
             }
+
             .bi-person-fill {
                 font-size: 32px;
             }
+
             .toggle.toggle-group.toggle-handle {
                 width: 36px;
                 border-radius: 50%;
             }
-            
+            #top_row {
+                width: 100%;
+                position: fixed;
+                z-index: 1;
+                background-color: #e3f1ef;
+                /* top: 17vh; */
+                top: 110px;
+            }
             @media only screen and (max-width: 768px) {
                 .card {
                     border: none;
@@ -109,24 +131,15 @@
                     max-height: 300px;
                     transition: all 0.2s ease-in-out;
                 }
-                #top_row {
-                    width: 100%;
-                    position: fixed;
-                    z-index: 1;
-                }
             }
             #top_row{
                 width:100%;
-                position: relative;
+                position: fixed;
                 z-index: 1;
                 background-color:#e3f1ef;
-                top:12.8vh
+                
             }
 
-            #navbarVue {
-                background-color: #e3f1ef;
-                position: relative
-            }
      </style>
      <link rel="stylesheet" href="rides_listing.css"/>
      <link rel="stylesheet" href="card.css">
@@ -196,11 +209,13 @@
                         </div>
                     </label>
                 </div>
+
                 <div
                     class="col-4 col-md-12 d-flex flex-wrap order-md-0 text-center align-items-center justify-content-center my-2"
                 >
                     <h1 class="mb-0">Rides</h1>
                 </div>
+
                 <div
                     class="col-4 col-md-3 order-md-3 my-2 lh-lg d-flex flex-wrap justify-content-center"
                 >
@@ -213,6 +228,7 @@
                         ></i>
                     </a>
                 </div>
+
                 <div
                     class="inputs col-10 col-md-6 order-md-2 my-auto justify-content-center"
                 >
@@ -249,24 +265,16 @@
 
                     <a class="stretched-link" v-bind:href="'./../ride_details/rides_indiv_rider.html?rideid=' + listing.ride_id"></a>
                     <span class="badge rounded-pill px-1" v-if="listing.frequency === 'recurring'" hidden>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
-                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
-                    </svg>
-                </span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
                             <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
                             <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
                         </svg>
                     </span>
 
-                    <div class="d-flex mt-4">
                         <div class="d-flex mt-4">
 
-                        <div class="bd-highlight col-4 my-auto">
                             <div class="bd-highlight col-4 my-auto">
 
-                            <div class="d-flex justify-content-center">
                                 <div class="d-flex justify-content-center">
                                 <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
                                      alt="Generic placeholder image" class="img-fluid rounded-circle border"
@@ -300,8 +308,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
+             
                     <hr class="mb-1 mt-2" />
                     <div>
 
@@ -311,13 +318,17 @@
                         <h2 class="card-title fw-bold text-center mb-3" v-else-if="to_from == `To`" style="color: #d8c7a3">
                             <i class="bi bi-geo-alt-fill"></i>{{listing.area}}
                         </h2>
+
                         <div class="d-flex my-2">
+
                             <h1 class="me-auto">${{listing.cost}}</h1>
-                            <h1>{{listing.max_capacity - listing.users_offered.length}}<i class="bi bi-person-fill"></i></h1>
+
+                            <h1>{{listing.max_capacity - listing.users_offered.length+ 1}}<i class="bi bi-person-fill"></i></h1>
+
                         </div>
                     </div>
                 </div>
-   
+            </div>
             </div>
         </div>
     </body>
