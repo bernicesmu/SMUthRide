@@ -45,34 +45,58 @@ const registration_check = Vue.createApp({
     data() {
         return {
             username: '',
+            display_name: '',
             email: '',
             password: '',
             cfmpassword: '',
-            rules: [
-                { message:'One lowercase letter required.', regex:/[a-z]+/ },
-                { message:"One uppercase letter required.",  regex:/[A-Z]+/ },
-                { message:"8 characters minimum.", regex:/.{8,}/ },
-                { message:"One number required.", regex:/[0-9]+/ }
-            ],
+            errorMessages: {
+                username: [],
+                email: [],
+                password: [],
+                cfmpassword: [],
+
+            },
             all_usernames: [],
             registration_confirmation: "",
+            degree: '',
+            year: '',
+            age: 0,
+            gender: '',
         }
     },
     methods: {
         check_username() {
+            this.errorMessages.username = []
             if (this.username.includes(";") | this.username.includes(",")) {
-                return true
-            } return false
+                this.errorMessages.username.push("Username cannot contain ; or ,")
+            }
+
         },
         check_email() {
+            this.errorMessages.email = []
             if (!this.email.includes('smu.edu.sg')) {
-                return true
-            }   return false
+                this.errorMessages.email.push("Please register with a SMU email")
+            }
         },
         check_password_match() {
+            console.log("check password match")
+            this.errorMessages.cfmpassword = []
             if (this.password != this.cfmpassword) {
-                return true
-            }   return false
+                this.errorMessages.cfmpassword.push("Passwords do not match")
+            }
+        },
+        check_same_name(){
+            if (this.all_usernames.includes(this.username) && this.errorMessages.username.includes("Username already exists")===false) {
+                this.errorMessages.username.push("Username already exists")
+            } else {
+                this.errorMessages.username = []
+            }
+        },
+        check_password() {
+            this.errorMessages.password = []
+            if (this.password.length < 8) {
+                this.errorMessages.password.push("Password must be at least 8 characters long")
+            } else{ this.errorMessages.password = []}
         },
 
         register_user() {
@@ -169,40 +193,25 @@ const registration_check = Vue.createApp({
             }) 
           },
     },
-    computed: {
-        passwordValidation () {
-            let errors = []
-            for (let condition of this.rules) {
-                if (!condition.regex.test(this.password)) {
-                    errors.push(condition.message)
-                }
-            }
-            if (errors.length === 0) {
-                return { valid:true, errors }
-            } else {
-                return { valid:false, errors }
-            }
-        }
-    },
 
     watch: {
         username(oldValue, newValue) {
-            if (oldValue == "" && newValue != "") {
+            if(oldValue=="" || oldValue!=newValue) {
                 this.check_username()
             }
         },
         email(oldValue, newValue) {
-            if (oldValue == "" && newValue != "") {
+            if (oldValue == "" || newValue !="") {
                 this.check_email()
             }
         },
         password(oldValue, newValue) {
-            if (oldValue == "" && newValue != "") {
+            if (oldValue == "" || newValue !="") {
                 this.check_password()
             }
         },
         cfm_password(oldValue, newValue) {
-            if (oldValue == "" && newValue != "") {
+            if (oldValue == "" || newValue !="") {
                 this.check_password_match()
             }
         }
