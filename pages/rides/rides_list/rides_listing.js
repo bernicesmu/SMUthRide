@@ -57,6 +57,7 @@ const listings = Vue.createApp({
         check_and_populate(){
             console.log(this.to_from)
             console.log(this.listings)
+            this.listings = Object.values(this.listings)
 
             if (this.to_from === "To"){
                 this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "to" &&(x.max_capacity - x.users_offered.length >-1));
