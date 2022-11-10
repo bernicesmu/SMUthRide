@@ -162,7 +162,7 @@ const app = Vue.createApp({
             onValue(reference, (snapshot) => {
                 var all_messages = snapshot.val()
                 this.new_mid = all_messages.length
-                localStorage.setItem("aaa", this.new_mid)
+                // localStorage.setItem("aaa", this.new_mid)
             })
 
             if(message.trim().length > 0){
