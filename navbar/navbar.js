@@ -100,9 +100,14 @@ const navbar = Vue.createApp({
             return this.relativePath + "pages/home/home.html";
         },
         rideURL() {
-            return (
-                this.relativePath + "pages/rides/rides_list/rides_listing.html"
-            );
+            if (this.isLoggedIn) {
+                return (
+                    this.relativePath +
+                    "pages/rides/rides_list/rides_listing.html"
+                );
+            } else {
+                return this.relativePath + "pages/login/login.html";
+            }
         },
         offerURL() {
             if (this.isLoggedIn) {
