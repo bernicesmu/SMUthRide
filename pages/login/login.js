@@ -48,103 +48,85 @@ const registration_check = Vue.createApp({
             email: '',
             password: '',
             cfmpassword: '',
-            errorMessages: {
-                username: [],
-                email: [],
-                password: [],
-                cfmpassword: [],
-
-            },
+            rules: [
+                { message:'One lowercase letter required.', regex:/[a-z]+/ },
+                { message:"One uppercase letter required.",  regex:/[A-Z]+/ },
+                { message:"8 characters minimum.", regex:/.{8,}/ },
+                { message:"One number required.", regex:/[0-9]+/ }
+            ],
             all_usernames: [],
             registration_confirmation: "",
-            degree: '',
-            year: '',
-            age: 0,
-            gender: '',
         }
     },
     methods: {
         check_username() {
-            this.errorMessages.username = []
             if (this.username.includes(";") | this.username.includes(",")) {
-                this.errorMessages.username.push("Username cannot contain ; or ,")
-            }
-
+                return true
+            } return false
         },
         check_email() {
-            this.errorMessages.email = []
             if (!this.email.includes('smu.edu.sg')) {
-                this.errorMessages.email.push("Please register with a SMU email")
-            }
+                return true
+            }   return false
         },
         check_password_match() {
-            this.errorMessages.cfmpassword = []
             if (this.password != this.cfmpassword) {
-                this.errorMessages.cfmpassword.push("Passwords do not match")
-            }
-        },
-        check_same_name(){
-            if (this.all_usernames.includes(this.username) && this.errorMessages.username.includes("Username already exists")===false) {
-                this.errorMessages.username.push("Username already exists")
-            } else {
-                this.errorMessages.username = []
-            }
-        },
-        check_password() {
-            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
-            this.errorMessages.password = []
-            if (!regex.test(this.password)) {
-                this.errorMessages.password.push("Password must be at least 8 characters long, contain at least 1 uppercase and 1 lowercase letter and 1 number")
-            } else{ this.errorMessages.password = []}
+                return true
+            }   return false
         },
 
-        register_user: async()=> {
-            // var inputs = document.getElementsByTagName('input')
-            // var name = inputs.name.value
-            // var username = inputs.username.value
-            // var email = inputs.email.value
-            // var password = inputs.pw.value
-            // var cfmpassword = inputs.cfmpassword.value
+        register_user() {
+            var inputs = document.getElementsByTagName('input')
+            var name = inputs.name.value
+            var username = inputs.username.value
+            var email = inputs.email.value
+            var password = inputs.pw.value
+            var cfmpassword = inputs.cfmpassword.value
         
             var valid = true
-        
-            await this.get_all_usernames()
-            // var all_usernames = localStorage.getItem("all_usernames")
-            this.check_username()
-            this.check_email()
-            this.check_password()
-            this.check_password_match()
-            this.check_same_name()
-            for (key of Object.keys(this.errorMessages)) {
-                if (this.errorMessages[key].length > 0) {
-                    valid = false
-                }
+            if (!email.includes('smu.edu.sg')) {
+                alert("You must have a valid SMU email address to register on SMUth Ride.")
+                valid = false
             }
+        
+            if (password != cfmpassword) {
+                alert("The passwords do not match! Please try again.")
+                valid = false
+            }
+        
+            if (username.includes(";") | username.includes(",")) {
+                alert("Username cannot contain comma (,) or semicolon (;).")
+                valid = false
+            }
+        
+            this.get_all_usernames()
+            // var all_usernames = localStorage.getItem("all_usernames")
+            if (this.all_usernames.includes(username)) {
+                alert("Someone else has the same username! Please choose another one.")
+                valid = false
+            }
+        
             if (valid) {
-                try {
-                    await this.create_user(this.email, this.password)
-                    await this.writeUserData(this.username, this.name, this.email)
-                    localStorage.clear()
-                    localStorage.setItem("username_x", username)
-                    this.registration_confirmation = "Registration successful! Please log in to your account."
-                } catch (error) {
-                    this.registration_confirmation = "Registration failed. Please try again."
-                }
+                this.create_user(email, password)
+                this.writeUserData(username, name, email)
+                localStorage.clear()
+                localStorage.setItem("username_x", username)
+                this.registration_confirmation = "Registration successful! Please log in to your account."
                 console.log("wiufhewuf")
             }
         },
 
-        get_all_usernames: async ()=> {
+        get_all_usernames() { 
             const db = getDatabase();
             const users = ref(db, `users`)
-            await onValue(users, (snapshot) => {
+            onValue(users, (snapshot) => {
               const data = snapshot.val();
               this.all_usernames = Object.keys(data)
             //   localStorage.setItem("all_usernames", Object.keys(data))
             });
         },
 
-        create_user: async (email, password) => {
+        create_user(email, password) { 
             console.log("create userwereewfw")
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, email, password)
@@ -152,7 +134,6 @@ const registration_check = Vue.createApp({
                 // Signed in 
                 const user = userCredential.user;
                 // ...
-                return user
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -162,15 +143,14 @@ const registration_check = Vue.createApp({
             });
         },
 
-        writeUserData: async (username, name, email)=> {
+        writeUserData(username, name, email) {
             const db = getDatabase();
-            await set(ref(db, `users/${username}`), {
+            set(ref(db, `users/${username}`), {
                 name: name,
                 email: email,
                 profile_url: "https://firebasestorage.googleapis.com/v0/b/wad2-smuth-ride.appspot.com/o/Users%2FFrame%2031.png?alt=media&token=6fe4afa6-2c7d-4a44-b5a6-706a33ac17ca"
             });
-
-            await set(ref(db, `users/${username}/userprofile`), {
+            set(ref(db, `users/${username}/userprofile`), {
               degree: "Bachelor",
               year: "Year X",
               status: "It's Complicated",
@@ -189,15 +169,30 @@ const registration_check = Vue.createApp({
             }) 
           },
     },
+    computed: {
+        passwordValidation () {
+            let errors = []
+            for (let condition of this.rules) {
+                if (!condition.regex.test(this.password)) {
+                    errors.push(condition.message)
+                }
+            }
+            if (errors.length === 0) {
+                return { valid:true, errors }
+            } else {
+                return { valid:false, errors }
+            }
+        }
+    },
 
     watch: {
         username(oldValue, newValue) {
-            if(oldValue=="" || oldValue!=newValue) {
+            if (oldValue == "" && newValue != "") {
                 this.check_username()
             }
         },
         email(oldValue, newValue) {
-            if (oldValue == "" || newValue !="") {
+            if (oldValue == "" && newValue != "") {
                 this.check_email()
             }
         },
@@ -215,4 +210,3 @@ const registration_check = Vue.createApp({
 })
 
 registration_check.mount('#registration')
-
