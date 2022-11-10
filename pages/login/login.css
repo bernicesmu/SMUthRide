@@ -230,7 +230,11 @@ input[type="submit"]:hover{
     width: 90%;
     max-width: 28rem;
     transition: .9s .6s ease-in-out;
-    animation: MoveUpDown 1.5s linear infinite;
+
+}
+
+img {
+        animation: MoveUpDown 1.5s linear infinite;
 }
 
 @keyframes MoveUpDown {
@@ -253,17 +257,12 @@ input[type="submit"]:hover{
 .container.register-mode .left-panel .image,
 .container.register-mode .left-panel .content{
     transform: translateX(-800px);
-    animation: none;
 }
 
 .container.register-mode .right-panel .image,
 .container.register-mode .right-panel .content{
     transform: translateX(0px);
 
-}
-
-.container.register-mode .right-panel .image {
-    animation: MoveUpDown 1.5s linear infinite;
 }
 
 .container.register-mode .left-panel {
