@@ -71,13 +71,6 @@
                 <img
                     id="profile-picture"
                     class="profile-pic img-fluid rounded-circle rounded-circle-dp mb-2"
-                    style="
-                        object-fit: contain;
-                        height: 200px;
-                        width: 200px;
-                        object-position: 50% 50%;
-                        border: black solid 1px;
-                    "
                     :src="profile_url"
                 />
                 <!-- </div> -->
@@ -185,19 +178,34 @@
                         </select>
                     </div>
                     <div class="">
-                        <strong>Location</strong>: 
-                        <input id="location_user" class="form-control text-center d-inline target-input add-profile-fields" type="text" :value="location_user"></div>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&region=SG&callback=initAutocomplete&libraries=places&v=weekly" async defer></script>
-                    
+                        <strong>Location</strong>:
+                        <input
+                            id="location_user"
+                            class="form-control text-center d-inline target-input add-profile-fields"
+                            type="text"
+                            :value="location_user"
+                        />
+                    </div>
+                    <script
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&region=SG&callback=initAutocomplete&libraries=places&v=weekly"
+                        async
+                        defer
+                    ></script>
+
                     <script>
                         function initAutocomplete() {
-                            const input = document.getElementById('location_user')
+                            const input =
+                                document.getElementById("location_user");
                             const options = {
-                                componentRestrictions: { country: "SG" },  
-                                strictBounds: true, 
-                            } 
-                            const autocomplete = new google.maps.places.Autocomplete(input, options);
-                            autocomplete.setTypes(['neighborhood'])
+                                componentRestrictions: { country: "SG" },
+                                strictBounds: true,
+                            };
+                            const autocomplete =
+                                new google.maps.places.Autocomplete(
+                                    input,
+                                    options
+                                );
+                            autocomplete.setTypes(["neighborhood"]);
                         }
                     </script>
 
