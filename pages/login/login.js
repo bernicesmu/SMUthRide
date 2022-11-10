@@ -70,7 +70,7 @@ const registration_check = Vue.createApp({
         check_email() {
             this.errorMessages.email = []
             if (!this.email.includes('smu.edu.sg')) {
-                this.errorMessages.email.push("Email must be SMU email")
+                this.errorMessages.email.push("Please register with a SMU email")
             }
         },
         check_password_match() {
@@ -82,13 +82,16 @@ const registration_check = Vue.createApp({
         check_same_name(){
             if (this.all_usernames.includes(this.username) && this.errorMessages.username.includes("Username already exists")===false) {
                 this.errorMessages.username.push("Username already exists")
+            } else {
+                this.errorMessages.username = []
             }
         },
         check_password() {
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
             this.errorMessages.password = []
-            if (this.password.length < 8 | !this.password.match(/[a-z]/) | !this.password.match(/[A-Z]/) | !this.password.match(/[0-9]/)) {
-                this.errorMessages.password.push("Password must be at least 8 characters long, contain at least 1 uppercase letter, 1 lowercase letter and 1 number")
-            }
+            if (!regex.test(this.password)) {
+                this.errorMessages.password.push("Password must be at least 8 characters long, contain at least 1 uppercase and 1 lowercase letter and 1 number")
+            } else{ this.errorMessages.password = []}
         },
 
         register_user: async()=> {
@@ -185,12 +188,12 @@ const registration_check = Vue.createApp({
 
     watch: {
         username(oldValue, newValue) {
-            if(oldValue=="") {
+            if(oldValue=="" || oldValue!=newValue) {
                 this.check_username()
             }
         },
         email(oldValue, newValue) {
-            if (oldValue == "" && newValue != "") {
+            if (oldValue == "" || newValue !="") {
                 this.check_email()
             }
         },
