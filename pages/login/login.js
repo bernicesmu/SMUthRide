@@ -45,6 +45,7 @@ const registration_check = Vue.createApp({
     data() {
         return {
             username: '',
+            display_name: '',
             email: '',
             password: '',
             cfmpassword: '',
@@ -57,6 +58,10 @@ const registration_check = Vue.createApp({
             },
             all_usernames: [],
             registration_confirmation: "",
+            degree: '',
+            year: '',
+            age: 0,
+            gender: '',
         }
     },
     methods: {
@@ -74,6 +79,7 @@ const registration_check = Vue.createApp({
             }
         },
         check_password_match() {
+            console.log("check password match")
             this.errorMessages.cfmpassword = []
             if (this.password != this.cfmpassword) {
                 this.errorMessages.cfmpassword.push("Passwords do not match")
@@ -87,10 +93,9 @@ const registration_check = Vue.createApp({
             }
         },
         check_password() {
-            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
             this.errorMessages.password = []
-            if (!regex.test(this.password)) {
-                this.errorMessages.password.push("Password must be at least 8 characters long, contain at least 1 uppercase and 1 lowercase letter and 1 number")
+            if (this.password.length < 8) {
+                this.errorMessages.password.push("Password must be at least 8 characters long")
             } else{ this.errorMessages.password = []}
         },
 
@@ -198,12 +203,12 @@ const registration_check = Vue.createApp({
             }
         },
         password(oldValue, newValue) {
-            if (oldValue == "" && newValue != "") {
+            if (oldValue == "" || newValue !="") {
                 this.check_password()
             }
         },
-        cfm_password(oldValue, newValue) {
-            if (oldValue == "" && newValue != "") {
+        cfmpassword(oldValue, newValue) {
+            if (oldValue == "" || newValue !="") {
                 this.check_password_match()
             }
         }
