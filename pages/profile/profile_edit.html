@@ -161,7 +161,7 @@
                         />
                     </div>
                     <div class="">
-                        <strong>Status</strong>:
+                        <strong>Gender</strong>:
                         <select
                             type="dropdown"
                             class="form-select text-center d-inline target-input add-profile-fields"
@@ -169,11 +169,11 @@
                             name="status"
                         >
                             <option
-                                v-for="statusChoice in statusList"
-                                :value="statusChoice"
-                                :selected=" statusChoice === status "
+                                v-for="genderChoice in genderList"
+                                :value="genderChoice"
+                                :selected=" genderChoice === gender "
                             >
-                                {{ statusChoice }}
+                                {{ genderChoice }}
                             </option>
                         </select>
                     </div>
