@@ -132,17 +132,14 @@
      <link rel="stylesheet" href="card.css">
     </head>
 
-    <body style="background-color: #ffffff; margin:0">
-        <div id="navbarVue"  style="position: relative">
-
+    <body style="background-color: #ffffff">
+        <div id="navbarVue">
             <div data-page="rides"></div>
         </div>
-               
-            <div id="populate_listings" class="row" style="position: relative">
+        <div id="populate_listings" style="position: relative">
             <div
-                class="col px-md-5 px-1 py-3 d-flex flex-wrap justify-content-center"
+                class="col px-md-5 px-1 py-1 d-flex flex-wrap justify-content-center"
                 id="top_row"
-                style="position:fixed; top:90px ; margin-top: 0px"
             >
                 <div
                     class="col-4 col-md-3 order-md-1 my-2 lh-lg d-flex justify-content-center"
@@ -224,7 +221,7 @@
                         name="search_rides"
                         type="text"
                         class="form-control"
-                        placeholder="Search Rides..."
+                        placeholder="Search Location..."
                         v-model="search"
                         @input="searchResults()"
                     />
@@ -244,11 +241,10 @@
                         </ul>
                     </div>
                 </div>
-          </div>
-        <div class="" style="margin-top: 7rem; z-index: -1">
-
-            <div class="d-flex flex-wrap justify-content-center">
-            <div class="card mx-3" v-for="listing in display_listings">
+        </div>
+        <div class="" style="margin-top: 15rem;">
+            <div class="row g-3">
+            <div class="card col-sm-6 col-md-4 col-lg-3" v-for="listing in display_listings">
                 <div class="card-body col py-0">
 
                     <a class="stretched-link" v-bind:href="'./../ride_details/rides_indiv_rider.html?rideid=' + listing.ride_id"></a>
