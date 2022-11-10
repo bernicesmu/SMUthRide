@@ -132,18 +132,18 @@
                 </div> -->
             </div>
             <div class="col-md-6 text-center">
-                <div class="user d-flex">
+                <div class="user d-flex pt-3">
                     <a v-bind:href="'../../profile/profile.html?user=' + driver_username" style="text-decoration: none;">
                     <!-- need to customise photo? -->
                     <div class="profilepic d-inline me-2">
                         <img class="user-pic" :src="picture_url" />
                     </div>
                     <div class="usertext d-block my-auto">
-                        <div class="userinfo d-flex">
-                            <h4 class="name me-2" id="displayname">
+                        <div class="userinfo d-flex my-auto">
+                            <h2 class="name me-2" id="displayname">
                                 {{ driver_name }}
                                 
-                            </h4>
+                            </h2>
                             <h4 class="username" id="username">@{{ driver_username }}</h4>
                         </div>
                         <div class="degree">
