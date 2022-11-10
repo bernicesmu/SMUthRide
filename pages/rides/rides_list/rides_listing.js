@@ -59,9 +59,9 @@ const listings = Vue.createApp({
             console.log(this.listings)
 
             if (this.to_from === "To"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "to" && x.users_offered!=undefined);
+                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "to" &&(x.max_capacity - x.users_offered.length >-1));
             } else if (this.to_from === "From"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "from" && x.users_offered!=undefined);
+                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "from" &&(x.max_capacity - x.users_offered.length >-1));
             }
             console.log(this.display_listings)
         },

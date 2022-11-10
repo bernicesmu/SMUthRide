@@ -59,14 +59,11 @@
                             />
                             <span></span>
                             <label> Username </label>
-                            <label
-                                class="alert text-danger"
-                                role="alert"
-                                v-if="check_username()"
-                            >
-                                Username cannot contain comma (,) or semicolon
-                                (;).
-                            </label>
+                             <text class="alert text-danger" v-if="errorMessages.username.length>0"
+                                   v-for="msg of errorMessages.username">
+                                 {{msg}}
+                             </text>
+
                         </div>
                         <div class="txt_field">
                             <i class="fa fa-user" aria-hidden="true"></i>
@@ -76,25 +73,39 @@
                         </div>
                         <div class="txt_field">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <input type="text" name="email" required />
+                            <input type="text" name="email" required v-model="email" />
                             <span></span>
                             <label> Email </label>
+                            <text class="alert text-danger" v-if="errorMessages.email.length>0"
+                                  v-for="msg of errorMessages.email">
+                                {{msg}}
+                            </text>
                         </div>
+
                         <div class="txt_field">
                             <i class="fa fa-lock" aria-hidden="true"></i>
-                            <input type="password" name="pw" required />
+                            <input type="password" name="pw" required v-model="password" />
                             <span></span>
                             <label> Password </label>
+                            <text class="alert text-danger" v-if="errorMessages.password.length>0"
+                                  v-for="msg of errorMessages.password">
+                                {{msg}}
+                            </text>
                         </div>
                         <div class="txt_field">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                             <input
                                 type="password"
                                 name="cfmpassword"
+                                v-model="cfmpassword"
                                 required
                             />
                             <span></span>
                             <label> Confirm Password </label>
+                            <text class="alert text-danger" v-if="errorMessages.cfmpassword.length>0"
+                                  v-for="msg of errorMessages.cfmpassword">
+                                {{msg}}
+                            </text>
                         </div>
                         <input
                             type="submit"

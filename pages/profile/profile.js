@@ -2,11 +2,12 @@ Vue.createApp({
     data() {
         return {
             displayname: "Tan Ah Gao",
-            profile_url: "https://firebasestorage.googleapis.com/v0/b/wad2-smuth-ride.appspot.com/o/Users%2FFrame%2031.png?alt=media&token=6fe4afa6-2c7d-4a44-b5a6-706a33ac17ca",
+            profile_url:
+                "https://firebasestorage.googleapis.com/v0/b/wad2-smuth-ride.appspot.com/o/Users%2FFrame%2031.png?alt=media&token=6fe4afa6-2c7d-4a44-b5a6-706a33ac17ca",
             degree: "Accountancy",
             yearOfStudy: "Year 2",
             age: "20",
-            status: "Single",
+            gender: "Male",
             location_user: "lalaland",
             mbti: "INTP",
             bio: "lorem ipsum",
@@ -47,7 +48,7 @@ Vue.createApp({
                 "Alumni",
                 "Year X",
             ],
-            statusList: ["Single", "Attached", "Married", "It's Complicated"],
+            genderList: ["Male", "Female"],
             mbtiList: [
                 "INTJ",
                 "INTP",
@@ -161,7 +162,7 @@ Vue.createApp({
         instagram = localStorage.getItem("instagram");
         linkedin = localStorage.getItem("linkedin");
         location_user = localStorage.getItem("location_user");
-        console.log(location_user)
+        console.log(location_user);
         mbti = localStorage.getItem("mbti");
         price = localStorage.getItem("price");
         speed = localStorage.getItem("speed");

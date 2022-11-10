@@ -95,7 +95,6 @@ input {
   color: #4e7570;
   background-color: #bedad6;
   margin: 0px;
-  word-break: break-all;
 }
 
 .receive {
@@ -116,7 +115,6 @@ input {
   margin-left: 5px;
   background-color: #d8c7a3;
   margin: 0px;
-  word-break: break-all;
   color: #8A6F42;
 }
 

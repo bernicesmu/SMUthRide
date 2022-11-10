@@ -82,7 +82,7 @@
                   <p>
                     Price ($):
                   </p>
-                  <input type="number" id = "offer_price" name='cost' min="0.1" step="0.1" class="text-input cost-input text-label" v-model="offer_price" required>
+                  <input type="number" id = "offer_price" name='cost' min="0" step="0.01" class="text-input cost-input text-label" v-model="offer_price" oninput="validity.valid||(value='');" required>
                 </div>
                 
                 

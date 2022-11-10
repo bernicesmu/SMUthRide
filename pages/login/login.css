@@ -430,10 +430,11 @@ input[type="submit"]:hover{
 }
 
 .alert {
-    font-size: 1rem;
+    font-size: 0.7rem;
     font-weight: normal;
     position: absolute;
     opacity: 0.5;
     color: red;
-    top: 20rem;
+    top: 2.7rem;
+    left: 2rem;
 }
