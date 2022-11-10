@@ -57,6 +57,10 @@ const registration_check = Vue.createApp({
             },
             all_usernames: [],
             registration_confirmation: "",
+            degree: '',
+            year: '',
+            age: 0,
+            gender: '',
         }
     },
     methods: {
@@ -185,7 +189,7 @@ const registration_check = Vue.createApp({
 
     watch: {
         username(oldValue, newValue) {
-            if(oldValue=="" && newValue!=""){
+            if(oldValue=="") {
                 this.check_username()
             }
         },
