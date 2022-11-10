@@ -57,6 +57,10 @@ const registration_check = Vue.createApp({
             },
             all_usernames: [],
             registration_confirmation: "",
+            degree: '',
+            year: '',
+            age: 0,
+            gender: '',
         }
     },
     methods: {
