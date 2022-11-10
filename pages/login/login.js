@@ -185,7 +185,7 @@ const registration_check = Vue.createApp({
 
     watch: {
         username(oldValue, newValue) {
-            if(oldValue=="" && newValue!=""){
+            if(oldValue=="") {
                 this.check_username()
             }
         },
