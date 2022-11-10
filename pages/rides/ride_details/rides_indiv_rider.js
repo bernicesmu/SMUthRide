@@ -52,7 +52,8 @@ const app = Vue.createApp({
             current_riders : [],
             max_capacity : "",
             address : "",
-            degree :"",
+            degree :"Information Systems",
+            year: "Year 1",
             time: "",
             date : "",
             to_from : "",
@@ -152,6 +153,8 @@ const app = Vue.createApp({
                 this.picture_url = details[this.driver_username]['profile_url']
 
                 // year 2 information systems NOT in
+                // this.year = details[this.driver_username]['userprofile']['year']
+                // this.degree = details[this.driver_username]['userprofile']['degree']
                
             })
         },
