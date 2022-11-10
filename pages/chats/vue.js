@@ -1,5 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, update,get } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+
+
 
 
 const chat_left = Vue.createApp({
@@ -19,7 +21,9 @@ const chat_left = Vue.createApp({
             swapping: false,
             message_time : "",
             selected_driver: "",
-            relevant_rides : []
+            relevant_rides : [],
+            selected_ride : "",
+            offered_person_id : 0
         }
     },
     computed:{
@@ -115,6 +119,8 @@ const chat_left = Vue.createApp({
                 set(ref(db, `messages/${this.current_chatid}/${this.new_mid}`), {
                     message: this.message_to_send,
                     username: this.user,
+                    type : "message",
+                    accepted : "message",
                     message_time : this.message_time
                    
                   })
@@ -130,6 +136,74 @@ const chat_left = Vue.createApp({
             this.retreive_chat(this.current_chatid)
 
         },
+        send_offer(){
+            // console.log("hello")
+            const db = getDatabase()
+            
+            console.log(this.offer_template)
+
+            const reference = ref(db, 'messages/' + this.current_chatid)
+            onValue(reference, (snapshot) => {
+
+                // console.log(snapshot.val())
+                let all_messages = snapshot.val()
+
+                this.new_mid = all_messages.length
+                
+
+            })
+            // console.log(this.selected_ride)
+            const location = ref(db, 'rides/' + this.selected_ride)
+            onValue(location, (snapshot) =>{
+
+                let ride_details = snapshot.val()
+                let smu_location = ride_details.smu_location
+                let to_from = ride_details.smu_to_from
+                let user_address = ride_details.user_address
+                let ride_string = ""
+                if(to_from.toLowerCase() == "to"){
+                    ride_string = `${user_address} to ${smu_location}`
+                }
+                else{
+                    ride_string = `${smu_location} to ${user_address}`
+                }
+                this.offer_template = `I am offering $${this.offer_price} for ${ride_string}`
+
+                
+
+            })
+
+            set(ref(db, `messages/${this.current_chatid}/${this.new_mid}`), {
+                message: this.offer_template,
+                username: this.user,
+                type : "offer",
+                accepted : "pending",
+                message_time : this.message_time,
+                selected_ride : this.selected_ride
+               
+              })
+
+
+           
+
+
+            // const db = getDatabase()
+            
+            // const reference = ref(db, 'messages/' + this.current_chatid)
+            // onValue(reference, (snapshot) => {
+            //     var all_messages = snapshot.val()
+            //     this.new_mid = all_messages.length
+            //     // localStorage.setItem("aaa", this.new_mid)
+            // })
+
+            // if(message.trim().length > 0){
+            //     set(ref(db, `messages/${chat_id}/${this.new_mid}`), {
+            //         message: message,
+            //         username: user   
+            //       })
+
+            // }
+        },
         get_userimage(){
             const db = getDatabase()
             const reference = ref(db, 'users/' + this.other_user)
@@ -143,34 +217,7 @@ const chat_left = Vue.createApp({
             })
 
         },
-        send_offer(){
-            this.offer_template = ""
-
-            this.offer_template = false
-            let offer_price = this.offer_price
-
-            this.offer_template = `
-            
-       
-                <div>
-                    I am offering a price of $${offer_price}!
-                </div>
-                <div>
-                <button class="btn btn-success">Accept Offer</button>
-                <button class="btn btn-danger">Decline Offer</button>
-                </div>
-
-        
-            
-    
-    
-           `
-            // send as a normal message but with an additional attribute called status. If status, then we will add the buttons as necessary
-            this.is_offer = true
-            
-
-
-        },
+   
         swap(){
             this.swapping = true
             console.log(window.screen.width)
@@ -181,6 +228,32 @@ const chat_left = Vue.createApp({
         message_formatted(message) { 
             return `<b>${message.username}</b>: ${message.message}`
         },
+        // offer_formatted(message){
+        //     // return `<button v->${message.username}</b>: ${message.message}`
+            
+        //     console.log(message.username)
+        //     let username = message.username
+        //     if(this.user == username){
+        //         let display_message = `<b>${message.username}</b>: ${message.message}<br>Status: <b>${message.accepted}</b>`
+        //         return display_message
+        //     }
+        //     else{
+        //         //display with the button
+        //         let display_message = `<b>${message.username}</b>: ${message.message}<br>
+        //         <button class="btn btn-success" id="accept_${message.selected_ride}_${this.user}" onclick="accept(this)">Accept Offer</button><button class="btn btn-danger" v-on:click="decline">Decline Offer</button>`
+
+        //         return display_message
+
+        //     }
+        // },
+        // accept(){
+        //     console.log("YEA")
+        // },
+
+        // decline(){
+
+        // },
+
         get_relevant_rides(){
             this.relevant_rides = []
             let driver = this.selected_driver
@@ -192,8 +265,10 @@ const chat_left = Vue.createApp({
                 // console.log(snapshot.val())
                 let all_rides= snapshot.val()
                 console.log(all_rides)
-                for(var ride of all_rides){
-                    if(ride != null){
+                for(var rider in all_rides){
+                    if(rider != null){
+                        
+                        let ride = all_rides[rider]
                         console.log(ride)
                         let driver = ride.driver_username
                         if(driver == this.selected_driver){
@@ -203,6 +278,7 @@ const chat_left = Vue.createApp({
                             let current_date = new Date()
                             let to_from = ride.smu_to_from
                             let ride_date_array = ride_date.split("-")
+                            let ride_id = ride.ride_id 
 
 
                             let ride_year = ride_date_array[0]
@@ -222,27 +298,31 @@ const chat_left = Vue.createApp({
                                     // it is from then smu_location to area
                                     // else area to smu_location
                                     let result = this.to_from(to_from,ride)
-                                    this.relevant_rides.push(result)
+                                    let final_output = [result, ride_id]
+                                    this.relevant_rides.push(final_output)
                                     this.offer_price = ride.cost
                                 }
                                 else if(Number(ride_year) == current_year){
                                     if(Number(ride_month) > current_month){
                                         // ok 
                                         let result = this.to_from(to_from,ride)
-                                        this.relevant_rides.push(result)
+                                        let final_output = [result, ride_id]
+                                        this.relevant_rides.push(final_output)
                                         this.offer_price = ride.cost
                                     }
                                     else if(Number(ride_month) == current_month){
                                         if(Number(ride_day) > current_day){
                                             // pl
                                             let result = this.to_from(to_from,ride)
-                                            this.relevant_rides.push(result)
+                                            let final_output = [result, ride_id]
+                                            this.relevant_rides.push(final_output)
                                             this.offer_price = ride.cost
                                         }
                                         else if(Number(ride_day) == current_day){
                                             // ok
                                             let result = this.to_from(to_from,ride)
-                                            this.relevant_rides.push(result)
+                                            let final_output = [result, ride_id]
+                                            this.relevant_rides.push(final_output)
                                             this.offer_price = ride.cost
                                         }
                                     }
@@ -272,7 +352,22 @@ const chat_left = Vue.createApp({
                 text = `${ride.area} to ${ride.smu_location}`
             }
             return text
-        }
+        },
+        accept(selected_ride,user,length){
+            console.log(length + "YYY")
+            const db = getDatabase()
+            set(ref(db, `rides/${selected_ride}/users_offered/${length}`), {
+                person : user
+              
+             })
+
+           
+          
+
+
+        },
+     
+
     },
     created(){
         this.user = localStorage.getItem("username_x")
@@ -282,6 +377,66 @@ const chat_left = Vue.createApp({
         this.get_userimage
     }
 });
+
+
+chat_left.component('offer-button',{
+    data(){
+        return{
+            length : 0
+        }
+    },
+
+    props: ["message","selected_ride","user"],
+
+    emits: ['accept'],
+
+    template: `<b>{{ message.username }}</b>:{{message.message}}<br>
+    <button class="btn btn-success" v-on:click="$emit('accept',selected_ride, user,length)">Accept Offer</button>
+    <button class="btn btn-danger">Decline Offer</button>`,
+
+    computed:{
+        
+    },
+
+
+
+    methods: {
+     
+        get_length(selected_ride){
+            const db = getDatabase()
+            const reference = ref(db, 'rides/' + selected_ride)
+
+            // console.log(this.selected_ride)
+            onValue(reference, (snapshot) => {
+                // console.log(snapshot.val())
+                // console.log(snapshot.val())
+                let ride = snapshot.val()
+                let offered_people = ride.users_offered
+                // offered_people.push(this.user)
+                console.log(offered_people.length)
+                // console.log(offered_people)
+                
+                this.length = offered_people.length
+           
+            })
+        }
+
+        
+    },
+    created(){
+        this.get_length(this.selected_ride)
+        
+    }
+
+
+
+
+
+
+
+
+
+})
 
 
 
@@ -397,3 +552,4 @@ chat_left.component('chat-box', {
 })
 
 chat_left.mount('#chatroom')
+

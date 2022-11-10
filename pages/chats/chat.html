@@ -18,6 +18,7 @@
     <!-- icon library -->
     <script src="https://kit.fontawesome.com/943156cb0b.js" crossorigin="anonymous"></script>
     <script src="vanilla_firebase.js" type="module"></script>
+    
     <title>Chat</title>
 </head>
 <body>
@@ -68,9 +69,10 @@
                     Rides:
                   </p>
                   
-                  <select class="form-select form-select mb-3 w-50" aria-label=".form-select example">
-                    <option v-for="address of relevant_rides">
-                      {{ address }}
+                  <select class="form-select form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride">
+                    <!-- v-bind:value="address[1]" -->
+                    <option v-for="address of relevant_rides" v-bind:value="address[1]">
+                      {{ address[0] }}
                     </option>
                   </select>
                   <div></div>
@@ -94,6 +96,7 @@
             
             <!-- LEFT BAR -->
             <!-- NEED TO BOOTSTRAP THIS THING -->
+            
         <div class="container-fluid" >
           <div class="row">
             <div class="col-md-4 col-xs-12 col-sm-12">
@@ -147,7 +150,16 @@
                 } -->
                 
                   <ul id="messages">
-                      <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}"><p v-html="message_formatted(message)"></p></li>
+                      <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}">
+                        <p v-if="message.type != 'offer'" v-html="message_formatted(message)"></p>
+                        <p v-else-if="message.type == 'offer' && user!= message.username">
+                          <offer-button :message="message" :selected_ride="message.selected_ride" :user="message.username" v-on:accept="accept"></offer-button>
+                        </p>
+                        <p v-else-if="message.type == 'offer' && user== message.username">
+                          <b>{{ message.username }}</b>:{{message.message}}<br>
+                        </p>
+                      </li>
+
                     
                   </ul>
 
@@ -197,20 +209,27 @@
         <!-- scripts -->
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
-
+        
         <script>
-            function sticky() {
+          // import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js"
+          // import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+            
+          
+          
+          
+          
+          function sticky() {
                 document.getElementsByClassName("sub_div")[0].style.position =
                     "sticky";
             }
 
-            function overlay() {
+          function overlay() {
                 document.getElementById("overlay").style.display = "block";
-            }
+          }
 
-            function off() {
+          function off() {
                 document.getElementById("overlay").style.display = "none";
-            }
+          }
 
             // function scroll(){
             // //   window.setInterval(function() {
@@ -230,11 +249,42 @@
             // var elem = document.getElementById('chat');
             //   elem.scrollTop = elem.scrollHeight;
             // }, 0);
+            
+
+            // function accept(e){
+            //   // const db = getDatabase()
+            //   // console.log("this user is"  + user)
+            //   console.log(e)
+            //   console.log("YES")
+              
+            //   console.log(e.id)
+
+            //   let id = e.id
+            //   let ride_id = id.split("_")[1]
+            //   let user = id.split("_")[2]
+            //   console.log(ride_id)
+
+
+              // set the datebase
+              // const db = getDatabase()
+              // const updates = {};
+              // updates[`rides/${ride_id}/users_offered`] = displayname
+              // return update(ref(db), updates)
+
+
+            // }
+
+          
+
+            // function decline(){
+            //   const db = getDatabase()
+            // }
 
 
             
         </script>
-
+            
+        
         <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
