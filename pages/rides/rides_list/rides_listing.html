@@ -151,69 +151,74 @@
      <link rel="stylesheet" href="card.css">
     </head>
 
-    <body style="background-color: #ffffff">
-        <div id="navbarVue">
-            <div data-page="rides"></div>
-        </div>
-        <div id="populate_listings" style="position: relative">
-            <div
-                class="col px-md-5 px-1 py-1 d-flex flex-wrap justify-content-center"
-                id="top_row"
-            >
+    <div id="navbarVue">
+        <div
+                data-page="rides"
+        ></div>
+    </div>
+    <div id="populate_listings">
+
+        <div class="col px-md-5 px-1 py-1 d-flex flex-wrap justify-content-center"
+             style="position: fixed; z-index: 1; background-color:#e3f1ef; top:16vh">
+
+            <div class="col-4 col-md-3 order-md-1 my-auto lh-lg d-flex justify-content-center" >
+
                 <div
-                    class="col-4 col-md-3 order-md-1 my-2 lh-lg d-flex justify-content-center"
+                    class="inputs col-10 col-md-6 order-md-2 my-auto justify-content-center"
                 >
-                    <label class="switch">
-                        <input
-                            type="checkbox"
-                            id="togBtn"
-                            v-on:change="change_direction()"
-                        />
-                        <div class="slider round">
-                            <!--ADDED HTML -->
-                            <span
-                                class="on"
-                                style="
-                                    position: absolute;
-                                    right: 17px;
-                                    top: 15px;
-                                "
+                    <i class="bi bi-search"></i>
+                    <input
+                        name="search_rides"
+                        type="text"
+                        class="form-control"
+                        placeholder="Search Location..."
+                        v-model="search"
+                        @input="searchResults()"
+                    />
+                    <div
+                        class="dropdown ms-0 mt-1 d-flex flex-column flex-wrap mx-auto"
+                        v-show="Object.keys(results).length >0"
+                        style="padding-bottom: -5px"
+                    >
+                        <ul class="my-0 px-0 justify-content-center">
+                            <li
+                                v-for="location of results"
+                                class="result my-0 py-1"
+                                @click="selectResult(location)"
                             >
-                                To</span
-                            >
-                            <span
-                                class="on"
-                                style="
-                                    position: absolute;
-                                    right: 1px;
-                                    top: 31px;
-                                "
-                            >
-                                SMU</span
-                            >
-                            <span
-                                class="off"
-                                style="
-                                    position: absolute;
-                                    right: 17px;
-                                    top: 15px;
-                                "
-                            >
-                                From</span
-                            >
-                            <span
-                                class="off"
-                                style="
-                                    position: absolute;
-                                    right: 20px;
-                                    top: 31px;
-                                "
-                            >
-                                SMU</span
-                            >
-                            <!--END-->
-                        </div>
-                    </label>
+                                {{location}}
+                            </li>
+                        </ul>
+                    </div>
+                </label>
+
+            </div>
+
+            <div class=" col-4 col-md-12 d-flex order-md-0 text-center align-items-center justify-content-center">
+
+                <h1 class="mb-0">Rides</h1>
+
+            </div>
+
+            <div class="col-4 col-md-3 order-md-3 my-auto lh-lg d-flex justify-content-center">
+
+                <a href="./../create_ride/rides_indiv_driver.html" id="add_ride_icon" class="">
+                    <i class="bi bi-plus-circle-fill"></i>
+                </a>
+
+            </div>
+
+            <div class=" inputs col-10 col-md-6 order-md-2 my-auto justify-content-center">
+
+                <i class="bi bi-search"></i>
+                <input name="search_rides" type="text" class="form-control"
+                       placeholder="Search Rides..." v-model="search" @input="searchResults()">
+                <div class="dropdown ms-0 mt-1 d-flex flex-column flex-wrap mx-auto"
+                     v-show="Object.keys(results).length >0" style="padding-bottom: -5px;">
+                    <ul  class="my-0 px-0 justify-content-center">
+                        <li v-for="location of results" class="result my-0 py-1"
+                            @click="selectResult(location)">{{location}}</li>
+                    </ul>
                 </div>
 
                 <div
@@ -265,7 +270,7 @@
                 </div>
         </div>
         <div class="" style="margin-top: 15rem;">
-            <div class="d-flex flex-wrap justify-content-center">
+            <div class="d-flex flex-wrap g-3 justify-content-center">
             <div class="card mx-3" v-for="listing in display_listings">
                 <div class="card-body col py-0">
 
@@ -329,7 +334,7 @@
 
                             <h1 class="me-auto">${{listing.cost}}</h1>
 
-                            <h1>{{listing.max_capacity - listing.users_offered.length}}<i class="bi bi-person-fill"></i></h1>
+                            <h1>{{listing.max_capacity - listing.users_offered.length+ 1}}<i class="bi bi-person-fill"></i></h1>
 
                         </div>
                     </div>
