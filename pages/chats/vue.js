@@ -303,7 +303,8 @@ chat_left.component('chat-box', {
 
     template: `<div :id="chat_id" class="chatbox" style="padding:10px; display: flex;" v-on:click="$emit('get_chat',chat_id)" @click="selected_chat(chat_id)">
     <div id="photo">
-        <img :src="image_url" class="img-fluid rounded-circle">
+        <img :src="image_url" class="profile-pic img-fluid rounded-circle"
+        style="object-fit: fill; height: 50px; width: 50px; object-position: 50% 50%;" >
     </div>
     <div style="margin-left: 20px;align-self: start;width: 70%;"> 
       <b>{{ receipient_username }}</b>
