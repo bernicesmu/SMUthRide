@@ -960,9 +960,9 @@
                         type="number"
                         name="cost"
                         min="0"
-                        step="0.1"
+                        step="0.01"
                         class="bottom_text-input cost-input"
-                        oninput="cost_click()"
+                        oninput="cost_click(); validity.valid||(value='');"
                         required
                     />
                     <span class="highlight"></span>
@@ -974,7 +974,7 @@
                         name="capacity"
                         min="0"
                         max="10"
-                        class="text-input"
+                        class="text-input bottom_text-input"
                         required
                     />
                     <span class="highlight"></span>
