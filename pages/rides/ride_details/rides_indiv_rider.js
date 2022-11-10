@@ -115,8 +115,10 @@ const app = Vue.createApp({
                 var chat_message_details = `Hello! I am interested in a ride <a class="ride_url" href="../rides/ride_details/rides_indiv_rider.html?rideid=${this.rideid}">from ${this.address} to ${this.smu_location} on ${this.date[1]} (${this.date[0]}), ${this.time}!</a>`
             }
             // create_chat(this.driver_username, your_username)
-            this.send_message(`${this.driver_username};${your_username}`, your_username, chat_message_details)
-            localStorage.setItem("aaa", "ewfiuewiuefiu")
+            var list_for_chatid = [this.driver_username, your_username]
+            list_for_chatid = list_for_chatid.sort()
+            var chatid = `${list_for_chatid[0]};${list_for_chatid[1]}`
+            this.send_message(chatid, your_username, chat_message_details)
             localStorage.setItem("driver_username", driver_username)
         },
         

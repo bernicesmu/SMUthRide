@@ -39,7 +39,6 @@ if (url.includes("profile_edit.html")) {
     let queryString = window.location.search;
     let urlParams = new URLSearchParams(queryString);
     var username = urlParams.get("user");
-    console.log(username, "wfiuhgreuh");
     GetProfilePicUrl(username);
     if (username != localStorage.getItem("username_x")) {
         document.getElementById("edit-profile").innerHTML = "";
@@ -70,7 +69,7 @@ function update_user_database() {
     var facebook = inputs.facebook.value;
     var instagram = inputs.instagram.value;
     var linkedin = inputs.linkedin.value;
-    var location_user = inputs.location_user.value; //hardcoded. softcode after regine is done
+    var location_user = inputs.location_user.value; 
     var mbti = inputs.mbti.value;
     var price = inputs.prefPrice.value;
     var speed = inputs.prefSpeed.value;
