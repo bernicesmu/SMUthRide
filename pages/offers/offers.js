@@ -127,13 +127,16 @@ listings.component('drive', {
         </tr>
         </thead>
         <tbody>
-        <tr v-for="listing in this.list" v-on:click="this.redirect(listing.ride_id)" >
+        <tr v-if="this.list.length>0" v-for="listing in this.list" v-on:click="this.redirect(listing.ride_id)" >
           <td style="">{{format_date(listing.date)[1]}}</td>
           <td>{{formatAMPM(listing.time)}}</td>
           <td >{{listing.smu_to_from =="from"? listing.smu_location: listing.neighbourhood}}</td>
           <td >{{listing.smu_to_from =="to"? listing.smu_location: listing.neighbourhood}}</td>
           <td>{{listing.users_offered.length-1}} / {{listing.max_capacity}}</td>
           <td>$ {{listing.cost}}</td>
+        </tr>
+        <tr v-else>
+            <td colspan="6">No drives</td>
         </tr>
         </tbody>
       </table>
@@ -154,9 +157,9 @@ listings.component('ride', {
       
         <div class="mx-auto mt-2 text-start">
       
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between" style="">
 
-                <div class="py-auto">
+                <div class="py-auto sticky">
                     <h4 class="my-auto">My Rides</h4>
                 </div>
                 <div class="me-2">
@@ -175,8 +178,8 @@ listings.component('ride', {
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-wrap justify-content-center">
-            <div class="card col-sm-6 col-md-4 col-lg-3" v-for="listing in display_listings">
+        <div class="d-flex flex-wrap justify-content-center" v-if="display_listings.length>0">
+            <div class="card col-sm-6 col-md-4 col-lg-3"  v-for="listing in display_listings">
                 <div class="card-body col py-0">
 
                     <a class="stretched-link"
@@ -246,7 +249,10 @@ listings.component('ride', {
                 </div>
             </div>
         </div>
+           
+      
     </div>
+    <div v-else class="text-center mt-3"><h4>No rides found </h4> </div>
     `,
     methods: {
         formatAMPM(date){
@@ -293,4 +299,4 @@ listings.component('ride', {
     }
 })
 
-listings.mount('#populate_listings')
+listings.mount('#myTabContent')
