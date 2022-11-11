@@ -1,10 +1,12 @@
 import {
-    find_name_from_username,
-    find_user_profile,
-    write_user_profile,
-} from "../../index.js";
+    getDatabase,
+    ref,
+    set,
+    onValue,
+    update,
+} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 
-import { GetProfilePicUrl, UploadProcess } from "./profile_mod_2.js";
+import { UploadProcess } from "./profile_mod_2.js";
 
 // firebase storage
 // import {
@@ -49,9 +51,6 @@ if (url.includes("profile_edit.html")) {
     }
 }
 
-GetProfilePicUrl(username);
-find_user_profile(username);
-find_name_from_username(username);
 
 Vue.createApp({
     data() {
@@ -119,6 +118,7 @@ Vue.createApp({
                 "ABCD",
             ],
             picture_link: "",
+            username: "",
 
             // location_user: "lalaland",
             // prefPrice: "70",
@@ -199,20 +199,27 @@ Vue.createApp({
                 cca = [""];
             }
 
-            write_user_profile(
-                username,
-                displayname,
-                age,
-                bio,
-                cca,
-                degree,
-                facebook,
-                instagram,
-                linkedin,
-                mbti,
-                gender,
-                year
-            );
+            const db = getDatabase();
+            set(ref(db, `users/${username}/userprofile`), {
+                degree: degree,
+                year: year,
+                gender: gender,
+                // location_user: location_user,
+                mbti: mbti,
+                age: age,
+                bio: bio,
+                // price: price,
+                // comfort: comfort,
+                // convenience: convenience,
+                // speed: speed,
+                cca: cca,
+                linkedin: linkedin,
+                facebook: facebook,
+                instagram: instagram,
+            });
+            const updates = {};
+            updates[`users/${username}/name`] = displayname;
+            return update(ref(db), updates);
         },
         uploadImage(event) {
             let files = [];
@@ -225,6 +232,47 @@ Vue.createApp({
                 this.profile_url = reader.result;
             };
             UploadProcess(files);
+        },
+
+        find_user_profile(username) {
+            const db = getDatabase();
+            const userprof = ref(db, `users/${username}/userprofile`);
+            onValue(userprof, (snapshot) => {
+                const data = snapshot.val();
+                console.log(data)
+                this.age = data.age 
+                this.bio = data.bio
+                this.ccas = data.cca 
+                this.degree = data.degree
+                this.facebookLinkInput = data.facebook
+                this.instagramLinkInput = data.instagram
+                this.linkedinLinkInput = data.linkedin
+                this.gender = data.gender
+                this.mbti = data.mbti 
+                this.yearOfStudy = data.year
+            });
+        },
+
+        find_name_from_username(username) {
+            const db = getDatabase();
+            const userprof = ref(db, `users/${username}/name`);
+            onValue(userprof, (snapshot) => {
+                const data = snapshot.val();
+                this.displayname = data 
+            });
+        },
+
+        GetProfilePicUrl(username) {
+            // console.log(username);
+            const db = getDatabase();
+        
+            const data = ref(db, "users/" + username);
+            onValue(data, (snapshot) => {
+                var profile = snapshot.val();
+                console.log(profile);
+                var profileurl = profile.profile_url;
+                this.profile_url = profileurl
+            })
         },
 
         // onFileSelect(event){
@@ -267,27 +315,31 @@ Vue.createApp({
         // console.log(facebook);
         // console.log(this.fullFacebookLink);
 
-        this.username = localStorage.getItem("username_x");
-        this.displayname = localStorage.getItem("displayname");
-        this.age = String(localStorage.getItem("age"));
-        this.bio = localStorage.getItem("bio");
-        this.ccas = localStorage.getItem("cca");
-        this.degree = localStorage.getItem("degree");
-        this.linkedinLinkInput = localStorage.getItem("linkedin");
-        this.facebookLinkInput = localStorage.getItem("facebook");
-        this.instagramLinkInput = localStorage.getItem("instagram");
-        this.mbti = localStorage.getItem("mbti");
-        this.gender = localStorage.getItem("gender");
-        this.yearOfStudy = localStorage.getItem("year");
+        // this.username = localStorage.getItem("username_x");
 
-        if (this.ccas != "") {
-            this.ccas = this.ccas.split(",");
+        const url = window.location.href;
+
+        if (url.includes("profile_edit.html")) {
+            this.username = localStorage.getItem("username_x")
+        }
+        else { 
+            let queryString = window.location.search;
+            let urlParams = new URLSearchParams(queryString);
+            this.username = urlParams.get("user");
+        }
+
+        this.find_user_profile(this.username)
+        this.find_name_from_username(this.username)
+        this.GetProfilePicUrl(this.username);
+
+        if (this.ccas.length != 0) {
+            // this.ccas = this.ccas.split(",");
             this.ccas.push("");
         } else {
             this.ccas = [""];
         }
 
-        let db_profile_url = localStorage.getItem("profile_url");
+        let db_profile_url = this.profile_url
         if (db_profile_url != "undefined") {
             this.profile_url = db_profile_url;
         }
@@ -315,4 +367,5 @@ Vue.createApp({
     //         element.style.width = element.classList[1].slice(1) + "%";
     //     }
     // },
+
 }).mount("#profileVue");
