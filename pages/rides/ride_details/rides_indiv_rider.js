@@ -238,7 +238,6 @@ const app = Vue.createApp({
         this.rideid = rideid
         this.getData()
         this.getName()
-        
         // this.get_length()
     }
 });
@@ -249,7 +248,7 @@ app.component('send-button',{
         return{
             length : 0,
             // chatid : "",
-            user : ""
+            user : "",
         }
     },
 
@@ -257,11 +256,18 @@ app.component('send-button',{
 
     emits: ['gotochat'],
 
-    template: `<button type="submit" class="btn button btn-lg" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length">
-    Chat for more
-</button>
-
-`,
+    template: ` <form
+                    id="gotochat"
+                    method="post"
+                    :action="find_action_path()"
+                >
+                <button v-if="!driver_is_user()" type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length">
+                    Chat for more
+                </button>
+                <button v-else class="btn btn-lg my-offer-button">
+                    My offers
+                </button>
+                </form>`,
 
     methods: {
      
@@ -289,9 +295,25 @@ app.component('send-button',{
                 // localStorage.setItem("aaa", this.new_mid)
                 
             })
-
-            
         },
+
+        driver_is_user() { 
+            if (this.driver == this.user) { 
+                return true
+            }
+            else { 
+                return false
+            }
+        },
+
+        find_action_path() { 
+            if (this.driver == this.user) { 
+                return "../../offers/offers.html"
+            }
+            else { 
+                return "../../chats/chat.html"
+            }
+        }
 
        
 
@@ -302,6 +324,15 @@ app.component('send-button',{
     
         this.user = localStorage.getItem("username_x")
         // this.get_length()
+
+        if (this.driver_is_user()) { 
+            this.driver_user = true 
+        }
+        else { 
+            this.driver_user = false 
+        }
+
+        console.log(this.driver_user)
     }
 })
 
