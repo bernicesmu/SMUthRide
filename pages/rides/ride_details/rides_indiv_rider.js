@@ -61,7 +61,9 @@ const app = Vue.createApp({
             smu_location: "",
             new_mid: 0,
             user: "",
-            msg_length: 0
+            msg_length: 0,
+            unformatted_date: "",
+            unformatted_time: "",
         }
     },
     computed:{
@@ -83,10 +85,10 @@ const app = Vue.createApp({
                 this.address = details.formatted_address
                 this.neighbourhood = details.neighbourhood
                 console.log(this.address)
-                this.time = details.time
-                this.time = formatAMPM(this.time)
-                this.date = details.date
-                this.date = format_date(this.date)
+                this.unformatted_time = details.time
+                this.time = formatAMPM(this.unformatted_time)
+                this.unformatted_date = details.date
+                this.date = format_date(this.unformatted_date)
                 this.smu_location = details.smu_location
                 this.to_from = details.to_from
 
@@ -191,9 +193,15 @@ const app = Vue.createApp({
             if(message.trim().length > 0){
                 console.log(length)
                console.log("YES")
+               let time = Date.now()
                 set(ref(db, `messages/${chat_id}/${length}`), {
                     message: message,
-                    username: user   
+                    username: user,
+                    type: "message",
+                    accepted : "message",
+                    message_time : time,
+                    mid : length
+                    
                   })
 
             }
@@ -252,7 +260,7 @@ app.component('send-button',{
         }
     },
 
-    props: ['driver','user'],
+    props: ['driver','user', 'avail_capacity', 'date', 'time', 'current_riders'],
 
     emits: ['gotochat'],
 
@@ -261,12 +269,24 @@ app.component('send-button',{
                     method="post"
                     :action="find_action_path()"
                 >
-                <button v-if="!driver_is_user()" type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length">
-                    Chat for more
-                </button>
-                <button v-else class="btn btn-lg my-offer-button">
-                    My offers
-                </button>
+                    <div v-if="!driver_is_user() && user_is_offered()" > 
+                        <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length" disabled>
+                            Ride accepted
+                        </button>
+                        <p class='valid-message'>You have already accepted this ride!</p>
+                    </div> 
+                    <button v-else-if="!driver_is_user() && avail_capacity > 0 && expired_check()" type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length">
+                        Chat for more
+                    </button>
+                    <div v-else-if="!driver_is_user()"> 
+                        <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length" disabled>
+                            Chat for more
+                        </button>
+                        <p class='valid-message'>This ride is no longer available!</p>
+                    </div>
+                    <button v-else class="btn btn-lg my-offer-button">
+                        My offers
+                    </button>
                 </form>`,
 
     methods: {
@@ -313,6 +333,27 @@ app.component('send-button',{
             else { 
                 return "../../chats/chat.html"
             }
+        },
+
+        expired_check(){
+            var today = new Date();
+            var local_date = today.toLocaleDateString().split("/")
+            var local_date_formatted = local_date[2] + '-' + local_date[1] + '-' + local_date[0]
+            console.log(today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))
+            if (this.date < local_date_formatted || (this.date == local_date_formatted && this.time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))){
+                console.log("expired")
+                return false            
+            } 
+            console.log("not expired")
+            return true
+        },
+
+        user_is_offered() { 
+            var offered_users = Object.values(this.current_riders)
+            if (offered_users.includes(this.user)) { 
+                return true
+            }
+            return false
         }
 
        
