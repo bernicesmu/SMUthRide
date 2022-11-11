@@ -370,6 +370,40 @@
             animation: inputHighlighter 0.3s ease;
         }
 
+        /* for the popup when clicked on*/
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            z-index: 99;
+          }
+          
+          /* The actual popup */
+          .popup .popuptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #BFACD3;
+            color: #451F6A;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+            position: absolute;
+            top: 40px;
+            left: -135px;
+            z-index: 99;
+          }
+
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+            z-index: 99;
+          }
+
         /* ANIMATIONS ================ */
         @-webkit-keyframes inputHighlighter {
             from {
@@ -658,7 +692,7 @@
                             onclick="calcRoute()"
                         >Find route!</button>
                         <br />
-                        <div id="info_hover" class="my-auto"></div>
+                        <div id="info_hover" class="my-auto popup"></div>
                     </div>
                     <!-- <div id="info_hover"></div> -->
                 </div>
@@ -749,6 +783,12 @@
                         };
                         xhttp.open("GET", url, true);
                         xhttp.send();
+                    }
+                    function showPopUp() {
+                        var popup = document.getElementById('popupMessage');
+                        popup.classList.toggle('show');
+                        console.log('===CLICKED===')
+                        console.log(popup)
                     }
 
                     function calcRoute() {
@@ -868,10 +908,19 @@
                                                                         width='30'
                                                                         height='30'
                                                                         viewBox="0 0 512 512"
-                                                                        fill="#4e7570">
+                                                                        fill="#4e7570"
+                                                                        class='popup'
+                                                                        onclick='showPopUp()'>
                                                                         <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                                                     </svg>
                                                                     <span class="tooltiptext">
+                                                                        From: <b>${sch_name}</b>
+                                                                        <br>To: <b>${formatted_address}</b>
+                                                                        <br>Driving distance: <b>${distance}</b>
+                                                                        <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
+                                                                        <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
+                                                                    </span>
+                                                                    <span class="popuptext" id='popupMessage'>
                                                                         From: <b>${sch_name}</b>
                                                                         <br>To: <b>${formatted_address}</b>
                                                                         <br>Driving distance: <b>${distance}</b>
@@ -895,10 +944,12 @@
                                                                         width='30'
                                                                         height='30'
                                                                         viewBox="0 0 512 512"
-                                                                        fill="#4e7570">
+                                                                        fill="#4e7570"
+                                                                        class='popup'
+                                                                        onclick='showPopUp()'>
                                                                         <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                                                     </svg>
-                                                                    <span class="tooltiptext">
+                                                                    <span class="tooltiptext popuptext" id='popupMessage'>
                                                                         From: <b>${formatted_address}</b>
                                                                         <br>To: <b>${sch_name}</b>
                                                                         <br>Driving distance: <b>${distance}</b>
@@ -1062,6 +1113,17 @@
             <div class="modal-backdrop fade show" id="backdrop" style="display: none; width:100%; height: 100%"></div>
         </div>
     </div>
+    <script>
+        //huh = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2)
+        //huh1 = parseInt(huh[0]) + 1
+        //huh[0] = huh1.toString()
+        //huh = huh.join(':')
+        //console.log(huh)
+
+    </script>
+</div>
+<div> 
+    {{oneHourAhead}}
 </div>
 </body>
 
