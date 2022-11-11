@@ -26,11 +26,11 @@
         }
 
         #top_row{
-            width:100%;
-            position: fixed;
-            z-index: 1;
-            background-color:#e3f1ef;
-            top:12.8vh
+            /*width:100%;*/
+            /*position: fixed;*/
+            /*z-index: 1;*/
+            /*background-color:#e3f1ef;*/
+            /*top:12.8vh*/
         }
         </style>
         <title>Offers</title>
@@ -69,9 +69,9 @@
                     <tr v-for="listing in driver_listings" v-on:click="redirect(listing.ride_id)">
                         <td>{{format_date(listing.date)[1]}}</td>
                         <td>{{formatAMPM(listing.time)}}</td>
-                        <td class="">{{listing.smu_to_from =="From"? listing.smu_location: listing.user_address}}</td>
-                        <td>{{listing.smu_to_from =="To"? listing.smu_location: listing.user_address}}</td>
-                        <td>{{listing.users_offered==undefined? `0`:listing.users_offered.length}} / {{listing.max_capacity}}</td>
+                        <td class="">{{listing.smu_to_from =="from"? listing.smu_location: listing.formatted_address}}</td>
+                        <td>{{listing.smu_to_from =="to"? listing.smu_location: listing.formatted_address}}</td>
+                        <td>{{listing.users_offered.length-1}} / {{listing.max_capacity}}</td>
                         <td>${{listing.cost}}</td>
                     </tr>
                     </tbody>
@@ -100,11 +100,16 @@
                         </div>
                 </div>
                 <div class="d-flex flex-wrap justify-content-center">
-                    <div class="card mx-3" v-for="listing in rider_listings">
+                    <div class="card col-sm-6 col-md-4 col-lg-3" v-for="listing in rider_listings">
                         <div class="card-body col py-0">
 
-                            <a class="stretched-link" v-bind:href="'./../ride_details/rides_indiv_rider.html?rideid=' + listing.ride_id"></a>
-
+                            <a class="stretched-link" v-bind:href="'./../../pages/rides/ride_details/rides_indiv_rider.html?rideid=' + listing.ride_id"></a>
+                            <span class="badge rounded-pill px-1" v-if="listing.frequency === 'recurring'" hidden>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                        </svg>
+                    </span>
 
                             <div class="d-flex mt-4">
 
@@ -115,45 +120,60 @@
                                              alt="Generic placeholder image" class="img-fluid rounded-circle border"
                                         > -->
                                         <!-- KEN MING REPLACED THE ABOVE WITH THIS -->
-                                        <img :src="get_url(listing['driver_username'])" class="profile-pic img-fluid rounded-circle rounded-circle-dp"
-                                             style="object-fit: contain; height: 60px; width: 60px; object-position: 50% 50%;border:black solid 1px" >
+                                        <img
+                                                :src="get_url(listing['driver_username'])"
+                                                class="profile-pic img-fluid rounded-circle rounded-circle-dp"
+                                                style="
+                                            object-fit: cover;
+                                            height: 60px;
+                                            width: 60px;
+                                            object-position: 50% 50%;
+                                            border: black solid 1px;
+                                        "
+                                        />
                                     </div>
-
                                 </div>
                                 <div class="col-8">
-
-                                    <div class="text-center overflow-visible ">
-
-                                        <h5 class="mb-0 py-2 ">{{get_user_name(listing.driver_username)}}</h5>
-                                        <h5 class="my-0 fw-bold">{{format_date(listing.date)[1]}}</h5>
-                                        <h5 class="my-0 fw-bold">{{format_date(listing.date)[0]}} {{formatAMPM(listing.time)}}</h5>
-
+                                    <div class="text-center overflow-visible">
+                                        <h5 class="mb-0 py-2">
+                                            {{get_user_name(listing.driver_username)}}
+                                        </h5>
+                                        <h5 class="my-0 fw-bold">
+                                            {{format_date(listing.date)[1]}}
+                                        </h5>
+                                        <h5 class="my-0 fw-bold">
+                                            {{format_date(listing.date)[0]}}
+                                            {{formatAMPM(listing.time)}}
+                                        </h5>
                                     </div>
-
                                 </div>
                             </div>
+
                             <hr class="mb-1 mt-2" />
                             <div>
 
-                                <h2 class="card-title fw-bold text-center mb-3" v-if="to_from == `From`" style="color: #BFACD3">
-                                    <i class="bi bi-geo-alt-fill"></i>{{listing.area}}
+                                <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-if="to_from == `From`" style="color: #BFACD3">
+                                    <i class="bi bi-geo-alt-fill"></i>{{listing.neighbourhood}}
+                                    <span class="tooltiptext" style="background-color: #BFACD3; color: #451F6A;">
+                                    <h6 class="formatted-address" style="color: #451F6A;">{{listing.formatted_address}}</h6>
+                                </span>
                                 </h2>
-                                <h2 class="card-title fw-bold text-center mb-3" v-else-if="to_from == `To`" style="color: #d8c7a3">
-                                    <i class="bi bi-geo-alt-fill"></i>{{listing.area}}
+                                <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-else-if="to_from == `To`" style="color: #d8c7a3">
+                                    <i class="bi bi-geo-alt-fill"></i>{{listing.neighbourhood}}
+                                    <span class="tooltiptext" style="background-color: #d8c7a3; color: #8A6F42;">
+                                    <h6 class="formatted-address" style="color: #8A6F42;">{{listing.formatted_address}}</h6>
+                                </span>
                                 </h2>
 
                                 <div class="d-flex my-2">
 
                                     <h1 class="me-auto">${{listing.cost}}</h1>
 
-                                    <h1>{{listing.max_capacity - listing.users_offered.length}}<i class="bi bi-person-fill"></i></h1>
+                                    <h1>{{listing.max_capacity - listing.users_offered.length+ 1}}<i class="bi bi-person-fill"></i></h1>
 
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
 
                 </div>
@@ -163,10 +183,6 @@
    
 
     </body>
-    <script>
-        const user_name = "BobTan123";
-        localStorage.user = user_name;
-    </script>
 
 <!-- <script>
     const user_name = "BobTan123"
