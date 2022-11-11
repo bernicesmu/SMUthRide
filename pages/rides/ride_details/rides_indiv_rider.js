@@ -59,7 +59,8 @@ const app = Vue.createApp({
             date : "",
             to_from : "",
             smu_location: "",
-            new_mid: 0
+            new_mid: 0,
+            user: localStorage.getItem("username_x")
         }
     },
     computed:{
@@ -109,8 +110,12 @@ const app = Vue.createApp({
             })
         },
 
-        gotochat() { 
-            var your_username = localStorage.getItem("username_x")
+        gotochat(driver,user,length) { 
+
+            console.log(driver)
+            console.log(user)
+            console.log(length)
+            // var your_username = localStorage.getItem("username_x")
             if (this.to_from == 'from') { 
                 var chat_message_details = `Hello! I am interested in a ride <a class="ride_url" href="../rides/ride_details/rides_indiv_rider.html?rideid=${this.rideid}">from ${this.smu_location} to ${this.address} on ${this.date[1]} (${this.date[0]}), ${this.time}!</a>`
             }
@@ -118,11 +123,19 @@ const app = Vue.createApp({
                 var chat_message_details = `Hello! I am interested in a ride <a class="ride_url" href="../rides/ride_details/rides_indiv_rider.html?rideid=${this.rideid}">from ${this.address} to ${this.smu_location} on ${this.date[1]} (${this.date[0]}), ${this.time}!</a>`
             }
             // create_chat(this.driver_username, your_username)
-            var list_for_chatid = [this.driver_username, your_username]
-            list_for_chatid = list_for_chatid.sort()
-            var chatid = `${list_for_chatid[0]};${list_for_chatid[1]}`
-            this.send_message(chatid, your_username, chat_message_details)
-            localStorage.setItem("driver_username", driver_username)
+            if(driver != user){
+                var list_for_chatid = [driver, user]
+                list_for_chatid = list_for_chatid.sort().join(";")
+                console.log(list_for_chatid)
+                this.send_message(list_for_chatid, user, chat_message_details, length)
+
+                
+                // console.log(chatid)
+                // var chatid = `${list_for_chatid[0]};${list_for_chatid[1]}`
+                // this.send_message(chatid, your_username, chat_message_details)
+                // localStorage.setItem("driver_username", driver_username)
+            }
+           
         },
         
         initMap(coords) {
@@ -161,19 +174,22 @@ const app = Vue.createApp({
             })
         },
 
-        send_message(chat_id, user, message){
+        send_message(chat_id, user, message,length){
             // console.log("hello")
             const db = getDatabase()
             
-            const reference = ref(db, 'messages/' + chat_id)
-            onValue(reference, (snapshot) => {
-                var all_messages = snapshot.val()
-                this.new_mid = all_messages.length
-                // localStorage.setItem("aaa", this.new_mid)
-            })
+            // const reference = ref(db, 'messages/' + chat_id)
+            // onValue(reference, (snapshot) => {
+            //     var all_messages = snapshot.val()
+            //     console.log(all_messages.length)
+            //     this.new_mid = all_messages.length
+            //     // localStorage.setItem("aaa", this.new_mid)
+                
+            // })
 
             if(message.trim().length > 0){
-                set(ref(db, `messages/${chat_id}/${this.new_mid}`), {
+               
+                set(ref(db, `messages/${chat_id}/${length}`), {
                     message: message,
                     username: user   
                   })
@@ -190,7 +206,69 @@ const app = Vue.createApp({
         this.rideid = rideid
         this.getData()
         this.getName()
+        // this.user = localStorage.getItem("username_x")
     }
 });
+
+
+app.component('send-button',{
+    data(){
+        return{
+            length : 0,
+            // chatid : "",
+            user : ""
+        }
+    },
+
+    props: ['driver','you'],
+
+    emits: ['gotochat'],
+
+    template: `<button type="submit" class="btn button btn-lg" v-on:click="get_length" v-on:click="$emit('gotochat',driver, user,length)">
+    Chat for more
+</button>`,
+
+    methods: {
+     
+        get_length(){
+            var you = localStorage.getItem("username_x")
+            let driver = this.driver
+            let list = [driver, you]
+            let chat_id = list.sort().join(";")
+            console.log(chat_id)
+            const db = getDatabase()
+            
+            const reference = ref(db, 'messages/' + chat_id)
+            onValue(reference, (snapshot) => {
+                var all_messages = snapshot.val()
+                console.log(all_messages)
+                if(all_messages != null){
+                    this.length = all_messages.length
+                }
+                else{
+                    this.length = 0
+                }
+                // console.log(all_messages.length)
+                // this.new_mid = all_messages.length
+                // localStorage.setItem("aaa", this.new_mid)
+                
+            })
+
+            
+        },
+
+       
+
+        
+    },
+    created(){
+        // get the chat id out first
+    
+        this.user = localStorage.getItem("username_x")
+        // this.get_length(this.driver_username, your_username)
+    }
+})
+
+
 
 app.mount('#main')

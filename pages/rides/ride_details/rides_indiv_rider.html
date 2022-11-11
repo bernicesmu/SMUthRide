@@ -261,15 +261,16 @@
                     <!-- <button type="button" class="btn button btn-lg me-2">
                         Make an offer
                     </button> -->
-                    <form
+                    <!-- <form
                         id="gotochat"
                         method="post"
                         action="../../chats/chat.html"
-                    >
-                        <button type="submit" class="btn button btn-lg" v-on:click="gotochat">
+                    > -->
+                        <!-- <button type="submit" class="btn button btn-lg" v-on:click="gotochat">
                             Chat for more
-                        </button>
-                    </form>
+                        </button> -->
+                        <send-button :driver="driver_username" :you="user" v-on:gotochat="gotochat">{{driver_username}}</send-button>
+                    <!-- </form> -->
                 </div>
                 <!-- <div class="details d-inline-block align-middle">
                 </div> -->
