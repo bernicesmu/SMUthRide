@@ -3,8 +3,8 @@
 }
 
 .navbar {
-    background-color: #d8c7a3 !important;
-    /* background-color: #e3f1ef !important; */
+    /* background-color: #d8c7a3 !important; */
+    background-color: #e3f1ef !important;
     transition: top 0.8s ease !important;
     padding: 1rem 4rem !important;
     z-index: 10 !important;
@@ -77,7 +77,7 @@
 .profile-img {
     width: 2.4rem;
     height: 2.4rem;
-    object-fit: contain;
+    object-fit: cover;
     object-position: 50% 50%;
 }
 
