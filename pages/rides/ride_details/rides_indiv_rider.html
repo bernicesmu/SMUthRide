@@ -253,7 +253,7 @@
                         <h4 class="d-inline" id="date_time">
                             {{ date[1]}} ({{date[0]}})
                             {{ time }}
-                        
+                           
                         </h4>
                     </div>
                 </div>
@@ -261,16 +261,16 @@
                     <!-- <button type="button" class="btn button btn-lg me-2">
                         Make an offer
                     </button> -->
-                    <!-- <form
+                    <form
                         id="gotochat"
                         method="post"
                         action="../../chats/chat.html"
-                    > -->
+                    >
                         <!-- <button type="submit" class="btn button btn-lg" v-on:click="gotochat">
                             Chat for more
                         </button> -->
-                        <send-button :driver="driver_username" :you="user" v-on:gotochat="gotochat">{{driver_username}}</send-button>
-                    <!-- </form> -->
+                        <send-button :driver="driver_username" :user="user" v-on:gotochat="gotochat" :msg_length="msg_length"></send-button>
+                    </form>
                 </div>
                 <!-- <div class="details d-inline-block align-middle">
                 </div> -->
