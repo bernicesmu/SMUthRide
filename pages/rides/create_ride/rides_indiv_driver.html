@@ -950,7 +950,14 @@
                                                                 onclick='showPopUp()'>
                                                                 <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                                             </svg>
-                                                            <span class="tooltiptext popuptext" id='popupMessage'>
+                                                            <span class="tooltiptext">
+                                                                From: <b>${formatted_address}</b>
+                                                                <br>To: <b>${sch_name}</b>
+                                                                <br>Driving distance: <b>${distance}</b>
+                                                                <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
+                                                                <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
+                                                            </span>
+                                                            <span class="popuptext" id='popupMessage'>
                                                                 From: <b>${formatted_address}</b>
                                                                 <br>To: <b>${sch_name}</b>
                                                                 <br>Driving distance: <b>${distance}</b>
@@ -1100,7 +1107,7 @@
             type="submit"
             class="btn button d-block mx-auto mt-5 w-100 mb-5"
             id="rides"
-            v-bind:disabled="((time.length == '') || (date.length == ''))"
+            v-bind:disabled="(date.length == '')"
         >
             Get in loser, we're going shopping.
         </button>
