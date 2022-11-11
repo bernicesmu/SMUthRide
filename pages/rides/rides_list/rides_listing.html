@@ -312,13 +312,13 @@
                     <hr class="mb-1 mt-2" />
                     <div>
 
-                        <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-if="to_from == `From`" style="color: #BFACD3">
+                        <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-if="to_from == `from`" style="color: #BFACD3">
                             <i class="bi bi-geo-alt-fill"></i>{{listing.neighbourhood}}
                                 <span class="tooltiptext" style="background-color: #BFACD3; color: #451F6A;">
                                     <h6 class="formatted-address" style="color: #451F6A;">{{listing.formatted_address}}</h6>
                                 </span>
                         </h2>
-                        <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-else-if="to_from == `To`" style="color: #d8c7a3">
+                        <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-else-if="to_from == `to`" style="color: #d8c7a3">
                             <i class="bi bi-geo-alt-fill"></i>{{listing.neighbourhood}}
                                 <span class="tooltiptext" style="background-color: #d8c7a3; color: #8A6F42;">
                                     <h6 class="formatted-address" style="color: #8A6F42;">{{listing.formatted_address}}</h6>

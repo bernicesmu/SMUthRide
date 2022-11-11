@@ -263,6 +263,9 @@ const chat_left = Vue.createApp({
             let driver = this.selected_driver
             const db = getDatabase()
             const reference = ref(db, 'rides/')
+            // this.selected_driver = ""
+            this.selected_ride = ""
+            this.offer_price = ""
 
             onValue(reference, (snapshot) => {
                 // console.log(snapshot.val())
@@ -305,7 +308,7 @@ const chat_left = Vue.createApp({
                                     let result = this.to_from(to_from,ride)
                                     let final_output = [result, ride_id]
                                     this.relevant_rides.push(final_output)
-                                    this.offer_price = ride.cost
+                                    // this.offer_price = ride.cost
                                 }
                                 else if(Number(ride_year) == current_year){
                                     if(Number(ride_month) > current_month){
@@ -314,7 +317,7 @@ const chat_left = Vue.createApp({
                                         let result = this.to_from(to_from,ride)
                                         let final_output = [result, ride_id]
                                         this.relevant_rides.push(final_output)
-                                        this.offer_price = ride.cost
+                                        // this.offer_price = ride.cost
                                     }
                                     else if(Number(ride_month) == current_month){
                                         if(Number(ride_day) > current_day){
@@ -323,7 +326,7 @@ const chat_left = Vue.createApp({
                                             let result = this.to_from(to_from,ride)
                                             let final_output = [result, ride_id]
                                             this.relevant_rides.push(final_output)
-                                            this.offer_price = ride.cost
+                                            // this.offer_price = ride.cost
                                         }
                                         else if(Number(ride_day) == current_day){
                                             // ok
@@ -331,7 +334,7 @@ const chat_left = Vue.createApp({
                                             let result = this.to_from(to_from,ride)
                                             let final_output = [result, ride_id]
                                             this.relevant_rides.push(final_output)
-                                            this.offer_price = ride.cost
+                                            // this.offer_price = ride.cost
                                         }
                                     }
                                 }
@@ -351,6 +354,25 @@ const chat_left = Vue.createApp({
 
 
         },
+        get_price(){
+            let ride = this.selected_ride
+            this.offer_price = ""
+            // console.log(ride)
+            const db = getDatabase()
+            const reference = ref(db, `rides/${ride}`)
+
+            onValue(reference, (snapshot)=>{
+                let ride_details = snapshot.val()
+                // console.log(ride_details)
+                if(ride_details != null){
+                    this.offer_price = ride_details.cost
+                }
+                
+            })
+
+        },
+
+
         to_from(to_from, ride){
             let text = ""
             if(to_from == "from"){
