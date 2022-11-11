@@ -19,6 +19,12 @@ const form_alerts = Vue.createApp({
         }
     },
     methods:{
+        check_time(){
+            var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
+            if (this.time < time){
+                return true
+            } return false
+        },
         check_date(){
             if (this.date===""){return false}
             let selected_date = this.date.split("-")
