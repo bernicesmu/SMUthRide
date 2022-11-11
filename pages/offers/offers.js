@@ -21,7 +21,7 @@ const listings = Vue.createApp({
             listings: [],
             driver_listings:[],
             rider_listings: [],
-            user: localStorage.getItem('user'),
+            user: localStorage.getItem('username_x'),
             to_from : "From",
             rider_temp: [],
         }
@@ -35,13 +35,15 @@ const listings = Vue.createApp({
             window.location.href='../rides/ride_details/rides_indiv_rider.html?rideid=' + id
         },
         check_and_populate(){
-            this.driver_listings= this.listings.filter(x=>
-                x.driver_username === this.user).sort((a,b) => a.time.localeCompare(b.time));
-            this.rider_temp = this.listings.filter(x=> x.users_offered!=undefined && x.users_offered.includes(this.user));
+
+            this.driver_listings= this.listings.filter(x=> x.driver_username === this.user).sort((a,b) => a.time.localeCompare(b.time));
+            console.log(this.driver_listings)
+            this.rider_temp = this.listings.filter(x=>  x.users_offered.includes(this.user));
+            console.log(this.rider_temp)
             if (this.to_from === "From"){
-                this.rider_listings = this.rider_temp.filter(x=> x.smu_to_from === "From").sort((a,b) => a.time.localeCompare(b.time));
+                this.rider_listings = this.rider_temp.filter(x=> x.smu_to_from === "from").sort((a,b) => a.time.localeCompare(b.time));
             } else {
-                this.rider_listings = this.rider_temp.filter(x=> x.smu_to_from === "To").sort((a,b) => a.time.localeCompare(b.time));
+                this.rider_listings = this.rider_temp.filter(x=> x.smu_to_from === "to").sort((a,b) => a.time.localeCompare(b.time));
             };
         },
         formatAMPM(date){
