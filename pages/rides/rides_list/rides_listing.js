@@ -18,14 +18,14 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
 
-var locations = ['Boat Quay', 'Raffles Place', 'Marina', 'Chinatown', 'Tanjong Pagar', 'Alexandra', 'Commonwealth', 'Harbourfront', 'Telok Blangah', 'Buona Vista', 'West Coast', 'Clementi New Town', 'City Hall', 'Clarke Quay', 'Beach Road', 'Bugis', 'Rochor', 'Farrer Park', 'Serangoon', 'Orchard', 'River Valley', 'Tanglin', 'Holland', 'Bukit Timah', 'Newton', 'Novena', 'Balestier', 'Toa Payoh', 'Macpherson', 'Potong Pasir', 'Eunos', 'Geylang', 'Paya Lebar', 'East Coast', 'Marine Parade', 'Bedok', 'Upper East Coast', 'Changi', 'Pasir Ris', 'Tampines', 'Hougang', 'Punggol', 'Sengkang', 'Ang Mo Kio', 'Bishan', 'Thomson', 'Clementi Park', 'Upper Bukit Timah', 'Boon Lay', 'Jurong', 'Tuas', 'Dairy Farm', 'Bukit Panjang', 'Choa Chu Kang', 'Lim Chu Kang', 'Tengah', 'Admiralty', 'Woodlands', 'Mandai', 'Upper Thomson', 'Sembawang', 'Yishun', 'Seletar', 'Yio Chu Kang']
+var locations = ['Mountbatten','Kembangan','Outram Park','Tiong Bahru','Queenstown','Boat Quay', 'Raffles Place', 'Marina', 'Chinatown', 'Tanjong Pagar', 'Alexandra', 'Commonwealth', 'Harbourfront', 'Telok Blangah', 'Buona Vista', 'West Coast', 'Clementi New Town', 'City Hall', 'Clarke Quay', 'Beach Road', 'Bugis', 'Rochor', 'Farrer Park', 'Serangoon', 'Orchard', 'River Valley', 'Tanglin', 'Holland', 'Bukit Timah', 'Newton', 'Novena', 'Balestier', 'Toa Payoh','Lorong Chuan','Marymount', 'Macpherson', 'Potong Pasir', 'Eunos','Yew Tee','Chinese Garden', 'Bartley','Lakeside','Kovan', 'Kranji','Geylang','Bendemeer', 'Paya Lebar','Kaki Bukit', 'East Coast', 'Marine Parade','Jalan Besar', 'Bedok', 'Upper East Coast','Kallang', 'Changi', 'Pasir Ris', 'Tampines', 'Hougang', 'Punggol', 'Sengkang', 'Ang Mo Kio','Botanic Gardens', 'Bishan', 'Boon Keng','Thomson', 'Clementi', 'Upper Bukit Timah', 'Boon Lay', 'Jurong', 'Tuas', 'Dairy Farm', 'Bukit Panjang', 'Choa Chu Kang', 'Lim Chu Kang', 'Tengah', 'Admiralty', 'Woodlands', 'Mandai', 'Upper Thomson', 'Sembawang', 'Yishun', 'Seletar', 'Yio Chu Kang', 'Downtown', 'Simei','Bukit Batok' ]
 
 const listings = Vue.createApp({
     data() {
         return{
             users: [],
             listings: [],
-            to_from : "From",
+            to_from : "from",
             display_listings: [],
             search: '',
             results: [],
@@ -34,6 +34,13 @@ const listings = Vue.createApp({
         }
     },
     methods: {
+        expired_check(date, time){
+            var today = new Date();
+            if (date < today.toISOString().split("T")[0] && time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")){
+                return false
+            } return true
+        },
+
         searchResults() {
 
             this.results = this.possible_locations.filter(item => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
@@ -51,19 +58,25 @@ const listings = Vue.createApp({
             setTimeout(function () {this.results = []}, 100);
         },
         change_direction(){
-            this.to_from = this.to_from === "To" ? "From" : "To";
+            this.to_from = this.to_from === "to" ? "from" : "to";
             this.check_and_populate()
         },
         check_and_populate(){
-            console.log(this.to_from)
-            console.log(this.listings)
 
-            if (this.to_from === "To"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "to" &&(x.max_capacity - x.users_offered.length >-1));
-            } else if (this.to_from === "From"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "from" &&(x.max_capacity - x.users_offered.length >-1));
+            this.listings = Object.values(this.listings)
+
+            if (this.to_from === "to"){
+                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "to" &&(x.users_offered.length - x.max_capacity<1) && x.date > new Date().toISOString().split('T')[0]);
+            } else if (this.to_from === "from"){
+                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "from" &&(x.users_offered.length - x.max_capacity<1) && x.date > new Date().toISOString().split('T')[0]);
             }
-            console.log(this.display_listings)
+            if (this.search != ''){
+                this.display_listings = this.display_listings.filter(x => x.smu_to_from == this.to_from &&
+                    x.date > new Date().toISOString().split('T')[0] &&
+                    (x.users_offered.length - x.max_capacity<1) &&
+                    (x.neighbourhood.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+                        x.formatted_address.toLowerCase().indexOf(this.search.toLowerCase()) > -1));
+            }
         },
         formatAMPM(date) {
 
@@ -78,7 +91,7 @@ const listings = Vue.createApp({
         },
         format_date(date){
             date = date.split("-")
-            let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
+            let day = new Date(date[0], date[1]-1, date[2]).toDateString().split(" ")
             return [day[0],`${day[2]} ${day[1]} ${day[3]}`]
         },
         get_user_name(username){
@@ -98,7 +111,8 @@ const listings = Vue.createApp({
         });
 
         onValue(rides, (snapshot) => {
-            this.listings = snapshot.val()
+            this.listings = snapshot.val().filter(x => this.expired_check(x.date, x.time));
+
             console.log(snapshot.val())
             console.log(this.listings)
             this.check_and_populate()
@@ -119,7 +133,12 @@ const listings = Vue.createApp({
         search:{
             handler(value,oldValue) {
                 if (value !== '') {
-                    this.display_listings = this.listings.filter(x => x.smu_to_from == this.to_from && "users_offered" in x && x.area.toLowerCase().indexOf(value.toLowerCase()) > -1);
+
+                    this.display_listings = this.display_listings.filter(x => x.smu_to_from == this.to_from &&
+
+                        (x.users_offered.length - x.max_capacity<1) &&
+                        (x.neighbourhood.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+                        x.formatted_address.toLowerCase().indexOf(value.toLowerCase()) > -1));
                 }else if (oldValue !== '' && value === ''){
                     this.check_and_populate()
                 }

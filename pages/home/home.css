@@ -15,7 +15,8 @@ body {
     position: relative;
     width: 100%;
     height: 88.6vh;
-    background-image: linear-gradient(to top, #5ee7df 0%, #e3f1ef 100%);
+    /* background-image: linear-gradient(to top, #5ee7df 0%, #e3f1ef 100%); */
+    overflow: hidden;
 }
 
 .welcome h1 {
@@ -32,13 +33,63 @@ body {
 } */
 
 .skyline{
-    background: url(skyline.png) ;
-    width: 100%;
-    height: 100%;
-    /* height:400px; */
+    background: url(skyline_edit.png);
+    background-size: 180rem;
+    background-position: left bottom;
+    width: 500%;
+    height:400px;
     position: absolute;
     bottom: 0;
-    background-repeat: repeat-x ;
+    background-repeat: repeat-x;
+    animation: moveRight 15s linear infinite;
+
+}
+
+.car-group {
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    height: 5rem;
+    animation: upDown 1s linear infinite;
+}
+
+.car {
+    /* position: absolute; */
+    bottom: 0;
+    left: 5%;
+    height: 5rem;
+}
+
+.tire {
+    position: absolute;
+    bottom: 0;
+    height: 2rem;
+    animation: rotatingWheels 1s linear infinite;
+}
+
+#tire1{
+    left:13px;
+}
+
+#tire2 {
+    left:78px;
+}
+
+@keyframes moveRight {
+    100%{transform:translateX(-2870px)}
+}
+
+@keyframes upDown {
+    50%{transform:translateY(-10px)}
+}
+
+@-webkit-keyframes rotatingWheels {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
 }
 /* HELLO */
 
@@ -68,19 +119,20 @@ p {
   
 .word {
     position: absolute;
-    width: 300px;
+    width: 600px;
     opacity: 0;
 }
   
 .letter {
     display: inline-block;
+	text-align: center;
     position: relative;
     /* float: left; */
     transform: translateZ(25px);
     transform-origin: 50% 50% 25px;
 }
   
-.letter.out {
+.letter.out, .letter.out.space {
     transform: rotateX(90deg);
     transition: transform 0.32s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
@@ -89,29 +141,412 @@ p {
     transform: rotateX(-90deg);
 }
   
-.letter.in {
+.letter.in, .letter.in.space {
     transform: rotateX(0deg);
     transition: transform 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-  
-.wisteria {
-    color: #8e44ad;
+
+.letter.in.space, .letter.out.space {
+	width: 1rem;
 }
-  
-.belize {
-    color: #2980b9;
-}
-  
-.pomegranate {
-    color: #c0392b;
-}
-  
+
 .green {
-    color: #16a085;
+    color: #4caf50;
 }
   
-.midnight {
-    color: #2c3e50;
+.darkgreen {
+    color: #357a38;
+}
+  
+.orange {
+    color: 	#e7b416;
+}
+  
+.darkorange {
+    color: #db7b2b;
+}
+  
+.red {
+    color: #cc3232;
 }
 
 /* ROTATING SUBTEXT */
+
+@media(max-width: 870px){
+	.text {
+		font-size: 2rem;
+	}
+	.letter.in.space, .letter.out.space {
+		width: 0.7rem;
+	}
+	.welcome h1{
+		font-size: 3rem;
+		top: 22%;
+	}
+}
+
+
+.canvas {
+	width: 100%;
+	height: 88.6vh;
+	border: 1px solid #000;
+	margin: 0 auto;
+	position: relative;
+	animation-delay: 1s;
+	background: #70c4c6;
+	animation-name: daylight;
+	animation-duration: 20s;
+	animation-iteration-count: infinite;
+	overflow: hidden;
+	animation-timing-function: linear;
+    z-index: -1;
+}
+.eclipse {
+	width: 70%;
+	height: 92vh;
+	/*border: 1px solid #000;*/
+	position: absolute;
+	left:80%;
+	top:20%;
+	animation-name: time;
+	animation-duration: 40s;
+	animation-iteration-count: infinite;
+	z-index: 0;
+	animation-timing-function: linear;
+}
+.sun {
+	background-image: url(sun.png);
+	background-size: contain;
+	width:180px;
+	height:180px;
+	border-radius: 50%;
+	background-color: transparent;
+	position: absolute;
+	top: 10px;
+	left: -180px;
+}
+.sun.a {
+	transform: rotate(180deg);
+	bottom: 10px;
+	right: -180px;
+	left: auto;
+	top:auto;
+}
+.moon {
+	transform: rotate(30deg);
+	background-image: url(moon.png);
+	background-size: contain;
+	position: absolute;
+	top: -100px;
+	right: -35px;
+	width:160px;
+	height:160px;
+	border-radius: 50%;
+	background-color: transparent;
+}
+.moon.a {
+	transform: rotate(-70deg);
+	bottom: -100px;
+	left: -35px;
+	top:auto;
+	right: auto;
+}
+.cloud {
+	width: 50px;
+	height: 45px;
+	border-radius: 50%;
+	background-color: #fff;
+	position: absolute;
+	top:30px;
+	left: -20%;
+	animation-name: cloud;
+	animation-duration: 70s;
+	animation-iteration-count: infinite;
+	z-index: 1;
+}
+.cloud::before {
+	content:'';
+	width: 35px;
+	height: 30px;
+	background-color: #fff;
+	margin-left: -20px;
+	margin-top: 20px;
+	display: block;
+	border-radius: 50%;
+}
+.cloud::after {
+	content:'';
+	width: 20px;
+	height: 20px;
+	background-color: #fff;
+	position: absolute;
+	right: -10px;
+	top: 17px;
+	border-radius: 50%;
+}
+.cloud.a {
+	top:55%;
+	animation-duration: 55s;
+}
+.cloud.b {
+	top:50%;
+	left:-15%;
+	animation-duration: 38s;
+}
+.cloud.c {
+	top:68%;
+	left:-10%;
+	animation-duration: 25s;
+}
+
+.star {
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background-color: #fff;
+	position: absolute;
+	top: 50px;
+	left: 100px;
+	animation-name: fader;
+	animation-duration: 20s;
+	animation-iteration-count: infinite;
+}
+.star::before {
+	content: '';
+	width:3px;
+	height:3px;
+	border-radius: 50%;
+	background-color: #fff;
+	position: absolute;
+	left:20px;
+	top:20px;
+	animation-name: blinker;
+	animation-duration: 20s;
+	animation-iteration-count: infinite;
+}
+.star::after {
+	content: '';
+	width:2px;
+	height:2px;
+	border-radius: 50%;
+	background-color: #fff;
+	position: absolute;
+	left:-200px;
+	top:50px;
+	animation-name: blinker;
+	animation-duration: 20s;
+	animation-iteration-count: infinite;	
+}
+.star.a {
+	top:30px;
+	left:90%;
+}
+.star.b {
+	top:120px;
+	left:70%;
+}
+.star.c {
+	top:100px;
+	left:65%;
+}
+.star.d {
+	top:200px;
+	left:15%;
+}
+
+.wind {
+	width: 150px;
+	background-color: #eee;
+	height: 2px;
+	position: absolute;
+	top:30%;
+	animation-name: wind;
+	animation-duration: 8s;
+	animation-iteration-count: infinite;	
+	animation-timing-function: linear;
+}
+.wind::before {
+	content: '';
+	position: absolute;
+	left: 200px;
+	width: 100px;
+	height: 1px;
+	background-color: #eee;
+	top:100px;
+}
+.wind::after {
+	content: '';
+	position: absolute;
+	left: 400px;
+	width: 180px;
+	height: 1px;
+	background-color: #eee;
+	top:30px;
+}
+@keyframes time {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+@keyframes daylight {
+	0% {  background-color: #70c4c6; }
+	15% {  background-color: #524b64; }
+	40% { background-color: #354a4a; }
+	70% { background-color: #354a4a; }
+	80% {  background-color: #e2b553; }
+	100% {  background-color: #70c4c6;}
+}
+
+@keyframes cloud {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(850px); }
+}
+@keyframes rotate {
+	0% { transform: rotate(0); }
+	100% { transform: rotate(360deg); }
+}
+@keyframes fader {
+	0% { opacity: 0; }
+	15% { opacity: 0; }
+	40% { opacity: 1; }
+	60% { opacity: 0.4; }
+	70% { opacity: 1; }
+	80% {  opacity: 0; }
+	100% { opacity: 0; }
+}
+@keyframes blinker {
+	0% { opacity: 0; }
+	18% { opacity: 0; }
+	25% { opacity: 1; }
+	40% { opacity: 0; }
+	60% { opacity: 1; }
+	70% {  opacity: 0; }
+	100% { opacity: 0; }	
+}
+@keyframes blinker-1 {
+	0% { opacity: 0; }
+	30% { opacity: 0; }
+	40% { opacity: 1; }
+	60% { opacity: 1; }
+	80% {  opacity: 0; }
+	100% { opacity: 0; }	
+}
+@keyframes windy {
+	15% {  transform: translateX(5px); transform: rotate(5deg); }
+	80% {  transform: translateX(7px); transform: rotate(7deg);}
+	80% {  transform: translateX(5px); transform: rotate(5deg);}
+}
+@keyframes wind {
+	0% {  left: -800px; opacity: 0 }
+	15% { opacity: 1; }
+	70% { left: 800px; opacity: 1;}
+	80% {  left: 800px; opacity: 0;}
+	100% {  left: -1000px; opacity: 0;}
+}
+
+
+
+
+@media(max-width: 570px){
+	.text {
+		display: flex;
+		flex-direction: column;
+	}
+	.skyline{
+		background: url(skyline_edit.png);
+		background-size: 130rem;
+		background-position: left bottom;
+		width: 800%;
+		height:400px;
+		position: absolute;
+		bottom: 0;
+		background-repeat: repeat-x;
+		animation: moveRight 15s linear infinite;
+	
+	}
+	@keyframes moveRight {
+		100%{transform:translateX(-2080px)}
+	}
+
+	.car-group {
+		position: absolute;
+		bottom: 0;
+		left: 5%;
+		height: 4rem;
+		animation: upDown 1s linear infinite;
+	}
+	
+	.car {
+		/* position: absolute; */
+		bottom: 0;
+		left: 5%;
+		height: 4rem;
+	}
+	
+	.tire {
+		position: absolute;
+		bottom: 0;
+		height: 1.5rem;
+		animation: rotatingWheels 1s linear infinite;
+	}
+	
+	#tire1{
+		left:11.5px;
+	}
+	
+	#tire2 {
+		left:64px;
+	}
+
+	.eclipse {
+		width: 200%;
+		height: 85vh;
+		/*border: 1px solid #000;*/
+		position: absolute;
+		left:80%;
+		top:20%;
+		animation-name: time;
+		animation-duration: 40s;
+		animation-iteration-count: infinite;
+		z-index: 0;
+		animation-timing-function: linear;
+	}
+
+	.sun {
+		background-image: url(sun.png);
+		background-size: contain;
+		width:120px;
+		height:120px;
+		border-radius: 50%;
+		background-color: transparent;
+		position: absolute;
+		top: 20px;
+		left: -250px;
+	}
+	.sun.a {
+		transform: rotate(180deg);
+		bottom: 20px;
+		right: -250px;
+		left: auto;
+		top:auto;
+	}
+	.moon {
+		transform: rotate(30deg);
+		background-image: url(moon.png);
+		background-size: contain;
+		position: absolute;
+		top: -100px;
+		right: -35px;
+		width:110px;
+		height:110px;
+		border-radius: 50%;
+		background-color: transparent;
+	}
+	.moon.a {
+		transform: rotate(-70deg);
+		bottom: -100px;
+		left: -35px;
+		top:auto;
+		right: auto;
+	}
+
+}

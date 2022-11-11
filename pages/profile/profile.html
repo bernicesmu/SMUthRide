@@ -30,7 +30,13 @@
             <div class="profile text-center justify-content-center">
                 <img
                     id="profile-picture"
-                    class="profile-pic img-fluid rounded-circle rounded-circle-dp"
+                    class="profile-pic img-fluid rounded-circle rounded-circle-dp border border-dark"
+                    style="
+                        object-fit: cover;
+                        object-position: 50% 50%;
+                        width: 200px;
+                        height: 200px;
+                    "
                     :src="profile_url"
                     alt="profile picture"
                 />
@@ -45,12 +51,12 @@
                         <p class=""><strong>Gender</strong>:</p>
                         <p class="add-profile-fields">{{ gender }}</p>
                     </div>
-                    <div>
+                    <!-- <div>
                         <p class=""><strong>Location</strong>:</p>
                         <p id="hsdf" class="add-profile-fields">
                             {{ location_user }}
                         </p>
-                    </div>
+                    </div> -->
                     <!-- <div id="map" style="width: 300px; height:300px;" class="mx-auto m-2 rounded-3"></div>
                             <script
                                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&callback=initMap"
@@ -225,8 +231,8 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"
         ></script>
-        <script type="module" src="../../navbar/navbar.js"></script>
-        <script src="./profile_mod.js" type="module"></script>
-        <script src="./profile.js"></script>
+        <script src="../../navbar/navbar.js" type="module"></script>
+        <script src="./profile.js" type="module"></script>
+        <!-- <script src="./profile_mod.js" type="module"></script> -->
     </body>
 </html>

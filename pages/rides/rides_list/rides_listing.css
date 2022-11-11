@@ -44,19 +44,12 @@ input[type=text]:focus {
     color: #4e7570;
 }
 
-.bi-plus-circle-fill:hover {
+/* .bi-plus-circle-fill:hover {
     transition: all 0.2s ease-in-out;
     transform: scale(1.1);
-
-}
+} */
 
 
 .bi-person-fill{
     font-size: 32px;
 }
-
-.toggle.toggle-group.toggle-handle{
-    width: 36px;
-    border-radius: 50%;
-}
-

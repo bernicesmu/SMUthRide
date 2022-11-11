@@ -158,7 +158,7 @@
             height: 25px;
             padding: 10px 10px 18px 5px;
             /*display: flex;*/
-            width: 100%;
+            width: 75%;
             border: none;
             outline: none;
             border-bottom: 1px solid #4e7570;
@@ -175,7 +175,7 @@
             height: 25px;
             padding: 10px 10px 18px 5px;
             /*display: flex;*/
-            width: 100%;
+            width: 75%;
             border: none;
             outline: none;
             border-bottom: 1px solid #4e7570;
@@ -260,7 +260,7 @@
             font-weight: normal;
             position: absolute;
             pointer-events: none;
-            left: 5px;
+            left: 10px;
             top: 0px;
             opacity: 0.5;
             transition: 0.2s ease all;
@@ -274,7 +274,7 @@
             font-weight: normal;
             position: absolute;
             pointer-events: none;
-            left: 5px;
+            left: 65px;
             top: 0px;
             opacity: 0.5;
             transition: 0.2s ease all;
@@ -288,7 +288,7 @@
             font-weight: normal;
             position: absolute;
             opacity: 0.5;
-            left: 5px;
+            left: 65px;
             transition: 0.2s ease all;
         }
 
@@ -303,7 +303,7 @@
             font-weight: normal;
             position: absolute;
             opacity: 0.5;
-            left: 5px;
+            left: 65px;
             top: -30px;
             transition: 0.2s ease all;
         }
@@ -369,6 +369,40 @@
             -moz-animation: inputHighlighter 0.3s ease;
             animation: inputHighlighter 0.3s ease;
         }
+
+        /* for the popup when clicked on*/
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            z-index: 99;
+          }
+          
+          /* The actual popup */
+          .popup .popuptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #BFACD3;
+            color: #451F6A;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+            position: absolute;
+            top: 40px;
+            left: -135px;
+            z-index: 99;
+          }
+
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+            z-index: 99;
+          }
 
         /* ANIMATIONS ================ */
         @-webkit-keyframes inputHighlighter {
@@ -658,7 +692,7 @@
                             onclick="calcRoute()"
                         >Find route!</button>
                         <br />
-                        <div id="info_hover" class="my-auto"></div>
+                        <div id="info_hover" class="my-auto popup"></div>
                     </div>
                     <!-- <div id="info_hover"></div> -->
                 </div>
@@ -750,6 +784,12 @@
                         xhttp.open("GET", url, true);
                         xhttp.send();
                     }
+                    function showPopUp() {
+                        var popup = document.getElementById('popupMessage');
+                        popup.classList.toggle('show');
+                        console.log('===CLICKED===')
+                        console.log(popup)
+                    }
 
                     function calcRoute() {
                         sch_value =
@@ -827,34 +867,27 @@
                                     .then(response => { 
                                         address_details = response.data.results[0]
                                         formatted_address = address_details.formatted_address
-                                        document.getElementById("hidden").value = formatted_address
-                                        // kenming pls convert formatted addresss 
-                                    })
-                                    .catch(error => {
-                                        console.log(error.message)
-                                    })
+                                        console.log(formatted_address)
+                                        var neighbourhood = formatted_address
+                                        for (var add of address_details.address_components) { 
+                                            if (add.types.includes('neighborhood')) { 
+                                                neighbourhood = add.long_name
+                                            }
+                                        }
+                                        document.getElementById("hidden_formatted_address").value = formatted_address
+                                        document.getElementById("hidden_neighbourhood").value = neighbourhood
 
-                                    if (
-                                        1.15948 > loc_lat ||
-                                        loc_lat > 1.47475
-                                    ) {
+
+                                        if (1.15948 > loc_lat ||loc_lat > 1.47475) {
                                         loc_outofsg.innerHTML = `<div class='wrong_loc text-danger'>Can you put some location within Singapore .</div>`;
-                                    } else if (
-                                        103.60468 > loc_lng ||
-                                        loc_lat > 104.08872
-                                    ) {
+                                    } 
+                                    else if (103.60468 > loc_lng || loc_lat > 104.08872) {
                                         loc_outofsg.innerHTML = `<div class='wrong_loc text-danger'>Can you put some location within Singapore .</div>`;
-                                    } else {
+                                    } 
+                                    else {
                                         // get distance of route in min
-                                        duration = parseInt(
-                                            result.routes[0].legs[0].duration.text.split(
-                                                " "
-                                            )
-                                        );
-                                        recc_price =
-                                            parseInt(distance) * 0.15 +
-                                            2.8 +
-                                            duration * 0.15;
+                                        duration = parseInt(result.routes[0].legs[0].duration.text.split(" "));
+                                        recc_price = parseInt(distance) * 0.15 + 2.8 + duration * 0.15;
 
                                         // from smu to indicated location, display route and duration
                                         if (smu_position == "from") {
@@ -862,10 +895,19 @@
                                                                         width='30'
                                                                         height='30'
                                                                         viewBox="0 0 512 512"
-                                                                        fill="#4e7570">
+                                                                        fill="#4e7570"
+                                                                        class='popup'
+                                                                        onclick='showPopUp()'>
                                                                         <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                                                     </svg>
                                                                     <span class="tooltiptext">
+                                                                        From: <b>${sch_name}</b>
+                                                                        <br>To: <b>${formatted_address}</b>
+                                                                        <br>Driving distance: <b>${distance}</b>
+                                                                        <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
+                                                                        <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
+                                                                    </span>
+                                                                    <span class="popuptext" id='popupMessage'>
                                                                         From: <b>${sch_name}</b>
                                                                         <br>To: <b>${formatted_address}</b>
                                                                         <br>Driving distance: <b>${distance}</b>
@@ -889,10 +931,12 @@
                                                                         width='30'
                                                                         height='30'
                                                                         viewBox="0 0 512 512"
-                                                                        fill="#4e7570">
+                                                                        fill="#4e7570"
+                                                                        class='popup'
+                                                                        onclick='showPopUp()'>
                                                                         <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                                                     </svg>
-                                                                    <span class="tooltiptext">
+                                                                    <span class="tooltiptext popuptext" id='popupMessage'>
                                                                         From: <b>${formatted_address}</b>
                                                                         <br>To: <b>${sch_name}</b>
                                                                         <br>Driving distance: <b>${distance}</b>
@@ -922,7 +966,14 @@
                                             // );
                                         }
                                     }
-                                } else {
+                                    })
+                                    .catch(error => {
+                                        console.log(error.message)
+                                    })
+
+                                    
+                                } 
+                                else {
                                     directionsDisplay.setDirections({
                                         routes: [],
                                     });
@@ -934,6 +985,7 @@
                                 }
                             }
                         );
+                        // function ends here
                     }
                     // autocomplete objects for all input
                     
@@ -953,39 +1005,44 @@
                     //     options
                     // );
                 </script>
-
+                </div>
+                <div class="container text-center w-75">
                 <div class="group" id="cost_group">
                     <span class="currencyinput" id="dollarsign"></span>
                     <input
+                        id="inputMoney"
                         type="number"
                         name="cost"
                         min="0"
-                        step="0.1"
-                        class="bottom_text-input cost-input"
-                        oninput="cost_click()"
+                        step="0.01"
+                        class="bottom_text-input cost-input w-75"
+                        oninput="cost_click(); validity.valid||(value='');"
                         required
                     />
                     <span class="highlight"></span>
-                    <label class="bottom_text-label">Cost per person</label>
+                    <label for="inputMoney" class="bottom_text-label">Cost per person</label>
                 </div>
                 <div class="group">
                     <input
                         type="number"
                         name="capacity"
-                        min="0"
+                        min="1"
                         max="10"
-                        class="text-input"
+                        class="text-input bottom_text-input w-75"
+                        oninput="validity.valid||(value='');"
                         required
                     />
                     <span class="highlight"></span>
                     <label class="bottom_text-label">Seat capacity per ride</label>
                 </div>
                 <div class="group">
-                    <input type="hidden" id="hidden">
+                    <input type="hidden" id="hidden_formatted_address">
+                    <input type="hidden" id="hidden_neighbourhood">
                     <input
                         type="date"
                         name="date"
-                        class="bottom_text-input datetime-input"
+                        class="bottom_text-input datetime-input w-75"
+
                         v-bind:min="today"
                         oninput="date_click()"
                         v-model="date"
@@ -994,8 +1051,9 @@
 
                     <label class="date-label" id="date-label">Date</label>
                     <label
-                        class="date_alert text-danger"
+                        class="date_alert text-danger w-75"
                         role="alert"
+
                         v-if="check_date()"
                     >
                         Please select a date not more than 1 year from today *
@@ -1006,11 +1064,22 @@
                         type="time"
                         name="time"
                         class="bottom_text-input datetime-input"
+                        v-bind:min="time_now"
+                        v-model="time"
                         oninput="time_click()"
                         required
+                        step= "300"
                     />
                     <span class="highlight"></span>
                     <label class="date-label" id="time-label">Time</label>
+                    <label
+                            class="date_alert text-danger w-75"
+                            role="alert"
+
+                            v-if="check_time()"
+                    >
+                        You cant time travel.. Please choose a later timing *
+                    </label>
                 </div>
                 <button
                     type="submit"
@@ -1040,6 +1109,17 @@
             <div class="modal-backdrop fade show" id="backdrop" style="display: none; width:100%; height: 100%"></div>
         </div>
     </div>
+    <script>
+        //huh = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2)
+        //huh1 = parseInt(huh[0]) + 1
+        //huh[0] = huh1.toString()
+        //huh = huh.join(':')
+        //console.log(huh)
+
+    </script>
+</div>
+<div> 
+    {{oneHourAhead}}
 </div>
 </body>
 

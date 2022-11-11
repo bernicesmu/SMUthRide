@@ -7,13 +7,14 @@
 const form_alerts = Vue.createApp({
     data() {
         return {
-            date: "",
+            date: new Date().toISOString().split("T")[0],
             drop_off: "",
             today: new Date().toISOString().split("T")[0],
             //time: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
             time: ((parseInt(new Date().toLocaleTimeString('en-GB').split(":")[0])+1)).toString() + ":" + new Date().toLocaleTimeString('en-GB').split(":")[1],
             time_now: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
             step: "300",
+
             location_input: "",
             location_alert: false,
             school_input: "Select School",
@@ -21,6 +22,12 @@ const form_alerts = Vue.createApp({
         }
     },
     methods:{
+        check_time(){
+            var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
+            if (this.time < time){
+                return true
+            } return false
+        },
         check_date(){
             if (this.date===""){return false}
             let selected_date = this.date.split("-")
@@ -35,10 +42,12 @@ const form_alerts = Vue.createApp({
             return false;
         },
 
-
-
-       
+        
+        // addHoursToDate(date, hours) {
+        //     return new Date(new Date(date).setHours(date.getHours() + hours));
+        //   }
     },
+       
     watch: {
         school_input(val,oldVal) {
 
@@ -81,10 +90,11 @@ async function write_ride_local() {
     var date = inputs.date.value
     var time = inputs.time.value 
     var users_offered = [""]
-    var area = document.getElementById("hidden").value
+    var area = document.getElementById("hidden_formatted_address").value
+    var neighbourhood = document.getElementById("hidden_neighbourhood").value 
     
 
-    let check = await write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area)
+    let check = await write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area,neighbourhood)
     console.log(check)
     if (check){
         console.log("success")
