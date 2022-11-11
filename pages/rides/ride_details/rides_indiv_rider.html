@@ -51,8 +51,21 @@
         }
 
         #map{
-            height: 50vh;
-            width: 90%;
+            height: 100%;
+            width: 100%;
+            margin-left: 10% !important;
+        }
+
+        @media (max-width: 768px) {
+            #map{
+                height: 100%;
+                width: 100%;
+                margin-left: 0 !important;
+            }
+            #map-div { 
+                height: 400px;
+                margin-bottom: 3rem !important;
+            }
         }
 
         .profileinfo { 
@@ -60,15 +73,37 @@
         }
 
         .chat-button { 
-            background-color: #BFACD3 !important;
-            color: #451F6A !important;
+            background-color: #BFACD3;
+            color: #451F6A;
+            font-weight: 600;
+        }
+
+        .chat-button:hover { 
+            background-color: #BFACD3;
+            color: #FFF;
+            font-weight: 600;
+        }
+
+        .chat-button:disabled { 
+            background-color: #BDBDBD;
+            color: #888888;
             font-weight: 600;
         }
 
         .my-offer-button { 
-            color: #8A6F42 !important;
-            background-color: #d8c7a3 !important;
+            color: #8A6F42;
+            background-color: #d8c7a3;
             font-weight: 600;
+        }
+
+        .my-offer-button:hover { 
+            color: #FFF;
+            background-color: #d8c7a3;
+            font-weight: 600;
+        }
+
+        .valid-message { 
+            color: #BFACD3;
         }
     </style>
 
@@ -102,7 +137,7 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 d-flex">
+            <div class="col-md-6 d-flex" id="map-div">
                 <!-- <p>test</p> -->
                 <!-- <div class="block-placeholder"></div> -->
                 <div id="map" class="mx-auto m-2 rounded-3"></div>
@@ -243,7 +278,7 @@
                             />
                         </svg>
                         <h4 class="d-inline" id="capacity">
-                            {{ max_capacity - current_riders.length +1}} / {{ max_capacity }} seats available
+                            {{ max_capacity - current_riders.length + 1 }} / {{ max_capacity }} seats available
                         </h4>
                     </div>
                     <div class="datetime mb-4">
@@ -276,7 +311,15 @@
                         <!-- <button type="submit" class="btn button btn-lg" v-on:click="gotochat">
                             Chat for more
                         </button> -->
-                        <send-button :driver="driver_username" :user="user" v-on:gotochat="gotochat" :msg_length="msg_length"></send-button>
+                        <send-button 
+                            :driver="driver_username" 
+                            :user="user" 
+                            v-on:gotochat="gotochat" 
+                            :msg_length="msg_length" 
+                            :avail_capacity="max_capacity - current_riders.length + 1"
+                            :date="unformatted_date"
+                            :time="unformatted_time"
+                        ></send-button>
                 </div>
                 <!-- <div class="details d-inline-block align-middle">
                 </div> -->
