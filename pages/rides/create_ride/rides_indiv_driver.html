@@ -1026,9 +1026,10 @@
                     <input
                         type="number"
                         name="capacity"
-                        min="0"
+                        min="1"
                         max="10"
                         class="text-input bottom_text-input w-75"
+                        oninput="validity.valid||(value='');"
                         required
                     />
                     <span class="highlight"></span>
