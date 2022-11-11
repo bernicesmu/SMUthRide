@@ -7,9 +7,10 @@
 const form_alerts = Vue.createApp({
     data() {
         return {
-            date: "",
+            date: new Date().toISOString().split("T")[0],
             drop_off: "",
             today: new Date().toISOString().split("T")[0],
+            time: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
             location_input: "",
             location_alert: false,
             school_input: "Select School",

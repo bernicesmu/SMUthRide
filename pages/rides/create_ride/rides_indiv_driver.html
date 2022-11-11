@@ -995,6 +995,7 @@
                         type="date"
                         name="date"
                         class="bottom_text-input datetime-input w-75"
+
                         v-bind:min="today"
                         oninput="date_click()"
                         v-model="date"
@@ -1005,6 +1006,7 @@
                     <label
                         class="date_alert text-danger w-75"
                         role="alert"
+
                         v-if="check_date()"
                     >
                         Please select a date not more than 1 year from today *
@@ -1015,6 +1017,7 @@
                         type="time"
                         name="time"
                         class="bottom_text-input datetime-input"
+                        v-model="time"
                         oninput="time_click()"
                         required
                     />
