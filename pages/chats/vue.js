@@ -162,6 +162,7 @@ const chat_left = Vue.createApp({
             this.retreive_chat(this.current_chatid)
 
         },
+        // USE FORMATTED ADDRESS
         send_offer(){
             // console.log("hello")
             const db = getDatabase()
@@ -185,17 +186,18 @@ const chat_left = Vue.createApp({
                 let ride_details = snapshot.val()
                 let smu_location = ride_details.smu_location
                 let to_from = ride_details.smu_to_from
-                let neighbourhood = ride_details.neighbourhood
+                let formatted_address = ride_details.formatted_address
                 let ride_string = ""
+                let ride_id = ride_details.ride_id
                 if(to_from.toLowerCase() == "to"){
-                    ride_string = `${neighbourhood} to ${smu_location}`
+                    ride_string = `${formatted_address} to ${smu_location}`
                 }
                 else{
-                    ride_string = `${smu_location} to ${neighbourhood}`
+                    ride_string = `${smu_location} to ${formatted_address}`
                 }
-                this.offer_template = `I am offering $${this.offer_price} for ${ride_string}`
+                this.offer_template = `I am offering $${this.offer_price} for <a class="ride_url" href="../rides/ride_details/rides_indiv_rider.html?rideid=${ride_id}">${ride_string}</a>`
 
-                
+               
 
             })
 
@@ -285,6 +287,7 @@ const chat_left = Vue.createApp({
         // },
 
         get_relevant_rides(){
+            // do not show if user is already inside the listing
             this.relevant_rides = []
             let driver = this.selected_driver
             const db = getDatabase()
@@ -402,11 +405,11 @@ const chat_left = Vue.createApp({
         to_from(to_from, ride){
             let text = ""
             if(to_from == "from"){
-                text = `${ride.smu_location} to ${ride.user_address}`
+                text = `${ride.smu_location} to ${ride.neighbourhood}`
 
             }
             else{
-                text = `${ride.user_address} to ${ride.smu_location}`
+                text = `${ride.neighbourhood} to ${ride.smu_location}`
             }
             return text
         },
@@ -586,7 +589,7 @@ chat_left.component('status-check',{
 
     props: ["message"],
 
-    template: `<b>{{ message.username }}</b>: {{message.message}}<br>
+    template: `<b>{{ message.username }}</b>: <span v-html='message.message' style="font-weight: normal;"></span><br>
     <div class="offer-status" :style="offer_status_bg_colour(message.accepted)">
         <span :style="offer_status_colour(message.accepted)">
             {{message.accepted.charAt(0).toUpperCase() + message.accepted.substr(1).toLowerCase()}}
