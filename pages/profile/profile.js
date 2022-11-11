@@ -1,3 +1,57 @@
+import {
+    find_name_from_username,
+    find_user_profile,
+    write_user_profile,
+} from "../../index.js";
+
+import { GetProfilePicUrl, UploadProcess } from "./profile_mod_2.js";
+
+// firebase storage
+// import {
+//     getStorage,
+//     ref as sRef,
+//     uploadBytesResumable,
+//     getDownloadURL,
+// } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
+
+// database
+// import {
+//     getDatabase,
+//     ref,
+//     set,
+//     child,
+//     get,
+//     update,
+//     remove,
+//     onValue,
+// } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+
+// var username = localStorage.getItem("username_x");
+
+const url = window.location.href;
+
+let username = "";
+if (url.includes("profile_edit.html")) {
+    username = localStorage.getItem("username_x");
+    let username_elem = document.createElement("input");
+    username_elem.setAttribute("type", "hidden");
+    username_elem.setAttribute("name", "user");
+    username_elem.setAttribute("value", username);
+    document.getElementById("profile_form").appendChild(username_elem);
+} else {
+    let queryString = window.location.search;
+    let urlParams = new URLSearchParams(queryString);
+    username = urlParams.get("user");
+    GetProfilePicUrl(username);
+    if (username != localStorage.getItem("username_x")) {
+        document.getElementById("edit-profile").innerHTML = "";
+    }
+}
+
+// console.log(username, "oiewfjewo");
+find_user_profile(username);
+find_name_from_username(username);
+
 Vue.createApp({
     data() {
         return {
@@ -118,6 +172,58 @@ Vue.createApp({
             element.style.height = "5px";
             element.style.height = element.scrollHeight + "px";
         },
+        update_user_database() {
+            var inputs = document.getElementsByClassName("target-input");
+            var cca_options = document.getElementsByClassName("cca_options");
+            var displayname = inputs.displayname.value;
+            var age = String(inputs.age.value);
+            var bio = inputs.bio.value;
+            var degree = inputs.degree.value;
+            var facebook = inputs.facebook.value;
+            var instagram = inputs.instagram.value;
+            var linkedin = inputs.linkedin.value;
+            var mbti = inputs.mbti.value;
+            var gender = inputs.gender.value;
+            var year = inputs.year.value;
+
+            var cca = [];
+            for (var cca_op of cca_options) {
+                if (cca_op.value != "") {
+                    cca.push(cca_op.value);
+                }
+            }
+
+            if (cca.length == 0) {
+                cca = [""];
+            }
+
+            write_user_profile(
+                username,
+                displayname,
+                age,
+                bio,
+                cca,
+                degree,
+                facebook,
+                instagram,
+                linkedin,
+                mbti,
+                gender,
+                year
+            );
+        },
+        uploadImage(event) {
+            let files = [];
+            let reader = new FileReader();
+
+            files = event.target.files;
+            reader.readAsDataURL(files[0]);
+
+            reader.onload = function () {
+                this.profile_url = reader.result;
+            };
+            UploadProcess(files);
+        },
 
         // onFileSelect(event){
         //     console.log(event.target.files[0])
@@ -145,31 +251,32 @@ Vue.createApp({
         //     })
         // }
     },
+    beforeCreate() {},
     created() {
         // @bernice I have temporarily hardcoded values
         // can you connect to database here and get all the values in the data
         // you can refer to the pseudocode in this site https://www.w3docs.com/snippets/vue-js/what-is-the-difference-between-the-created-and-mounted-hooks-in-vue-js.html
         // feel free to change all the values to null if needed
+        // let price = localStorage.getItem("price");
+        // let speed = localStorage.getItem("speed");
+        // let comfort = localStorage.getItem("comfort");
+        // let convenience = localStorage.getItem("convenience");
+        // let location_user = localStorage.getItem("location_user");
+        // console.log(location_user);
+        // console.log(facebook);
+        // console.log(this.fullFacebookLink);
         let username = localStorage.getItem("username_x");
         let displayname = localStorage.getItem("displayname");
         let age = String(localStorage.getItem("age"));
         let bio = localStorage.getItem("bio");
         let cca = localStorage.getItem("cca");
-        // let price = localStorage.getItem("price");
-        // let speed = localStorage.getItem("speed");
-        // let comfort = localStorage.getItem("comfort");
-        // let convenience = localStorage.getItem("convenience");
         let degree = localStorage.getItem("degree");
         let facebook = localStorage.getItem("facebook");
         let instagram = localStorage.getItem("instagram");
         let linkedin = localStorage.getItem("linkedin");
-        // let location_user = localStorage.getItem("location_user");
-        // console.log(location_user);
         let mbti = localStorage.getItem("mbti");
         let gender = localStorage.getItem("gender");
         let year = localStorage.getItem("year");
-        // console.log(facebook);
-        // console.log(this.fullFacebookLink);
 
         if (cca != "") {
             cca = cca.split(",");
@@ -178,24 +285,24 @@ Vue.createApp({
             cca = [""];
         }
 
-        db_profile_url = localStorage.getItem("profile_url");
+        let db_profile_url = localStorage.getItem("profile_url");
         if (db_profile_url != "undefined") {
             this.profile_url = db_profile_url;
         }
 
+        // this.prefPrice = price;
+        // this.prefComfort = comfort;
+        // this.prefConvenience = convenience;
+        // this.prefSpeed = speed;
+        // this.location_user = location_user;
         this.username = username;
         this.displayname = displayname;
         this.degree = degree;
         this.yearOfStudy = year;
         this.age = age;
         this.gender = gender;
-        // this.location_user = location_user;
         this.mbti = mbti;
         this.bio = bio;
-        // this.prefPrice = price;
-        // this.prefComfort = comfort;
-        // this.prefConvenience = convenience;
-        // this.prefSpeed = speed;
         this.ccas = cca;
         this.linkedinLinkInput += linkedin;
         this.facebookLinkInput += facebook;
