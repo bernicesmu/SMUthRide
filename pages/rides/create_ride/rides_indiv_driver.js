@@ -79,19 +79,8 @@ form_alerts.component('time-input', {
                     name="time_hour"
                     id="time_hour"
                     class="dropdowns dropdown-time"
+                    v-html="get_hour()"
                 >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
                 </select>
                 :
                 <select
@@ -117,14 +106,52 @@ form_alerts.component('time-input', {
                     name="time_ampm"
                     id="time_ampm"
                     class="dropdowns dropdown-time"
+                    v-html="get_ampm()"
                 >
-                    <option value="am">AM</option>
-                    <option value="pm">PM</option>
                 </select>
                 </div>`,
 
     methods: { 
+        get_hour() { 
+            var today = new Date()
+            var now_hour = today.getHours()
+            console.log(now_hour)
+            var next_hour = now_hour + 1 
+            var selected = ""
+            var to_return = ""
+            if (next_hour > 12) { 
+                next_hour -= 12
+            }
+            for (var i of Array(12).keys()) { 
+                if (i+1 == next_hour) { 
+                    selected = "selected"
+                }
+                to_return += `<option value="${i+1}" ${selected}>${i+1}</option>`
+                selected = ""
+            }
+            return to_return
+        },
 
+        get_ampm() {
+            var today = new Date()
+            var now_hour = today.getHours()
+            console.log(now_hour)
+            var next_hour = now_hour + 1 
+            var selected = ""
+            var to_return = ""
+            var ampm = 'am'
+            if (next_hour > 11) { 
+                ampm = 'pm'
+            }
+            for (var i of ['am', 'pm']) { 
+                if (i == ampm) { 
+                    selected = "selected"
+                }
+                to_return += `<option value="${i}" ${selected}>${i.toUpperCase()}</option>`
+                selected = ""
+            }
+            return to_return
+        }
     }
 })
 
