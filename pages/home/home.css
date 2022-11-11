@@ -151,23 +151,23 @@ p {
 }
 
 .green {
-    color: #4caf50;
+    color: #4e7570;
 }
   
 .darkgreen {
-    color: #357a38;
+    color: #8A6F42;
 }
   
 .orange {
-    color: 	#e7b416;
+    color: 	#451F6A;
 }
   
 .darkorange {
-    color: #db7b2b;
+    color: #894949;
 }
   
 .red {
-    color: #cc3232;
+    color: #894949;
 }
 
 /* ROTATING SUBTEXT */
@@ -388,12 +388,12 @@ p {
 	100% { transform: rotate(360deg); }
 }
 @keyframes daylight {
-	0% {  background-color: #70c4c6; }
-	15% {  background-color: #524b64; }
-	40% { background-color: #354a4a; }
-	70% { background-color: #354a4a; }
-	80% {  background-color: #e2b553; }
-	100% {  background-color: #70c4c6;}
+	0% {  background-color: #bedad6; }
+	20% {  background-color: #d8c7a3; }
+	40% { background-color: #BFACD3; }
+	60% { background-color: #F3D8D8; }
+	80% {  background-color: #d8c7a3; }
+	100% {  background-color: #bedad6; }
 }
 
 @keyframes cloud {
