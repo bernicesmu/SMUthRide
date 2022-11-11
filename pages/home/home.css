@@ -463,6 +463,9 @@ p {
 		animation: moveRight 15s linear infinite;
 	
 	}
+	@keyframes moveRight {
+		100%{transform:translateX(-2080px)}
+	}
 
 	.car-group {
 		position: absolute;
@@ -517,12 +520,12 @@ p {
 		background-color: transparent;
 		position: absolute;
 		top: 20px;
-		left: -200px;
+		left: -220px;
 	}
 	.sun.a {
 		transform: rotate(180deg);
 		bottom: 20px;
-		right: -200px;
+		right: -220px;
 		left: auto;
 		top:auto;
 	}
