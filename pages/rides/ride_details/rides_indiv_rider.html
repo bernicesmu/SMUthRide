@@ -58,6 +58,18 @@
         .profileinfo { 
             text-decoration: none;
         }
+
+        .chat-button { 
+            background-color: #BFACD3 !important;
+            color: #451F6A !important;
+            font-weight: 600;
+        }
+
+        .my-offer-button { 
+            color: #8A6F42 !important;
+            background-color: #d8c7a3 !important;
+            font-weight: 600;
+        }
     </style>
 
     <link rel="stylesheet" href="../../../main.css" />
@@ -253,7 +265,7 @@
                         <h4 class="d-inline" id="date_time">
                             {{ date[1]}} ({{date[0]}})
                             {{ time }}
-                        
+                           
                         </h4>
                     </div>
                 </div>
@@ -261,16 +273,10 @@
                     <!-- <button type="button" class="btn button btn-lg me-2">
                         Make an offer
                     </button> -->
-                    <!-- <form
-                        id="gotochat"
-                        method="post"
-                        action="../../chats/chat.html"
-                    > -->
                         <!-- <button type="submit" class="btn button btn-lg" v-on:click="gotochat">
                             Chat for more
                         </button> -->
-                        <send-button :driver="driver_username" :you="user" v-on:gotochat="gotochat">{{driver_username}}</send-button>
-                    <!-- </form> -->
+                        <send-button :driver="driver_username" :user="user" v-on:gotochat="gotochat" :msg_length="msg_length"></send-button>
                 </div>
                 <!-- <div class="details d-inline-block align-middle">
                 </div> -->

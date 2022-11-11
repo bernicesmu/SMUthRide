@@ -3,20 +3,11 @@
 }
 
 .navbar {
-    background-color: #d8c7a3 !important;
+    /* background-color: #d8c7a3 !important; */
+    background-color: #e3f1ef !important;
     transition: top 0.8s ease !important;
     padding: 1rem 4rem !important;
     z-index: 10 !important;
-}
-
-.navbar-top {
-    background-color: #d8c7a3 !important;
-    transition: top 0.8s ease, background-color 0.8s ease !important;
-}
-
-.navbar-down {
-    background-color: #e3f1ef !important;
-    transition: top 0.8s ease, background-color 0.8s ease !important;
 }
 
 .street {
@@ -59,7 +50,7 @@
 
 .nav-item a:link,
 .nav-item a:visited {
-    text-decoration: none !important;
+    color: #b31c13;
 }
 
 .nav-item a:hover,
@@ -69,19 +60,14 @@
     transition: 0.4s ease !important;
 }
 
-.nav-item-top {
-    color: #bedad6 !important;
-}
-
-.nav-item-down {
-    color: #b31c13 !important;
+.current-page {
+    color: #4e7570 !important;
 }
 
 #side-car {
     height: 55px;
     transform: translateY(-4px);
     position: relative;
-    /* animation: beep-beep 5s linear infinite;  */
 }
 
 .navbar-brand {
@@ -89,15 +75,10 @@
 }
 
 .profile-img {
-    /* max-height: 2.4rem;
-    max-width: 2.4rem; */
-    /* width: 2.4rem;
-    height: 2.4rem; */
     width: 2.4rem;
     height: 2.4rem;
-    object-fit: contain;
+    object-fit: cover;
     object-position: 50% 50%;
-    border: black solid 1px;
 }
 
 @keyframes beep-beep {
@@ -144,8 +125,6 @@
     left: 9px;
     top: 27px;
     animation: tyre-beep 5s infinite linear;
-    /* -moz-animation:tyre-rotate 5s infinite linear;
-    -webkit-animation:tyre-rotate 5s infinite linear; */
 }
 
 #div-car {
