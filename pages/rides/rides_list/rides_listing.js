@@ -72,13 +72,13 @@ const listings = Vue.createApp({
             this.listings = Object.values(this.listings)
 
             if (this.to_from === "to"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "to" &&(x.users_offered.length - x.max_capacity<1) && x.date > new Date().toISOString().split('T')[0]);
+                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "to" &&(x.users_offered.length - x.max_capacity<1));
             } else if (this.to_from === "from"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "from" &&(x.users_offered.length - x.max_capacity<1) && x.date > new Date().toISOString().split('T')[0]);
+                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "from" &&(x.users_offered.length - x.max_capacity<1) );
             }
             if (this.search != ''){
                 this.display_listings = this.display_listings.filter(x => x.smu_to_from == this.to_from &&
-                    x.date > new Date().toISOString().split('T')[0] &&
+
                     (x.users_offered.length - x.max_capacity<1) &&
                     (x.neighbourhood.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                         x.formatted_address.toLowerCase().indexOf(this.search.toLowerCase()) > -1));
