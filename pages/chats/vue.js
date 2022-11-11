@@ -182,6 +182,10 @@ const chat_left = Vue.createApp({
                 selected_ride : this.selected_ride,
                 mid : this.new_mid
               })
+            
+            this.offer_price = ""
+            this.selected_driver = ""
+            this.selected_ride = ""
 
 
            
@@ -297,6 +301,7 @@ const chat_left = Vue.createApp({
                                    
                                     // it is from then smu_location to area
                                     // else area to smu_location
+                                    console.log("HI")
                                     let result = this.to_from(to_from,ride)
                                     let final_output = [result, ride_id]
                                     this.relevant_rides.push(final_output)
@@ -305,6 +310,7 @@ const chat_left = Vue.createApp({
                                 else if(Number(ride_year) == current_year){
                                     if(Number(ride_month) > current_month){
                                         // ok 
+                                        console.log("HI")
                                         let result = this.to_from(to_from,ride)
                                         let final_output = [result, ride_id]
                                         this.relevant_rides.push(final_output)
@@ -313,6 +319,7 @@ const chat_left = Vue.createApp({
                                     else if(Number(ride_month) == current_month){
                                         if(Number(ride_day) > current_day){
                                             // pl
+                                            console.log("HI")
                                             let result = this.to_from(to_from,ride)
                                             let final_output = [result, ride_id]
                                             this.relevant_rides.push(final_output)
@@ -320,6 +327,7 @@ const chat_left = Vue.createApp({
                                         }
                                         else if(Number(ride_day) == current_day){
                                             // ok
+                                            console.log("HI")
                                             let result = this.to_from(to_from,ride)
                                             let final_output = [result, ride_id]
                                             this.relevant_rides.push(final_output)
@@ -336,6 +344,7 @@ const chat_left = Vue.createApp({
                   
                     
                 }
+                console.log(this.relevant_rides)
                
             })
 
@@ -345,11 +354,11 @@ const chat_left = Vue.createApp({
         to_from(to_from, ride){
             let text = ""
             if(to_from == "from"){
-                text = `${ride.smu_location} to ${ride.area}`
+                text = `${ride.smu_location} to ${ride.user_address}`
 
             }
             else{
-                text = `${ride.area} to ${ride.smu_location}`
+                text = `${ride.user_address} to ${ride.smu_location}`
             }
             return text
         },
@@ -521,12 +530,12 @@ chat_left.component('chat-box', {
     template: `<div :id="chat_id" class="chatbox" style="padding:10px; display: flex;" v-on:click="$emit('get_chat',chat_id)" @click="selected_chat(chat_id)">
     <div id="photo">
         <img :src="image_url" class="profile-pic img-fluid rounded-circle"
-        style="object-fit: fill; height: 50px; width: 50px; object-position: 50% 50%;" >
+        style="object-fit: cover; height: 50px; width: 50px; object-position: 50% 50%;">
     </div>
     <div style="margin-left: 20px;align-self: start;width: 70%;"> 
       <b>{{ receipient_username }}</b>
       <div v-if="latest_message != ''" style="text-overflow: ellipsis; display: block; width:50%;white-space: nowrap; width: 100%; overflow: hidden;">
-        {{ sender_latest_message }}: {{ latest_message }}
+        <span v-html="message_formatted(sender_latest_message, latest_message)"></span>
       </div>
     </div>
 </div>`,
@@ -609,6 +618,9 @@ chat_left.component('chat-box', {
                 to_style += 'border-radius: 0px 0px 30px 30px;'
             }
             document.getElementById(chat_id).style = to_style
+        },
+        message_formatted(sender, message) { 
+            return `${sender}: ${message}`
         },
     }
 })

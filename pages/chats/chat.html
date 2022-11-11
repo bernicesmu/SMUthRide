@@ -47,7 +47,7 @@
             <!-- Offer Overlay -->
             <div id="overlay" class="my-auto">
               <div id="text" class="mb-6">
-                <img src="./6-2-taxi-cab-png-images.png" alt="" class="img-fluid">
+                <!-- <img src="./6-2-taxi-cab-png-images.png" alt="" class="img-fluid"> -->
                 <h1 class="text-center mb-5">Make an Offer</h1>
                 
                 <div class="d-flex justify-content-evenly mb-4">
@@ -68,12 +68,12 @@
                   <p>
                     Rides:
                   </p>
-                  
                   <select class="form-select form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride">
                     <!-- v-bind:value="address[1]" -->
-                    <option v-for="address of relevant_rides" v-bind:value="address[1]">
+                    <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
                       {{ address[0] }}
                     </option>
+                    <option v-else disabled selected>All Rides are full!</option>
                   </select>
                   <div></div>
                 </div>
@@ -99,7 +99,7 @@
             
         <div class="container-fluid" >
           <div class="row">
-            <div class="col-md-4 col-xs-12 col-sm-12">
+            <div class="col-md-5 col-xs-12 col-sm-12">
               <div style="height:min-content" id="leftbar" v-show="swapping == true" class="d-none d-md-block">
              
                 <div class="mt-1 chat-label-div">
@@ -113,10 +113,10 @@
             </div>
             
             <!-- LEFT BAR END -->
-            <div class="col-md-8 col-xs-12 col-sm-12">
+            <div class="col-md col-xs-12 col-sm-12">
 
                 <div id="chat" onscroll="sticky()" style="min-height: 70vh; max-height: 80vh;">
-                  <div id="contact" class="d-flex">
+                  <div id="contact" class="d-flex" v-if="other_user != ''">
                     <div class="d-flex">
                       <!-- back icon -->
                       <!-- <button class="d-block d-md-none clearfix" @click="swap"> -->
@@ -126,8 +126,8 @@
                         <!-- <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i> -->
                       <!-- </button> -->
                       
-                      <div id="photo"><img :src="image_url" class="img-fluid rounded-circle"
-                        style="object-fit:fill;height: 50px; width: 50px; object-position: 50% 50%"> </div>
+                      <div id="photo" v-if="image_url != ''"><img :src="image_url" class="img-fluid rounded-circle"
+                        style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> </div>
                       <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
                     </div>
                     <div>
@@ -139,6 +139,19 @@
                       >
                       Make Offer
                       </button>
+                    </div>
+                  </div>
+                  <div v-else>
+                    <div class="d-flex" style="background-color: #4e7570;">
+                      <!-- back icon -->
+                      <!-- <button class="d-block d-md-none clearfix" @click="swap"> -->
+                        <svg id="back-button" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#fff"  class="bi bi-arrow-left d-md-none" viewBox="0 0 16 16" @click="swap">
+                          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                        </svg>
+                        <!-- <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i> -->
+                      <!-- </button> -->
+                      
+                      <h3 class="text-white text-center">Welcome to SMUth Chat</h3>
                     </div>
                   </div>
                   <!-- messages will display here -->
@@ -163,10 +176,10 @@
                     
                   </ul>
 
-                  <div style="background-color:azure; width: fit-content;border-radius: 30px; float: right; padding: 20px;" v-if="is_offer" class="sent" v-html="offer_template"></div>
+                  <!-- <div style="background-color:azure; width: fit-content;border-radius: 30px; float: right; padding: 20px;" v-if="is_offer" class="sent" v-html="offer_template"></div> -->
 
                   <!-- form to send message -->
-                  <div class="sub_div d-flex">
+                  <div class="sub_div d-flex" v-if="other_user != ''">
                       <!-- <form action="" id="message-form"> -->
                           <input
                               id="message-input"

@@ -3,6 +3,8 @@ $medium-green: #bedad6;
 $light-green: #e3f1ef;
 $dark-blue: #4c86a2; 
 $light-blue: #a7c7d6; 
+$lilac : #BFACD3;
+$dark-purple : #451F6A;
 
 html { 
   height: 100%;
@@ -256,7 +258,7 @@ p{
 }
 
 #photo{
-  background-color: grey;
+  // background-color: grey;
   border-radius: 50%;
  
   height: 50px;
@@ -328,11 +330,11 @@ button{
   top: 50%;
   left: 50%;
   width: 400px;
-  color: white;
+  color:$dark-purple !important;
   transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
     height: 600px;
-  background-color:$light-blue;
+  background-color:$lilac;
   border-radius: 30px;
   padding: 20px;
   // padding-top: 120px;
