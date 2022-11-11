@@ -689,8 +689,9 @@
                             value="Find route!"
                             v-bind:disabled="location_input.length == 0"
                             class="btn button w-50 d-block text-center getRoute-buttons mx-4"
-                            onclick="calcRoute()"
-                        >Find route!</button>
+                            onclick="calcRoute()">
+                                Find route!
+                        </button>
                         <br />
                         <div id="info_hover" class="my-auto popup"></div>
                     </div>
@@ -808,7 +809,7 @@
                                 travelMode: google.maps.TravelMode["DRIVING"],
                                 unitSystem: google.maps.UnitSystem["METRIC"],
                             };
-                            console.log("is it working???");
+                            console.log("===Calculating route===");
                         } else {
                             var request = {
                                 origin: document.getElementById(
@@ -820,11 +821,8 @@
                             };
                         }
 
-                        if (
-                            document.getElementById("info_hover").innerHTML !=
-                            ""
-                        ) {
-                            console.log("===wtf===");
+                        if (document.getElementById("info_hover").innerHTML != "") {
+                            console.log("===directions not set===");
                             directionsDisplay.setDirections({ routes: [] });
                         }
 
@@ -936,7 +934,14 @@
                                                                         onclick='showPopUp()'>
                                                                         <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                                                     </svg>
-                                                                    <span class="tooltiptext popuptext" id='popupMessage'>
+                                                                    <span class="tooltiptext">
+                                                                        From: <b>${formatted_address}</b>
+                                                                        <br>To: <b>${sch_name}</b>
+                                                                        <br>Driving distance: <b>${distance}</b>
+                                                                        <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
+                                                                        <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
+                                                                    </span>
+                                                                    <span class="popuptext" id='popupMessage'>
                                                                         From: <b>${formatted_address}</b>
                                                                         <br>To: <b>${sch_name}</b>
                                                                         <br>Driving distance: <b>${distance}</b>
@@ -1068,16 +1073,13 @@
                         v-model="time"
                         oninput="time_click()"
                         required
-                        step= "300"
                     />
                     <span class="highlight"></span>
                     <label class="date-label" id="time-label">Time</label>
                     <label
                             class="date_alert text-danger w-75"
                             role="alert"
-
-                            v-if="check_time()"
-                    >
+                            v-if="check_time()">
                         You cant time travel.. Please choose a later timing *
                     </label>
                 </div>
@@ -1085,6 +1087,7 @@
                     type="submit"
                     class="btn button d-block mx-auto mt-5 w-100 mb-5"
                     id="rides"
+                    v-bind:disabled="((time.length == '') || (date.length == ''))"
                 >
                     Get in loser, we're going shopping.
                 </button>
@@ -1117,9 +1120,6 @@
         //console.log(huh)
 
     </script>
-</div>
-<div> 
-    {{oneHourAhead}}
 </div>
 </body>
 

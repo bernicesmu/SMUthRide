@@ -13,10 +13,12 @@ const form_alerts = Vue.createApp({
             //time: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
             time: ((parseInt(new Date().toLocaleTimeString('en-GB').split(":")[0])+1)).toString() + ":" + new Date().toLocaleTimeString('en-GB').split(":")[1],
             time_now: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
-            step: "300",
 
             location_input: "",
             location_alert: false,
+            time_alert: false,
+            date_alert: false,
+            fully_filled: false,
             school_input: "Select School",
             formatted_address : ""
         }
@@ -24,6 +26,9 @@ const form_alerts = Vue.createApp({
     methods:{
         check_time(){
             var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
+
+            console.log(this.date)
+            console.log(this.time)
             if (this.time < time){
                 return true
             } return false
@@ -42,6 +47,17 @@ const form_alerts = Vue.createApp({
             return false;
         },
 
+        check_inputs() {
+            if ((this.full_date) && (this.full_time)){
+                console.log(this.date)
+                console.log(this.time)
+                console.log("=== i want to die ===")
+                return this.fully_filled = true
+            }
+            return false
+    
+        }
+
         
         // addHoursToDate(date, hours) {
         //     return new Date(new Date(date).setHours(date.getHours() + hours));
@@ -55,6 +71,20 @@ const form_alerts = Vue.createApp({
         location_input: {
             handler(value, oldValue) {
                 this.location_alert = value === "" && oldValue !== "";
+            },
+            deep: true
+        },
+
+        submitted_time: {
+            full_time(new_time, old_time) {
+                this.time_alert = new_time === "" && old_time !== "";
+            },
+            deep: true
+        },
+
+        submitted_date: {
+            full_date(new_date, old_date) {
+                this.date_alert = new_date === "" && old_date !== "";
             },
             deep: true
         }
@@ -73,8 +103,10 @@ document.getElementById('rides').addEventListener('click',event => {
     event.preventDefault()
     write_ride_local()
 })
+
 find_rid()
 async function write_ride_local() {
+    console.log('=== START ===')
     
     var username = localStorage.getItem("username_x")
 
