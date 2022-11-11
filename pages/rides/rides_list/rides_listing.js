@@ -36,7 +36,7 @@ const listings = Vue.createApp({
     methods: {
         expired_check(date,time){
             var today = new Date();
-            var local_date = today.toLocaleDateString().split("/")
+            var local_date = today.toLocaleDateString('en-GB').split("/")
             var local_date_formatted = local_date[2] + '-' + local_date[1] + '-' + local_date[0]
             console.log(today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))
             if (date < local_date_formatted || (date == local_date_formatted && time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))){
@@ -72,13 +72,13 @@ const listings = Vue.createApp({
             this.listings = Object.values(this.listings)
 
             if (this.to_from === "to"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "to" &&(x.users_offered.length - x.max_capacity<1) && x.date > new Date().toISOString().split('T')[0]);
+                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "to" &&(x.users_offered.length - x.max_capacity<1));
             } else if (this.to_from === "from"){
-                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "from" &&(x.users_offered.length - x.max_capacity<1) && x.date > new Date().toISOString().split('T')[0]);
+                this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "from" &&(x.users_offered.length - x.max_capacity<1) );
             }
             if (this.search != ''){
                 this.display_listings = this.display_listings.filter(x => x.smu_to_from == this.to_from &&
-                    x.date > new Date().toISOString().split('T')[0] &&
+
                     (x.users_offered.length - x.max_capacity<1) &&
                     (x.neighbourhood.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                         x.formatted_address.toLowerCase().indexOf(this.search.toLowerCase()) > -1));
@@ -117,8 +117,8 @@ const listings = Vue.createApp({
         });
 
         onValue(rides, (snapshot) => {
-            this.listings = snapshot.val().filter(x => this.expired_check(x.date, x.time));
-
+            this.listings = snapshot.val();
+            this.listings = this.listings.filter(x => this.expired_check(x.date, x.time))
             console.log(snapshot.val())
             console.log(this.listings)
             this.check_and_populate()
