@@ -34,11 +34,17 @@ const listings = Vue.createApp({
         }
     },
     methods: {
-        expired_check(date, time){
+        expired_check(date,time){
             var today = new Date();
-            if (date < today.toISOString().split("T")[0] && time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")){
+            var local_date = today.toLocaleDateString().split("/")
+            var local_date_formatted = local_date[2] + '-' + local_date[1] + '-' + local_date[0]
+            console.log(today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))
+            if (date < local_date_formatted || (date == local_date_formatted && time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))){
+                console.log("expired")
                 return false
-            } return true
+            }
+            console.log("not expired")
+            return true
         },
 
         searchResults() {

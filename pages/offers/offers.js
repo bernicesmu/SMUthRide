@@ -29,26 +29,18 @@ const listings = Vue.createApp({
         }
     },
     methods: {
-        expired_check(date, time){
+        expired_check(date,time){
             var today = new Date();
-            if (date < today.toISOString().split("T")[0] && time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")){
+            var local_date = today.toLocaleDateString('en-GB').split("/")
+            var local_date_formatted = local_date[2] + '-' + local_date[1] + '-' + local_date[0]
+
+            if (date < local_date_formatted || (date == local_date_formatted && time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))){
+                console.log("expired")
                 return false
-            } return true
+            }
+            console.log("not expired")
+            return true
         },
-
-        // check_and_populate(){
-        //
-        //     this.driver_listings= this.listings.filter(x=> x.driver_username === this.user).sort((a,b) => a.time.localeCompare(b.time));
-        //
-        //     this.rider_temp = this.listings.filter(x=>  x.users_offered.includes(this.user));
-        //
-        //     if (this.to_from === "From"){
-        //         this.rider_listings = this.rider_temp.filter(x=> x.smu_to_from === "from").sort((a,b) => a.time.localeCompare(b.time));
-        //     } else {
-        //         this.rider_listings = this.rider_temp.filter(x=> x.smu_to_from === "to").sort((a,b) => a.time.localeCompare(b.time));
-        //     };
-        // },
-
 
     },
     mounted() {
@@ -89,14 +81,14 @@ const listings = Vue.createApp({
 
 })
 
-listings.mount('#populate_listings')
+
 
 listings.component('drive', {
     props: ['list'],
     methods: {
         format_date(date){
             date = date.split("-")
-            let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
+            let day = new Date(date[0], date[1]-1, date[2]).toDateString().split(" ")
             return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
         },
         formatAMPM(date){
@@ -143,10 +135,10 @@ listings.component('drive', {
 })
 
 listings.component('ride', {
-    props: ['list', `users_list`],
+    props: ['list', 'users'],
     data() {
         return{
-            to_from : "From",
+            to_from : "from",
             display_listings: [],
         }
     },
@@ -176,7 +168,7 @@ listings.component('ride', {
             </div>
         </div>
         <div class="d-flex flex-wrap justify-content-center">
-            <div class="card col-sm-6 col-md-4 col-lg-3" v-for="listing in rider_listings">
+            <div class="card col-sm-6 col-md-4 col-lg-3" v-for="listing in display_listings">
                 <div class="card-body col py-0">
 
                     <a class="stretched-link"
@@ -204,7 +196,7 @@ listings.component('ride', {
                         <div class="col-8">
                             <div class="text-center overflow-visible">
                                 <h5 class="mb-0 py-2">
-                                  {{ get_user_name(listing.driver_username) }}
+                                  {{ this.get_user_name(listing.driver_username) }}
                                 </h5>
                                 <h5 class="my-0 fw-bold">
                                   {{ format_date(listing.date)[1] }}
@@ -262,7 +254,7 @@ listings.component('ride', {
         },
         format_date(date){
             date = date.split("-")
-            let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
+            let day = new Date(date[0], date[1]-1, date[2]).toDateString().split(" ")
             return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
         },
         get_user_name(username){
@@ -272,11 +264,25 @@ listings.component('ride', {
             return this.users[username].profile_url
         },
         change_direction(){
-            this.to_from = this.to_from === "To" ? "From" : "To";
+            this.to_from = this.to_from === "to" ? "from" : "to";
             this.check_and_populate()
         },
         redirect(id){
             window.location.href='../rides/ride_details/rides_indiv_rider.html?rideid=' + id
         },
+        check_and_populate(){
+            if (this.to_from === "to"){
+                console.log("to")
+                this.display_listings = this.list.filter(listing => listing.smu_to_from === "to")
+            } else {
+                console.log("from")
+                this.display_listings = this.list.filter(listing => listing.smu_to_from === "from")
+            }
+        }
+    },
+    mounted() {
+        this.check_and_populate();
     }
 })
+
+listings.mount('#populate_listings')

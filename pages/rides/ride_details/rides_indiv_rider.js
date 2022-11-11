@@ -260,7 +260,7 @@ app.component('send-button',{
         }
     },
 
-    props: ['driver','user', 'avail_capacity', 'date', 'time'],
+    props: ['driver','user', 'avail_capacity', 'date', 'time', 'current_riders'],
 
     emits: ['gotochat'],
 
@@ -269,18 +269,24 @@ app.component('send-button',{
                     method="post"
                     :action="find_action_path()"
                 >
-                <button v-if="!driver_is_user() && avail_capacity > 0 && expired_check()" type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length">
-                    Chat for more
-                </button>
-                <div v-else-if="!driver_is_user()"> 
-                    <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length" disabled>
+                    <div v-if="!driver_is_user() && user_is_offered()" > 
+                        <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length" disabled>
+                            Ride accepted
+                        </button>
+                        <p class='valid-message'>You have already accepted this ride!</p>
+                    </div> 
+                    <button v-else-if="!driver_is_user() && avail_capacity > 0 && expired_check()" type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length">
                         Chat for more
                     </button>
-                    <p class='valid-message'>This ride is no longer available!</p>
-                </div>
-                <button v-else class="btn btn-lg my-offer-button">
-                    My offers
-                </button>
+                    <div v-else-if="!driver_is_user()"> 
+                        <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length" disabled>
+                            Chat for more
+                        </button>
+                        <p class='valid-message'>This ride is no longer available!</p>
+                    </div>
+                    <button v-else class="btn btn-lg my-offer-button">
+                        My offers
+                    </button>
                 </form>`,
 
     methods: {
@@ -341,6 +347,14 @@ app.component('send-button',{
             console.log("not expired")
             return true
         },
+
+        user_is_offered() { 
+            var offered_users = Object.values(this.current_riders)
+            if (offered_users.includes(this.user)) { 
+                return true
+            }
+            return false
+        }
 
        
 
