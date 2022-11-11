@@ -24,7 +24,8 @@ const chat_left = Vue.createApp({
             relevant_rides : [],
             selected_ride : "",
             offered_person_id : 0,
-            counter : 0
+            counter : 0,
+            selected_room: ""
         }
     },
     computed:{
@@ -432,6 +433,9 @@ const chat_left = Vue.createApp({
                 time.counter = Date.now()
                 
             },1000)
+        },
+        selected_chatroom(chat_id){
+            this.selected_room = chat_id
         }
      
 
@@ -631,9 +635,9 @@ chat_left.component('chat-box', {
     },
     props: ['chat_id'],
 
-    emits: ['get_chat'],
-
-    template: `<div :id="chat_id" class="chatbox" style="padding:10px; display: flex;" v-on:click="$emit('get_chat',chat_id)" @click="selected_chat(chat_id)">
+    emits: ['get_chat','selected_chatroom'],
+    // @click="selected_chat(chat_id)"
+    template: `<div :id="chat_id" class="chatbox" style="padding:10px; display: flex;" v-on:click="$emit('get_chat',chat_id)" v-on:click="$emit('selected_chatroom',chat_id)">
     <div id="photo">
         <img :src="image_url" class="profile-pic img-fluid rounded-circle"
         style="object-fit: cover; height: 50px; width: 50px; object-position: 50% 50%;">
@@ -716,10 +720,10 @@ chat_left.component('chat-box', {
 
             var last_chat = chatboxes[chatboxes.length-1]['id']
             this.selected_chatroom = chat_id;
-            var to_style = `color: #8A6F42;
-            background-color: #d8c7a3;
-            padding:10px; 
-            display: flex;`
+            // var to_style = `color: #8A6F42;
+            // background-color: #d8c7a3;
+            // padding:10px; 
+            // display: flex;`
             if (chat_id == last_chat) { 
                 to_style += 'border-radius: 0px 0px 30px 30px;'
             }
