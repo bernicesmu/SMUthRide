@@ -492,6 +492,11 @@
             position: absolute;
             left: 0px;
         }
+        .change_date {
+            position: absolute;
+            top: -30px;
+            right: 0px
+        }
 
         .rotate-forward {
             animation: rotate-180-cw 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)
@@ -1077,8 +1082,15 @@
 
                 v-if="check_date()"
             >
-                Please select a date not more than 1 year from today *
+                Please select a date not more than 1 year from today or before today *
             </label>
+            <label
+                        class="change_date text-danger"
+                        role="alert"
+                        v-if="change_date"
+                    >
+                        Please input a date*
+                    </label>
         </div>
         <div class="group">
             <!-- <input
@@ -1091,24 +1103,25 @@
                 required
                 step= "300"
             /> -->
-            <time-input></time-input>
+            <time-input @change='check_time()'></time-input>
             <span class="highlight"></span>
             <label class="date-label" id="time-label">Time</label>
-            <label
+            <!-- <label
                     class="date_alert text-danger w-75"
                     role="alert"
 
                     v-if="check_time()"
             >
                 You cant time travel.. Please choose a later timing *
-            </label>
+            </label> -->
         </div>
         <button
             type="submit"
             class="btn button d-block mx-auto mt-5 w-100 mb-5"
             id="rides"
-            v-bind:disabled="(date.length == '')"
+            v-bind:disabled="(date.length == '') || (location_input == '') || (just_stop =='no')"
         >
+        <!-- this disable button needs to be modified as well -->
             Get in loser, we're going shopping.
         </button>
 <!--            </form>-->

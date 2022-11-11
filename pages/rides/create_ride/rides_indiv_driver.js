@@ -7,18 +7,20 @@
 const form_alerts = Vue.createApp({
     data() {
         return {
-            date: new Date().toISOString().split("T")[0],
+            date: ((new Date()).getFullYear()) + '-' + (((new Date()).getMonth()+1).toString()).padStart(2, '0') + '-' + ((new Date()).getDate().toString()).padStart(2, '0'),
             drop_off: "",
+
             today: new Date().toISOString().split("T")[0],
-            //time: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
+
             time: ((parseInt(new Date().toLocaleTimeString('en-GB').split(":")[0])+1)).toString() + ":" + new Date().toLocaleTimeString('en-GB').split(":")[1],
+
             time_now: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
 
             location_input: "",
             location_alert: false,
-            time_alert: false,
             date_alert: false,
-            fully_filled: false,
+            just_stop: '',
+            change_date: false,
             school_input: "Select School",
             formatted_address : ""
         }
@@ -27,18 +29,28 @@ const form_alerts = Vue.createApp({
         check_time(){
             var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
 
-            console.log(this.date)
+            console.log(time)
             console.log(this.time)
+            console.log(this.time < time)
             if (this.time < time){
                 return true
             } return false
         },
+
         check_date(){
             if (this.date===""){return false}
             let selected_date = this.date.split("-")
+            let selected_year = selected_date[0]
             selected_date = new Date(selected_date)
+
             const today = new Date()
-            let res = selected_date - today >= 1000 * 60 * 60 * 24 * 365;
+            let verify_year = today.getFullYear()
+
+            let res = (selected_date - today >= 1000 * 60 * 60 * 24 * 365) || (selected_date - today <= 1000 * 60 * 60 * 24 * -1) || (selected_year - verify_year < 0)
+
+            // i apologise for the naming convention, just_stop is for disabling the button should the conditions not be fulfilled
+            if (res){this.just_stop = 'no'}
+            else {this.just_stop = ''}
 
             return res
         },
@@ -46,17 +58,6 @@ const form_alerts = Vue.createApp({
             if (this.drop_off===""){return true}
             return false;
         },
-
-        check_inputs() {
-            if ((this.full_date) && (this.full_time)){
-                console.log(this.date)
-                console.log(this.time)
-                console.log("=== i want to die ===")
-                return this.fully_filled = true
-            }
-            return false
-    
-        }
 
         
         // addHoursToDate(date, hours) {
@@ -75,20 +76,14 @@ const form_alerts = Vue.createApp({
             deep: true
         },
 
-        submitted_time: {
-            full_time(new_time, old_time) {
-                this.time_alert = new_time === "" && old_time !== "";
-            },
-            deep: true
-        },
-
-        submitted_date: {
-            full_date(new_date, old_date) {
-                this.date_alert = new_date === "" && old_date !== "";
+        date: {
+            handler(new_date, old_date) {
+                this.change_date = new_date === "";
             },
             deep: true
         }
     },
+
     created()  {
         // main_map_function()
     },
@@ -100,7 +95,10 @@ const form_alerts = Vue.createApp({
 form_alerts.component('time-input', { 
     data() { 
         return { 
-
+            time_hour: '',
+            time_minute: '',
+            time_ampm: '',
+            verified_time: '',
         }
     },
 
@@ -110,13 +108,17 @@ form_alerts.component('time-input', {
                     id="time_hour"
                     class="dropdowns dropdown-time"
                     v-html="get_hour()"
+                    v-model='time_hour'
+                    @change='check_time()'
                 >
                 </select>
                 :
                 <select
-                    name="time_min"
-                    id="time_min"
+                    name="time_minute"
+                    id="time_minute"
                     class="dropdowns dropdown-time"
+                    v-model='time_minute'
+                    @change='check_time()'
                 >
                     <option value='00'>00</option>
                     <option value='05'>05</option>
@@ -137,8 +139,17 @@ form_alerts.component('time-input', {
                     id="time_ampm"
                     class="dropdowns dropdown-time"
                     v-html="get_ampm()"
+                    v-model='time_ampm'
+                    @change='check_time()'
                 >
                 </select>
+                    <label
+                        class="wrong_time text-danger w-75"
+                        role="alert"
+                        hidden
+                        v-if="check_time()">
+                    You cant time travel.. Please choose a later timing *
+                </label>
                 </div>`,
 
     methods: { 
@@ -181,7 +192,35 @@ form_alerts.component('time-input', {
                 selected = ""
             }
             return to_return
-        }
+        },
+
+        // this needs to be fixed
+        async check_time(){
+            console.log('===CHECKING THE TIME===')
+            var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
+            console.log(this.verified_time)
+
+            var selected_hour = parseInt(time_hour.value)
+
+            if (time_ampm.value == 'pm'){
+                selected_hour = selected_hour + 12
+                selected_hour.toString
+            }
+            else {selected_hour = '0' + selected_hour.toString()}
+
+            var selected_time = selected_hour + ':' + time_minute.value + time_ampm.value
+            console.log(selected_time)
+            console.log(selected_time < time)
+            
+            if (selected_time < time){
+                this.verified_time = 'nope'
+                return document.querySelector('.wrong_time').removeAttribute('hidden')
+            }
+            else {
+                this.verified_time = ''
+                return document.querySelector('.wrong_time').setAttribute('hidden', true)
+            }
+        },
     }
 })
 
