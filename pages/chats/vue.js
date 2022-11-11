@@ -25,7 +25,8 @@ const chat_left = Vue.createApp({
             selected_ride : "",
             offered_person_id : 0,
             counter : 0,
-            selected_room: ""
+            selected_room: "",
+            last_room : ""
         }
     },
     computed:{
@@ -483,6 +484,7 @@ const chat_left = Vue.createApp({
                 this.chat_array.sort(function(a, b) {
                     return parseInt(b.timing) - parseInt(a.timing);
                 });
+                this.last_room = this.chat_array[this.chat_array.length - 1].chat_id
                 // console.log(this.chat_array)
                 // sort by timing 
             })
