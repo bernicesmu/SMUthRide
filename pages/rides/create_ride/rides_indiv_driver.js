@@ -29,12 +29,14 @@ const form_alerts = Vue.createApp({
         check_time(){
             var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
 
-            console.log(this.date)
+            console.log(time)
             console.log(this.time)
+            console.log(this.time < time)
             if (this.time < time){
                 return true
             } return false
         },
+
         check_date(){
             if (this.date===""){return false}
             let selected_date = this.date.split("-")
@@ -93,7 +95,10 @@ const form_alerts = Vue.createApp({
 form_alerts.component('time-input', { 
     data() { 
         return { 
-
+            time_hour: '',
+            time_minute: '',
+            time_ampm: '',
+            verified_time: '',
         }
     },
 
@@ -103,13 +108,17 @@ form_alerts.component('time-input', {
                     id="time_hour"
                     class="dropdowns dropdown-time"
                     v-html="get_hour()"
+                    v-model='time_hour'
+                    @change='check_time()'
                 >
                 </select>
                 :
                 <select
-                    name="time_min"
-                    id="time_min"
+                    name="time_minute"
+                    id="time_minute"
                     class="dropdowns dropdown-time"
+                    v-model='time_minute'
+                    @change='check_time()'
                 >
                     <option value='00'>00</option>
                     <option value='05'>05</option>
@@ -130,8 +139,17 @@ form_alerts.component('time-input', {
                     id="time_ampm"
                     class="dropdowns dropdown-time"
                     v-html="get_ampm()"
+                    v-model='time_ampm'
+                    @change='check_time()'
                 >
                 </select>
+                    <label
+                        class="wrong_time text-danger w-75"
+                        role="alert"
+                        hidden
+                        v-if="check_time()">
+                    You cant time travel.. Please choose a later timing *
+                </label>
                 </div>`,
 
     methods: { 
@@ -174,7 +192,35 @@ form_alerts.component('time-input', {
                 selected = ""
             }
             return to_return
-        }
+        },
+
+        // this needs to be fixed
+        async check_time(){
+            console.log('===CHECKING THE TIME===')
+            var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
+            console.log(this.verified_time)
+
+            var selected_hour = parseInt(time_hour.value)
+
+            if (time_ampm.value == 'pm'){
+                selected_hour = selected_hour + 12
+                selected_hour.toString
+            }
+            else {selected_hour = '0' + selected_hour.toString()}
+
+            var selected_time = selected_hour + ':' + time_minute.value + time_ampm.value
+            console.log(selected_time)
+            console.log(selected_time < time)
+            
+            if (selected_time < time){
+                this.verified_time = 'nope'
+                return document.querySelector('.wrong_time').removeAttribute('hidden')
+            }
+            else {
+                this.verified_time = ''
+                return document.querySelector('.wrong_time').setAttribute('hidden', true)
+            }
+        },
     }
 })
 

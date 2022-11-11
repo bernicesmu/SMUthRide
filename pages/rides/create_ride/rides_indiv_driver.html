@@ -1103,17 +1103,17 @@
                 required
                 step= "300"
             /> -->
-            <time-input></time-input>
+            <time-input @change='check_time()'></time-input>
             <span class="highlight"></span>
             <label class="date-label" id="time-label">Time</label>
-            <label
+            <!-- <label
                     class="date_alert text-danger w-75"
                     role="alert"
 
                     v-if="check_time()"
             >
                 You cant time travel.. Please choose a later timing *
-            </label>
+            </label> -->
         </div>
         <button
             type="submit"
@@ -1121,6 +1121,7 @@
             id="rides"
             v-bind:disabled="(date.length == '') || (location_input == '') || (just_stop =='no')"
         >
+        <!-- this disable button needs to be modified as well -->
             Get in loser, we're going shopping.
         </button>
 <!--            </form>-->
