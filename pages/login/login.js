@@ -1,6 +1,6 @@
-import {writeUserData, signin_user, find_email_from_username} from '../../index.js'
+import {writeUserData, signin_user} from '../../index.js'
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
 var firebaseConfig = {
     apiKey: "AIzaSyCCVjpCi9lziMF130jj2UtJGiPc0MamUkY",
@@ -25,21 +25,81 @@ sign_in_btn.addEventListener('click', () => {
     container.classList.remove("register-mode");
 })
 
-document.getElementById('login').addEventListener('submit', login_user)
+// document.getElementById('login').addEventListener('submit', login_user)
 
-function login_user() {
-    console.log("ewfjnueiowfioe")
-    var inputs = document.getElementsByTagName('input')
-    var username = inputs.useroremail.value //name of the input in the HTML form is useroremail, but for now we leave it as username only
-    var password = inputs.password.value
+const login_check = Vue.createApp({ 
+    data() { 
+        return { 
+            username: "", 
+            email: "", 
+            password: "",
+            success: "",
+        }
+    },
 
-    find_email_from_username(username)
-    var email = localStorage.getItem("email")
+    methods: { 
+        async login_user() {
+            console.log("ewfjnueiowfioe")
+            var inputs = document.getElementsByTagName('input')
+            this.username = inputs.useroremail.value //name of the input in the HTML form is useroremail, but for now we leave it as username only
+            this.password = inputs.password.value
+        
+            await this.find_email_from_username()
+            await this.sleep(0.5 * 1000);
+            await this.signin_user()    
+        }, 
 
-    signin_user(email, password)
-    localStorage.clear()
-    localStorage.setItem("username_x", username)
-}
+        async find_email_from_username() {
+            var username = this.username
+            const db = getDatabase();
+            const users = ref(db, `users/${username}`);
+            onValue(users, (snapshot) => {
+                const data = snapshot.val();
+                try { 
+                    this.email = data.email;
+                }
+                catch (error) { 
+                    this.success = false
+                }
+            });
+        },
+
+        async signin_user() {
+            const auth = getAuth();
+            signInWithEmailAndPassword(auth, this.email, this.password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    console.log(user);
+                    this.success = true
+                    if (this.success) { 
+                        console.log("user login success")
+                        localStorage.clear()
+                        localStorage.setItem("username_x", this.username)
+                        window.location.href = '../rides/rides_list/rides_listing.html'
+                    }
+                    else { 
+                        console.log("user login fail")
+                    }   
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode, errorMessage);
+                    this.success = false 
+                });
+        },
+
+        sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        },
+    }
+})
+
+login_check.mount('#login')
+
+
 
 const registration_check = Vue.createApp({
     data() {
