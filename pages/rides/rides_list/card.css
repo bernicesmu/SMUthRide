@@ -22,10 +22,12 @@ h2 {
     color: #4e7570;
 }
 
-/* .card:hover {
+.card-body:hover {
+    border-radius: 20px;
+    background-color: rgba(255,255,255,0.8);
+    color: #4e7570;
     transition: all 0.2s ease-in-out;
-    transform: scale(1.1);
-} */
+}
 
 .rounded-circle-dp {
     width: 60px;
