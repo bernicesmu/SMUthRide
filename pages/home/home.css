@@ -41,7 +41,7 @@ body {
     position: absolute;
     bottom: 0;
     background-repeat: repeat-x;
-    animation: moveRight 15s linear infinite;
+    animation: moveRight 30s linear infinite;
 
 }
 
@@ -50,7 +50,7 @@ body {
     bottom: 0;
     left: 5%;
     height: 5rem;
-    animation: upDown 1s linear infinite;
+    animation: upDown 3s linear infinite;
 }
 
 .car {
@@ -64,7 +64,7 @@ body {
     position: absolute;
     bottom: 0;
     height: 2rem;
-    animation: rotatingWheels 1s linear infinite;
+    animation: rotatingWheels 3s linear infinite;
 }
 
 #tire1{
@@ -151,23 +151,23 @@ p {
 }
 
 .green {
-    color: #4caf50;
+    color: #4e7570;
 }
   
 .darkgreen {
-    color: #357a38;
+    color: #8A6F42;
 }
   
 .orange {
-    color: 	#e7b416;
+    color: 	#451F6A;
 }
   
 .darkorange {
-    color: #db7b2b;
+    color: #894949;
 }
   
 .red {
-    color: #cc3232;
+    color: #894949;
 }
 
 /* ROTATING SUBTEXT */
@@ -195,7 +195,7 @@ p {
 	animation-delay: 1s;
 	background: #70c4c6;
 	animation-name: daylight;
-	animation-duration: 20s;
+	animation-duration: 40s;
 	animation-iteration-count: infinite;
 	overflow: hidden;
 	animation-timing-function: linear;
@@ -209,7 +209,7 @@ p {
 	left:80%;
 	top:20%;
 	animation-name: time;
-	animation-duration: 40s;
+	animation-duration: 80s;
 	animation-iteration-count: infinite;
 	z-index: 0;
 	animation-timing-function: linear;
@@ -260,7 +260,7 @@ p {
 	top:30px;
 	left: -20%;
 	animation-name: cloud;
-	animation-duration: 70s;
+	animation-duration: 140s;
 	animation-iteration-count: infinite;
 	z-index: 1;
 }
@@ -286,17 +286,17 @@ p {
 }
 .cloud.a {
 	top:55%;
-	animation-duration: 55s;
+	animation-duration: 110s;
 }
 .cloud.b {
 	top:50%;
 	left:-15%;
-	animation-duration: 38s;
+	animation-duration: 80s;
 }
 .cloud.c {
 	top:68%;
 	left:-10%;
-	animation-duration: 25s;
+	animation-duration: 50s;
 }
 
 .star {
@@ -308,7 +308,7 @@ p {
 	top: 50px;
 	left: 100px;
 	animation-name: fader;
-	animation-duration: 20s;
+	animation-duration: 40s;
 	animation-iteration-count: infinite;
 }
 .star::before {
@@ -321,7 +321,7 @@ p {
 	left:20px;
 	top:20px;
 	animation-name: blinker;
-	animation-duration: 20s;
+	animation-duration: 40s;
 	animation-iteration-count: infinite;
 }
 .star::after {
@@ -334,7 +334,7 @@ p {
 	left:-200px;
 	top:50px;
 	animation-name: blinker;
-	animation-duration: 20s;
+	animation-duration: 40s;
 	animation-iteration-count: infinite;	
 }
 .star.a {
@@ -361,7 +361,7 @@ p {
 	position: absolute;
 	top:30%;
 	animation-name: wind;
-	animation-duration: 8s;
+	animation-duration: 20s;
 	animation-iteration-count: infinite;	
 	animation-timing-function: linear;
 }
@@ -388,12 +388,12 @@ p {
 	100% { transform: rotate(360deg); }
 }
 @keyframes daylight {
-	0% {  background-color: #70c4c6; }
-	15% {  background-color: #524b64; }
-	40% { background-color: #354a4a; }
-	70% { background-color: #354a4a; }
-	80% {  background-color: #e2b553; }
-	100% {  background-color: #70c4c6;}
+	0% {  background-color: #bedad6; }
+	20% {  background-color: #d8c7a3; }
+	40% { background-color: #BFACD3; }
+	60% { background-color: #F3D8D8; }
+	80% {  background-color: #d8c7a3; }
+	100% {  background-color: #bedad6; }
 }
 
 @keyframes cloud {
@@ -460,7 +460,7 @@ p {
 		position: absolute;
 		bottom: 0;
 		background-repeat: repeat-x;
-		animation: moveRight 15s linear infinite;
+		animation: moveRight 30s linear infinite;
 	
 	}
 	@keyframes moveRight {
@@ -472,7 +472,7 @@ p {
 		bottom: 0;
 		left: 5%;
 		height: 4rem;
-		animation: upDown 1s linear infinite;
+		animation: upDown 3s linear infinite;
 	}
 	
 	.car {
@@ -486,7 +486,7 @@ p {
 		position: absolute;
 		bottom: 0;
 		height: 1.5rem;
-		animation: rotatingWheels 1s linear infinite;
+		animation: rotatingWheels 3s linear infinite;
 	}
 	
 	#tire1{
@@ -505,7 +505,7 @@ p {
 		left:80%;
 		top:20%;
 		animation-name: time;
-		animation-duration: 40s;
+		animation-duration: 80s;
 		animation-iteration-count: infinite;
 		z-index: 0;
 		animation-timing-function: linear;
