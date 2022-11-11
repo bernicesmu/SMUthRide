@@ -34,6 +34,13 @@ const listings = Vue.createApp({
         }
     },
     methods: {
+        expired_check(date, time){
+            var today = new Date();
+            if (date < today.toISOString().split("T")[0] && time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")){
+                return false
+            } return true
+        },
+
         searchResults() {
 
             this.results = this.possible_locations.filter(item => item.toLowerCase().indexOf(this.search.toLowerCase()) > -1);
@@ -84,7 +91,7 @@ const listings = Vue.createApp({
         },
         format_date(date){
             date = date.split("-")
-            let day = new Date(date[0], date[1], date[2]).toDateString().split(" ")
+            let day = new Date(date[0], date[1]-1, date[2]).toDateString().split(" ")
             return [day[0],`${day[2]} ${day[1]} ${day[3]}`]
         },
         get_user_name(username){
@@ -104,7 +111,8 @@ const listings = Vue.createApp({
         });
 
         onValue(rides, (snapshot) => {
-            this.listings = snapshot.val()
+            this.listings = snapshot.val().filter(x => this.expired_check(x.date, x.time));
+
             console.log(snapshot.val())
             console.log(this.listings)
             this.check_and_populate()
@@ -127,7 +135,7 @@ const listings = Vue.createApp({
                 if (value !== '') {
 
                     this.display_listings = this.display_listings.filter(x => x.smu_to_from == this.to_from &&
-                        x.date > new Date().toISOString().split('T')[0] &&
+
                         (x.users_offered.length - x.max_capacity<1) &&
                         (x.neighbourhood.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
                         x.formatted_address.toLowerCase().indexOf(value.toLowerCase()) > -1));
