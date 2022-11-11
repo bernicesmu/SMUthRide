@@ -13,10 +13,12 @@ const form_alerts = Vue.createApp({
             //time: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
             time: ((parseInt(new Date().toLocaleTimeString('en-GB').split(":")[0])+1)).toString() + ":" + new Date().toLocaleTimeString('en-GB').split(":")[1],
             time_now: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
-            step: "300",
 
             location_input: "",
             location_alert: false,
+            time_alert: false,
+            date_alert: false,
+            fully_filled: false,
             school_input: "Select School",
             formatted_address : ""
         }
@@ -24,6 +26,9 @@ const form_alerts = Vue.createApp({
     methods:{
         check_time(){
             var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
+
+            console.log(this.date)
+            console.log(this.time)
             if (this.time < time){
                 return true
             } return false
@@ -42,6 +47,17 @@ const form_alerts = Vue.createApp({
             return false;
         },
 
+        check_inputs() {
+            if ((this.full_date) && (this.full_time)){
+                console.log(this.date)
+                console.log(this.time)
+                console.log("=== i want to die ===")
+                return this.fully_filled = true
+            }
+            return false
+    
+        }
+
         
         // addHoursToDate(date, hours) {
         //     return new Date(new Date(date).setHours(date.getHours() + hours));
@@ -57,6 +73,20 @@ const form_alerts = Vue.createApp({
                 this.location_alert = value === "" && oldValue !== "";
             },
             deep: true
+        },
+
+        submitted_time: {
+            full_time(new_time, old_time) {
+                this.time_alert = new_time === "" && old_time !== "";
+            },
+            deep: true
+        },
+
+        submitted_date: {
+            full_date(new_date, old_date) {
+                this.date_alert = new_date === "" && old_date !== "";
+            },
+            deep: true
         }
     },
     created()  {
@@ -64,6 +94,94 @@ const form_alerts = Vue.createApp({
     },
     computed:{
        
+    }
+});
+
+form_alerts.component('time-input', { 
+    data() { 
+        return { 
+
+        }
+    },
+
+    template: ` <div class='time-input'> 
+                <select
+                    name="time_hour"
+                    id="time_hour"
+                    class="dropdowns dropdown-time"
+                    v-html="get_hour()"
+                >
+                </select>
+                :
+                <select
+                    name="time_min"
+                    id="time_min"
+                    class="dropdowns dropdown-time"
+                >
+                    <option value='00'>00</option>
+                    <option value='05'>05</option>
+                    <option value='10'>10</option>
+                    <option value='15'>15</option>
+                    <option value='20'>20</option>
+                    <option value='25'>25</option>
+                    <option value='30'>30</option>
+                    <option value='35'>35</option>
+                    <option value='40'>40</option>
+                    <option value='45'>45</option>
+                    <option value='50'>50</option>
+                    <option value='55'>55</option>
+                </select>
+                &nbsp;
+                <select
+                    name="time_ampm"
+                    id="time_ampm"
+                    class="dropdowns dropdown-time"
+                    v-html="get_ampm()"
+                >
+                </select>
+                </div>`,
+
+    methods: { 
+        get_hour() { 
+            var today = new Date()
+            var now_hour = today.getHours()
+            console.log(now_hour)
+            var next_hour = now_hour + 1 
+            var selected = ""
+            var to_return = ""
+            if (next_hour > 12) { 
+                next_hour -= 12
+            }
+            for (var i of Array(12).keys()) { 
+                if (i+1 == next_hour) { 
+                    selected = "selected"
+                }
+                to_return += `<option value="${i+1}" ${selected}>${i+1}</option>`
+                selected = ""
+            }
+            return to_return
+        },
+
+        get_ampm() {
+            var today = new Date()
+            var now_hour = today.getHours()
+            console.log(now_hour)
+            var next_hour = now_hour + 1 
+            var selected = ""
+            var to_return = ""
+            var ampm = 'am'
+            if (next_hour > 11) { 
+                ampm = 'pm'
+            }
+            for (var i of ['am', 'pm']) { 
+                if (i == ampm) { 
+                    selected = "selected"
+                }
+                to_return += `<option value="${i}" ${selected}>${i.toUpperCase()}</option>`
+                selected = ""
+            }
+            return to_return
+        }
     }
 })
 
@@ -73,8 +191,10 @@ document.getElementById('rides').addEventListener('click',event => {
     event.preventDefault()
     write_ride_local()
 })
+
 find_rid()
 async function write_ride_local() {
+    console.log('=== START ===')
     
     var username = localStorage.getItem("username_x")
 
@@ -88,11 +208,16 @@ async function write_ride_local() {
     var cost = parseFloat(inputs.cost.value)
     var max_capacity = parseInt(inputs.capacity.value)
     var date = inputs.date.value
-    var time = inputs.time.value 
     var users_offered = [""]
     var area = document.getElementById("hidden_formatted_address").value
     var neighbourhood = document.getElementById("hidden_neighbourhood").value 
-    
+    var time_hour = document.getElementById("time_hour").value 
+    var time_min = document.getElementById("time_min").value
+    var time_ampm = document.getElementById("time_ampm").value
+    if (time_ampm == "pm") { 
+        time_hour = parseInt(time_hour) + 12 
+    }
+    var time = String(time_hour) + ":" + time_min
 
     let check = await write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area,neighbourhood)
     console.log(check)
