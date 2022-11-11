@@ -147,7 +147,13 @@
                     <a v-bind:href="'../../profile/profile.html?user=' + driver_username" class="profileinfo">
                     <!-- need to customise photo? -->
                     <div class="profilepic d-inline me-2">
-                        <img class="user-pic" :src="picture_url" />
+                        <img
+                    id="profile-picture"
+                    class="profile-pic img-fluid rounded-circle rounded-circle-dp border border-dark"
+                    style="object-fit:cover; object-position: 50% 50%;width: 60px; height: 60px;"
+                    :src="picture_url"
+                    alt="profile picture"
+                />
                     </div>
                     <div class="usertext d-block my-auto">
                         <div class="userinfo d-flex my-auto">

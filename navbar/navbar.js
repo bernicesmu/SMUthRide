@@ -71,7 +71,7 @@ const navbar = Vue.createApp({
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-item-down" :href=" profileURL "><img :src="url" class="img-fluid rounded-circle"
-                        style="width:2.4rem;height:2.4rem;object-fit:contain;border:black solid 1px"
+                        style="width:2.4rem;height:2.4rem;object-fit:cover;border:black solid 1px"
                      v-on:load="profilePic"/></a>
                     </li>
                 </ul>
