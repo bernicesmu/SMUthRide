@@ -827,6 +827,7 @@
                                     .then(response => { 
                                         address_details = response.data.results[0]
                                         formatted_address = address_details.formatted_address
+                                        console.log(formatted_address)
                                         var neighbourhood = formatted_address
                                         for (var add of address_details.address_components) { 
                                             if (add.types.includes('neighborhood')) { 
@@ -835,32 +836,18 @@
                                         }
                                         document.getElementById("hidden_formatted_address").value = formatted_address
                                         document.getElementById("hidden_neighbourhood").value = neighbourhood
-                                    })
-                                    .catch(error => {
-                                        console.log(error.message)
-                                    })
 
-                                    if (
-                                        1.15948 > loc_lat ||
-                                        loc_lat > 1.47475
-                                    ) {
+
+                                        if (1.15948 > loc_lat ||loc_lat > 1.47475) {
                                         loc_outofsg.innerHTML = `<div class='wrong_loc text-danger'>Can you put some location within Singapore .</div>`;
-                                    } else if (
-                                        103.60468 > loc_lng ||
-                                        loc_lat > 104.08872
-                                    ) {
+                                    } 
+                                    else if (103.60468 > loc_lng || loc_lat > 104.08872) {
                                         loc_outofsg.innerHTML = `<div class='wrong_loc text-danger'>Can you put some location within Singapore .</div>`;
-                                    } else {
+                                    } 
+                                    else {
                                         // get distance of route in min
-                                        duration = parseInt(
-                                            result.routes[0].legs[0].duration.text.split(
-                                                " "
-                                            )
-                                        );
-                                        recc_price =
-                                            parseInt(distance) * 0.15 +
-                                            2.8 +
-                                            duration * 0.15;
+                                        duration = parseInt(result.routes[0].legs[0].duration.text.split(" "));
+                                        recc_price = parseInt(distance) * 0.15 + 2.8 + duration * 0.15;
 
                                         // from smu to indicated location, display route and duration
                                         if (smu_position == "from") {
@@ -928,7 +915,14 @@
                                             // );
                                         }
                                     }
-                                } else {
+                                    })
+                                    .catch(error => {
+                                        console.log(error.message)
+                                    })
+
+                                    
+                                } 
+                                else {
                                     directionsDisplay.setDirections({
                                         routes: [],
                                     });
@@ -940,6 +934,7 @@
                                 }
                             }
                         );
+                        // function ends here
                     }
                     // autocomplete objects for all input
                     
