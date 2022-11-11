@@ -8,13 +8,13 @@ Vue.createApp({
             yearOfStudy: "Year 2",
             age: "20",
             gender: "Male",
-            location_user: "lalaland",
+            // location_user: "lalaland",
             mbti: "INTP",
             bio: "lorem ipsum",
-            prefPrice: "70",
-            prefComfort: "40",
-            prefConvenience: "60",
-            prefSpeed: "90",
+            // prefPrice: "70",
+            // prefComfort: "40",
+            // prefConvenience: "60",
+            // prefSpeed: "90",
             ccas: ["Ellipsis", ".Hack"],
             linkedinLink: "https://www.linkedin.com/in/",
             facebookLink: "https://www.facebook.com/",
@@ -150,24 +150,24 @@ Vue.createApp({
         // can you connect to database here and get all the values in the data
         // you can refer to the pseudocode in this site https://www.w3docs.com/snippets/vue-js/what-is-the-difference-between-the-created-and-mounted-hooks-in-vue-js.html
         // feel free to change all the values to null if needed
-        username = localStorage.getItem("username_x");
-        displayname = localStorage.getItem("displayname");
-        age = String(localStorage.getItem("age"));
-        bio = localStorage.getItem("bio");
-        cca = localStorage.getItem("cca");
-        comfort = localStorage.getItem("comfort");
-        convenience = localStorage.getItem("convenience");
-        degree = localStorage.getItem("degree");
-        facebook = localStorage.getItem("facebook");
-        instagram = localStorage.getItem("instagram");
-        linkedin = localStorage.getItem("linkedin");
-        location_user = localStorage.getItem("location_user");
-        console.log(location_user);
-        mbti = localStorage.getItem("mbti");
-        price = localStorage.getItem("price");
-        speed = localStorage.getItem("speed");
-        rs_status = localStorage.getItem("status");
-        year = localStorage.getItem("year");
+        let username = localStorage.getItem("username_x");
+        let displayname = localStorage.getItem("displayname");
+        let age = String(localStorage.getItem("age"));
+        let bio = localStorage.getItem("bio");
+        let cca = localStorage.getItem("cca");
+        // let price = localStorage.getItem("price");
+        // let speed = localStorage.getItem("speed");
+        // let comfort = localStorage.getItem("comfort");
+        // let convenience = localStorage.getItem("convenience");
+        let degree = localStorage.getItem("degree");
+        let facebook = localStorage.getItem("facebook");
+        let instagram = localStorage.getItem("instagram");
+        let linkedin = localStorage.getItem("linkedin");
+        // let location_user = localStorage.getItem("location_user");
+        // console.log(location_user);
+        let mbti = localStorage.getItem("mbti");
+        let gender = localStorage.getItem("gender");
+        let year = localStorage.getItem("year");
         // console.log(facebook);
         // console.log(this.fullFacebookLink);
 
@@ -188,23 +188,23 @@ Vue.createApp({
         this.degree = degree;
         this.yearOfStudy = year;
         this.age = age;
-        this.status = rs_status;
-        this.location_user = location_user;
+        this.gender = gender;
+        // this.location_user = location_user;
         this.mbti = mbti;
         this.bio = bio;
-        this.prefPrice = price;
-        this.prefComfort = comfort;
-        this.prefConvenience = convenience;
-        this.prefSpeed = speed;
+        // this.prefPrice = price;
+        // this.prefComfort = comfort;
+        // this.prefConvenience = convenience;
+        // this.prefSpeed = speed;
         this.ccas = cca;
         this.linkedinLinkInput += linkedin;
         this.facebookLinkInput += facebook;
         this.instagramLinkInput += instagram;
     },
-    mounted() {
-        for (let element of document.getElementsByClassName("preference")) {
-            console.log(element.classList[1].slice(1));
-            element.style.width = element.classList[1].slice(1) + "%";
-        }
-    },
+    // mounted() {
+    //     for (let element of document.getElementsByClassName("preference")) {
+    //         console.log(element.classList[1].slice(1));
+    //         element.style.width = element.classList[1].slice(1) + "%";
+    //     }
+    // },
 }).mount("#profileVue");
