@@ -7,10 +7,9 @@
 const form_alerts = Vue.createApp({
     data() {
         return {
-            date: new Date().toISOString().split("T")[0],
+            date: ((new Date()).getFullYear()) + '-' + (((new Date()).getMonth()+1).toString()).padStart(2, '0') + '-' + ((new Date()).getDate().toString()).padStart(2, '0'),
             drop_off: "",
             today: new Date().toISOString().split("T")[0],
-            //time: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
             time: ((parseInt(new Date().toLocaleTimeString('en-GB').split(":")[0])+1)).toString() + ":" + new Date().toLocaleTimeString('en-GB').split(":")[1],
             time_now: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
 
