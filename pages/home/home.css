@@ -119,19 +119,20 @@ p {
   
 .word {
     position: absolute;
-    width: 300px;
+    width: 600px;
     opacity: 0;
 }
   
 .letter {
     display: inline-block;
+	text-align: center;
     position: relative;
     /* float: left; */
     transform: translateZ(25px);
     transform-origin: 50% 50% 25px;
 }
   
-.letter.out {
+.letter.out, .letter.out.space {
     transform: rotateX(90deg);
     transition: transform 0.32s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
@@ -140,32 +141,50 @@ p {
     transform: rotateX(-90deg);
 }
   
-.letter.in {
+.letter.in, .letter.in.space {
     transform: rotateX(0deg);
     transition: transform 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-  
-.wisteria {
-    color: #2dc937;
+
+.letter.in.space, .letter.out.space {
+	width: 1rem;
+}
+
+.green {
+    color: #4caf50;
 }
   
-.belize {
-    color: #99c140;
+.darkgreen {
+    color: #357a38;
 }
   
-.pomegranate {
+.orange {
     color: 	#e7b416;
 }
   
-.green {
+.darkorange {
     color: #db7b2b;
 }
   
-.midnight {
+.red {
     color: #cc3232;
 }
 
 /* ROTATING SUBTEXT */
+
+@media(max-width: 870px){
+	.text {
+		font-size: 2rem;
+	}
+	.letter.in.space, .letter.out.space {
+		width: 0.7rem;
+	}
+	.welcome h1{
+		font-size: 3rem;
+		top: 22%;
+	}
+}
+
 
 .canvas {
 	width: 100%;
@@ -183,11 +202,11 @@ p {
     z-index: -1;
 }
 .eclipse {
-	width: 100%;
-	height: 88.6vh;
+	width: 70%;
+	height: 92vh;
 	/*border: 1px solid #000;*/
 	position: absolute;
-	left:60%;
+	left:80%;
 	top:20%;
 	animation-name: time;
 	animation-duration: 40s;
@@ -196,32 +215,39 @@ p {
 	animation-timing-function: linear;
 }
 .sun {
-	width:100px;
-	height:100px;
+	background-image: url(sun.png);
+	background-size: contain;
+	width:180px;
+	height:180px;
 	border-radius: 50%;
-	background-color: #ffa;
+	background-color: transparent;
 	position: absolute;
-	top: -30px;
-	left: -30px;
+	top: 10px;
+	left: -180px;
 }
 .sun.a {
-	bottom: -20px;
-	right: -20px;
+	transform: rotate(180deg);
+	bottom: 10px;
+	right: -180px;
 	left: auto;
 	top:auto;
 }
 .moon {
+	transform: rotate(30deg);
+	background-image: url(moon.png);
+	background-size: contain;
 	position: absolute;
-	top: -40px;
-	right: -40px;
-	width:100px;
-	height:100px;
+	top: -100px;
+	right: -35px;
+	width:160px;
+	height:160px;
 	border-radius: 50%;
-	background-color: #fff;
+	background-color: transparent;
 }
 .moon.a {
-	bottom: -20px;
-	left: -20px;
+	transform: rotate(-70deg);
+	bottom: -100px;
+	left: -35px;
 	top:auto;
 	right: auto;
 }
@@ -231,7 +257,7 @@ p {
 	border-radius: 50%;
 	background-color: #fff;
 	position: absolute;
-	top:20px;
+	top:30px;
 	left: -20%;
 	animation-name: cloud;
 	animation-duration: 70s;
@@ -244,7 +270,7 @@ p {
 	height: 30px;
 	background-color: #fff;
 	margin-left: -20px;
-	margin-top: 10px;
+	margin-top: 20px;
 	display: block;
 	border-radius: 50%;
 }
@@ -259,16 +285,16 @@ p {
 	border-radius: 50%;
 }
 .cloud.a {
-	top:150px;
+	top:320px;
 	animation-duration: 55s;
 }
 .cloud.b {
-	top:100px;
+	top:350px;
 	left:-15%;
 	animation-duration: 38s;
 }
 .cloud.c {
-	top:250px;
+	top:300px;
 	left:-10%;
 	animation-duration: 25s;
 }
@@ -327,69 +353,7 @@ p {
 	top:200px;
 	left:15%;
 }
-.swirly-wind {
-	position: absolute;
-	top:30%;
-  animation-name: wind;
-	animation-duration: 12s;
-	animation-iteration-count: infinite;	
-	animation-timing-function: linear;
-}
-.swirly-wind > span {
-  width: 150px;
-	background-color: #eee;
-	height: 2px;
-  display: block;
-  position: relative;
-}
-.swirly-wind > span:first-child {
-  width: 200px;
-}
-.swirly-wind > span:nth-child(1)::before {
-  display: none;
-}
-.swirly-wind > span:nth-child(2) {
-  margin-top: -10px;
-  float: right;
-}
-.swirly-wind > span:nth-child(3) {
-  margin-top: 15px;
-  width: 75px;
-  float: right;
-}
-.swirly-wind span::before {
-  content: '';
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: #fff 2px solid;
-  bottom: calc(100% - 2px);
-  right: -15px;
-  -webkit-clip-path: polygon(100% 0, 100% 100%, 50% 100%, 0 0);
-  clip-path: polygon(100% 0, 100% 100%, 50% 100%, 0 0);
-}
-.swirly-wind > span:nth-child(3)::before  {
-  top: calc(100% - 2px);
-  -webkit-clip-path: polygon(100% 0, 100% 100%, 14% 100%, 35% 0);
-clip-path: polygon(100% 0, 100% 100%, 14% 100%, 35% 0);
-}
 
-.swirly-wind.a {
-  top:20%;
-  width: 75px;
-	animation-duration: 8s;
-}
-.swirly-wind.b {
-  top:45%;
-  width: 120px;
-	animation-duration: 15s;
-  height :1px;
-}
-.swirly-wind.b::before {
-  border: #fff 1px solid;
-  bottom: calc(100% - 1px);
-}
 .wind {
 	width: 150px;
 	background-color: #eee;
@@ -480,23 +444,106 @@ clip-path: polygon(100% 0, 100% 100%, 14% 100%, 35% 0);
 }
 
 
-@keyframes snowday {
-	0% {
-		top: 0;
+
+
+@media(max-width: 570px){
+	.text {
+		display: flex;
+		flex-direction: column;
 	}
-	100% {
-		top: 100%;
+	.skyline{
+		background: url(skyline_edit.png);
+		background-size: 130rem;
+		background-position: left bottom;
+		width: 800%;
+		height:400px;
+		position: absolute;
+		bottom: 0;
+		background-repeat: repeat-x;
+		animation: moveRight 15s linear infinite;
+	
 	}
-}
-.snow {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background-color: #fff;
-	position: absolute;
-	top: 0;
-}
-.snow.fall {
-	animation-name: snowday ;
-	animation-duration: 5s;
+
+	.car-group {
+		position: absolute;
+		bottom: 0;
+		left: 5%;
+		height: 4rem;
+		animation: upDown 1s linear infinite;
+	}
+	
+	.car {
+		/* position: absolute; */
+		bottom: 0;
+		left: 5%;
+		height: 4rem;
+	}
+	
+	.tire {
+		position: absolute;
+		bottom: 0;
+		height: 1.5rem;
+		animation: rotatingWheels 1s linear infinite;
+	}
+	
+	#tire1{
+		left:11.5px;
+	}
+	
+	#tire2 {
+		left:64px;
+	}
+
+	.eclipse {
+		width: 100%;
+		height: 88.6vh;
+		/*border: 1px solid #000;*/
+		position: absolute;
+		left:80%;
+		top:20%;
+		animation-name: time;
+		animation-duration: 40s;
+		animation-iteration-count: infinite;
+		z-index: 0;
+		animation-timing-function: linear;
+	}
+
+	.sun {
+		background-image: url(sun.png);
+		background-size: contain;
+		width:120px;
+		height:120px;
+		border-radius: 50%;
+		background-color: transparent;
+		position: absolute;
+		top: 20px;
+		left: -200px;
+	}
+	.sun.a {
+		transform: rotate(180deg);
+		bottom: 20px;
+		right: -200px;
+		left: auto;
+		top:auto;
+	}
+	.moon {
+		transform: rotate(30deg);
+		background-image: url(moon.png);
+		background-size: contain;
+		position: absolute;
+		top: -100px;
+		right: -35px;
+		width:110px;
+		height:110px;
+		border-radius: 50%;
+		background-color: transparent;
+	}
+	.moon.a {
+		transform: rotate(-70deg);
+		bottom: -100px;
+		left: -35px;
+		top:auto;
+		right: auto;
+	}
+
 }

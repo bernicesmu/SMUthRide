@@ -16,7 +16,9 @@ function changeWord() {
   }
   
   for (var i = 0; i < nw.length; i++) {
+
     nw[i].className = 'letter behind';
+    
     nw[0].parentElement.style.opacity = 1;
     animateLetterIn(nw, i);
   }
@@ -25,14 +27,26 @@ function changeWord() {
 }
 
 function animateLetterOut(cw, i) {
+  // console.log(cw[i])
   setTimeout(function() {
-    cw[i].className = 'letter out';
+    if (cw[i].innerText == ''){
+      cw[i].className = 'letter out space';
+    }
+    else{
+      cw[i].className = 'letter out';
+    }
+    // console.log(cw[i])
   }, i*80);
 }
 
 function animateLetterIn(nw, i) {
   setTimeout(function() {
-    nw[i].className = 'letter in';
+    if (nw[i].innerText == ''){
+      nw[i].className = 'letter in space';
+    }
+    else{
+      nw[i].className = 'letter in';
+    }
   }, 340+(i*80));
 }
 
@@ -40,10 +54,11 @@ function splitLetters(word) {
   var content = word.innerHTML;
   word.innerHTML = '';
   var letters = [];
-  for (var i = 0; i < content.length; i++) {
+  
+  for (ch of content.split('')) {
     var letter = document.createElement('span');
     letter.className = 'letter';
-    letter.innerHTML = content.charAt(i);
+    letter.innerHTML = ch;
     word.appendChild(letter);
     letters.push(letter);
   }
@@ -56,7 +71,7 @@ setInterval(changeWord, 4000);
 
 // ROTATING SUBTEXT
 
-// HELLO
+// DAY-NIGHT
 let tl = gsap.timeline({ repeat: -1 });
 
 gsap.set('ellipse', {autoAlpha: 0})
@@ -68,4 +83,5 @@ tl.to("ellipse", { autoAlpha: 1, duration: 1, stagger: 0.05, ease: "power4.out" 
 
 tl.timeScale(8);
 
-// HELLO
+// DAY-NIGHT
+
