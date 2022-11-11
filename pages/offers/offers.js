@@ -41,6 +41,9 @@ const listings = Vue.createApp({
             console.log("not expired")
             return true
         },
+        redirect(id){
+            window.location.href='../rides/ride_details/rides_indiv_rider.html?rideid=' + id
+        },
 
     },
     mounted() {
@@ -102,13 +105,17 @@ listings.component('drive', {
             return hours + ':' + minutes + ' ' + ampm;
 
         },
+        redirect(id){
+            window.location.href='../rides/ride_details/rides_indiv_rider.html?rideid=' + id
+        },
     },
 
     template: `
-      <div class="col-10 col-md-8 mx-auto text-start ">
+      <div class="col mx-auto mt-2 text-start " >
 
       <h4>My Drives</h4>
-      <table class="table text-center mx-3 ">
+      <div class="overflow-auto overflow-md-hidden ">
+      <table class="table text-center mx-3" >
         <thead>
         <tr>
           <th scope="col">Date</th>
@@ -120,16 +127,17 @@ listings.component('drive', {
         </tr>
         </thead>
         <tbody>
-        <tr v-for="listing in this.list" v-on:click="redirect(listing.ride_id)">
-          <td>{{format_date(listing.date)[1]}}</td>
+        <tr v-for="listing in this.list" v-on:click="this.redirect(listing.ride_id)" >
+          <td style="">{{format_date(listing.date)[1]}}</td>
           <td>{{formatAMPM(listing.time)}}</td>
-          <td class="overflow-md-auto">{{listing.smu_to_from =="from"? listing.smu_location: listing.neighbourhood}}</td>
-          <td class="overflow-md-auto">{{listing.smu_to_from =="to"? listing.smu_location: listing.neighbourhood}}</td>
+          <td >{{listing.smu_to_from =="from"? listing.smu_location: listing.neighbourhood}}</td>
+          <td >{{listing.smu_to_from =="to"? listing.smu_location: listing.neighbourhood}}</td>
           <td>{{listing.users_offered.length-1}} / {{listing.max_capacity}}</td>
           <td>$ {{listing.cost}}</td>
         </tr>
         </tbody>
       </table>
+      </div>  
       </div>
     `,
 })
@@ -143,15 +151,15 @@ listings.component('ride', {
         }
     },
     template: `
-      <div>
-        <div class="col-10 col-md-8 mx-auto text-start">
+      
+        <div class="mx-auto mt-2 text-start">
       
             <div class="d-flex justify-content-between">
 
                 <div class="py-auto">
                     <h4 class="my-auto">My Rides</h4>
                 </div>
-                <div>
+                <div class="me-2">
                     <label class="switch">
                       
                       <input type="checkbox" id="togBtn" v-on:change="change_direction()">
@@ -211,7 +219,7 @@ listings.component('ride', {
                 <hr class="mb-1 mt-2"/>
                 <div>
 
-                    <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-if="to_from == \`From\`"
+                    <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-if="to_from =='from'"
                         style="color: #BFACD3">
                         <i class="bi bi-geo-alt-fill"></i>{{ listing.neighbourhood }}
                         <span class="tooltiptext" style="background-color: #BFACD3; color: #451F6A;">
@@ -219,7 +227,7 @@ listings.component('ride', {
                                             style="color: #451F6A;">{{ listing.formatted_address }}</h6>
                         </span>
                     </h2>
-                    <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-else-if="to_from == \`To\`"
+                    <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-else-if="to_from == 'to'"
                             style="color: #d8c7a3">
                         <i class="bi bi-geo-alt-fill"></i>{{ listing.neighbourhood }}
                         <span class="tooltiptext" style="background-color: #d8c7a3; color: #8A6F42;">
@@ -239,7 +247,7 @@ listings.component('ride', {
             </div>
         </div>
     </div>
-    </div>`,
+    `,
     methods: {
         formatAMPM(date){
 

@@ -36,7 +36,7 @@ const listings = Vue.createApp({
     methods: {
         expired_check(date,time){
             var today = new Date();
-            var local_date = today.toLocaleDateString().split("/")
+            var local_date = today.toLocaleDateString('en-GB').split("/")
             var local_date_formatted = local_date[2] + '-' + local_date[1] + '-' + local_date[0]
             console.log(today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))
             if (date < local_date_formatted || (date == local_date_formatted && time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))){
@@ -117,8 +117,8 @@ const listings = Vue.createApp({
         });
 
         onValue(rides, (snapshot) => {
-            this.listings = snapshot.val().filter(x => this.expired_check(x.date, x.time));
-
+            this.listings = snapshot.val();
+            this.listings = this.listings.filter(x => this.expired_check(x.date, x.time))
             console.log(snapshot.val())
             console.log(this.listings)
             this.check_and_populate()
