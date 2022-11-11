@@ -48,10 +48,10 @@
             <div id="overlay" class="my-auto">
               <div id="text" class="mb-6">
                 <!-- <img src="./6-2-taxi-cab-png-images.png" alt="" class="img-fluid"> -->
-                <h1 class="text-center mb-5">Make an Offer</h1>
+                <h1 class="text-center mb-5 overlay">Make an Offer</h1>
                 
                 <div class="d-flex justify-content-evenly mb-4">
-                  <p>
+                  <p class="overlay">
                     Driver:
                   </p>
                   <!-- {{ selected_driver }} -->
@@ -65,30 +65,32 @@
                   <div></div>
                   </div>
                 <div class="d-flex justify-content-evenly mb-4">
-                  <p>
+                  <p class="overlay">
                     Rides:
                   </p>
-                  <select class="form-select form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride">
+                  <select class="form-select form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price">
                     <!-- v-bind:value="address[1]" -->
                     <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
                       {{ address[0] }}
                     </option>
-                    <option v-else disabled selected>All Rides are full!</option>
+                    <option v-else>All Rides are full!</option>
                   </select>
                   <div></div>
                 </div>
                   
                 <div class="justify-content-evenly mb-4 d-flex">
-                  <p>
+                  <p class="overlay">
                     Price ($):
                   </p>
-                  <input type="number" id = "offer_price" name='cost' min="0" step="0.01" class="text-input cost-input text-label" v-model="offer_price" oninput="validity.valid||(value='');" required>
+                  <input type="number" id = "offer_price" name='cost' min="0" step="0.01" class="text-input cost-input text-label overlay" v-model="offer_price" oninput="validity.valid||(value='');" required>
                 </div>
                 
                 
                 <span id="confirm_cancel">
-                  <button type="button" class="btn btn-danger" onclick="off()">Cancel</button>
-                  <button type="button" class="btn btn-success" onclick="off()" id="confirmOffer" v-on:click="send_offer">Confirm</button>
+                  <button type="button" class="btn cancel" onclick="off()" style="margin-right: 20px;">Cancel</button>
+  
+                  <button type="button" class="btn confirm" onclick="off()" id="confirmOffer" v-on:click="send_offer" v-bind:disabled="selected_driver == '' || offer_price == '' || selected_ride == '' || selected_ride == 'All Rides are full!'">Confirm</button>
+                  
                 </span>
               </div>
             </div>

@@ -10,6 +10,7 @@ const form_alerts = Vue.createApp({
             date: new Date().toISOString().split("T")[0],
             drop_off: "",
             today: new Date().toISOString().split("T")[0],
+            //time: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
             time: ((parseInt(new Date().toLocaleTimeString('en-GB').split(":")[0])+1)).toString() + ":" + new Date().toLocaleTimeString('en-GB').split(":")[1],
             location_input: "",
             location_alert: false,
@@ -39,10 +40,12 @@ const form_alerts = Vue.createApp({
             return false;
         },
 
-
-
-       
+        
+        // addHoursToDate(date, hours) {
+        //     return new Date(new Date(date).setHours(date.getHours() + hours));
+        //   }
     },
+       
     watch: {
         school_input(val,oldVal) {
 

@@ -60,7 +60,8 @@ const app = Vue.createApp({
             to_from : "",
             smu_location: "",
             new_mid: 0,
-            user: localStorage.getItem("username_x")
+            user: "",
+            msg_length: 0
         }
     },
     computed:{
@@ -188,7 +189,8 @@ const app = Vue.createApp({
             // })
 
             if(message.trim().length > 0){
-               
+                console.log(length)
+               console.log("YES")
                 set(ref(db, `messages/${chat_id}/${length}`), {
                     message: message,
                     username: user   
@@ -196,17 +198,47 @@ const app = Vue.createApp({
 
             }
         },
+
+
+
+        // get_length(){
+        //     var you = localStorage.getItem("username_x")
+        //     let driver = this.driver_username
+        //     let list = [driver, you]
+        //     let chat_id = list.sort().join(";")
+        //     console.log(chat_id)
+        //     const db = getDatabase()
+            
+        //     const reference = ref(db,`messages/${chat_id}`)
+        //     onValue(reference, (snapshot) => {
+        //         var all_messages = snapshot.val()
+        //         console.log(all_messages)
+        //         if(all_messages != null){
+        //             this.msg_length = all_messages.length
+        //         }
+        //         else{
+        //             this.msg_length = 0
+        //         }
+        //         // console.log(all_messages.length)
+        //         // this.new_mid = all_messages.length
+        //         // localStorage.setItem("aaa", this.new_mid)
+                
+        //     })
+
+            
+        // },
         
     },
     created(){
         // console.log(window.location.href)
+        this.user = localStorage.getItem("username_x")
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const rideid = urlParams.get('rideid')
         this.rideid = rideid
         this.getData()
         this.getName()
-        // this.user = localStorage.getItem("username_x")
+        // this.get_length()
     }
 });
 
@@ -216,29 +248,39 @@ app.component('send-button',{
         return{
             length : 0,
             // chatid : "",
-            user : ""
+            user : "",
         }
     },
 
-    props: ['driver','you'],
+    props: ['driver','user'],
 
     emits: ['gotochat'],
 
-    template: `<button type="submit" class="btn button btn-lg" v-on:click="get_length" v-on:click="$emit('gotochat',driver, user,length)">
-    Chat for more
-</button>`,
+    template: ` <form
+                    id="gotochat"
+                    method="post"
+                    :action="find_action_path()"
+                >
+                <button v-if="!driver_is_user()" type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length">
+                    Chat for more
+                </button>
+                <button v-else class="btn btn-lg my-offer-button">
+                    My offers
+                </button>
+                </form>`,
 
     methods: {
      
         get_length(){
-            var you = localStorage.getItem("username_x")
+            var you = this.user
             let driver = this.driver
+            console.log(driver)
             let list = [driver, you]
             let chat_id = list.sort().join(";")
             console.log(chat_id)
             const db = getDatabase()
             
-            const reference = ref(db, 'messages/' + chat_id)
+            const reference = ref(db,`messages/${chat_id}`)
             onValue(reference, (snapshot) => {
                 var all_messages = snapshot.val()
                 console.log(all_messages)
@@ -253,9 +295,25 @@ app.component('send-button',{
                 // localStorage.setItem("aaa", this.new_mid)
                 
             })
-
-            
         },
+
+        driver_is_user() { 
+            if (this.driver == this.user) { 
+                return true
+            }
+            else { 
+                return false
+            }
+        },
+
+        find_action_path() { 
+            if (this.driver == this.user) { 
+                return "../../offers/offers.html"
+            }
+            else { 
+                return "../../chats/chat.html"
+            }
+        }
 
        
 
@@ -265,7 +323,16 @@ app.component('send-button',{
         // get the chat id out first
     
         this.user = localStorage.getItem("username_x")
-        // this.get_length(this.driver_username, your_username)
+        // this.get_length()
+
+        if (this.driver_is_user()) { 
+            this.driver_user = true 
+        }
+        else { 
+            this.driver_user = false 
+        }
+
+        console.log(this.driver_user)
     }
 })
 

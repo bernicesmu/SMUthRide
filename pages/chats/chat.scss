@@ -5,6 +5,7 @@ $dark-blue: #4c86a2;
 $light-blue: #a7c7d6; 
 $lilac : #BFACD3;
 $dark-purple : #451F6A;
+$light-red : #F3D8D8;
 
 html { 
   height: 100%;
@@ -438,6 +439,31 @@ hr {
 
 .offer-status > span { 
   text-align: center;
+}
+
+.overlay{
+  color:$dark-purple;
+}
+
+.cancel{
+  background-color: $light-red;
+  color:red;
+}
+
+.cancel:hover, .confirm:hover{
+  color: $dark-purple
+}
+
+.confirm:disabled{
+  background-color: #d0e8bc;
+  color: #479607
+  opacity($color: #000000);
+  border:none
+}
+
+.confirm{
+  background-color: #d0e8bc;
+  color:#479607
 }
 
 // #BobTan123\;madonna { 

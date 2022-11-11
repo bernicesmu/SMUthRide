@@ -370,6 +370,40 @@
             animation: inputHighlighter 0.3s ease;
         }
 
+        /* for the popup when clicked on*/
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            z-index: 99;
+          }
+          
+          /* The actual popup */
+          .popup .popuptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #BFACD3;
+            color: #451F6A;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+            position: absolute;
+            top: 40px;
+            left: -135px;
+            z-index: 99;
+          }
+
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+            z-index: 99;
+          }
+
         /* ANIMATIONS ================ */
         @-webkit-keyframes inputHighlighter {
             from {
@@ -658,7 +692,7 @@
                             onclick="calcRoute()"
                         >Find route!</button>
                         <br />
-                        <div id="info_hover" class="my-auto"></div>
+                        <div id="info_hover" class="my-auto popup"></div>
                     </div>
                     <!-- <div id="info_hover"></div> -->
                 </div>
@@ -750,6 +784,12 @@
                         xhttp.open("GET", url, true);
                         xhttp.send();
                     }
+                    function showPopUp() {
+                        var popup = document.getElementById('popupMessage');
+                        popup.classList.toggle('show');
+                        console.log('===CLICKED===')
+                        console.log(popup)
+                    }
 
                     function calcRoute() {
                         sch_value =
@@ -827,6 +867,7 @@
                                     .then(response => { 
                                         address_details = response.data.results[0]
                                         formatted_address = address_details.formatted_address
+                                        console.log(formatted_address)
                                         var neighbourhood = formatted_address
                                         for (var add of address_details.address_components) { 
                                             if (add.types.includes('neighborhood')) { 
@@ -835,32 +876,18 @@
                                         }
                                         document.getElementById("hidden_formatted_address").value = formatted_address
                                         document.getElementById("hidden_neighbourhood").value = neighbourhood
-                                    })
-                                    .catch(error => {
-                                        console.log(error.message)
-                                    })
 
-                                    if (
-                                        1.15948 > loc_lat ||
-                                        loc_lat > 1.47475
-                                    ) {
+
+                                        if (1.15948 > loc_lat ||loc_lat > 1.47475) {
                                         loc_outofsg.innerHTML = `<div class='wrong_loc text-danger'>Can you put some location within Singapore .</div>`;
-                                    } else if (
-                                        103.60468 > loc_lng ||
-                                        loc_lat > 104.08872
-                                    ) {
+                                    } 
+                                    else if (103.60468 > loc_lng || loc_lat > 104.08872) {
                                         loc_outofsg.innerHTML = `<div class='wrong_loc text-danger'>Can you put some location within Singapore .</div>`;
-                                    } else {
+                                    } 
+                                    else {
                                         // get distance of route in min
-                                        duration = parseInt(
-                                            result.routes[0].legs[0].duration.text.split(
-                                                " "
-                                            )
-                                        );
-                                        recc_price =
-                                            parseInt(distance) * 0.15 +
-                                            2.8 +
-                                            duration * 0.15;
+                                        duration = parseInt(result.routes[0].legs[0].duration.text.split(" "));
+                                        recc_price = parseInt(distance) * 0.15 + 2.8 + duration * 0.15;
 
                                         // from smu to indicated location, display route and duration
                                         if (smu_position == "from") {
@@ -868,10 +895,19 @@
                                                                         width='30'
                                                                         height='30'
                                                                         viewBox="0 0 512 512"
-                                                                        fill="#4e7570">
+                                                                        fill="#4e7570"
+                                                                        class='popup'
+                                                                        onclick='showPopUp()'>
                                                                         <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                                                     </svg>
                                                                     <span class="tooltiptext">
+                                                                        From: <b>${sch_name}</b>
+                                                                        <br>To: <b>${formatted_address}</b>
+                                                                        <br>Driving distance: <b>${distance}</b>
+                                                                        <br>Recommended Pricing: <b>$${recc_price.toFixed(2)}</b>
+                                                                        <br>Duration: <b>${result.routes[0].legs[0].duration.text}</b>
+                                                                    </span>
+                                                                    <span class="popuptext" id='popupMessage'>
                                                                         From: <b>${sch_name}</b>
                                                                         <br>To: <b>${formatted_address}</b>
                                                                         <br>Driving distance: <b>${distance}</b>
@@ -895,10 +931,12 @@
                                                                         width='30'
                                                                         height='30'
                                                                         viewBox="0 0 512 512"
-                                                                        fill="#4e7570">
+                                                                        fill="#4e7570"
+                                                                        class='popup'
+                                                                        onclick='showPopUp()'>
                                                                         <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216 192V224h24 48 24v24 88h8 24v48H296 216 192V336h24zm72-144H224V128h64v64z"/>
                                                                     </svg>
-                                                                    <span class="tooltiptext">
+                                                                    <span class="tooltiptext popuptext" id='popupMessage'>
                                                                         From: <b>${formatted_address}</b>
                                                                         <br>To: <b>${sch_name}</b>
                                                                         <br>Driving distance: <b>${distance}</b>
@@ -928,7 +966,14 @@
                                             // );
                                         }
                                     }
-                                } else {
+                                    })
+                                    .catch(error => {
+                                        console.log(error.message)
+                                    })
+
+                                    
+                                } 
+                                else {
                                     directionsDisplay.setDirections({
                                         routes: [],
                                     });
@@ -940,6 +985,7 @@
                                 }
                             }
                         );
+                        // function ends here
                     }
                     // autocomplete objects for all input
                     
@@ -980,9 +1026,10 @@
                     <input
                         type="number"
                         name="capacity"
-                        min="0"
+                        min="1"
                         max="10"
                         class="text-input bottom_text-input w-75"
+                        oninput="validity.valid||(value='');"
                         required
                     />
                     <span class="highlight"></span>
@@ -1062,6 +1109,17 @@
             <div class="modal-backdrop fade show" id="backdrop" style="display: none; width:100%; height: 100%"></div>
         </div>
     </div>
+    <script>
+        //huh = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2)
+        //huh1 = parseInt(huh[0]) + 1
+        //huh[0] = huh1.toString()
+        //huh = huh.join(':')
+        //console.log(huh)
+
+    </script>
+</div>
+<div> 
+    {{oneHourAhead}}
 </div>
 </body>
 

@@ -337,4 +337,28 @@ hr {
 
 .offer-status > span {
   text-align: center;
+}
+
+.overlay {
+  color: #451F6A;
+}
+
+.cancel {
+  background-color: #F3D8D8;
+  color: red;
+}
+
+.cancel:hover, .confirm:hover {
+  color: #451F6A;
+}
+
+.confirm:disabled {
+  background-color: #d0e8bc;
+  color: #479607 1;
+  border: none;
+}
+
+.confirm {
+  background-color: #d0e8bc;
+  color: #479607;
 }/*# sourceMappingURL=chat.css.map */
