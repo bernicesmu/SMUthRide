@@ -58,7 +58,7 @@ function toDatabase(url, ImgName) {
 
 // getting the image
 function GetProfilePicUrl(username) {
-    console.log(username);
+    // console.log(username);
     const db = getDatabase();
 
     const data = ref(db, "users/" + username);

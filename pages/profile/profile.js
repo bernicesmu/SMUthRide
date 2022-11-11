@@ -28,6 +28,8 @@ import { GetProfilePicUrl, UploadProcess } from "./profile_mod_2.js";
 
 // var username = localStorage.getItem("username_x");
 
+// console.log(username, "oiewfjewo");
+
 const url = window.location.href;
 
 let username = "";
@@ -42,13 +44,12 @@ if (url.includes("profile_edit.html")) {
     let queryString = window.location.search;
     let urlParams = new URLSearchParams(queryString);
     username = urlParams.get("user");
-    GetProfilePicUrl(username);
     if (username != localStorage.getItem("username_x")) {
         document.getElementById("edit-profile").innerHTML = "";
     }
 }
 
-// console.log(username, "oiewfjewo");
+GetProfilePicUrl(username);
 find_user_profile(username);
 find_name_from_username(username);
 
@@ -62,13 +63,8 @@ Vue.createApp({
             yearOfStudy: "Year 2",
             age: "20",
             gender: "Male",
-            // location_user: "lalaland",
             mbti: "INTP",
             bio: "lorem ipsum",
-            // prefPrice: "70",
-            // prefComfort: "40",
-            // prefConvenience: "60",
-            // prefSpeed: "90",
             ccas: ["Ellipsis", ".Hack"],
             linkedinLink: "https://www.linkedin.com/in/",
             facebookLink: "https://www.facebook.com/",
@@ -123,6 +119,12 @@ Vue.createApp({
                 "ABCD",
             ],
             picture_link: "",
+
+            // location_user: "lalaland",
+            // prefPrice: "70",
+            // prefComfort: "40",
+            // prefConvenience: "60",
+            // prefSpeed: "90",
         };
     },
     computed: {
@@ -251,7 +253,6 @@ Vue.createApp({
         //     })
         // }
     },
-    beforeCreate() {},
     created() {
         // @bernice I have temporarily hardcoded values
         // can you connect to database here and get all the values in the data
@@ -265,48 +266,48 @@ Vue.createApp({
         // console.log(location_user);
         // console.log(facebook);
         // console.log(this.fullFacebookLink);
-        let username = localStorage.getItem("username_x");
-        let displayname = localStorage.getItem("displayname");
-        let age = String(localStorage.getItem("age"));
-        let bio = localStorage.getItem("bio");
-        let cca = localStorage.getItem("cca");
-        let degree = localStorage.getItem("degree");
-        let facebook = localStorage.getItem("facebook");
-        let instagram = localStorage.getItem("instagram");
-        let linkedin = localStorage.getItem("linkedin");
-        let mbti = localStorage.getItem("mbti");
-        let gender = localStorage.getItem("gender");
-        let year = localStorage.getItem("year");
 
-        if (cca != "") {
-            cca = cca.split(",");
-            cca.push("");
+        this.username = localStorage.getItem("username_x");
+        this.displayname = localStorage.getItem("displayname");
+        this.age = String(localStorage.getItem("age"));
+        this.bio = localStorage.getItem("bio");
+        this.ccas = localStorage.getItem("cca");
+        this.degree = localStorage.getItem("degree");
+        this.linkedinLinkInput = localStorage.getItem("linkedin");
+        this.facebookLinkInput = localStorage.getItem("facebook");
+        this.instagramLinkInput = localStorage.getItem("instagram");
+        this.mbti = localStorage.getItem("mbti");
+        this.gender = localStorage.getItem("gender");
+        this.yearOfStudy = localStorage.getItem("year");
+
+        if (this.ccas != "") {
+            this.ccas = this.ccas.split(",");
+            this.ccas.push("");
         } else {
-            cca = [""];
+            this.ccas = [""];
         }
 
         let db_profile_url = localStorage.getItem("profile_url");
         if (db_profile_url != "undefined") {
             this.profile_url = db_profile_url;
         }
-
         // this.prefPrice = price;
         // this.prefComfort = comfort;
         // this.prefConvenience = convenience;
         // this.prefSpeed = speed;
         // this.location_user = location_user;
-        this.username = username;
-        this.displayname = displayname;
-        this.degree = degree;
-        this.yearOfStudy = year;
-        this.age = age;
-        this.gender = gender;
-        this.mbti = mbti;
-        this.bio = bio;
-        this.ccas = cca;
-        this.linkedinLinkInput += linkedin;
-        this.facebookLinkInput += facebook;
-        this.instagramLinkInput += instagram;
+        // this.username = username;
+        // this.displayname = displayname;
+        // this.degree = degree;
+        // this.yearOfStudy = year;
+        // this.age = age;
+        // this.gender = gender;
+        // this.mbti = mbti;
+        // this.bio = bio;
+        // this.ccas = cca;
+        // this.linkedinLinkInput += linkedin;
+        // this.facebookLinkInput += facebook;
+        // this.instagramLinkInput += instagram;
     },
     // mounted() {
     //     for (let element of document.getElementsByClassName("preference")) {
