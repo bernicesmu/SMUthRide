@@ -9,15 +9,18 @@ const form_alerts = Vue.createApp({
         return {
             date: ((new Date()).getFullYear()) + '-' + (((new Date()).getMonth()+1).toString()).padStart(2, '0') + '-' + ((new Date()).getDate().toString()).padStart(2, '0'),
             drop_off: "",
+
             today: new Date().toISOString().split("T")[0],
+
             time: ((parseInt(new Date().toLocaleTimeString('en-GB').split(":")[0])+1)).toString() + ":" + new Date().toLocaleTimeString('en-GB').split(":")[1],
+
             time_now: new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"),
 
             location_input: "",
             location_alert: false,
-            time_alert: false,
             date_alert: false,
-            fully_filled: false,
+            just_stop: '',
+            change_date: false,
             school_input: "Select School",
             formatted_address : ""
         }
@@ -35,9 +38,16 @@ const form_alerts = Vue.createApp({
         check_date(){
             if (this.date===""){return false}
             let selected_date = this.date.split("-")
+            let selected_year = selected_date[0]
             selected_date = new Date(selected_date)
+
             const today = new Date()
-            let res = selected_date - today >= 1000 * 60 * 60 * 24 * 365;
+            let verify_year = today.getFullYear()
+            console.log(selected_date - today)
+            let res = (selected_date - today >= 1000 * 60 * 60 * 24 * 365) || (selected_date - today <= 1000 * 60 * 60 * 24 * -1) || (selected_year - verify_year < 0)
+
+            if (res){this.just_stop = 'no'}
+            else {this.just_stop = ''}
 
             return res
         },
@@ -45,17 +55,6 @@ const form_alerts = Vue.createApp({
             if (this.drop_off===""){return true}
             return false;
         },
-
-        check_inputs() {
-            if ((this.full_date) && (this.full_time)){
-                console.log(this.date)
-                console.log(this.time)
-                console.log("=== i want to die ===")
-                return this.fully_filled = true
-            }
-            return false
-    
-        }
 
         
         // addHoursToDate(date, hours) {
@@ -74,20 +73,14 @@ const form_alerts = Vue.createApp({
             deep: true
         },
 
-        submitted_time: {
-            full_time(new_time, old_time) {
-                this.time_alert = new_time === "" && old_time !== "";
-            },
-            deep: true
-        },
-
-        submitted_date: {
-            full_date(new_date, old_date) {
-                this.date_alert = new_date === "" && old_date !== "";
+        date: {
+            handler(new_date, old_date) {
+                this.change_date = new_date === "";
             },
             deep: true
         }
     },
+
     created()  {
         // main_map_function()
     },

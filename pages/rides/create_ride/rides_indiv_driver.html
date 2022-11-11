@@ -492,6 +492,11 @@
             position: absolute;
             left: 0px;
         }
+        .change_date {
+            position: absolute;
+            top: -30px;
+            right: 0px
+        }
 
         .rotate-forward {
             animation: rotate-180-cw 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)
@@ -1027,10 +1032,6 @@
             // );
         </script>
     </div>
-    <script>
-        thing = new Date().toISOString().split("T")
-        console.log(thing)
-    </script>
     <div class="container text-center inputs-div">
         <div class="group" id="cost_group">
             <span class="currencyinput" id="dollarsign"></span>
@@ -1081,8 +1082,15 @@
 
                 v-if="check_date()"
             >
-                Please select a date not more than 1 year from today *
+                Please select a date not more than 1 year from today or before today *
             </label>
+            <label
+                        class="change_date text-danger"
+                        role="alert"
+                        v-if="change_date"
+                    >
+                        Please input a date*
+                    </label>
         </div>
         <div class="group">
             <!-- <input
@@ -1111,7 +1119,7 @@
             type="submit"
             class="btn button d-block mx-auto mt-5 w-100 mb-5"
             id="rides"
-            v-bind:disabled="(date.length == '')"
+            v-bind:disabled="(date.length == '') || (location_input == '') || (just_stop =='no')"
         >
             Get in loser, we're going shopping.
         </button>
