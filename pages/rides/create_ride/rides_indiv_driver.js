@@ -43,9 +43,10 @@ const form_alerts = Vue.createApp({
 
             const today = new Date()
             let verify_year = today.getFullYear()
-            console.log(selected_date - today)
+
             let res = (selected_date - today >= 1000 * 60 * 60 * 24 * 365) || (selected_date - today <= 1000 * 60 * 60 * 24 * -1) || (selected_year - verify_year < 0)
 
+            // i apologise for the naming convention, just_stop is for disabling the button should the conditions not be fulfilled
             if (res){this.just_stop = 'no'}
             else {this.just_stop = ''}
 
