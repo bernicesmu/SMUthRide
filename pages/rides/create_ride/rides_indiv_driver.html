@@ -666,7 +666,6 @@
                     />
                 </svg>
             </div>
-
             <div class="col-xs-12 col-md-5 justify-content-center py-4" style="position: relative; width: 70%px;  margin-right: 0px;">
                 <div class="justify-content-center" >
                     <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required="false" v-model="location_input"/>
@@ -713,7 +712,6 @@
             </div>
             <!-- <div id="info_hover"></div> -->
         </div>
-
         <!-- MAP MAP MAP MAP MAP MAP MAP MAP -->
 
         <div id="map" class="mx-auto border-round w-75"></div>
@@ -878,7 +876,6 @@
                                 loc_lat = result.routes[0].legs[0].start_location.lat(),
                                 loc_lng = result.routes[0].legs[0].start_location.lng();
                             }
-
                             api_url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${loc_lat},${loc_lng}&key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q`
                             axios.get(api_url)
                             .then(response => { 
@@ -1103,6 +1100,7 @@
             type="submit"
             class="btn button d-block mx-auto mt-5 w-100 mb-5"
             id="rides"
+            v-bind:disabled="((time.length == '') || (date.length == ''))"
         >
             Get in loser, we're going shopping.
         </button>
