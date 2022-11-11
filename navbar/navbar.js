@@ -133,6 +133,7 @@ const navbar = Vue.createApp({
     },
     methods: {
         profilePic() {
+            console.log("profilepic func run");
             let username = localStorage.getItem("username_x");
             const db = getDatabase();
 
