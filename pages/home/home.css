@@ -285,16 +285,16 @@ p {
 	border-radius: 50%;
 }
 .cloud.a {
-	top:320px;
+	top:55%;
 	animation-duration: 55s;
 }
 .cloud.b {
-	top:350px;
+	top:50%;
 	left:-15%;
 	animation-duration: 38s;
 }
 .cloud.c {
-	top:300px;
+	top:68%;
 	left:-10%;
 	animation-duration: 25s;
 }
