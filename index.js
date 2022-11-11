@@ -475,6 +475,6 @@ export function formatAMPM(date) {
 
 export function format_date(date) {
     date = date.split("-");
-    let day = new Date(date[0], date[1], date[2]).toDateString().split(" ");
+    let day = new Date(date[0], date[1]-1, date[2]).toDateString().split(" ");
     return [day[0], `${day[2]} ${day[1]} ${day[3]}`];
 }

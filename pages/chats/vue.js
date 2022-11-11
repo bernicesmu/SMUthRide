@@ -23,7 +23,9 @@ const chat_left = Vue.createApp({
             selected_driver: "",
             relevant_rides : [],
             selected_ride : "",
-            offered_person_id : 0
+            offered_person_id : 0,
+            counter : 0,
+            selected_room: ""
         }
     },
     computed:{
@@ -44,11 +46,34 @@ const chat_left = Vue.createApp({
                     if(usernames_in_chat.includes(this.user)){
                         // check the timing
                         console.log(all_chats[chat])
-                        this.chat_array.push(chat)
+
+                        // implementation of timing 
+                        const timing = ref(db,`messages/${chat}`)
+                        onValue(timing,(snapshot)=>{
+
+                            // console.log(snapshot.val())
+                            let all_message = snapshot.val()
+                            let latest_message = all_message[all_message.length -1]
+                            // console.log(latest_message)
+                            let timing_of_latest_message = latest_message.message_time
+                            console.log(timing_of_latest_message)
+                            let chat_object = {
+                                chat_id : chat,
+                                timing : timing_of_latest_message
+                            }
+                            this.chat_array.push(chat_object)
+
+
+                        })
+                        // this.chat_array.push(chat)
                     }
                     
                 }
+                this.chat_array.sort(function(a, b) {
+                    return parseInt(b.timing) - parseInt(a.timing);
+                });
                 console.log(this.chat_array)
+                // sort by timing 
             })
             
         },
@@ -178,7 +203,7 @@ const chat_left = Vue.createApp({
                 username: this.user,
                 type : "offer",
                 accepted : "pending",
-                message_time : this.message_time,
+                message_time : Date.now(),
                 selected_ride : this.selected_ride,
                 mid : this.new_mid
               })
@@ -401,9 +426,68 @@ const chat_left = Vue.createApp({
             const updates = {};
             updates[`messages/${this.current_chatid}/${mid}/accepted`] = "declined"
             return update(ref(db), updates)
+        },
+        change_counter : function(){
+            var time = this
+            setInterval(function(){
+                time.counter = Date.now()
+                
+            },1000)
+        },
+        selected_chatroom(chat_id){
+            this.selected_room = chat_id
         }
      
 
+    },
+    watch :{
+        counter : function(){
+            const db = getDatabase()
+            const reference = ref(db, 'messages')
+    
+            
+            onValue(reference, (snapshot) => {
+                this.chat_array = []
+                let all_chats = snapshot.val()
+                // console.log(all_chats)
+                // console.log(all_chats)
+                for(var chat in all_chats){
+                    // console.log(chat)
+                    let usernames_in_chat = chat.split(";")
+                    if(usernames_in_chat.includes(this.user)){
+                        // check the timing
+                        // console.log(all_chats[chat])
+
+                        // implementation of timing 
+                        const timing = ref(db,`messages/${chat}`)
+                        onValue(timing,(snapshot)=>{
+
+                            // console.log(snapshot.val())
+                            let all_message = snapshot.val()
+                            let latest_message = all_message[all_message.length -1]
+                            // console.log(latest_message)
+                            let timing_of_latest_message = latest_message.message_time
+                            // console.log(timing_of_latest_message)
+                            let chat_object = {
+                                chat_id : chat,
+                                timing : timing_of_latest_message
+                            }
+                            this.chat_array.push(chat_object)
+
+
+                        })
+                        // this.chat_array.push(chat)
+                    }
+                    
+                }
+                this.chat_array.sort(function(a, b) {
+                    return parseInt(b.timing) - parseInt(a.timing);
+                });
+                // console.log(this.chat_array)
+                // sort by timing 
+            })
+            
+        }
     },
     created(){
         this.user = localStorage.getItem("username_x")
@@ -411,7 +495,11 @@ const chat_left = Vue.createApp({
         this.get_related_chats
         // this.retreive_chat(this.chat_array[0])
         this.get_userimage
-        console.log(this.messages)
+        // console.log(this.messages)
+        // setInterval(function(){this.counter = this.counter+ 1}, 1000)
+    },
+    mounted(){
+        this.change_counter()
     }
 });
 
@@ -547,9 +635,9 @@ chat_left.component('chat-box', {
     },
     props: ['chat_id'],
 
-    emits: ['get_chat'],
-
-    template: `<div :id="chat_id" class="chatbox" style="padding:10px; display: flex;" v-on:click="$emit('get_chat',chat_id)" @click="selected_chat(chat_id)">
+    emits: ['get_chat','selected_chatroom'],
+    // @click="selected_chat(chat_id)"
+    template: `<div :id="chat_id" class="chatbox" style="padding:10px; display: flex;" v-on:click="$emit('get_chat',chat_id)" v-on:click="$emit('selected_chatroom',chat_id)">
     <div id="photo">
         <img :src="image_url" class="profile-pic img-fluid rounded-circle"
         style="object-fit: cover; height: 50px; width: 50px; object-position: 50% 50%;">
@@ -567,9 +655,9 @@ chat_left.component('chat-box', {
         get_latest_message(){
             const db = getDatabase()
             const reference = ref(db, 'messages/' + this.chat_id)
-            console.log(reference)
+            // console.log(reference)
             onValue(reference, (snapshot) => {
-                console.log(snapshot.val())
+                // console.log(snapshot.val())
                 // console.log(snapshot.val())
                 let all_messages = snapshot.val()
                 
@@ -600,7 +688,7 @@ chat_left.component('chat-box', {
             const reference = ref(db, 'users/' + this.receipient_username)
 
             onValue(reference, (snapshot) => {
-                console.log(snapshot.val())
+                // console.log(snapshot.val())
                 // console.log(snapshot.val())
                 let user_profile = snapshot.val()
                 let image = user_profile["profile_url"]
@@ -632,10 +720,10 @@ chat_left.component('chat-box', {
 
             var last_chat = chatboxes[chatboxes.length-1]['id']
             this.selected_chatroom = chat_id;
-            var to_style = `color: #8A6F42;
-            background-color: #d8c7a3;
-            padding:10px; 
-            display: flex;`
+            // var to_style = `color: #8A6F42;
+            // background-color: #d8c7a3;
+            // padding:10px; 
+            // display: flex;`
             if (chat_id == last_chat) { 
                 to_style += 'border-radius: 0px 0px 30px 30px;'
             }

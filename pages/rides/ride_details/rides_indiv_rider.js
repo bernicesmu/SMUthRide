@@ -193,9 +193,15 @@ const app = Vue.createApp({
             if(message.trim().length > 0){
                 console.log(length)
                console.log("YES")
+               let time = Date.now()
                 set(ref(db, `messages/${chat_id}/${length}`), {
                     message: message,
-                    username: user   
+                    username: user,
+                    type: "message",
+                    accepted : "message",
+                    message_time : time,
+                    mid : length
+                    
                   })
 
             }
