@@ -995,6 +995,7 @@
                         type="date"
                         name="date"
                         class="bottom_text-input datetime-input w-75"
+
                         v-bind:min="today"
                         oninput="date_click()"
                         v-model="date"
@@ -1005,6 +1006,7 @@
                     <label
                         class="date_alert text-danger w-75"
                         role="alert"
+
                         v-if="check_date()"
                     >
                         Please select a date not more than 1 year from today *
@@ -1015,11 +1017,22 @@
                         type="time"
                         name="time"
                         class="bottom_text-input datetime-input"
+                        v-bind:min="time_now"
+                        v-model="time"
                         oninput="time_click()"
                         required
+                        step= "300"
                     />
                     <span class="highlight"></span>
                     <label class="date-label" id="time-label">Time</label>
+                    <label
+                            class="date_alert text-danger w-75"
+                            role="alert"
+
+                            v-if="check_time()"
+                    >
+                        You cant time travel.. Please choose a later timing *
+                    </label>
                 </div>
                 <button
                     type="submit"
