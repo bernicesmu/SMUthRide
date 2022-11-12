@@ -267,6 +267,7 @@ document.getElementById('rides').addEventListener('click',event => {
     event.preventDefault()
     write_ride_local()
     sleep(0.25 * 1000)
+    localStorage.setItem('ridecreated', 'yes')
     window.location.href = "./../rides_list/rides_listing.html"
 })
 
