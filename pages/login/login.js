@@ -124,18 +124,22 @@ const registration_check = Vue.createApp({
             email: "",
             password: "",
             cfmpassword: "",
+            degree: "",
+            year: "",
+            age: "",
+            gender: "",
             errorMessages: {
                 username: [],
                 email: [],
                 password: [],
                 cfmpassword: [],
+                display_name: [],
+                age: [],
+                register: [],
             },
             all_usernames: [],
             registration_confirmation: "",
-            degree: "",
-            year: "",
-            age: 0,
-            gender: "",
+
         };
     },
     methods: {
@@ -156,7 +160,6 @@ const registration_check = Vue.createApp({
             }
         },
         check_password_match() {
-            console.log("check password match");
             this.errorMessages.cfmpassword = [];
             if (this.password != this.cfmpassword) {
                 this.errorMessages.cfmpassword.push("Passwords do not match");
@@ -184,61 +187,49 @@ const registration_check = Vue.createApp({
                 this.errorMessages.password = [];
             }
         },
-
+        check_empty() {
+            if (
+                this.username == "" ||
+                this.email == "" ||
+                this.password == "" ||
+                this.cfmpassword == "" ||
+                this.display_name == "" ||
+                this.degree == "" ||
+                this.year == "" ||
+                this.age == "" ||
+                this.gender == "") {
+                if (this.errorMessages.register.includes("Please fill in all fields") === false) {
+                    this.errorMessages.register.push("Please fill in all fields");
+                }
+            } else{
+                this.errorMessages.register = [];
+            }
+        },
         async register_user() {
-            var inputs = document.getElementsByTagName("input");
-            var name = inputs.name.value;
-            var username = inputs.username.value;
-            var email = inputs.email.value;
-            var password = inputs.pw.value;
-            var cfmpassword = inputs.cfmpassword.value;
-            var degree = document.getElementById("degree").value;
-            var year = document.getElementById("year").value;
-            var age = inputs.age.value;
-            var gender = document.getElementById("gender").value;
 
+            this.check_empty();
             var valid = true;
-            if (!email.includes("smu.edu.sg")) {
-                alert(
-                    "You must have a valid SMU email address to register on SMUth Ride."
-                );
-                valid = false;
-            }
-
-            if (password != cfmpassword) {
-                alert("The passwords do not match! Please try again.");
-                valid = false;
-            }
-
-            if (username.includes(";") | username.includes(",")) {
-                alert("Username cannot contain comma (,) or semicolon (;).");
-                valid = false;
-            }
-
-            this.get_all_usernames();
-            // var all_usernames = localStorage.getItem("all_usernames")
-            if (this.all_usernames.includes(username)) {
-                alert(
-                    "Someone else has the same username! Please choose another one."
-                );
-                valid = false;
+            for (let checks of Object.values(this.errorMessages)) {
+                if (checks.length > 0) {
+                    valid = false;
+                }
             }
 
             if (valid) {
-                await this.create_user(email, password);
+                await this.create_user(this.email,this.password);
                 await this.sleep(0.3 * 1000);
                 await this.writeUserData(
-                    username,
-                    name,
-                    email,
-                    degree,
-                    year,
-                    age,
-                    gender
+                    this.username,
+                    this.display_name,
+                    this.email,
+                    this.degree,
+                    this.year,
+                    this.age,
+                    this.gender
                 );
                 await this.sleep(0.6 * 1000);
                 localStorage.clear();
-                localStorage.setItem("username_x", username);
+                localStorage.setItem("username_x", this.username);
                 this.registration_confirmation =
                     "Registration successful! Please log in to your account.";
                 console.log("wiufhewuf");
@@ -317,12 +308,28 @@ const registration_check = Vue.createApp({
     },
 
     watch: {
+        age(newValue, oldValue) {
+            console.log( newValue);
+            if (newValue < 16) {
+                console.log("under 16");
+                if (this.errorMessages.age.includes("You must be 16 or older") === false) {
+                    this.errorMessages.age.push("You must be 16 or older");
+                }
+            }
+
+            if(newValue >= 16) {
+
+                console.log("over 16");
+                this.errorMessages.age = [];
+            }
+        },
         username(oldValue, newValue) {
+
             if (oldValue == "" || oldValue != newValue) {
                 this.check_username();
             }
         },
-        email(oldValue, newValue) {
+        email(newValue, oldValue) {
             if (oldValue == "" || newValue != "") {
                 this.check_email();
             }
@@ -332,11 +339,22 @@ const registration_check = Vue.createApp({
                 this.check_password();
             }
         },
-        cfm_password(oldValue, newValue) {
+        cfmpassword(oldValue, newValue) {
             if (oldValue == "" || newValue != "") {
+
                 this.check_password_match();
             }
+
         },
+        display_name(newValue, oldValue) {
+            if (oldValue != "" && newValue == "") {
+                this.errorMessages.display_name.push(
+                    "Display name cannot be empty"
+                );
+            } else{
+                this.errorMessages.display_name = [];
+            }
+        }
     },
 });
 
