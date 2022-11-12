@@ -152,6 +152,7 @@
 
 .navbar-toggler-icon {
     z-index: 10 !important;
+    filter: invert(43%) sepia(28%) saturate(380%) hue-rotate(123deg) brightness(91%) contrast(93%);
 }
 
 @-moz-keyframes tyre-rotate {
