@@ -394,26 +394,30 @@ app.component("riders-table", {
     data() { 
         return { 
             list_riders: [], 
+            list_fullnames: [],
+            list_gender: [],
+            user_fullname: '', 
+            gender: '',
         }
     },
 
     props: ['driver', 'user', 'rideid'],
 
     template: ` 
-                <table class="table" v-if="driver_is_user() && list_riders.length > 0" class='table w-75 mx-auto'>
+                <table class="table mt-5" v-if="driver_is_user() && list_riders.length > 0" class='table mx-auto' style="width:90%">
                     <thead>
                         <tr>
                             <th scope="col">Rider</th>
+                            <th scope='col'>Gender</th>
                             <th scope="col">Remove</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                        <tr v-for="rider of list_riders">
-                            <td scope="row">{{rider}}</td>
-                            <td>
-                                <span class="trashcan" @click="remove_rider(rider)">🗑</span>
-                            </td>
-                        </tr>
+                        <riders-tr 
+                            :rider='rider'
+                            @remove_rider='remove_rider' 
+                            v-for="rider of list_riders"
+                        ></riders-tr>
                     </tbody>
                 </table>`,
     
@@ -436,15 +440,17 @@ app.component("riders-table", {
             const reference = ref(db, `rides/${this.rideid}/users_offered`)
             onValue(reference, (snapshot) => { 
                 var users_offered = snapshot.val() 
-                console.log(users_offered)
                 users_offered = users_offered.slice(1,users_offered.length)
-                console.log(users_offered)
-                console.log(users_offered.length)
                 this.list_riders = users_offered
-                console.log(this.list_riders)
+                // for (var users of users_offered) { 
+                //     this.find_user_name(users)
+                //     this.find_user_gender(users)
+                // }
+                // console.log(this.list_gender)
                 return users_offered
             })
         },
+
 
         remove_rider(rider_to_remove) { 
             const db = getDatabase()
@@ -456,12 +462,76 @@ app.component("riders-table", {
             }
             const updates = {} 
             updates[`rides/${this.rideid}/users_offered`] = updated_riders
+            this.reload()
             return update(ref(db), updates)
         },
 
+        reload() { 
+            this.sleep(0.1 * 1000)
+            location.reload()
+        },
+
+        sleep(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+        },
+    },
+})
+
+app.component("riders-tr", {
+    data() { 
+        return { 
+            gender: "",
+            full_name: "",
+        }
     },
 
+    props: ['rider'],
 
+    emits: ['remove_rider'],
+
+    template: `
+                <tr>
+                    <td>
+                        <b>{{full_name}}</b> (@{{rider}})
+                    </td>
+                    <td>
+                        <span v-if="gender == 'Male'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-male" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2H9.5zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+                            </svg>
+                        </span>
+                        <span v-else-if="gender == 'Female'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z"/>
+                            </svg>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="trashcan" @click="$emit('remove_rider', rider)">🗑</span>
+                    </td>
+                </tr>
+            `,
+
+    methods: { 
+        find_user_details() { 
+            console.log("iuhewuifeuhif")
+            const db = getDatabase()
+            const reference = ref(db, `users/${this.rider}`)
+            onValue(reference, (snapshot) => { 
+                var users = snapshot.val()
+                this.full_name = users.name 
+                this.gender = users.userprofile.gender
+                console.log(this.gender)
+                console.log(this.full_name)
+            })
+        },
+    },
+
+    created() { 
+        this.find_user_details()
+        console.log(this.gender)
+        console.log(this.full_name)
+    }
 })
 
 
