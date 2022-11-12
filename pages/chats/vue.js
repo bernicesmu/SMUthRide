@@ -300,7 +300,7 @@ const chat_left = Vue.createApp({
                 // console.log(snapshot.val())
                 // console.log(snapshot.val())
                 let all_rides= snapshot.val()
-                console.log(all_rides)
+                // console.log(all_rides)
                 for(var rider in all_rides){
                     if(rider != null){
                         
@@ -315,7 +315,10 @@ const chat_left = Vue.createApp({
                             let to_from = ride.smu_to_from
                             let ride_date_array = ride_date.split("-")
                             let ride_id = ride.ride_id 
-
+                            let ride_users_offered = ride.users_offered
+                            console.log(this.user)
+                            if(!ride_users_offered.includes(this.user)){
+                                // console.log("OUT")
 
                             let ride_year = ride_date_array[0]
                             let ride_month = ride_date_array[1]
@@ -369,6 +372,8 @@ const chat_left = Vue.createApp({
                                 }
                             }
                             
+                            }
+                            // console.log(ride_users_offered)
                             
                         }
                         
@@ -520,7 +525,7 @@ chat_left.component('offer-button',{
 
     emits: ['accept', 'decline'],
 
-    template: `<b>{{ message.username }}</b>: {{message.message}}<br>
+    template: `<b>{{ message.username }}</b>: <span v-html='message.message' style="font-weight: normal;"></span><br>
     <div id="acc_dec_buttons" v-if="message_status == 'pending'">
         <button class="btn btn-accept" v-on:click="$emit('accept',selected_ride, user,length, message.mid)">
             Accept Offer
