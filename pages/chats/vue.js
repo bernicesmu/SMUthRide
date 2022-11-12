@@ -644,8 +644,8 @@ chat_left.component('offer-button',{
                 // console.log(snapshot.val())
                 // console.log(snapshot.val())
                 let ride_details = snapshot.val()
-                console.log(ride_details)
-                console.log(ride_details.driver_username)
+                // console.log(ride_details)
+                // console.log(ride_details.driver_username)
                 this.driver = ride_details.driver_username
             })
         }
@@ -816,6 +816,9 @@ chat_left.component('chat-box', {
         message_formatted(sender, message) { 
             return `${sender}: ${message}`
         },
+        setTwoNumberDecimal() {
+            this.value = parseFloat(this.value).toFixed(2);
+        }
     }
 })
 
