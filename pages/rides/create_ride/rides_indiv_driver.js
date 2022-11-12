@@ -23,7 +23,9 @@ const form_alerts = Vue.createApp({
             change_date: false,
             school_input: "",
             formatted_address : "",
-            allowable_date: true
+            allowable_date: true,
+            allowable_time : true,
+            testing_time : true
         }
     },
     methods:{
@@ -55,9 +57,14 @@ const form_alerts = Vue.createApp({
             console.log(formatted_date)
             if(formatted_date == this.date){
                 this.allowable_date = false
+                if(this.testing_time != true){
+                    this.allowable_time = false
+                }
+                
             }
             else{
                 this.allowable_date = true
+                this.allowable_time = true
             }
             let res = (selected_date - today >= 1000 * 60 * 60 * 24 * 365) || (selected_date - today <= 1000 * 60 * 60 * 24 * -1) || (selected_year - verify_year < 0)
 
@@ -69,6 +76,7 @@ const form_alerts = Vue.createApp({
             else {
                 this.just_stop = ''
                 
+                
             }
             // if(this.date == )
 
@@ -78,66 +86,73 @@ const form_alerts = Vue.createApp({
             if (this.drop_off===""){return true}
             return false;
         },
-    //     check_time(date,time_hour,time_minute, time_ampm){
-    //         console.log('===CHECKING THE TIME===')
-    //         var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
-    //         let now_date = new Date()
-    //         let now_month = now_date.getMonth() + 1
-    //         let now_day = now_date.getDate()
-    //         let now_year = now_date.getFullYear()
-    //         // console.log(now_day)
-    //         // console.log(now_month)
-    //         // console.log(time)
-    //         // console.log(this.verified_time)
+        checking_time(date,time_hour,time_minute, time_ampm){
+            console.log('===CHECKINGGGGGG THE TIME===')
+            var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
+            let now_date = new Date()
+            let now_month = now_date.getMonth() + 1
+            let now_day = now_date.getDate()
+            let now_year = now_date.getFullYear()
+            // console.log(now_day)
+            // console.log(now_month)
+            // console.log(time)
+            // console.log(this.verified_time)
 
-    //         let selected_date = date.split("-")
-    //         let selected_month = selected_date[1]
-    //         let selected_year = selected_date[0]
-    //         let selected_day = selected_date[2]
+            let selected_date = date.split("-")
+            let selected_month = selected_date[1]
+            let selected_year = selected_date[0]
+            let selected_day = selected_date[2]
 
-    //         if(this.allowable_date && !(now_month == selected_month && now_day == selected_day && now_year == selected_year)){
-    //             this.correct_time = true
-    //         }
-    //         else if(now_month == selected_month && now_day == selected_day && now_year == selected_year){
-    //             console.log(time)
-    //             // check if hour is less 
-    //             if(time_ampm == "pm"){
-    //                 var hour = parseInt(time_hour)
-    //                 hour += 12
-    //                 time_hour = hour
-    //                 // console.log(this.time_hour)
-    //             }
-    //             else{
-    //                 var hour = parseInt(time_hour)
-    //                 time_hour = hour
-    //             }
+            // if(this.allowable_date && !(now_month == selected_month && now_day == selected_day && now_year == selected_year)){
+            //     this.correct_time = true
+            // }
+            if(now_month == selected_month && now_day == selected_day && now_year == selected_year){
+                console.log(time)
+                // check if hour is less 
+                if(time_ampm == "pm"){
+                    var hour = parseInt(time_hour)
+                    hour += 12
+                    
+                    // console.log(this.time_hour)
+                }
+                else{
+                    var hour = parseInt(time_hour)
+                    
+                }
 
-    //             let time_now = new Date().toLocaleTimeString('en-GB')
-    //             time_now = time_now.split(":")
-    //             let hour_now = Number(time_now[0])
-    //             let minute_now = Number(time_now[1])
-    //             console.log(hour)
-    //             console.log(hour_now)
-    //             if(hour < hour_now){
-    //                 correct_time = false
-    //             }
-    //             else if(hour == hour_now){
-    //                 let minute = parseInt(time_minute)
-    //                 console.log(minute)
-    //                 if(minute < minute_now){
-    //                     correct_time = false
-    //                 }
-    //                 else{
-    //                     correct_time = true
-    //                 }
-    //             }
-    //             else{
-    //                 this.correct_time = true
-    //             }
+                let time_now = new Date().toLocaleTimeString('en-GB')
+                time_now = time_now.split(":")
+                let hour_now = Number(time_now[0])
+                let minute_now = Number(time_now[1])
+                console.log(hour)
+                console.log(hour_now)
+                if(hour < hour_now){
+                    this.allowable_time = false
+                    this.testing_time = false
+                }
+                else if(hour == hour_now){
+                    let minute = parseInt(time_minute)
+                    console.log(minute)
+                    if(minute < minute_now){
+                        this.allowable_time = false
+                        this.testing_time = false
+                    }
+                    else{
+                        this.allowable_time = true
+                        this.testing_time = true
+                    }
+                }
+                else{
+                    this.allowable_time = true
+                    this.testing_time = true
+                }
 
                 
-    //         }
-
+            }
+            else{
+                this.allowable_time = true
+            }
+        }
         
     //     // addHoursToDate(date, hours) {
     //     //     return new Date(new Date(date).setHours(date.getHours() + hours));
@@ -184,8 +199,8 @@ form_alerts.component('time-input', {
             hour_24 : ""
         }
     },
-    props : ["date","allowable_date"],
-    // emits : ['check_time'],
+    props : ["date","allowable_date", "allowable_time"],
+    emits : ['checking_time'],
 
     template: ` <div class='time-input'> 
                 <select
@@ -195,6 +210,7 @@ form_alerts.component('time-input', {
                     
                     v-model='time_hour'
                     @change='check_time()'
+                    @change="$emit('checking_time',date,time_hour,time_minute,time_ampm)"
                 >
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -217,6 +233,7 @@ form_alerts.component('time-input', {
                     
                     v-model='time_minute'
                     @change='check_time()'
+                    @change="$emit('checking_time')"
                 >
                     <option value='00'>00</option>
                     <option value='05'>05</option>
@@ -239,6 +256,7 @@ form_alerts.component('time-input', {
                     
                     v-model='time_ampm'
                     @change='check_time()'
+                    @change="$emit('checking_time')"
                 >
                     <option value="am">AM</option>
                     <option value="pm">PM</option>
@@ -379,10 +397,12 @@ form_alerts.component('time-input', {
                     }
                     else{
                         this.correct_time = true
+                        // this.allowable_time = "yes"
                     }
                 }
                 else{
                     this.correct_time = true
+                    // this.allowable_time = "yes"
                 }
 
                 
