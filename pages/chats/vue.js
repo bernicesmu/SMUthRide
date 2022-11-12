@@ -67,17 +67,22 @@ const chat_left = Vue.createApp({
 
                         })
                         // this.chat_array.push(chat)
+                        
                     }
                     
                 }
                 this.chat_array.sort(function(a, b) {
                     return parseInt(b.timing) - parseInt(a.timing);
                 });
-                console.log(this.chat_array)
+                this.get_latest_chat()
+                // console.log(this.chat_array)
+
                 // sort by timing 
             })
             
         },
+       
+
         window(){
             if ($(window).width() < 960) {
                 alert('Less than 960');
@@ -91,6 +96,36 @@ const chat_left = Vue.createApp({
 
     },
     methods:{
+        get_latest_chat(){
+            // console.log(this.chat_array)
+            let first_chat = this.chat_array[0]
+            // console.log(first_chat)
+            let first_chat_chat_id = first_chat.chat_id
+            this.selected_room = first_chat_chat_id
+            const db = getDatabase()
+            const reference = ref(db, `messages/${first_chat_chat_id}`)
+
+            // console.log(first_chat_chat_id.split(';'))
+
+            let users = first_chat_chat_id.split(';')
+            for(var user of users){
+                if(user != this.user){
+                    this.other_user = user
+                    // get image
+                    this.get_userimage()
+                }
+            }
+
+            onValue(reference,(snapshot)=>{
+                let result = snapshot.val()
+                this.messages = result
+            })
+
+
+
+
+        },
+
         retreive_chat(chatid){
             const db = getDatabase()
 
