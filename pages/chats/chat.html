@@ -172,21 +172,36 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-5 col-xs-12 col-sm-12">
-              <div  style="min-height: 70vh; max-height: 80vh;" id="leftbar" v-show="swapping == true" class="d-none d-md-block">
+
+              <!-- if has chat, will display the following -->
+              <div  style="height:min-content; max-height: 80vh;" id="leftbar" v-show="swapping == true" class="d-none d-md-block" v-if="chat_array.length > 0">
              
                 <div class="mt-1 chat-label-div">
                   <h3 class="text-center d-block chat-label">Chats</h3>
                   <hr>
                 </div>
-                <chat-box v-for="chat_id of chat_array" :chat_id="chat_id.chat_id" v-on:get_chat="retreive_chat" :key="counter" v-on:selected_chatroom="selected_chatroom" v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" @height_checker="height_checker"></chat-box>
-                
-               </div>
+                <chat-box v-for="chat_id of chat_array" :chat_id="chat_id.chat_id" v-on:get_chat="retreive_chat" :key="counter" v-on:selected_chatroom="selected_chatroom" v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" @height_checker="height_checker"></chat-box> 
+              </div>
 
+              <!-- if no chats, will display the following -->
+              <div style="height:min-content; min-height: 70vh;" id="no_chat" class="hidden-md" v-else>
+                <div class="mt-1 chat-label-div">
+                  <h3 class="text-center d-block chat-label">Chats</h3>
+                  <hr>
+                </div>
+                <div id="empty_chat" class="d-block text-center mt-5 pt-5">
+                  <img class="mt-5" src="images/confusion.png">
+                  <h3 class="nochat">No chat yet!</h3>
+                  <h6 class="reqchat">Request to join a ride!</h6>
+                </div>
+              </div>
             </div>
             
             <!-- LEFT BAR END -->
             <div class="col-md col-xs-12 col-sm-12">
-                <div id="chat"  style="min-height: 70vh; max-height: 80vh;" v-on:scroll="position = 'sticky'">
+
+              <!-- if there are chats, this will display -->
+                <div id="chat"  style="min-height: 70vh; max-height: 80vh;" v-on:scroll="position = 'sticky'" v-if="chat_array.length > 0">
                   <div id="contact" class="d-flex" v-if="other_user != ''">
                     <div class="d-flex" style="min-height: 60px">
                       <!-- back icon -->
@@ -212,19 +227,7 @@
                       </button>
                     </div>
                   </div>
-                  <div v-else>
-                    <div class="d-flex p-1" style="background-color: #4e7570;">
-                      <!-- back icon -->
-                      <!-- <button class="d-block d-md-none clearfix" @click="swap"> -->
-                        <svg id="back-button" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#fff"  class="bi bi-arrow-left d-md-none" viewBox="0 0 16 16" @click="swap">
-                          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                        </svg>
-                        <!-- <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i> -->
-                      <!-- </button> -->
-                      
-                      <h3 class="text-white text-center p-2 ps-3">Welcome to SMUth Chat</h3>
-                    </div>
-                  </div>
+
                   <!-- messages will display here -->
                   <ul id="messages">
                       <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}">
@@ -275,7 +278,21 @@
                       <!-- {{swapping}} -->
                   </div>
               </div>
-
+              
+                <!-- if not chat, this will display -->
+                <div style="height:min-content; min-height: 70vh;" id="no_convo" v-else>
+                  <div class="d-flex p-1 chat-label-div" style="background-color: #4e7570;">
+                    
+                    <h3 class="text-white mx-auto p-2 ps-3">Welcome to SMUth Chat</h3>
+                  </div>
+                  
+                  <div id="empty_chat" class="d-block text-center pt-5 mt-5">
+                    <img class="mt-5" src="images/cab.png" id="cabmissing">
+                    <h3 class="noconvo">Go to rides to chat with a driver or rider</h3>
+                    <button class="btn button-ride" onclick="window.location.href='../rides/rides_list/rides_listing.html'">Request to join a ride!</h6>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>

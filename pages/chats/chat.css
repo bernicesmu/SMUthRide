@@ -148,11 +148,57 @@ p {
   justify-content: space-between;
 }
 
-#leftbar {
+#leftbar, #no_chat {
   background-color: #FFF;
   color: #8A6F42;
   border-radius: 30px;
 }
+
+@media only screen and (max-width: 414px) {
+  #no_chat {
+      display: none;
+  }
+}
+
+#no_convo {
+  background-color: #FFF;
+  border-radius: 30px;
+}
+
+.nochat {
+  color: #D6C7A3;
+}
+
+.noconvo {
+  opacity: 90%;
+  color:#bedad6;
+}
+
+.reqchat {
+  opacity: 90%;
+  color:#D6C7A3;
+}
+
+#missing {
+  opacity: 90%;
+}
+
+
+.button-ride {
+  background-color: #4e7570;
+  color: white;
+  --bs-btn-border-radius: 10rem;
+  opacity: 90%;
+}
+
+.button-ride:hover{
+  background-color: #bedad6;
+  color: white;
+}
+
+#cabmissing {
+  height: 127.99px;
+} 
 
 #contact {
   position: -webkit-sticky;
