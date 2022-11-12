@@ -31,7 +31,7 @@
       .last{
         border-radius: 0px 0px 30px 30px;
       }
-
+    
     </style>
 </head>
 <body>
@@ -110,7 +110,7 @@
             <!-- LEFT BAR -->
             <!-- NEED TO BOOTSTRAP THIS THING -->
             
-        <div class="container-fluid" >
+        <div class="container-fluid">
           <div class="row">
             <div class="col-md-5 col-xs-12 col-sm-12">
               <div style="height:min-content" id="leftbar" v-show="swapping == true" class="d-none d-md-block">
@@ -119,7 +119,7 @@
                   <h3 class="text-center d-block chat-label">Chats</h3>
                   <hr>
                 </div>
-                <chat-box v-for="chat_id of chat_array" :chat_id="chat_id.chat_id" v-on:get_chat="retreive_chat" :key="counter" v-on:selected_chatroom="selected_chatroom" v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}"></chat-box>
+                <chat-box v-for="chat_id of chat_array" :chat_id="chat_id.chat_id" v-on:get_chat="retreive_chat" :key="counter" v-on:selected_chatroom="selected_chatroom" v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" @height_checker="height_checker"></chat-box>
                 
                </div>
 
@@ -127,8 +127,7 @@
             
             <!-- LEFT BAR END -->
             <div class="col-md col-xs-12 col-sm-12">
-
-                <div id="chat" onscroll="sticky()" style="min-height: 70vh; max-height: 80vh;">
+                <div id="chat"  style="min-height: 70vh; max-height: 80vh;">
                   <div id="contact" class="d-flex" v-if="other_user != ''">
                     <div class="d-flex">
                       <!-- back icon -->
@@ -185,7 +184,7 @@
                   <!-- <div style="background-color:azure; width: fit-content;border-radius: 30px; float: right; padding: 20px;" v-if="is_offer" class="sent" v-html="offer_template"></div> -->
 
                   <!-- form to send message -->
-                  <div class="sub_div d-flex" v-if="other_user != ''">
+                  <div class="sub_div d-flex" style="bottom:0px" :style="{'position':position}">
                       <!-- <form action="" id="message-form"> -->
                           <input
                               id="message-input"
@@ -237,10 +236,18 @@
           
           
           
-          function sticky() {
-                document.getElementsByClassName("sub_div")[0].style.position =
-                    "sticky";
-            }
+          // function sticky() {
+          //     console.log("BAD")
+          //       document.getElementsByClassName("sub_div")[0].style.position =
+          //           "sticky";
+                    
+            // }
+          
+          // function change_style(){
+          //   console.log("RAN")
+          //   document.getElementsByClassName("sub_div")[0].style.position =
+          //           "absolute";
+          // }
 
           function overlay() {
                 document.getElementById("overlay").style.display = "block";
@@ -258,10 +265,10 @@
             // window.scrollTo(0, document.querySelector(".chat").scrollHeight);
 
             // }
-            function test() {
-                var elem = document.getElementById("chat");
-                elem.scrollTop = elem.scrollHeight;
-            }
+            // function test() {
+            //     var elem = document.getElementById("chat");
+            //     elem.scrollTop = elem.scrollHeight;
+            // }
 
             
             // window.setInterval(function() {
