@@ -33,7 +33,7 @@
                         <h2 class="title">Login</h2>
                         <div class="txt_field">
                             <i class="fa fa-user" aria-hidden="true"></i>
-                            <input type="text" name="useroremail" required />
+                            <input type="text" name="useroremail"  />
                             <span></span>
                             <label> Username </label>
                         </div>
@@ -43,7 +43,7 @@
                                 type="password"
                                 name="password"
                                 id="login-pwd-field"
-                                required
+
                             />
                             <i
                                 toggle="#login-pwd-field"
@@ -68,40 +68,44 @@
                         id="registration"
                     >
                         <h2 class="title">Register</h2>
-                        <div class="test-register" id="style-1">
+                        <div class="test-register" id="style-1" style="position: relative">
                             <div class="txt_field">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <input
                                     type="text"
                                     name="username"
-                                    required
+
                                     v-model="username"
                                 />
                                 <span></span>
                                 <label> Username </label>
-                                <label
-                                    class="alert text-danger"
-                                    role="alert"
-                                    v-if="check_username()"
-                                >
-                                    Username cannot contain comma (,) or
-                                    semicolon (;).
-                                </label>
+                                <text class="alert text-danger" v-if="errorMessages.username.length>0"
+                                      v-for="msg of errorMessages.username">
+                                    {{msg}}
+                                </text>
                             </div>
                             <div class="txt_field">
                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                <input type="text" name="name" required />
+                                <input type="text" name="name"  v-model="display_name"/>
                                 <span></span>
-                                <label> Display Name </label>
+                                <label> Full Name </label>
+                                <text class="alert text-danger" v-if="errorMessages.display_name.length>0"
+                                      v-for="msg of errorMessages.display_name">
+                                    {{msg}}
+                                </text>
                             </div>
                             <div class="txt_field">
                                 <i
                                     class="fa fa-envelope"
                                     aria-hidden="true"
                                 ></i>
-                                <input type="text" name="email" required />
+                                <input type="text" name="email"  v-model="email"/>
                                 <span></span>
                                 <label> Email </label>
+                                <text class="alert text-danger" v-if="errorMessages.email.length>0"
+                                      v-for="msg of errorMessages.email">
+                                    {{msg}}
+                                </text>
                             </div>
                             <div class="txt_field">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
@@ -109,15 +113,15 @@
                                     type="password"
                                     name="pw"
                                     id="pwd-field"
-                                    required
+                                    v-model="password"
+
                                 />
-                                <i
-                                    toggle="#pwd-field"
-                                    class="fa fa-fw fa-eye toggle-password"
-                                    @click="eyeicon_toggle('.toggle-password', '#pwd-field')"
-                                ></i>
                                 <span></span>
                                 <label> Password </label>
+                                <text class="alert text-danger" v-if="errorMessages.password.length>0"
+                                      v-for="msg of errorMessages.password">
+                                    {{msg}}
+                                </text>
                             </div>
                             <div class="txt_field">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
@@ -125,22 +129,22 @@
                                     type="password"
                                     name="cfmpassword"
                                     id="cfm-pwd-field"
-                                    required
+                                    v-model="cfmpassword"
+
                                 />
-                                <i
-                                    toggle="#cfm-pwd-field"
-                                    class="fa fa-fw fa-eye cfm-toggle-password"
-                                    @click="eyeicon_toggle('.cfm-toggle-password', '#cfm-pwd-field')"
-                                ></i>
                                 <span></span>
                                 <label> Confirm Password </label>
+                                <text class="alert text-danger" v-if="errorMessages.cfmpassword.length>0"
+                                      v-for="msg of errorMessages.cfmpassword">
+                                    {{msg}}
+                                </text>
                             </div>
                             <div class="txt_field">
                                 <i
                                     class="fa fa-graduation-cap"
                                     aria-hidden="true"
                                 ></i>
-                                <select name="degree" id="degree" required>
+                                <select name="degree" id="degree" v-model="degree" >
                                     <option
                                         disabled
                                         selected
@@ -163,7 +167,7 @@
                             </div>
                             <div class="txt_field">
                                 <i class="fa fa-child" aria-hidden="true"></i>
-                                <select name="year" id="year" required>
+                                <select name="year" id="year" v-model="year" >
                                     <option
                                         disabled
                                         selected
@@ -189,17 +193,22 @@
                                     type="number"
                                     name="age"
                                     oninput="validity.valid||(value='');"
-                                    required
+                                    v-model="age"
+
                                 />
                                 <span></span>
                                 <label> Age </label>
+                                <text class="alert text-danger" v-if="errorMessages.age.length>0"
+                                      v-for="msg of errorMessages.age">
+                                    {{msg}}
+                                </text>
                             </div>
                             <div class="txt_field">
                                 <i
                                     class="fa fa-transgender"
                                     aria-hidden="true"
                                 ></i>
-                                <select name="gender" id="gender" required>
+                                <select name="gender" id="gender" v-model="gender" >
                                     <option
                                         disabled
                                         selected
@@ -212,18 +221,29 @@
                                 <span></span>
                                 <label> Gender </label>
                             </div>
-                        </div>
 
-                        <p>Hi i am an alert </p>
+                        </div>
+                        <p
+                                class="alert text-danger"
+
+                               >
+                            hihihi
+                        </p>
+                        <p  class="alert text-danger"
+                            style="position:relative;
+                            left: 0%;"
+                        >
+                            Please resolve all errors
+                        </p>
                         <input
                             type="submit"
                             value="Register"
                             @click="register_user()"
                         />
-                        <p
-                            v-html="registration_confirmation"
-                            class="text-center"
-                        ></p>
+
+
+
+
                     </form>
                 </div>
                 <div class="panels-container">

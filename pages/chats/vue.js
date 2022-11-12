@@ -14,6 +14,7 @@ const chat_left = Vue.createApp({
             message_to_send: "",
             new_mid : 0,
             other_user: "",
+            other_user_name: "",
             image_url:"",
             offer_price: "",
             offer_template: "",
@@ -315,6 +316,7 @@ const chat_left = Vue.createApp({
                 let user_profile = snapshot.val()
                 let image = user_profile["profile_url"]
                 this.image_url = image
+                this.other_user_name = user_profile.name
             })
 
         },
@@ -731,7 +733,7 @@ chat_left.component('chat-box', {
         style="object-fit: cover; height: 50px; width: 50px; object-position: 50% 50%;">
     </div>
     <div style="margin-left: 20px;align-self: start;width: 70%;"> 
-      <b>{{ receipient_username }}</b>
+      <b>{{other_user_name}}</b> (@{{ receipient_username }})
       <div v-if="latest_message != ''" style="text-overflow: ellipsis; display: block; width:50%;white-space: nowrap; width: 100%; overflow: hidden;">
         <span v-html="message_formatted(sender_latest_message, latest_message)"></span>
       </div>
@@ -782,6 +784,7 @@ chat_left.component('chat-box', {
                 let user_profile = snapshot.val()
                 let image = user_profile["profile_url"]
                 this.image_url = image
+                this.other_user_name = user_profile.name
             })
         },
 

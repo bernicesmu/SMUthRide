@@ -390,6 +390,80 @@ app.component('send-button',{
     }
 })
 
+app.component("riders-table", { 
+    data() { 
+        return { 
+            list_riders: [], 
+        }
+    },
+
+    props: ['driver', 'user', 'rideid'],
+
+    template: ` 
+                <table class="table" v-if="driver_is_user() && list_riders.length > 0" class='table w-75 mx-auto'>
+                    <thead>
+                        <tr>
+                            <th scope="col">Rider</th>
+                            <th scope="col">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr v-for="rider of list_riders">
+                            <td scope="row">{{rider}}</td>
+                            <td>
+                                <span class="trashcan" @click="remove_rider(rider)">🗑</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>`,
+    
+    methods: { 
+        driver_is_user() { 
+            this.riders_list()
+            console.log(this.list_riders)
+            if (this.driver == this.user) { 
+                console.log("true")
+                return true
+            }
+            else { 
+                console.log("false")
+                return false
+            }
+        },
+
+        riders_list() { 
+            const db = getDatabase()
+            const reference = ref(db, `rides/${this.rideid}/users_offered`)
+            onValue(reference, (snapshot) => { 
+                var users_offered = snapshot.val() 
+                console.log(users_offered)
+                users_offered = users_offered.slice(1,users_offered.length)
+                console.log(users_offered)
+                console.log(users_offered.length)
+                this.list_riders = users_offered
+                console.log(this.list_riders)
+                return users_offered
+            })
+        },
+
+        remove_rider(rider_to_remove) { 
+            const db = getDatabase()
+            var updated_riders = ['']
+            for (var rider of this.list_riders) { 
+                if (rider != rider_to_remove) {
+                    updated_riders.push(rider)
+                }
+            }
+            const updates = {} 
+            updates[`rides/${this.rideid}/users_offered`] = updated_riders
+            return update(ref(db), updates)
+        },
+
+    },
+
+
+})
+
 
 
 app.mount('#main')

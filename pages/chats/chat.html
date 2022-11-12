@@ -191,7 +191,15 @@
                   <h3 class="text-center d-block chat-label">Chats</h3>
                   <hr>
                 </div>
-                <chat-box v-for="chat_id of chat_array" :chat_id="chat_id.chat_id" v-on:get_chat="retreive_chat" :key="counter" v-on:selected_chatroom="selected_chatroom" v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" @height_checker="height_checker"></chat-box>
+                <chat-box 
+                  v-for="chat_id of chat_array" 
+                  :chat_id="chat_id.chat_id" 
+                  v-on:get_chat="retreive_chat" 
+                  :key="counter" 
+                  v-on:selected_chatroom="selected_chatroom" 
+                  v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" 
+                  @height_checker="height_checker"
+                ></chat-box>
                 
                </div>
 
@@ -210,9 +218,18 @@
                         <!-- <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i> -->
                       <!-- </button> -->
                       
-                      <div id="photo" v-if="image_url != ''"><img :src="image_url" class="img-fluid rounded-circle"
-                        style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> </div>
-                      <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
+                      <a 
+                        :href="'../profile/profile.html?user=' + other_user " 
+                        class="d-flex go-to-profile"
+                        >
+                        <div id="photo" v-if="image_url != ''"><img :src="image_url" class="img-fluid rounded-circle"
+                          style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> </div>
+                        <div class="d-block"> 
+                          <span id="other-user" class="font-weight-bolder" style="padding-right:0px; padding-bottom: 0px; padding-top: 0px; font-size: calc(1rem + .6vw); top: -10px">{{other_user_name}}</span> 
+                          <br>
+                          <span id="other-user" style="font-weight:300; padding:0px; padding-left:10px">@{{ other_user }}</span>
+                        </div>
+                      </a>
                     </div>
                     <div>
                       <button

@@ -85,9 +85,9 @@
             text-decoration: none;
         }
 
-        .userinfo:hover h2, .userinfo:hover h4 {
-            font-weight: bold;
-            color: #bedad6;
+        .usertext:hover h2, .usertext:hover h4, .usertext:hover h6 {
+            color: #d8c7a3;
+            transition: all 0.2s ease-in-out;
         }
 
         .chat-button { 
@@ -126,6 +126,31 @@
         .valid-message { 
             color: #BFACD3;
             margin-bottom: 0px;
+        }
+
+        .btn-remove { 
+            background-color: #BFACD3 !important;
+            color: #451F6A !important;
+        }
+
+        .btn-remove:hover { 
+            background-color: #BFACD3 !important;
+            color: #FFF !important;
+        }
+
+        .table {
+            color: #4e7570;
+            /* background-color: #bedad6; */
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .table tbody td {
+            border-bottom-width: 3px;
+        }
+
+        .trashcan{
+            cursor: pointer;
         }
     </style>
 
@@ -325,6 +350,11 @@
                            
                         </h4>
                     </div>
+                    <riders-table
+                        :driver="driver_username" 
+                        :user="user" 
+                        :rideid = "rideid"
+                    ></riders-table>
                 </div>
                 <div class="user-buttons">
                     <!-- <button type="button" class="btn button btn-lg me-2">
