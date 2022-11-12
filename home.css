@@ -570,7 +570,7 @@ p {
         position: absolute;
         bottom: 0;
         background-repeat: repeat-x;
-        animation: moveRight 10s linear infinite;
+        animation: moveRight 20s linear infinite;
     }
     @keyframes moveRight {
         0% {
