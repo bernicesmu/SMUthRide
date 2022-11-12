@@ -318,8 +318,8 @@
                     <hr class="mb-1 mt-2" />
                     <div>
 
-                        <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-if="to_from == `from`" style="overflow: hidden;  color: #BFACD3">
-                            <i class="bi bi-geo-alt-fill"></i>{{listing.neighbourhood}}
+                        <h2 class="d-flex justify-content-center card-title fw-bold text-center mb-3 neighbourhood" v-if="to_from == `from`" style="color: #BFACD3">
+                            <i class="bi bi-geo-alt-fill"></i><div class="d-inline-block" style="text-overflow: ellipsis; overflow: hidden; height: 1.4em; white-space: nowrap;">{{listing.neighbourhood}}</div>
                                 <span class="tooltiptext" style="background-color: #BFACD3; color: #451F6A;">
                                     <h6 class="formatted-address" style="color: #451F6A;">{{listing.formatted_address}}</h6>
                                 </span>
