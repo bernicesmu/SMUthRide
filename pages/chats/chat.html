@@ -60,7 +60,7 @@
       }
 
       .price {
-        flex-direction: column;
+        /* flex-direction: column; */
       }
 
       .drivers p, .rides p, .price p {
@@ -81,15 +81,23 @@
       }
 
       #offer_price {
-        max-width: 250px;
+        max-width: 210px;
       }
 
-      .rides select, .drivers select, .drivers select:disabled {
+      .rides select, .drivers select, #offer_price {
         background-color: transparent;
         border: none;
         border-radius: 0;
-        border-bottom: 3px solid #4e7570;
+        border-bottom: 3px solid #451f6a;
+        width: 100%;
       }
+
+      option {
+        max-width: 40px;
+      }
+
+
+
     </style>
 </head>
 <body>
@@ -138,21 +146,24 @@
                   <p class="overlay">
                     Rides:
                   </p>
-                  <select class="form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" >
-                    <!-- v-bind:value="address[1]" -->
-                    <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
-                      {{ address[0] }}
-                    </option>
-                    <!-- <option v-else selected>There are no available rides under this driver</option> -->
-                  </select>
+                  <div class="container p-0 m-0 w-50">
+                    <select class="form-select mb-3" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" style="background-color:transparent;">
+                      <!-- v-bind:value="address[1]" -->
+                      <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
+                        {{ address[0] }}
+                      </option>
+                      <!-- <option v-else selected>There are no available rides under this driver</option> -->
+                    </select>
+                  </div>
+
                 </div>
                 <p v-show="0 >= relevant_rides.length" style="font-size:15px; color:#894949; margin-left: 35px; margin-top: -15px;"> There are no available rides under this driver </p>
                 <div class="price" v-show='relevant_rides.length > 0' >
-                  <p class="overlay">
-                    You are offering:
-                  </p>
-                  <span style="display: flex; justify-content: center; align-items: center; color: #4e7570; margin-top: -20px;">
-                    <p>S$</p>
+                  <!-- <p class="overlay">
+                    Price
+                  </p> -->
+                  <span style="display: flex; justify-content: center; align-items: center;">
+                    <p style="color:#451F6A;">Price: S$</p>
                     <input type="number" id = "offer_price" @change="setTwoNumberDecimal()" name='cost' min="0.00" step="0.01" class="text-input cost-input text-label overlay w-50" v-model="offer_price" oninput="validity.valid||(value='');" required>
                   </span>
                 </div>
