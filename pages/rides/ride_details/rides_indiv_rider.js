@@ -65,6 +65,7 @@ const app = Vue.createApp({
             unformatted_date: "",
             unformatted_time: "",
             gender: "",
+            user_address: "",
         }
     },
     computed:{
@@ -91,7 +92,8 @@ const app = Vue.createApp({
                 this.unformatted_date = details.date
                 this.date = format_date(this.unformatted_date)
                 this.smu_location = details.smu_location
-                this.to_from = details.to_from
+                this.to_from = details.smu_to_from // tocheck if buggy
+                this.user_address = details.user_address
 
                 var map;
                 var chosenloc = this.address;
@@ -110,6 +112,7 @@ const app = Vue.createApp({
                     var lng = results.geometry.location.lng
                     var coords = [lat, lng]
                     this.initMap(coords)
+                    this.calcRoute(this.smu_location, this.user_address, this.to_from)
                 })
             })
         },
@@ -161,6 +164,87 @@ const app = Vue.createApp({
                 preserveViewport: true,
             });
         },
+
+        calcRoute(smu_loc, user_loc, smu_position) {
+
+            const smu_loc_dict = {'SCIS': 'Singapore 178902,SCIS',
+                                'SOE': 'Singapore 178903,SOE',
+                                'SOL': '55 Armenian St Singapore 179943,SOL',
+                                'SOA': 'Singapore 178900,SOA',
+                                'SOB': 'Singapore 178899,SOB',
+                                'SOSS': 'Singapore 179873,SOSS'
+                                }
+
+            if (smu_position == "from") {
+                var request = {
+                    origin: smu_loc_dict[smu_loc],
+                    destination: user_loc,
+                    travelMode: google.maps.TravelMode["DRIVING"],
+                    unitSystem: google.maps.UnitSystem["METRIC"],
+                };
+                console.log("is it working???");
+            } else {
+                var request = {
+                    origin: user_loc,
+                    destination: smu_loc_dict[smu_loc],
+                    travelMode: google.maps.TravelMode["DRIVING"],
+                    unitSystem: google.maps.UnitSystem["METRIC"],
+                };
+            }
+
+            var directionsService = new google.maps.DirectionsService();
+            var directionsDisplay = new google.maps.DirectionsRenderer();
+
+            directionsDisplay.setDirections({ routes: [] });
+
+            directionsDisplay.setOptions({
+                polylineOptions: {
+                    strokeColor: "#4e7570",
+                },
+            });
+
+            directionsService.route(
+                request,
+                function (result, status) {
+                    if (status == "OK") {
+                        // get the distance of the route in km
+                        var distance =
+                            result.routes[0].legs[0].distance.text;
+
+                        if (smu_position == "from") {
+                            var loc_lat = result.routes[0].legs[0].end_location.lat()
+                            var loc_lng = result.routes[0].legs[0].end_location.lng();
+                        } else {
+                            var loc_lat = result.routes[0].legs[0].start_location.lat()
+                            var loc_lng = result.routes[0].legs[0].start_location.lng();
+                        }
+                        var map = new google.maps.Map(
+                            document.getElementById("map"),
+                            {
+                                zoom: 17,
+                                mapTypeControl: false,
+                                //mapTypeID: google.maps.mapTypeID
+                            }
+                        );
+                        var marker = new google.maps.Marker({
+                            map,
+                            draggable: true,
+                            animation: google.maps.Animation.DROP,
+                            preserveViewport: true,
+                        });
+                        marker.setMap(null);
+                        directionsDisplay.setMap(null);
+                        directionsDisplay.setDirections({
+                            routes: [],
+                        });
+
+                        directionsDisplay.setDirections(
+                            result
+                        );
+                        directionsDisplay.setMap(map);
+                    }
+                })
+            },
 
         getName(){
             const database = getDatabase(); 
