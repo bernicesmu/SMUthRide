@@ -43,7 +43,7 @@ const login_check = Vue.createApp({
             username: "",
             email: "",
             password: "",
-            success: "",
+            success: true,
         };
     },
 
@@ -80,15 +80,12 @@ const login_check = Vue.createApp({
                     // Signed in
                     const user = userCredential.user;
                     console.log(user);
-                    this.success = true;
-                    if (this.success) {
-                        console.log("user login success");
-                        localStorage.clear();
-                        localStorage.setItem("username_x", this.username);
-                        window.location.href = "../../index.html";
-                    } else {
-                        console.log("user login fail");
-                    }
+                    console.log("user login success");
+                    localStorage.clear();
+                    localStorage.setItem("username_x", this.username);
+                    localStorage.setItem("alert", "logged in");
+                    window.location.href = "../../index.html";
+
                     // ...
                 })
                 .catch((error) => {
@@ -289,7 +286,7 @@ const registration_check = Vue.createApp({
                 year: year,
                 gender: gender,
                 location_user: "Singapore",
-                mbti: "ABCD",
+                mbti: "Not declared",
                 age: age,
                 bio: "I have no bio",
                 price: 0,

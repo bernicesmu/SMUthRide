@@ -101,29 +101,32 @@ const chat_left = Vue.createApp({
         get_latest_chat(){
             // this.position = "absolute"
             // console.log(this.chat_array)
-            let first_chat = this.chat_array[0]
-            // console.log(first_chat)
-            let first_chat_chat_id = first_chat.chat_id
-            this.selected_room = first_chat_chat_id
-            this.current_chatid = first_chat_chat_id
-            const db = getDatabase()
-            const reference = ref(db, `messages/${first_chat_chat_id}`)
+            if(this.chat_array.length != 0){
+                let first_chat = this.chat_array[0]
+                // console.log(first_chat)
+                let first_chat_chat_id = first_chat.chat_id
+                this.selected_room = first_chat_chat_id
+                this.current_chatid = first_chat_chat_id
+                const db = getDatabase()
+                const reference = ref(db, `messages/${first_chat_chat_id}`)
 
-            // console.log(first_chat_chat_id.split(';'))
+                // console.log(first_chat_chat_id.split(';'))
 
-            let users = first_chat_chat_id.split(';')
-            for(var user of users){
-                if(user != this.user){
-                    this.other_user = user
-                    // get image
-                    this.get_userimage()
+                let users = first_chat_chat_id.split(';')
+                for(var user of users){
+                    if(user != this.user){
+                        this.other_user = user
+                        // get image
+                        this.get_userimage()
+                    }
                 }
-            }
 
-            onValue(reference,(snapshot)=>{
-                let result = snapshot.val()
-                this.messages = result
-            })
+                onValue(reference,(snapshot)=>{
+                    let result = snapshot.val()
+                    this.messages = result
+                })
+            }
+            
             // this.height_checker()
 
 
@@ -547,7 +550,10 @@ const chat_left = Vue.createApp({
                 this.chat_array.sort(function(a, b) {
                     return parseInt(b.timing) - parseInt(a.timing);
                 });
-                this.last_room = this.chat_array[this.chat_array.length - 1].chat_id
+                if(this.chat_array.length != 0){
+                    this.last_room = this.chat_array[this.chat_array.length - 1].chat_id
+                }
+                
                 // console.log(this.chat_array)
                 // sort by timing 
             })
@@ -644,8 +650,8 @@ chat_left.component('offer-button',{
                 // console.log(snapshot.val())
                 // console.log(snapshot.val())
                 let ride_details = snapshot.val()
-                console.log(ride_details)
-                console.log(ride_details.driver_username)
+                // console.log(ride_details)
+                // console.log(ride_details.driver_username)
                 this.driver = ride_details.driver_username
             })
         }

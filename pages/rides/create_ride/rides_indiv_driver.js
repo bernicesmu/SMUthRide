@@ -21,7 +21,7 @@ const form_alerts = Vue.createApp({
             date_alert: false,
             just_stop: '',
             change_date: false,
-            school_input: "Select School",
+            school_input: "",
             formatted_address : ""
         }
     },
@@ -117,6 +117,7 @@ form_alerts.component('time-input', {
                     name="time_minute"
                     id="time_min"
                     class="dropdowns dropdown-time"
+                    v-html="get_minute()"
                     v-model='time_minute'
                     @change='check_time()'
                 >
@@ -148,7 +149,7 @@ form_alerts.component('time-input', {
                         role="alert"
                         hidden
                         v-if="check_time()">
-                    You cant time travel.. Please choose a later timing *
+                    You can't time travel! Please choose a later timing *
                 </label>
                 </div>`,
 
@@ -156,10 +157,10 @@ form_alerts.component('time-input', {
         get_hour() { 
             var today = new Date()
             var now_hour = today.getHours()
-            console.log(now_hour)
-            var next_hour = now_hour + 1 
+            var next_hour = now_hour + 1
             var selected = ""
             var to_return = ""
+
             if (next_hour > 12) { 
                 next_hour -= 12
             }
@@ -170,20 +171,52 @@ form_alerts.component('time-input', {
                 to_return += `<option value="${i+1}" ${selected}>${i+1}</option>`
                 selected = ""
             }
+            this.time_hour = next_hour
+            return to_return
+        },
+
+        get_minute() { 
+            var today = new Date()
+            var now_minute = today.getMinutes()
+            var difference = now_minute % 5
+            var next_min = (now_minute - difference)
+
+            if ((next_min === 0) || (next_min === 5)){
+                this.time_minute = '0' + next_min.toString()
+            }
+            else {
+                this.time_minute = next_min.toString()
+            }
+
+            var to_return = ''
+            var selected = ''
+            let min_list = ['00','05','10','15','20','25','30','35','40','45','50','55']
+            for (var i of Array(12).keys()) { 
+                if (min_list[i] === next_min) {
+                    console.log(min_list[i])
+                    console.log(next_min) 
+                    selected = "selected"
+                }
+                to_return += `<option value="${min_list[i]}" ${selected}>${min_list[i]}</option>`
+                selected = ""
+            }
             return to_return
         },
 
         get_ampm() {
             var today = new Date()
             var now_hour = today.getHours()
-            console.log(now_hour)
-            var next_hour = now_hour + 1 
+
+            var next_hour = now_hour + 1
+            console.log(next_hour)
             var selected = ""
             var to_return = ""
             var ampm = 'am'
+
             if (next_hour > 11) { 
                 ampm = 'pm'
             }
+             
             for (var i of ['am', 'pm']) { 
                 if (i == ampm) { 
                     selected = "selected"
@@ -191,6 +224,8 @@ form_alerts.component('time-input', {
                 to_return += `<option value="${i}" ${selected}>${i.toUpperCase()}</option>`
                 selected = ""
             }
+            console.log(ampm)
+            this.time_ampm = ampm
             return to_return
         },
 
@@ -200,15 +235,17 @@ form_alerts.component('time-input', {
             var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
             console.log(this.verified_time)
 
-            var selected_hour = parseInt(time_hour.value)
+            var selected_hour = parseInt(this.time_hour.value)
 
-            if (time_ampm.value == 'pm'){
+            if (this.time_ampm.value == 'pm'){
                 selected_hour = selected_hour + 12
                 selected_hour.toString
             }
-            else {selected_hour = '0' + selected_hour.toString()}
+            else {
+                selected_hour = '0' + selected_hour.toString()
+            }
 
-            var selected_time = selected_hour + ':' + time_minute.value + time_ampm.value
+            var selected_time = selected_hour + ':' + this.time_minute.value + this.time_ampm.value
             console.log(selected_time)
             console.log(selected_time < time)
             
@@ -255,6 +292,7 @@ async function write_ride_local() {
     var time_hour = document.getElementById("time_hour").value 
     var time_min = document.getElementById("time_min").value
     var time_ampm = document.getElementById("time_ampm").value
+
     if (time_ampm == "pm") { 
         time_hour = parseInt(time_hour) + 12 
     }

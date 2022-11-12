@@ -47,9 +47,14 @@ main {
     padding-bottom: 0;
 }
 
+.main-info {
+    width: 70%;
+    margin: 1rem auto 1rem;
+}
+
 .additional-profile {
     text-align: start;
-    margin: 2rem 1rem 0;
+    margin: 0 1rem;
 }
 .additional-profile p {
     display: block;
@@ -62,7 +67,7 @@ main {
 }
 .add-profile-fields {
     margin-left: auto;
-    max-width: 55%;
+    max-width: 65%;
     text-align: end;
 }
 
@@ -84,6 +89,7 @@ main {
 .btn-logout {
     color: #451f6a;
     background-color: #bfacd3;
+    min-width: 30%;
 }
 
 .btn-logout:hover {
@@ -91,17 +97,19 @@ main {
     background-color: #bfacd3;
 }
 
-.btn-logout {
-    min-width: 50%;
-}
-
 .socials-ul {
     margin-top: 1rem;
+    padding-left: 0.1rem;
     list-style-type: none;
 }
 
 .socials-ul div {
     margin: 0.5rem 0 0.5rem;
+}
+
+.socials-input {
+    width: 40%;
+    min-width: 130px;
 }
 
 a:link {
@@ -181,22 +189,6 @@ a:hover {
     margin-right: 1rem;
 }
 
-/* input[type="range"] {
-    height: 1rem;
-    -webkit-appearance: none;
-    margin: 10px 0;
-    width: 90%;
-    background-color: #e3f1ef;
-}
-input[type="range"]::-webkit-slider-thumb {
-    height: 1rem;
-    width: 1rem;
-    border-radius: 1rem;
-    background: #4e7570;
-    cursor: pointer;
-    -webkit-appearance: none;
-} */
-
 .plus-minus-button {
     display: inline-block;
     padding: 0;
@@ -222,21 +214,60 @@ input[type="range"]::-webkit-slider-thumb {
     display: flex;
 }
 
-@media (max-width: 768px) {
+@media (max-height: 740px) {
     .wrapper {
         display: block;
         overflow-y: auto;
     }
     .additional-profile {
         display: flex;
-        justify-content: center;
-        margin: 0 20%;
+        width: 50%;
+        margin: 1rem auto;
+    }
+    .additional-profile p {
+        margin-right: 1rem;
+    }
+    .additional-profile span {
+        width: 70px;
+    }
+    .add-profile-fields {
+        max-width: 65%;
+        margin: auto;
+    }
+    main {
+        margin-top: 0;
+        padding: 2rem;
+        padding-top: 0;
+        width: auto;
+    }
+    .profile {
+        height: auto;
+    }
+    .btn-edit-profile {
+        background-position: 30%;
+    }
+    .main-info {
+        width: 50%;
+        margin: 1rem auto 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .wrapper {
+        display: block;
+        overflow-y: auto;
+    }
+    .additional-profile {
+        display: flex;
+        width: 50%;
+        margin: 1rem auto;
     }
     .additional-profile div {
         flex-direction: column;
     }
-    .additional-profile p {
-        margin-right: 1rem;
+    .additional-profile span {
+        margin: auto;
+        width: 70px;
     }
     .add-profile-fields {
         max-width: 100%;
@@ -257,40 +288,7 @@ input[type="range"]::-webkit-slider-thumb {
     }
     .main-info {
         width: 50%;
-        margin: auto;
-    }
-}
-@media (max-height: 740px) {
-    .wrapper {
-        display: block;
-        overflow-y: auto;
-    }
-    .additional-profile {
-        display: flex;
-        justify-content: center;
-    }
-    .additional-profile p {
-        margin-right: 1rem;
-    }
-    .add-profile-fields {
-        max-width: 100%;
-        margin: auto;
-    }
-    main {
-        margin-top: 0;
-        padding: 2rem;
-        padding-top: 0;
-        width: auto;
-    }
-    .profile {
-        height: auto;
-    }
-    .btn-edit-profile {
-        background-position: 30%;
-    }
-    .main-info {
-        width: 50%;
-        margin: auto;
+        margin: 1rem auto 0;
     }
 }
 
@@ -302,6 +300,6 @@ input[type="range"]::-webkit-slider-thumb {
 
 @media (max-width: 576px) {
     .add-profile-fields {
-        max-width: 60%;
+        max-width: 100%;
     }
 }
