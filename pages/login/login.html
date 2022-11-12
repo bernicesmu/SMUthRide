@@ -69,25 +69,49 @@
               </div>
               <div class="txt_field">
                 <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                <input type="text" name="name" required />
+                <select name="degree" id="degree" required>
+                    <option disabled selected value="" style="display:none"></option>
+                    <option value="Accountancy">Accountancy</option>
+                    <option value="Business">Business</option>
+                    <option value="CIS">CIS</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="CompLaw">Computing & Law</option>
+                    <option value="Economics">Economics</option>
+                    <option value="Law">Law</option>
+                    <option value="SoSci">Social Science</option>
+                    <option value="SoftEng">Software Engineer</option>
+                </select>
                 <span></span>
                 <label> Degree </label>
               </div>
               <div class="txt_field">
                 <i class="fa fa-child" aria-hidden="true"></i>
-                <input type="text" name="name" required />
+                <select name="year" id="year" required>
+                    <option disabled selected value="" style="display:none"></option>
+                    <option value="Year1">Year 1</option>
+                    <option value="Year2">Year 2</option>
+                    <option value="Year3">Year 3</option>
+                    <option value="Year4">Year 4</option>
+                    <option value="Year5">Year 5</option>
+                    <option value="Alumni">Alumni</option>
+                </select>
                 <span></span>
                 <label> Year (in SMU)</label>
               </div>
               <div class="txt_field">
                 <i class="fa fa-id-card-o" aria-hidden="true"></i>
-                <input type="text" name="name" required />
+                <input type="number" min="16" name="age" required />
                 <span></span>
                 <label> Age </label>
               </div>
               <div class="txt_field">
                 <i class="fa fa-transgender" aria-hidden="true"></i>
-                <input type="text" name="name" required />
+                <select name="gender" id="gender" required>
+                    <option disabled selected value="" style="display:none"></option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="fkedup">Aggresive Toothless Unicorn</option>
+                </select>
                 <span></span>
                 <label> Gender </label>
               </div>

@@ -66,7 +66,7 @@ form {
 .test-register{
     overflow: hidden;
     overflow-y: scroll;
-    max-height: 300px;
+    max-height: 350px;
     width: 452px;
     display: flex;
     align-items: center;
@@ -130,11 +130,11 @@ form.register-form {
 form .txt_field{
     position: relative;
     border-bottom: 2px solid #4e7570 ;
-    margin: 15px 0;
+    margin: 20px 0;
     width: 100%;
     max-width: 380px;
 }
-.txt_field input{
+.txt_field input, .txt_field select, .txt_field option{
     width: 100%;
     max-width: 380px;
     padding: 0 5px;
@@ -145,6 +145,8 @@ form .txt_field{
     outline: none;
     padding-left: 30px;
 }
+
+
 .txt_field label{
     position: absolute;
     top: 50%;
@@ -166,7 +168,9 @@ form .txt_field{
     transition: .5s;
 }
 .txt_field input:focus ~ label,
-.txt_field input:valid ~ label{
+.txt_field input:valid ~ label,
+.txt_field select:focus ~ label,
+.txt_field select:valid ~ label{
     top: -5px;
     color: #987d4d;
 }
@@ -472,6 +476,7 @@ img {
 
     .test-register{
         width: 100%;
+        max-height: 350px;
     }
 
     form .txt_field{
