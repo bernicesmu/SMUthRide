@@ -59,9 +59,9 @@
         align-items: center;
       }
 
-      .price {
-        /* flex-direction: column; */
-      }
+      /* .price {
+        flex-direction: column;
+      } */
 
       .drivers p, .rides p, .price p {
         font-weight: 400;
@@ -96,6 +96,22 @@
         max-width: 40px;
       }
 
+      #leftbar {
+        min-height: 60vh;
+        max-height: 70vh;
+        overflow-y: hidden;
+      }
+
+      .chat-list {
+        min-height: 60vh;
+        max-height: 70vh;
+        overflow-y:scroll;
+        /* buff */
+      }
+
+      .chat-list::-webkit-scrollbar {
+        display: none;
+      }
 
 
     </style>
@@ -127,7 +143,7 @@
             <div id="overlay" class="my-auto">
               <div id="text" class="mb-6">
                 <!-- <img src="./6-2-taxi-cab-png-images.png" alt="" class="img-fluid"> -->
-                <h1 class="text-center mb-5 overlay">Make an Offer</h1>
+                <h1 class="text-center mb-5 overlay">Make an offer</h1>
                 
                 <div class="drivers">
                   <p class="overlay">
@@ -187,21 +203,23 @@
             <div class="col-md-5 col-xs-12 col-sm-12">
 
               <!-- if has chat, will display the following -->
-              <div  style="height:min-content; max-height: 80vh;" id="leftbar" v-show="swapping == true" class="d-none d-md-block" v-if="chat_array.length > 0">
+              <div id="leftbar" v-show="swapping == true" class="d-none d-md-block" v-if="chat_array.length > 0">
              
-                <div class="mt-1 chat-label-div">
+                <div class=" chat-label-div">
                   <h3 class="text-center d-block chat-label">Chats</h3>
                   <hr>
                 </div>
+                <div class="chat-list">
                   <chat-box 
-                    v-for="chat_id of chat_array" 
-                    :chat_id="chat_id.chat_id" 
-                    v-on:get_chat="retreive_chat" 
-                    :key="counter" 
-                    v-on:selected_chatroom="selected_chatroom" 
-                    v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" 
-                    @height_checker="height_checker"
-                  ></chat-box>             
+                  v-for="chat_id of chat_array" 
+                  :chat_id="chat_id.chat_id" 
+                  v-on:get_chat="retreive_chat" 
+                  :key="counter" 
+                  v-on:selected_chatroom="selected_chatroom" 
+                  v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" 
+                  @height_checker="height_checker"
+                  ></chat-box>
+                </div>
                </div>
 
               <!-- if no chats, will display the following -->
