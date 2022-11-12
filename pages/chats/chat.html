@@ -168,13 +168,6 @@
                     </div>
                   </div>
                   <!-- messages will display here -->
-                  <!-- <div id="messages">
-                <ul id = "message_list"></ul>
-              </div> -->
-              <!-- class=${
-                  username === messages.username ? "sent" : "receive"
-                } -->
-                
                   <ul id="messages">
                       <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}">
                         <p v-if="message.type != 'offer'" v-html="message_formatted(message)"></p>
