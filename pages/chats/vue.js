@@ -812,16 +812,11 @@ chat_left.component('chat-box', {
             for (var chatbox of chatboxes) { 
                 chatbox.style = "padding:10px; display: flex;"
             }
-
-            var last_chat = chatboxes[chatboxes.length-1]['id']
             this.selected_chatroom = chat_id;
             // var to_style = `color: #8A6F42;
             // background-color: #d8c7a3;
             // padding:10px; 
             // display: flex;`
-            if (chat_id == last_chat) { 
-                to_style += 'border-radius: 0px 0px 30px 30px;'
-            }
             document.getElementById(chat_id).style = to_style
         },
         message_formatted(sender, message) { 
