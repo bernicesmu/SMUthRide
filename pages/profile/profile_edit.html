@@ -179,6 +179,7 @@
                             type="number"
                             class="form-control text-center d-inline target-input add-profile-fields"
                             name="age"
+                            oninput="validity.valid||(value='');"
                             v-model="age"
                         />
                     </div>
