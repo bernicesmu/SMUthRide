@@ -37,7 +37,52 @@
       .last{
         border-radius: 0px 0px 30px 30px;
       }
-    
+
+      #text {
+        max-height: 450px;
+        margin-top: 40px;
+        padding-top: 35px;
+      }
+
+      #text h1 {
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      #text p {
+        font-size: 24px;
+      }
+
+      .drivers, .rides, .price {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .price {
+        flex-direction: column;
+      }
+
+      .drivers p, .rides p, .price p {
+        font-weight: 400;
+      }
+
+      .rides select {
+        margin-left: 5px;
+      }
+
+      #confirm_cancel {
+        margin-top: 0;
+      }
+
+      .btn.cancel, .btn.confirm {
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      #offer_price {
+        max-width: 250px;
+      }
     </style>
 </head>
 <body>
@@ -69,37 +114,40 @@
                 <!-- <img src="./6-2-taxi-cab-png-images.png" alt="" class="img-fluid"> -->
                 <h1 class="text-center mb-5 overlay">Make an Offer</h1>
                 
-                <div class="d-flex justify-content-evenly mb-4">
+                <div class="drivers">
                   <p class="overlay">
                     Driver:
                   </p>
                   <!-- {{ selected_driver }} -->
-                  <select class="form-select form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_driver" v-on:change="get_relevant_rides">
+                  <select class="form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_driver" v-on:change="get_relevant_rides">
                     <option selected>{{ other_user }}</option>
                     <option>{{ user }}</option>
                     <!-- <option value="1">Use vue for this</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option> -->
                   </select>
-                  </div>
-                <div class="d-flex justify-content-evenly mb-4">
+                </div>
+                <div class="rides">
                   <p class="overlay">
                     Rides:
                   </p>
-                  <select class="form-select form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price">
+                  <select class="form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" >
                     <!-- v-bind:value="address[1]" -->
                     <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
                       {{ address[0] }}
                     </option>
-                    <option v-else>There are no available rides under this driver</option>
+                    <!-- <option v-else selected>There are no available rides under this driver</option> -->
                   </select>
                 </div>
-                  
-                <div class="justify-content-evenly mb-4 d-flex">
+                <p v-show="0 >= relevant_rides.length" style="font-size:15px; color:red; margin-left: 35px; margin-top: -15px;"> There are no available rides under this driver </p>
+                <div class="price" v-show='relevant_rides.length > 0' >
                   <p class="overlay">
-                    Price ($):
+                    You are offering:
                   </p>
-                  <input type="number" id = "offer_price" name='cost' min="0" step="0.01" class="text-input cost-input text-label overlay w-50" v-model="offer_price" oninput="validity.valid||(value='');" required>
+                  <span style="display: flex; justify-content: center; align-items: center; color: #4e7570; margin-top: -20px;">
+                    <p>S$</p>
+                    <input type="number" id = "offer_price" name='cost' min="0" step="0.01" class="text-input cost-input text-label overlay w-50" v-model="offer_price" oninput="validity.valid||(value='');" required>
+                  </span>
                 </div>
                 
                 
