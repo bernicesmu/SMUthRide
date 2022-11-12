@@ -816,6 +816,9 @@ chat_left.component('chat-box', {
         message_formatted(sender, message) { 
             return `${sender}: ${message}`
         },
+        setTwoNumberDecimal() {
+            this.value = parseFloat(this.value).toFixed(2);
+        }
     }
 })
 
