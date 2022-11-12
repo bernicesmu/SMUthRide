@@ -100,7 +100,7 @@
 
     
       <!-- chatpage -->
-      <div class="container text-center mt-3">
+      <div class="container text-center my-3 p-1" id="top_header">
         <header>
             <h1>SMUth Chat</h1>
             <h6>Chat With Your Group and Agree on Price</h6>
@@ -172,7 +172,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-5 col-xs-12 col-sm-12">
-              <div style="height:min-content" id="leftbar" v-show="swapping == true" class="d-none d-md-block">
+              <div  style="min-height: 70vh; max-height: 80vh;" id="leftbar" v-show="swapping == true" class="d-none d-md-block">
              
                 <div class="mt-1 chat-label-div">
                   <h3 class="text-center d-block chat-label">Chats</h3>
@@ -188,7 +188,7 @@
             <div class="col-md col-xs-12 col-sm-12">
                 <div id="chat"  style="min-height: 70vh; max-height: 80vh;" v-on:scroll="position = 'sticky'">
                   <div id="contact" class="d-flex" v-if="other_user != ''">
-                    <div class="d-flex">
+                    <div class="d-flex" style="min-height: 60px">
                       <!-- back icon -->
                       <!-- <button class="d-block d-md-none clearfix" @click="swap"> -->
                         <svg id="back-button" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#FFF" class="bi bi-arrow-left d-md-none" viewBox="0 0 16 16" @click="swap">
@@ -197,7 +197,7 @@
                         <!-- <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i> -->
                       <!-- </button> -->
                       
-                      <div id="photo" v-if="image_url != ''"><img :src="image_url" class="img-fluid rounded-circle"
+                      <div id="photo" v-if="image_url != ''" style="min-height: 60px"><img :src="image_url" class="img-fluid rounded-circle"
                         style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> </div>
                       <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
                     </div>
@@ -213,7 +213,7 @@
                     </div>
                   </div>
                   <div v-else>
-                    <div class="d-flex" style="background-color: #4e7570;">
+                    <div class="d-flex p-1" style="background-color: #4e7570;">
                       <!-- back icon -->
                       <!-- <button class="d-block d-md-none clearfix" @click="swap"> -->
                         <svg id="back-button" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#fff"  class="bi bi-arrow-left d-md-none" viewBox="0 0 16 16" @click="swap">

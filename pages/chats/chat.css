@@ -8,6 +8,10 @@ body {
   height: 83%;
 }
 
+#top_header {
+  top: 97px;
+}
+
 * {
   margin: 0;
   padding: 0;
