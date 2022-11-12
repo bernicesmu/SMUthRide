@@ -34,7 +34,6 @@ a:link {
 
 #messages {
   margin-left: 10px;
-  overflow-anchor: auto;
   padding-right: 32px;
 }
 
@@ -391,4 +390,8 @@ hr {
 .btn-decline:hover {
   background-color: #F3D8D8;
   color: #FFF;
+}
+
+.go-to-profile {
+  text-decoration: none;
 }/*# sourceMappingURL=chat.css.map */

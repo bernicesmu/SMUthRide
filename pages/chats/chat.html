@@ -59,9 +59,9 @@
         align-items: center;
       }
 
-      .price {
+      /* .price {
         flex-direction: column;
-      }
+      } */
 
       .drivers p, .rides p, .price p {
         font-weight: 400;
@@ -81,15 +81,43 @@
       }
 
       #offer_price {
-        max-width: 250px;
+        max-width: 210px;
       }
 
-      .rides select, .drivers select, .drivers select:disabled {
+      .rides select, .drivers select, #offer_price {
         background-color: transparent;
         border: none;
         border-radius: 0;
-        border-bottom: 3px solid #4e7570;
+        border-bottom: 3px solid #451f6a;
+        width: 100%;
       }
+
+      option {
+        max-width: 40px;
+      }
+
+      #leftbar {
+        min-height: 60vh;
+        max-height: 70vh;
+        overflow-y: hidden;
+      }
+
+      .chat-list {
+        min-height: 60vh;
+        max-height: 70vh;
+        overflow-y:scroll;
+        /* buff */
+      }
+
+      .chat-list::-webkit-scrollbar {
+        display: none;
+      }
+
+      #chat::-webkit-scrollbar {
+        display: none;
+      }
+
+
     </style>
 </head>
 <body>
@@ -102,7 +130,7 @@
 
     
       <!-- chatpage -->
-      <div class="container text-center mt-3">
+      <div class="container text-center my-3 p-1" id="top_header">
         <header>
             <h1>SMUth Chat</h1>
             <h6>Chat With Your Group and Agree on Price</h6>
@@ -119,7 +147,7 @@
             <div id="overlay" class="my-auto">
               <div id="text" class="mb-6">
                 <!-- <img src="./6-2-taxi-cab-png-images.png" alt="" class="img-fluid"> -->
-                <h1 class="text-center mb-5 overlay">Make an Offer</h1>
+                <h1 class="text-center mb-5 overlay">Make an offer</h1>
                 
                 <div class="drivers">
                   <p class="overlay">
@@ -138,21 +166,24 @@
                   <p class="overlay">
                     Rides:
                   </p>
-                  <select class="form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" >
-                    <!-- v-bind:value="address[1]" -->
-                    <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
-                      {{ address[0] }}
-                    </option>
-                    <!-- <option v-else selected>There are no available rides under this driver</option> -->
-                  </select>
+                  <div class="container p-0 m-0 w-50">
+                    <select class="form-select mb-3" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" style="background-color:transparent;">
+                      <!-- v-bind:value="address[1]" -->
+                      <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
+                        {{ address[0] }}
+                      </option>
+                      <!-- <option v-else selected>There are no available rides under this driver</option> -->
+                    </select>
+                  </div>
+
                 </div>
                 <p v-show="0 >= relevant_rides.length" style="font-size:15px; color:#894949; margin-left: 35px; margin-top: -15px;"> There are no available rides under this driver </p>
                 <div class="price" v-show='relevant_rides.length > 0' >
-                  <p class="overlay">
-                    You are offering:
-                  </p>
-                  <span style="display: flex; justify-content: center; align-items: center; color: #4e7570; margin-top: -20px;">
-                    <p>S$</p>
+                  <!-- <p class="overlay">
+                    Price
+                  </p> -->
+                  <span style="display: flex; justify-content: center; align-items: center;">
+                    <p style="color:#451F6A;">Price: S$</p>
                     <input type="number" id = "offer_price" @change="setTwoNumberDecimal()" name='cost' min="0.00" step="0.01" class="text-input cost-input text-label overlay w-50" v-model="offer_price" oninput="validity.valid||(value='');" required>
                   </span>
                 </div>
@@ -174,23 +205,48 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-5 col-xs-12 col-sm-12">
-              <div style="height:min-content" id="leftbar" v-show="swapping == true" class="d-none d-md-block">
+
+              <!-- if has chat, will display the following -->
+              <div id="leftbar" v-show="swapping == true" class="d-none d-md-block" v-if="chat_array.length > 0">
              
+                <div class=" chat-label-div">
+                  <h3 class="text-center d-block chat-label">Chats</h3>
+                  <hr>
+                </div>
+                <div class="chat-list">
+                  <chat-box 
+                  v-for="chat_id of chat_array" 
+                  :chat_id="chat_id.chat_id" 
+                  v-on:get_chat="retreive_chat" 
+                  :key="counter" 
+                  v-on:selected_chatroom="selected_chatroom" 
+                  v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" 
+                  @height_checker="height_checker"
+                  ></chat-box>
+                </div>
+               </div>
+
+              <!-- if no chats, will display the following -->
+              <div style="height:min-content; min-height: 70vh;" id="no_chat" class="hidden-md" v-else>
                 <div class="mt-1 chat-label-div">
                   <h3 class="text-center d-block chat-label">Chats</h3>
                   <hr>
                 </div>
-                <chat-box v-for="chat_id of chat_array" :chat_id="chat_id.chat_id" v-on:get_chat="retreive_chat" :key="counter" v-on:selected_chatroom="selected_chatroom" v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" @height_checker="height_checker"></chat-box>
-                
-               </div>
-
+                <div id="empty_chat" class="d-block text-center mt-5 pt-5">
+                  <img class="mt-5" src="images/confusion.png">
+                  <h3 class="nochat">No chat yet!</h3>
+                  <h6 class="reqchat">Request to join a ride!</h6>
+                </div>
+              </div>
             </div>
             
             <!-- LEFT BAR END -->
             <div class="col-md col-xs-12 col-sm-12">
-                <div id="chat"  style="min-height: 70vh; max-height: 80vh;" v-on:scroll="position = 'sticky'">
+
+              <!-- if there are chats, this will display -->
+                <div id="chat"  style="min-height: 70vh; max-height: 80vh;" v-on:scroll="position = 'sticky'" v-if="chat_array.length > 0">
                   <div id="contact" class="d-flex" v-if="other_user != ''">
-                    <div class="d-flex">
+                    <div class="d-flex" style="min-height: 60px">
                       <!-- back icon -->
                       <!-- <button class="d-block d-md-none clearfix" @click="swap"> -->
                         <svg id="back-button" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#FFF" class="bi bi-arrow-left d-md-none" viewBox="0 0 16 16" @click="swap">
@@ -201,11 +257,15 @@
                       
                       <a 
                         :href="'../profile/profile.html?user=' + other_user " 
-                        class="d-flex"
+                        class="d-flex go-to-profile"
                         >
                         <div id="photo" v-if="image_url != ''"><img :src="image_url" class="img-fluid rounded-circle"
                           style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> </div>
-                        <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
+                        <div class="d-block"> 
+                          <span id="other-user" class="font-weight-bolder" style="padding-right:0px; padding-bottom: 0px; padding-top: 0px; font-size: calc(1rem + .6vw); top: -10px">{{other_user_name}}</span> 
+                          <br>
+                          <span id="other-user" style="font-weight:300; padding:0px; padding-left:10px">@{{ other_user }}</span>
+                        </div>
                       </a>
                     </div>
                     <div>
@@ -219,23 +279,11 @@
                       </button>
                     </div>
                   </div>
-                  <div v-else>
-                    <div class="d-flex" style="background-color: #4e7570;">
-                      <!-- back icon -->
-                      <!-- <button class="d-block d-md-none clearfix" @click="swap"> -->
-                        <svg id="back-button" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#fff"  class="bi bi-arrow-left d-md-none" viewBox="0 0 16 16" @click="swap">
-                          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                        </svg>
-                        <!-- <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i> -->
-                      <!-- </button> -->
-                      
-                      <h3 class="text-white text-center p-2 ps-3">Welcome to SMUth Chat</h3>
-                    </div>
-                  </div>
+
                   <!-- messages will display here -->
-                  <ul id="messages">
+                  <ul id="messages" style="margin-bottom: 20px;">
                       <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}">
-                        <p v-if="message.type != 'offer'" v-html="message_formatted(message)"></p>
+                        <p v-if="message.type != 'offer'" v-html="message_formatted(message)" style="max-width: 200px;overflow-wrap:break-word;"></p>
                         <p v-else-if="message.type == 'offer' && user!= message.username">
                           <offer-button :message="message" :selected_ride="message.selected_ride" :user="message.username" :you="user" :other_user="other_user" :message_status="message.accepted" v-on:accept="accept" v-on:decline="decline"></offer-button>
                         </p>
@@ -259,6 +307,7 @@
                               placeholder="Type Message..."
                               v-model="message_to_send"
                               @keyup.enter="send_message"
+                              autocomplete="off"
                           />
 
                           <button
@@ -282,7 +331,21 @@
                       <!-- {{swapping}} -->
                   </div>
               </div>
-
+              
+                <!-- if not chat, this will display -->
+                <div style="height:min-content; min-height: 70vh;" id="no_convo" v-else>
+                  <div class="d-flex p-1 chat-label-div" style="background-color: #4e7570;">
+                    
+                    <h3 class="text-white mx-auto p-2 ps-3">Welcome to SMUth Chat</h3>
+                  </div>
+                  
+                  <div id="empty_chat" class="d-block text-center pt-5 mt-5">
+                    <img class="mt-5" src="images/cab.png" id="cabmissing">
+                    <h3 class="noconvo">Go to rides to chat with a driver or rider</h3>
+                    <button class="btn button-ride" onclick="window.location.href='../rides/rides_list/rides_listing.html'">Request to join a ride!</h6>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>

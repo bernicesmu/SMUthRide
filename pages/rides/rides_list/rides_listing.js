@@ -28,7 +28,7 @@ const listings = Vue.createApp({
             display_listings: [],
             search: '',
             results: [],
-            possible_locations: locations
+            possible_locations: locations,
 
         }
     },
@@ -97,10 +97,14 @@ const listings = Vue.createApp({
             return [day[0],`${day[2]} ${day[1]} ${day[3]}`]
         },
         get_user_name(username){
+            console.log(this.users)
             return this.users[username].name
         },
         get_url(username){
             return this.users[username].profile_url
+        },
+        get_user_gender(username){
+            return this.users[username]['userprofile']['gender']
         }
     },
     mounted() {

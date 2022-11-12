@@ -2,6 +2,10 @@
     text-align: end !important;
 }
 
+#navbarVue div {
+    margin: 0;
+}
+
 .navbar {
     /* background-color: #d8c7a3 !important; */
     background-color: #e3f1ef !important;
@@ -152,7 +156,8 @@
 
 .navbar-toggler-icon {
     z-index: 10 !important;
-    filter: invert(43%) sepia(28%) saturate(380%) hue-rotate(123deg) brightness(91%) contrast(93%);
+    filter: invert(43%) sepia(28%) saturate(380%) hue-rotate(123deg)
+        brightness(91%) contrast(93%);
 }
 
 @-moz-keyframes tyre-rotate {

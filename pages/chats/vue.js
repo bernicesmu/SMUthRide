@@ -14,6 +14,7 @@ const chat_left = Vue.createApp({
             message_to_send: "",
             new_mid : 0,
             other_user: "",
+            other_user_name: "",
             image_url:"",
             offer_price: "",
             offer_template: "",
@@ -254,6 +255,8 @@ const chat_left = Vue.createApp({
                 let smu_location = ride_details.smu_location
                 let to_from = ride_details.smu_to_from
                 let formatted_address = ride_details.formatted_address
+                // let date = ride_details.date
+                // let time = ride_details.time
                 let ride_string = ""
                 let ride_id = ride_details.ride_id
                 if(to_from.toLowerCase() == "to"){
@@ -315,6 +318,7 @@ const chat_left = Vue.createApp({
                 let user_profile = snapshot.val()
                 let image = user_profile["profile_url"]
                 this.image_url = image
+                this.other_user_name = user_profile.name
             })
 
         },
@@ -454,11 +458,11 @@ const chat_left = Vue.createApp({
         to_from(to_from, ride){
             let text = ""
             if(to_from == "from"){
-                text = `${ride.smu_location} to ${ride.neighbourhood}`
+                text = `${ride.smu_location} to ${ride.neighbourhood} on ${ride.date} at ${ride.time}`
 
             }
             else{
-                text = `${ride.neighbourhood} to ${ride.smu_location}`
+                text = `${ride.neighbourhood} to ${ride.smu_location} on ${ride.date} at ${ride.time}`
             }
             return text
         },
@@ -731,7 +735,7 @@ chat_left.component('chat-box', {
         style="object-fit: cover; height: 50px; width: 50px; object-position: 50% 50%;">
     </div>
     <div style="margin-left: 20px;align-self: start;width: 70%;"> 
-      <b>{{ receipient_username }}</b>
+      <b>{{other_user_name}}</b> (@{{ receipient_username }})
       <div v-if="latest_message != ''" style="text-overflow: ellipsis; display: block; width:50%;white-space: nowrap; width: 100%; overflow: hidden;">
         <span v-html="message_formatted(sender_latest_message, latest_message)"></span>
       </div>
@@ -782,6 +786,7 @@ chat_left.component('chat-box', {
                 let user_profile = snapshot.val()
                 let image = user_profile["profile_url"]
                 this.image_url = image
+                this.other_user_name = user_profile.name
             })
         },
 

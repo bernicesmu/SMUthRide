@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="../rides/rides_list/card.css" />
         <style>
         tbody > tr:hover{
-            background-color: #BEDAD6;
+            background-color: white;
         }
         .nav-link::selection{
             color:  #e3f1ef;
@@ -81,6 +81,60 @@
             margin-left: 6px;
             margin-top: 15px;
         }
+
+        .riders-num > .tooltiptext {
+            visibility: hidden;
+            width: 100px;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+
+            /* Position the tooltip */
+            position: absolute;
+            top: 35px;
+            left: calc((100% - 100px)/2);
+            z-index: 2;
+        }
+
+        .riders-num:hover > .tooltiptext {
+            visibility: visible;
+        }
+
+        .riders-num {
+            position: relative;
+        }
+
+        .location-details > .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+
+            /* Position the tooltip */
+            position: absolute;
+            top: 35px;
+            left: calc((100% - 200px)/2);
+            z-index: 2;
+        }
+
+        .location-details:hover > .tooltiptext {
+            visibility: visible;
+        }
+
+        .location-details {
+            position: relative;
+        }
+
+        .table thead {
+            background-color: #d8c7a3;
+            color: #8A6F42;
+        }
+
+        .table tbody td {
+            border-bottom-width: 2px;
+            border-color: #d8c7a3;
+        }
         </style>
 
         <title>Offers</title>
@@ -88,8 +142,6 @@
     <body>
         <div id="navbarVue">
             <div
-                v-html="navbar_html"
-                @scroll="nav_animation"
                 data-page="offers"
             ></div>
         </div>
