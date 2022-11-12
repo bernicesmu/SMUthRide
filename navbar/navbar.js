@@ -64,7 +64,7 @@ const navbar = Vue.createApp({
                     <li class="nav-item">
                         <a class="nav-link" :href=" chatURL ">Chat</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" style='margin-top: -10px;'>
                         <a class="nav-link" :href=" profileURL ">
                             <img v-if=" isLoggedIn " :src="url" class="img-fluid rounded-circle profile-img"/>
                             <span v-else>Login</span>
