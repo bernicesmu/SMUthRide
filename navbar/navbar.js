@@ -81,10 +81,11 @@ const navbar = Vue.createApp({
             if (
                 this.page === "profile" ||
                 this.page === "chat" ||
-                this.page === "offers" ||
-                this.page === "home"
+                this.page === "offers"
             ) {
                 return "../../";
+            } else if (this.page === "home") {
+                return "./";
             } else {
                 return "../../../";
             }
@@ -93,7 +94,7 @@ const navbar = Vue.createApp({
             return localStorage.getItem("username_x");
         },
         homeURL() {
-            return this.relativePath + "pages/home/home.html";
+            return this.relativePath + "index.html";
         },
         rideURL() {
             if (this.isLoggedIn) {
@@ -145,10 +146,11 @@ const navbar = Vue.createApp({
                     if (
                         this.page === "profile" ||
                         this.page === "chat" ||
-                        this.page === "offers" ||
-                        this.page === "home"
+                        this.page === "offers"
                     ) {
                         this.url = "../../pages/profile/default_profile.png";
+                    } else if (this.page === "home") {
+                        this.url = "./pages/profile/default_profile.png";
                     } else {
                         this.url = "../../../pages/profile/default_profile.png";
                     }
