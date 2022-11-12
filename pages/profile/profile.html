@@ -38,9 +38,7 @@
                     <strong>{{ displayname }}</strong>, {{ age }}
                 </h2>
                 <p class="degree-text">{{ gender }}</p>
-                <p class="degree-text">
-                    {{ degree }}, {{ yearOfStudy }}
-                </p>
+                <p class="degree-text">{{ degree }}, {{ yearOfStudy }}</p>
                 <!-- <p class="degree-text">
                     {{ degree }}
                 </p> -->
@@ -102,52 +100,15 @@
                         <p class="card-text ps-0">{{ bio }}</p>
                     </div>
                 </div>
-                <!-- <div class="card profile-card p-1">
-                    <div class="card-body">
-                        <h5 class="card-title preferences">Preferences</h5>
-                        <h6>Price</h6>
-                        <div class="meter">
-                            <div
-                                class="preference"
-                                :class="'w'+prefPrice"
-                            ></div>
-                        </div>
-                        <h6>Comfort</h6>
-                        <div class="meter">
-                            <div
-                                class="preference"
-                                :class="'w'+prefComfort"
-                            ></div>
-                        </div>
-                        <h6>Convenience</h6>
-                        <div class="meter">
-                            <div
-                                class="preference"
-                                :class="'w'+prefConvenience"
-                            ></div>
-                        </div>
-                        <h6>Speed</h6>
-                        <div class="meter">
-                            <div
-                                class="preference"
-                                :class="'w'+prefSpeed"
-                            ></div>
-                        </div>
-                    </div>
-                </div> -->
+
                 <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title">CCAs</h5>
-                        <!-- <p class="card-text ps-0"> -->
                         <ul class="cca">
-                            <li
-                                v-for=" cca in ccas"
-                                class="rounded-pill"
-                            >
-                                {{ cca }}
+                            <li v-for=" cca in ccas" class="rounded-pill">
+                                {{ cca }} {{ ccas }}
                             </li>
                         </ul>
-                        <!-- </p> -->
                     </div>
                 </div>
                 <div class="card profile-card p-1">
@@ -186,39 +147,6 @@
                                 >
                             </div>
                         </div>
-
-                        <!-- <ul class="socials-ul" v-if=" showSocials ">
-                            <li v-if=" linkedinLinkInput !== '' ">
-                                <a
-                                    :href="linkedinLink + linkedinLinkInput"
-                                    target="_blank"
-                                    ><i
-                                        class="fab fa-linkedin fa-2x profile-fab"
-                                    ></i
-                                    >{{ fullLinkedinLink }}</a
-                                >
-                            </li>
-                            <li v-if=" facebookLinkInput !== '' ">
-                                <a
-                                    :href="facebookLink + facebookLinkInput"
-                                    target="_blank"
-                                    ><i
-                                        class="fab fa-facebook-square fa-2x profile-fab"
-                                    ></i
-                                    >{{ fullFacebookLink }}</a
-                                >
-                            </li>
-                            <li v-if=" instagramLinkInput !== '' ">
-                                <a
-                                    :href="instagramLink + instagramLinkInput"
-                                    target="_blank"
-                                    ><i
-                                        class="fab fa-instagram fa-2x profile-fab"
-                                    ></i
-                                    >{{ fullInstagramLink }}</a
-                                >
-                            </li>
-                        </ul> -->
                         <p v-else>No socials added!!!</p>
                     </div>
                 </div>
