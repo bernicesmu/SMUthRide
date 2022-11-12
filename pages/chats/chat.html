@@ -84,8 +84,10 @@
         max-width: 250px;
       }
 
-      .rides select, .drivers select {
+      .rides select, .drivers select, .drivers select:disabled {
         background-color: transparent;
+        border: none;
+        border-radius: 0;
         border-bottom: 3px solid #4e7570;
       }
     </style>
@@ -144,7 +146,7 @@
                     <!-- <option v-else selected>There are no available rides under this driver</option> -->
                   </select>
                 </div>
-                <p v-show="0 >= relevant_rides.length" style="font-size:15px; color:red; margin-left: 35px; margin-top: -15px;"> There are no available rides under this driver </p>
+                <p v-show="0 >= relevant_rides.length" style="font-size:15px; color:#894949; margin-left: 35px; margin-top: -15px;"> There are no available rides under this driver </p>
                 <div class="price" v-show='relevant_rides.length > 0' >
                   <p class="overlay">
                     You are offering:

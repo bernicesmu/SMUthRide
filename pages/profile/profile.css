@@ -201,6 +201,15 @@ a:hover {
     min-height: 5rem !important;
     max-height: 10rem;
 }
+
+
+#profileVue::-webkit-scrollbar
+{
+	display: none;
+}
+
+
+
 .ccaDiv {
     display: flex;
 }
