@@ -114,7 +114,7 @@ listings.component('drive', {
       <div class="col mx-auto mt-2 text-start " >
 
       <h4>My Drives</h4>
-      <div class="overflow-auto overflow-md-hidden ">
+      <div class="overflow-md-hidden">
       <table class="table text-center mx-3" >
         <thead>
         <tr>
@@ -129,9 +129,24 @@ listings.component('drive', {
         <tr v-if="this.list.length>0" v-for="listing in this.list" v-on:click="this.redirect(listing.ride_id)" >
           <td>{{format_date(listing.date)[1]}}</td>
           <td>{{formatAMPM(listing.time)}}</td>
-          <td >{{listing.smu_to_from =="from"? listing.smu_location: listing.neighbourhood}}</td>
-          <td >{{listing.smu_to_from =="to"? listing.smu_location: listing.neighbourhood}}</td>
-          <td>{{listing.users_offered.length-1}} / {{listing.max_capacity}}</td>
+          <td class="location-details">
+            {{listing.smu_to_from =="from"? listing.smu_location: listing.neighbourhood}}
+            <span class="tooltiptext" style="background-color: #BFACD3; color: #451F6A;" v-if="listing.smu_to_from == 'to'">
+                <h6 class="formatted-address" style="color: #451F6A;">{{listing.formatted_address}}</h6>
+            </span>
+          </td>
+          <td class="location-details">
+            {{listing.smu_to_from =="to"? listing.smu_location: listing.neighbourhood}}
+            <span class="tooltiptext" style="background-color: #BFACD3; color: #451F6A;" v-if="listing.smu_to_from == 'from'">
+                <h6 class="formatted-address" style="color: #451F6A;">{{listing.formatted_address}}</h6>
+            </span>
+          </td>
+          <td class="riders-num">
+            {{listing.users_offered.length-1}} / {{listing.max_capacity}}
+            <span class="tooltiptext" style="background-color: #BFACD3; color: #451F6A;">
+                <h6 class="formatted-address" style="color: #451F6A;" v-for="rider of listing.users_offered.slice(1,listing.users_offered.length)">{{rider}}</h6>
+            </span>
+          </td>
         </tr>
         <tr v-else>
             <td colspan="6">No drives</td>
