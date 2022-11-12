@@ -101,6 +101,18 @@ login_check.mount('#login')
 
 
 
+const login_toggle_password = document.querySelector(".login-toggle-password")
+
+login_toggle_password.addEventListener('click', () => {
+    login_toggle_password.classList.toggle("fa-eye-slash");   
+    var input = document.querySelector('#login-pwd-field')
+    if (input.getAttribute("type") == "password") {
+        input.setAttribute("type", "text")
+    } else {
+        input.setAttribute("type", "password");
+    }
+})
+
 const registration_check = Vue.createApp({
     data() {
         return {
@@ -252,6 +264,17 @@ const registration_check = Vue.createApp({
               instagram: "",
             }) 
           },
+
+        eyeicon_toggle(fieldclass, fieldtoggleid) {
+            var fieldclass = document.querySelector(fieldclass)
+            fieldclass.classList.toggle("fa-eye-slash");                                               
+            var input = document.querySelector(fieldtoggleid)
+            if (input.getAttribute("type") == "password") {
+                input.setAttribute("type", "text")
+            } else {
+                input.setAttribute("type", "password");
+            }
+        },
     },
 
     watch: {

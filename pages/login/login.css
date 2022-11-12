@@ -63,6 +63,40 @@ form {
     transition: 0.2s 0.7s ease-in-out;
 }
 
+.test-register{
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 300px;
+    width: 452px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* .test-register::-webkit-scrollbar {
+    display: none;
+} */
+
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #4e7570;
+}
+
 form.sign-in-form {
     z-index: 2;
 
@@ -88,6 +122,10 @@ form.register-form {
     left:5px;
 }
 
+.fa-eye, .fa-eye-slash{
+    position: absolute;
+    left: 95%;
+} 
 
 form .txt_field{
     position: relative;
@@ -430,6 +468,15 @@ img {
         width: 50%;
         height: 50px;
         margin-top: 2rem;
+    }
+
+    .test-register{
+        width: 100%;
+    }
+
+    form .txt_field{
+        width: 90%;
+        max-width: 390px;
     }
 }
 
