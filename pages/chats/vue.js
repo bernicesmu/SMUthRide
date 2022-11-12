@@ -26,7 +26,9 @@ const chat_left = Vue.createApp({
             offered_person_id : 0,
             counter : 0,
             selected_room: "",
-            last_room : ""
+            last_room : "",
+            position : "absolute"
+         
         }
     },
     computed:{
@@ -35,7 +37,6 @@ const chat_left = Vue.createApp({
             const db = getDatabase()
             const reference = ref(db, 'messages')
     
-            
             onValue(reference, (snapshot) => {
                 this.chat_array = []
                 let all_chats = snapshot.val()
@@ -46,7 +47,7 @@ const chat_left = Vue.createApp({
                     let usernames_in_chat = chat.split(";")
                     if(usernames_in_chat.includes(this.user)){
                         // check the timing
-                        console.log(all_chats[chat])
+                        // console.log(all_chats[chat])
 
                         // implementation of timing 
                         const timing = ref(db,`messages/${chat}`)
@@ -57,7 +58,7 @@ const chat_left = Vue.createApp({
                             let latest_message = all_message[all_message.length -1]
                             // console.log(latest_message)
                             let timing_of_latest_message = latest_message.message_time
-                            console.log(timing_of_latest_message)
+                            // console.log(timing_of_latest_message)
                             let chat_object = {
                                 chat_id : chat,
                                 timing : timing_of_latest_message
@@ -83,25 +84,28 @@ const chat_left = Vue.createApp({
         },
        
 
-        window(){
-            if ($(window).width() < 960) {
-                alert('Less than 960');
-             }
-             else {
-                alert('More than 960');
-             }
-        }
+        // window(){
+        //     if ($(window).width() < 960) {
+        //         alert('Less than 960');
+        //      }
+        //      else {
+        //         alert('More than 960');
+        //      }
+        // }
        
 
 
     },
     methods:{
+        
         get_latest_chat(){
+            // this.position = "absolute"
             // console.log(this.chat_array)
             let first_chat = this.chat_array[0]
             // console.log(first_chat)
             let first_chat_chat_id = first_chat.chat_id
             this.selected_room = first_chat_chat_id
+            this.current_chatid = first_chat_chat_id
             const db = getDatabase()
             const reference = ref(db, `messages/${first_chat_chat_id}`)
 
@@ -120,15 +124,37 @@ const chat_left = Vue.createApp({
                 let result = snapshot.val()
                 this.messages = result
             })
+            // this.height_checker()
 
 
 
 
         },
+        height_checker(){
+            let scroll_height = document.getElementById('messages').scrollHeight
+            let client_height = document.getElementById('chat').clientHeight
+            let contact_height = document.getElementById('contact').scrollHeight
+            console.log("Height checker")
+            if(scroll_height + 100 > client_height - contact_height){
+                // console.log(scroll_height)
+                // console.log(client_height - contact_height)
+                this.position = "sticky"
+            }
+            else{
+                // console.log(scroll_height)
+                // console.log(client_height - contact_height)
+                this.position = "absolute"
+            }
+            
+
+        },
 
         retreive_chat(chatid){
+            // console.log(this.position)
+            // this.position = "absolute"
+            // console.log(this.position)
+            
             const db = getDatabase()
-
             let users = chatid.split(";")
 
             for(var user of users){
@@ -162,7 +188,7 @@ const chat_left = Vue.createApp({
         send_message(){
             // console.log("hello")
             const db = getDatabase()
-            
+            // this.position = "absolute"
             const reference = ref(db, 'messages/' + this.current_chatid)
             onValue(reference, (snapshot) => {
 
@@ -195,6 +221,9 @@ const chat_left = Vue.createApp({
             this.message_to_send = ""
               
             this.retreive_chat(this.current_chatid)
+            this.height_checker()
+            var element = document.getElementById("chat");
+            element.scrollTop = element.scrollHeight;
 
         },
         // USE FORMATTED ADDRESS
@@ -249,7 +278,9 @@ const chat_left = Vue.createApp({
             this.offer_price = ""
             this.selected_driver = ""
             this.selected_ride = ""
-
+            this.height_checker()
+            var element = document.getElementById("chat");
+            element.scrollTop = element.scrollHeight;
 
            
 
@@ -276,7 +307,7 @@ const chat_left = Vue.createApp({
             const reference = ref(db, 'users/' + this.other_user)
 
             onValue(reference, (snapshot) => {
-                console.log(snapshot.val())
+                // console.log(snapshot.val())
                 // console.log(snapshot.val())
                 let user_profile = snapshot.val()
                 let image = user_profile["profile_url"]
@@ -295,31 +326,6 @@ const chat_left = Vue.createApp({
         message_formatted(message) { 
             return `<b>${message.username}</b>: ${message.message}`
         },
-        // offer_formatted(message){
-        //     // return `<button v->${message.username}</b>: ${message.message}`
-            
-        //     console.log(message.username)
-        //     let username = message.username
-        //     if(this.user == username){
-        //         let display_message = `<b>${message.username}</b>: ${message.message}<br>Status: <b>${message.accepted}</b>`
-        //         return display_message
-        //     }
-        //     else{
-        //         //display with the button
-        //         let display_message = `<b>${message.username}</b>: ${message.message}<br>
-        //         <button class="btn btn-success" id="accept_${message.selected_ride}_${this.user}" onclick="accept(this)">Accept Offer</button><button class="btn btn-danger" v-on:click="decline">Decline Offer</button>`
-
-        //         return display_message
-
-        //     }
-        // },
-        // accept(){
-        //     console.log("YEA")
-        // },
-
-        // decline(){
-
-        // },
 
         get_relevant_rides(){
             // do not show if user is already inside the listing
@@ -453,15 +459,27 @@ const chat_left = Vue.createApp({
             }
             return text
         },
-        accept(selected_ride,user,length,mid){
+        accept(selected_ride,you, other_user,length,mid,driver){
             console.log(length + "YYY")
             const db = getDatabase()
             // set(ref(db, `rides/${selected_ride}/users_offered/${length}`), {
             //     person : user
             //  })
+            // return the driver
+            let to_add = ""
+            
+           if(driver == you){
+               to_add = other_user
+           }
+           else{
+               to_add = you
+           }
+           console.log(to_add)
+
+
             const updates = {};
             updates[`messages/${this.current_chatid}/${mid}/accepted`] = "accepted"
-            updates[`rides/${selected_ride}/users_offered/${length}`] = user
+            updates[`rides/${selected_ride}/users_offered/${length}`] = to_add
             return update(ref(db), updates)
         },
         decline(mid) { 
@@ -479,8 +497,10 @@ const chat_left = Vue.createApp({
             },1000)
         },
         selected_chatroom(chat_id){
+            // this.position = "absolute"
             this.selected_room = chat_id
-        }
+        },
+        
      
 
     },
@@ -542,6 +562,8 @@ const chat_left = Vue.createApp({
         this.get_userimage
         // console.log(this.messages)
         // setInterval(function(){this.counter = this.counter+ 1}, 1000)
+        
+        
     },
     mounted(){
         this.change_counter()
@@ -553,16 +575,17 @@ chat_left.component('offer-button',{
     data(){
         return{
             length : 0,
+            driver : ""
         }
     },
 
-    props: ["message", "selected_ride", "user", "message_status"],
+    props: ["message", "selected_ride", "user", "message_status", "other_user","you"],
 
     emits: ['accept', 'decline'],
 
     template: `<b>{{ message.username }}</b>: <span v-html='message.message' style="font-weight: normal;"></span><br>
     <div id="acc_dec_buttons" v-if="message_status == 'pending'">
-        <button class="btn btn-accept" v-on:click="$emit('accept',selected_ride, user,length, message.mid)">
+        <button class="btn btn-accept" v-on:click="$emit('accept',selected_ride, you, other_user,length, message.mid,driver)">
             Accept Offer
         </button>
         <button class="btn btn-decline" v-on:click="$emit('decline',message.mid)">
@@ -588,7 +611,7 @@ chat_left.component('offer-button',{
                 let ride = snapshot.val()
                 let offered_people = ride.users_offered
                 // offered_people.push(this.user)
-                console.log(offered_people.length)
+                // console.log(offered_people.length)
                 // console.log(offered_people)
                 
                 this.length = offered_people.length
@@ -613,11 +636,25 @@ chat_left.component('offer-button',{
                 return "color: #894949"
             }
         },
+        get_driver(ride_id){
+            const db = getDatabase()
+            const reference = ref(db, `rides/${ride_id}`)
+
+            onValue(reference, (snapshot) => {
+                // console.log(snapshot.val())
+                // console.log(snapshot.val())
+                let ride_details = snapshot.val()
+                console.log(ride_details)
+                console.log(ride_details.driver_username)
+                this.driver = ride_details.driver_username
+            })
+        }
 
         
     },
     created(){
         this.get_length(this.selected_ride) 
+        this.get_driver(this.selected_ride)
     }
 })
 
@@ -678,11 +715,11 @@ chat_left.component('chat-box', {
 
         }
     },
-    props: ['chat_id'],
+    props: ['chat_id','position'],
 
-    emits: ['get_chat','selected_chatroom'],
+    emits: ['get_chat','selected_chatroom','height_checker'],
     // @click="selected_chat(chat_id)"
-    template: `<div :id="chat_id" class="chatbox" style="padding:10px; display: flex;" v-on:click="$emit('get_chat',chat_id)" v-on:click="$emit('selected_chatroom',chat_id)">
+    template: `<div :id="chat_id" class="chatbox" style="padding:10px; display: flex;" v-on:click="$emit('get_chat',chat_id)" v-on:click="$emit('selected_chatroom',chat_id)" v-on:mouseover="$emit('height_checker')" v-on:click="$emit('height_checker')">
     <div id="photo">
         <img :src="image_url" class="profile-pic img-fluid rounded-circle"
         style="object-fit: cover; height: 50px; width: 50px; object-position: 50% 50%;">
@@ -698,6 +735,7 @@ chat_left.component('chat-box', {
     computed:{
         //get latest message
         get_latest_message(){
+
             const db = getDatabase()
             const reference = ref(db, 'messages/' + this.chat_id)
             // console.log(reference)
@@ -750,7 +788,7 @@ chat_left.component('chat-box', {
         this.get_latest_message
         this.get_other_user
         this.get_userimage
-        
+       
         
 
         // find the latest message
@@ -758,6 +796,7 @@ chat_left.component('chat-box', {
 
     methods: {
         selected_chat(chat_id) { 
+            
             var chatboxes = document.getElementsByClassName("chatbox")
             for (var chatbox of chatboxes) { 
                 chatbox.style = "padding:10px; display: flex;"

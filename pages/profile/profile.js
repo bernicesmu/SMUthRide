@@ -60,7 +60,6 @@ Vue.createApp({
                 "Computing & Law",
                 "Law",
                 "CIS",
-                "No Major",
             ],
             yearOfStudyList: [
                 "Year 1",
@@ -69,7 +68,6 @@ Vue.createApp({
                 "Year 4",
                 "Year 5",
                 "Alumni",
-                "Year X",
             ],
             genderList: ["Male", "Female"],
             mbtiList: [
@@ -89,7 +87,6 @@ Vue.createApp({
                 "ISFP",
                 "ESTP",
                 "ESFP",
-                "XXXX",
             ],
             picture_link: "",
             username: "",
@@ -160,10 +157,11 @@ Vue.createApp({
                     cca.push(cca_op.value);
                 }
             }
+            cca.push("")
 
-            if (cca.length == 0) {
-                cca = [""];
-            }
+            // if (cca.length == 0) {
+            //     cca = [""];
+            // }
 
             const db = getDatabase();
             set(ref(db, `users/${username}/userprofile`), {
@@ -203,6 +201,21 @@ Vue.createApp({
                 this.age = data.age;
                 this.bio = data.bio;
                 this.ccas = data.cca;
+                // if (this.ccas.length != 0) {
+                //     console.log(this.ccas)
+                //     this.ccas = Object.values(this.ccas);
+                //     console.log(this.ccas);
+                //     this.ccas.push("");
+                //     console.log(this.ccas);
+                // } else {
+                //     console.log(this.ccas)
+                //     this.ccas = [""];
+                // }
+
+                if (this.ccas.length == 0) {
+                    console.log(this.ccas)
+                    this.ccas = [""];
+                }
                 console.log(this.ccas);
                 this.degree = data.degree;
                 this.facebookLinkInput = data.facebook;
@@ -249,16 +262,6 @@ Vue.createApp({
         this.find_user_profile(this.username);
         this.find_name_from_username(this.username);
         this.GetProfilePicUrl(this.username);
-
-        if (this.ccas.length != 0) {
-            this.ccas = Object.values(this.ccas);
-            console.log(this.ccas);
-            this.ccas.push("");
-            this.ccas.push("dick");
-            console.log(this.ccas);
-        } else {
-            this.ccas = [""];
-        }
 
         let db_profile_url = this.profile_url;
         if (db_profile_url != "undefined") {
