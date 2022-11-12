@@ -400,19 +400,21 @@ app.component("riders-table", {
     props: ['driver', 'user', 'rideid'],
 
     template: ` 
-                <table v-if="driver_is_user() && list_riders.length > 0" class='table w-50 mx-auto'>
-                    <tr>
-                        <th>Rider</th>
-                        <th>Remove</th>
-                    </tr>
-                    <tr v-for="rider of list_riders">
-                        <td>{{rider}}</td>
-                        <td>
-                            <button class='btn btn-remove btn-sm' @click="remove_rider(rider)">
-                                Remove
-                            </button>
-                        </td>
-                    </tr>
+                <table class="table" v-if="driver_is_user() && list_riders.length > 0" class='table w-75 mx-auto'>
+                    <thead>
+                        <tr>
+                            <th scope="col">Rider</th>
+                            <th scope="col">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr v-for="rider of list_riders">
+                            <td scope="row">{{rider}}</td>
+                            <td>
+                                <span @click="remove_rider(rider)">🗑</span>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>`,
     
     methods: { 
