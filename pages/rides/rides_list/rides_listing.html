@@ -157,7 +157,7 @@
         </div>
         <div id="populate_listings" style="position: relative">
             <div
-                class="col px-md-5 px-1 py-1 d-flex flex-wrap justify-content-center"
+                class="col px-md-5 p-1 d-flex flex-wrap justify-content-center"
                 id="top_row"
             >
                 <div
@@ -301,9 +301,21 @@
                             </div>
                             <div class="col-8">
                                 <div class="text-center overflow-visible">
-                                    <h5 class="mb-0 py-2">
-                                        {{get_user_name(listing.driver_username)}}
-                                    </h5>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <h5 class="mb-0 py-2 px-1 d-inline">
+                                            {{get_user_name(listing.driver_username)}}
+                                        </h5>
+                                        <span v-if=" get_user_gender(listing.driver_username) === 'Male' ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-male" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2H9.5zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke="#4e7570" stroke-width="1"/>
+                                            </svg>
+                                        </span>
+                                        <span v-if=" get_user_gender(listing.driver_username) === 'Female' ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z" stroke="#4e7570" stroke-width="1"/>
+                                            </svg>
+                                        </span>
+                                    </div>
                                     <h5 class="my-0 fw-bold">
                                         {{format_date(listing.date)[1]}}
                                     </h5>
@@ -319,16 +331,22 @@
                     <div>
 
                         <h2 class="d-flex justify-content-center card-title fw-bold text-center mb-3 neighbourhood" v-if="to_from == `from`" style="color: #BFACD3">
-                            <i class="bi bi-geo-alt-fill"></i><div class="d-inline-block" style="text-overflow: ellipsis; overflow: hidden; height: 1.4em; white-space: nowrap;">{{listing.neighbourhood}}</div>
-                                <span class="tooltiptext" style="background-color: #BFACD3; color: #451F6A;">
-                                    <h6 class="formatted-address" style="color: #451F6A;">{{listing.formatted_address}}</h6>
-                                </span>
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <div class="d-inline-block" style="text-overflow: ellipsis; overflow: hidden; height: 1.4em; white-space: nowrap;">
+                                {{listing.neighbourhood}}
+                            </div>
+                            <span class="tooltiptext" style="background-color: #BFACD3; color: #451F6A;">
+                                <h6 class="formatted-address" style="color: #451F6A;">{{listing.formatted_address}}</h6>
+                            </span>
                         </h2>
-                        <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-else-if="to_from == `to`" style="color: #d8c7a3">
-                            <i class="bi bi-geo-alt-fill"></i>{{listing.neighbourhood}}
-                                <span class="tooltiptext" style="background-color: #d8c7a3; color: #8A6F42;">
-                                    <h6 class="formatted-address" style="color: #8A6F42;">{{listing.formatted_address}}</h6>
-                                </span>
+                        <h2 class="d-flex justify-content-center card-title fw-bold text-center mb-3 neighbourhood" v-else-if="to_from == `to`" style="color: #d8c7a3">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <div class="d-inline-block" style="text-overflow: ellipsis; overflow: hidden; height: 1.4em; white-space: nowrap;">
+                                {{listing.neighbourhood}}
+                            </div>
+                            <span class="tooltiptext" style="background-color: #d8c7a3; color: #8A6F42;">
+                                <h6 class="formatted-address" style="color: #8A6F42;">{{listing.formatted_address}}</h6>
+                            </span>
                         </h2>
 
                         <div class="d-flex my-2">
