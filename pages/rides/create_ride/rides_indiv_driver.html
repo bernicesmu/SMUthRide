@@ -1105,7 +1105,7 @@
                 required
                 step= "300"
             /> -->
-            <time-input @change='check_time()'></time-input>
+            <time-input  :date="date" :allowable_date="allowable_date"></time-input>
             <span class="highlight"></span>
             <label class="date-label" id="time-label">Time</label>
             <!-- <label
