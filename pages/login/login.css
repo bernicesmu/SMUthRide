@@ -72,6 +72,9 @@ form {
     align-items: center;
     flex-direction: column;
 }
+.alert_container{
+    margin-top: 20px;
+}
 
 /* .test-register::-webkit-scrollbar {
     display: none;
@@ -486,9 +489,9 @@ img {
 .alert {
     font-size: 0.7rem;
     font-weight: normal;
-    position: absolute;
     opacity: 0.5;
     color: red;
     top: 2.7rem;
     left: 2rem;
+    text-align: center;
 }

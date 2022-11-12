@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="../rides/rides_list/card.css" />
         <style>
         tbody > tr:hover{
-            background-color: #BEDAD6;
+            background-color: rgb(255,255,255,0.5);
         }
         .nav-link::selection{
             color:  #e3f1ef;
@@ -102,7 +102,6 @@
 
         .riders-num {
             position: relative;
-            z-index: 1;
         }
 
         .location-details > .tooltiptext {
@@ -125,7 +124,16 @@
 
         .location-details {
             position: relative;
-            z-index: 1;
+        }
+
+        .table thead {
+            background-color: #d8c7a3;
+            color: #8A6F42;
+        }
+
+        .table tbody td {
+            border-bottom-width: 2px;
+            border-color: #d8c7a3;
         }
         </style>
 
@@ -134,8 +142,6 @@
     <body>
         <div id="navbarVue">
             <div
-                v-html="navbar_html"
-                @scroll="nav_animation"
                 data-page="offers"
             ></div>
         </div>
@@ -148,10 +154,10 @@
 
             <ul class="nav nav-tabs col-11 col-md-10 mx-auto " id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Scheduled</button>
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Upcoming</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">History</button>
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Past</button>
                 </li>
             </ul>
             <div class="tab-content col-11 col-md-10 mx-auto" id="myTabContent">

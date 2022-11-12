@@ -380,6 +380,7 @@ const registration_check = Vue.createApp({
         password(newValue, oldValue) {
             if (oldValue == "" || newValue != "") {
                 this.check_password();
+                this.check_password_match();
             }
         },
         cfmpassword(newValue, oldValue) {
