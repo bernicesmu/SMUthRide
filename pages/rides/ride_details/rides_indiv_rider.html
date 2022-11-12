@@ -238,7 +238,7 @@
             </div>
             <div class="col-md-6 text-center">
                 <div class="user d-flex pt-3">
-                    <a v-bind:href="'../../profile/profile.html?user=' + driver_username" class="profileinfo">
+                    <a v-bind:href="'../../profile/profile.html?user=' + driver_username" class="profileinfo align-self-center">
                     <!-- need to customise photo? -->
                     <div class="profilepic d-inline me-2">
                         <img
@@ -251,13 +251,24 @@
                     </div>
                     <div class="usertext d-block my-auto">
                         <div class="userinfo d-flex my-auto">
-                            <h2 class="name me-2" id="displayname">
+                            <h4 class="name me-2" id="displayname">
                                 {{ driver_name }}
-                                
-                            </h2>
-                            <h4 class="username" id="username">@{{ driver_username }}</h4>
+                            </h4>
+                            <span v-if=" gender === 'Male' " class="align-self-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gender-male" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2H9.5zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke="#4e7570" stroke-width="1"/>
+                                </svg>
+                            </span>
+                            <span v-if=" gender === 'Female' " class="align-self-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z" stroke="#4e7570" stroke-width="1"/>
+                                </svg>
+                            </span>
                         </div>
-                        <div class="degree">
+                        <div class="username text-start">
+                            <h6 class="username" id="username">@{{ driver_username }}</h6>
+                        </div>
+                        <div class="degree text-start">
                             <h6 class="degree" id="year_degree" v-if="degree.length > 0">
                                 {{year}}, {{degree}}
                             </h6>

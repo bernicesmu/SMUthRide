@@ -64,6 +64,7 @@ const app = Vue.createApp({
             msg_length: 0,
             unformatted_date: "",
             unformatted_time: "",
+            gender: "",
         }
     },
     computed:{
@@ -174,6 +175,7 @@ const app = Vue.createApp({
                 // year 2 information systems NOT in
                 this.year = details[this.driver_username]['userprofile']['year']
                 this.degree = details[this.driver_username]['userprofile']['degree']
+                this.gender = details[this.driver_username]['userprofile']['gender']
                
             })
         },
