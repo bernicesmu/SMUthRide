@@ -117,6 +117,7 @@ form_alerts.component('time-input', {
                     name="time_minute"
                     id="time_min"
                     class="dropdowns dropdown-time"
+                    v-html="get_minute()"
                     v-model='time_minute'
                     @change='check_time()'
                 >
@@ -156,7 +157,6 @@ form_alerts.component('time-input', {
         get_hour() { 
             var today = new Date()
             var now_hour = today.getHours()
-            console.log(now_hour)
             var next_hour = now_hour + 1 
             var selected = ""
             var to_return = ""
@@ -168,6 +168,27 @@ form_alerts.component('time-input', {
                     selected = "selected"
                 }
                 to_return += `<option value="${i+1}" ${selected}>${i+1}</option>`
+                selected = ""
+            }
+            this.time_hour = next_hour
+            return to_return
+        },
+
+        get_minute() { 
+            var today = new Date()
+            var now_minute = today.getMinutes()
+            var difference = now_minute % 5
+            var next_min = (now_minute - difference)
+            this.time_minute = next_min.toString()
+            var to_return = ''
+            var selected = ''
+            let min_list = ['00','05','10','15','20','25','30','35','40','45','50','55']
+
+            for (var i of Array(12).keys()) { 
+                if (min_list[i] === next_min) { 
+                    selected = "selected"
+                }
+                to_return += `<option value="${min_list[i]}" ${selected}>${min_list[i]}</option>`
                 selected = ""
             }
             return to_return
@@ -191,6 +212,7 @@ form_alerts.component('time-input', {
                 to_return += `<option value="${i}" ${selected}>${i.toUpperCase()}</option>`
                 selected = ""
             }
+            this.time_ampm = ampm
             return to_return
         },
 
@@ -206,7 +228,9 @@ form_alerts.component('time-input', {
                 selected_hour = selected_hour + 12
                 selected_hour.toString
             }
-            else {selected_hour = '0' + selected_hour.toString()}
+            else {
+                selected_hour = '0' + selected_hour.toString()
+            }
 
             var selected_time = selected_hour + ':' + time_minute.value + time_ampm.value
             console.log(selected_time)
