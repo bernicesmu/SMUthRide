@@ -22,6 +22,11 @@
             border-radius: 50%;
         }
 
+        .userinfo {
+            font-weight: bold;
+        }
+
+
         .username {
             font-weight: 300;
             margin-top: auto;
@@ -80,6 +85,11 @@
             text-decoration: none;
         }
 
+        .usertext:hover h2, .usertext:hover h4, .usertext:hover h6 {
+            color: #d8c7a3;
+            transition: all 0.2s ease-in-out;
+        }
+
         .chat-button { 
             background-color: #BFACD3;
             color: #451F6A;
@@ -116,6 +126,16 @@
         .valid-message { 
             color: #BFACD3;
             margin-bottom: 0px;
+        }
+
+        .btn-remove { 
+            background-color: #BFACD3 !important;
+            color: #451F6A !important;
+        }
+
+        .btn-remove:hover { 
+            background-color: #BFACD3 !important;
+            color: #FFF !important;
         }
     </style>
 
@@ -293,6 +313,11 @@
                             {{ max_capacity - current_riders.length + 1 }} / {{ max_capacity }} seats available
                         </h4>
                     </div>
+                    <riders-table
+                        :driver="driver_username" 
+                        :user="user" 
+                        :rideid = "rideid"
+                    ></riders-table>
                     <div class="datetime mb-4">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

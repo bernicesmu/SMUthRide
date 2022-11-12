@@ -70,6 +70,7 @@
             font-size: 1rem;
             font-weight: normal;
             opacity: 0.7;
+            max-width: 100px;
         }
 
         .error {
@@ -99,7 +100,6 @@
         #info_hover {
             /* display: block; */
             justify-content: right;
-            
             position: relative;
             display: inline-block;
         }
@@ -128,7 +128,7 @@
 
         #info_hover > .tooltiptext { 
             visibility: hidden;
-            width: 300px;
+            max-width: 300px;
             background-color: #BFACD3;
             color: #451F6A;
             text-align: center;
@@ -197,7 +197,7 @@
         }
 
         .getRoute-buttons {
-            width: 100px;
+            min-width: 100px;
             border-radius: 10px;
             background-color: #4e7570;
             color: #b1b1b1;
@@ -391,7 +391,7 @@
           /* The actual popup */
           .popup .popuptext {
             visibility: hidden;
-            width: 300px;
+            max-width: 300px;
             background-color: #BFACD3;
             color: #451F6A;
             text-align: center;
@@ -500,8 +500,8 @@
         }
         .change_date {
             position: absolute;
-            top: -30px;
-            right: 0px
+            bottom: -20px;
+            left: 0px
         }
 
         .rotate-forward {
@@ -624,7 +624,7 @@
 
         <!--    </div>-->
         <div class="d-flex row mb-2 justify-content-evenly inputs-div">
-            <div class="col-xs-12 col-md-5 d-flex justify-content-center py-4 smu-location" style="position: relative; width: 20%; margin-right: 0px;">
+            <div class="col-xs-12 col-md-5 d-block justify-content-center py-4 smu-location mx-auto" style="position: relative; width: 20%; margin-right: 0px;">
                 <label for="smubuildings" id="SMU_label">School</label>
                 <select
                     name="smubuildings"
@@ -677,7 +677,7 @@
                     />
                 </svg>
             </div>
-            <div class="col-xs-12 col-md-5 justify-content-center py-4" style="position: relative; width: 70%px;  margin-right: 0px;">
+            <div class="col-xs-12 col-md-5 py-4 d-block justify-content-center" style="position: relative; width: 70%px;  margin-right: 0px;">
                 <div class="justify-content-center" >
                     <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required="false" v-model="location_input"/>
                     <span class="highlight"></span>
@@ -693,17 +693,14 @@
                     </label>
                 </div>
             </div>
-            <div id="kms" class="mx-auto">
-                <p id="error" class="error mx-auto"></p>
-            </div>
         </div>
 
     <div class="text-center container">
         <div class="row d-flex justify-content-center" style="position: relative;">
-            <div class="w-50 map-buttons mb-4 mx-auto">
+            <div class="w-50 map-buttons mb-4 mx-auto text-center d-block-inline justify-content-center">
                 <button
                     type="button"
-                    class="btn button w-50 d-block text-center getRoute-buttons mx-4"
+                    class="btn button w-50 d-block text-center getRoute-buttons justify-content-center mx-2"
                     data-mdb-ripple-color="dark"
                     onclick="rotate_location()"
                     id="bottomtip"
@@ -715,10 +712,9 @@
                     id="getRoute"
                     value="Find route!"
                     v-bind:disabled="location_input.length == 0"
-                    class="btn button w-50 d-block text-center getRoute-buttons mx-4"
+                    class="btn button w-50 d-block text-center getRoute-buttons justify-content-center mx-2"
                     onclick="calcRoute()"
                 >Find route!</button>
-                <br />
                 <div id="info_hover" class="my-auto popup"></div>
             </div>
             <!-- <div id="info_hover"></div> -->
@@ -1013,7 +1009,7 @@
                             map.setCenter(coords[0], coords[1]);
 
                             // error message for invalid address
-                            info_hover.innerHTML = `<div class='wrong_loc'>Stop it. Get some help. Put correct location please.</div>`;
+                            info_hover.innerHTML = `<div class='wrong_loc text-danger mx-2'>Invalid locations.</div>`;
                         }
                     }
                 );
@@ -1128,7 +1124,7 @@
             v-bind:disabled="(date.length == '') || (location_input == '') || (just_stop =='no')"
         >
         <!-- this disable button needs to be modified as well -->
-            Get in loser, we're going shopping.
+            Create your SMUth Ride!
         </button>
 <!--            </form>-->
         <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true"

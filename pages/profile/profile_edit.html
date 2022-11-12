@@ -101,7 +101,7 @@
                             v-model="displayname"
                     /></strong>
                 </h2>
-                <p class="degree-text">
+                <!-- <p class="degree-text">
                     <select
                         type="dropdown"
                         class="form-select text-center target-input main-info"
@@ -130,7 +130,46 @@
                             {{ yearChoice }}
                         </option>
                     </select>
-                </p>
+                </p> -->
+
+                <div
+                    class="additional-profile row row-cols-1 row-cols-sm-2 row-cols-md-1 text-center"
+                >
+                    <div class="col">
+                        <span><strong>Degree</strong>:</span>
+                        <select
+                            type="dropdown"
+                            class="form-select text-center d-inline target-input add-profile-fields"
+                            id="degree"
+                            name="degree"
+                        >
+                            <option
+                                v-for="majorChoice in majorList"
+                                :value="majorChoice"
+                                :selected=" degree === majorChoice "
+                            >
+                                {{ majorChoice }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <span><strong>Year</strong>:</span>
+                        <select
+                            type="dropdown"
+                            class="form-select text-center d-inline target-input add-profile-fields"
+                            id="year"
+                            name="year"
+                        >
+                            <option
+                                v-for="yearChoice in yearOfStudyList"
+                                :value="yearChoice"
+                                :selected=" yearChoice === yearOfStudy "
+                            >
+                                {{ yearChoice }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
                 <div
                     class="additional-profile row row-cols-1 row-cols-sm-3 row-cols-md-1 text-center"
                 >
@@ -140,6 +179,7 @@
                             type="number"
                             class="form-control text-center d-inline target-input add-profile-fields"
                             name="age"
+                            oninput="validity.valid||(value='');"
                             v-model="age"
                         />
                     </div>
@@ -330,44 +370,54 @@
                 <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title">Socials</h5>
-                        <ul class="socials-ul">
+                        <ul class="socials-ul row">
                             <li>
                                 <i
-                                    class="fab fa-linkedin fa-2x profile-fab d-inline"
+                                    class="fab fa-linkedin fa-2x profile-fab d-inline col-2"
                                 ></i>
-                                <label for="linkedin">{{ linkedinLink }}</label>
-                                <input
-                                    type="text"
-                                    class="form-control text-start d-inline w-25 target-input"
-                                    name="linkedin"
-                                    v-model="linkedinLinkInput"
-                                />
+                                <div class="col-10 d-inline-block">
+                                    <label for="linkedin"
+                                        >{{ linkedinLink }}</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control text-start d-inline target-input socials-input"
+                                        name="linkedin"
+                                        v-model="linkedinLinkInput"
+                                    />
+                                </div>
                             </li>
                             <li>
                                 <i
-                                    class="fab fa-facebook-square fa-2x profile-fab d-inline"
+                                    class="fab fa-facebook-square fa-2x profile-fab d-inline col-2"
                                 ></i>
-                                <label for="facebook">{{ facebookLink }}</label>
-                                <input
-                                    type="text"
-                                    class="form-control text-start d-inline w-25 target-input"
-                                    name="facebook"
-                                    v-model="facebookLinkInput"
-                                />
+                                <div class="col-10 d-inline-block">
+                                    <label for="facebook"
+                                        >{{ facebookLink }}</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control text-start d-inline target-input socials-input"
+                                        name="facebook"
+                                        v-model="facebookLinkInput"
+                                    />
+                                </div>
                             </li>
                             <li>
                                 <i
-                                    class="fab fa-instagram fa-2x profile-fab d-inline"
+                                    class="fab fa-instagram fa-2x profile-fab d-inline col-2"
                                 ></i>
-                                <label for="instagram"
-                                    >{{ instagramLink }}</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control text-start d-inline w-25 target-input"
-                                    name="instagram"
-                                    v-model="instagramLinkInput"
-                                />
+                                <div class="col-10 d-inline-block">
+                                    <label for="instagram"
+                                        >{{ instagramLink }}</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control text-start d-inline target-input socials-input"
+                                        name="instagram"
+                                        v-model="instagramLinkInput"
+                                    />
+                                </div>
                             </li>
                         </ul>
                     </div>
