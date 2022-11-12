@@ -45,7 +45,7 @@ const login_check = Vue.createApp({
             this.password = inputs.password.value
         
             await this.find_email_from_username()
-            await this.sleep(0.5 * 1000);
+            await this.sleep(0.1 * 1000);
             await this.signin_user()    
         }, 
 
