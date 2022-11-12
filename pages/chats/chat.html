@@ -59,9 +59,9 @@
         align-items: center;
       }
 
-      .price {
-        /* flex-direction: column; */
-      }
+      /* .price {
+        flex-direction: column;
+      } */
 
       .drivers p, .rides p, .price p {
         font-weight: 400;
@@ -96,6 +96,19 @@
         max-width: 40px;
       }
 
+      #leftbar {
+        max-height: 505.11px;
+        overflow-y: hidden;
+      }
+
+      .chat-list {
+        max-height: 505.11px;
+        overflow-y:scroll;
+      }
+
+      .chat-list::-webkit-scrollbar {
+        display: none;
+      }
 
 
     </style>
@@ -191,7 +204,8 @@
                   <h3 class="text-center d-block chat-label">Chats</h3>
                   <hr>
                 </div>
-                <chat-box 
+                <div class="chat-list">
+                  <chat-box 
                   v-for="chat_id of chat_array" 
                   :chat_id="chat_id.chat_id" 
                   v-on:get_chat="retreive_chat" 
@@ -199,8 +213,9 @@
                   v-on:selected_chatroom="selected_chatroom" 
                   v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" 
                   @height_checker="height_checker"
-                ></chat-box>
-                
+                  ></chat-box>
+                </div>
+
                </div>
 
             </div>
