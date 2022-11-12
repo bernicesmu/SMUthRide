@@ -46,8 +46,17 @@
                 <!-- <h6 class="degree-text">{{ school }}</h6> -->
                 <p class="degree-text">
                     <strong>MBTI</strong>:
+
                     <a
+                        v-if=" mbti != 'XXXX' "
                         :href="'https://www.16personalities.com/' + mbti.toLowerCase() + '-personality'"
+                        class="personality"
+                        target="_blank"
+                        >{{ mbti }}</a
+                    >
+                    <a
+                        v-else
+                        :href="'https://www.16personalities.com/free-personality-test'"
                         class="personality"
                         target="_blank"
                         >{{ mbti }}</a
