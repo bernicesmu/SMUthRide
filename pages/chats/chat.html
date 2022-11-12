@@ -86,7 +86,7 @@
                     <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
                       {{ address[0] }}
                     </option>
-                    <option v-else>All Rides are full!</option>
+                    <option v-else>There are no available rides under this driver</option>
                   </select>
                   <div></div>
                 </div>

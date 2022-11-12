@@ -522,10 +522,10 @@ chat_left.component('offer-button',{
 
     template: `<b>{{ message.username }}</b>: {{message.message}}<br>
     <div id="acc_dec_buttons" v-if="message_status == 'pending'">
-        <button class="btn btn-success" v-on:click="$emit('accept',selected_ride, user,length, message.mid)">
+        <button class="btn btn-accept" v-on:click="$emit('accept',selected_ride, user,length, message.mid)">
             Accept Offer
         </button>
-        <button class="btn btn-danger" v-on:click="$emit('decline',message.mid)">
+        <button class="btn btn-decline" v-on:click="$emit('decline',message.mid)">
             Decline Offer
         </button>
     </div>
