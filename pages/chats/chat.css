@@ -65,8 +65,6 @@ li span {
 
 #message-form {
   text-align: center;
-  position: -webkit-sticky;
-  position: sticky;
 }
 
 input {
@@ -129,7 +127,7 @@ p {
 #chat {
   background-color: white;
   height: 80%;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-top: 0;
   position: relative;
   scroll-behavior: smooth;
@@ -138,7 +136,8 @@ p {
 }
 
 .sub_div {
-  position: absolute;
+  position: -webkit-sticky;
+  position: sticky;
   bottom: 0px;
   width: 100%;
   background-color: #4e7570;
@@ -246,6 +245,8 @@ button {
   background-color: #BFACD3;
   border-radius: 30px;
   padding: 20px;
+  padding-top: 110px;
+  margin-top: 5%;
 }
 
 #text span {
@@ -257,7 +258,7 @@ button {
 
 #text input {
   display: block;
-  margin: auto;
+  margin: 0;
   margin-bottom: 10px;
 }
 
@@ -344,20 +345,50 @@ hr {
 
 .cancel {
   background-color: #F3D8D8;
-  color: red;
+  color: #894949;
 }
 
-.cancel:hover, .confirm:hover {
-  color: #451F6A;
+.cancel:hover {
+  background-color: #F3D8D8;
+  color: #FFF;
+}
+
+.confirm:hover {
+  background-color: #bedad6;
+  color: #FFF;
 }
 
 .confirm:disabled {
-  background-color: #d0e8bc;
-  color: #479607 1;
+  background-color: #bdbdbd;
+  color: #888888;
   border: none;
 }
 
 .confirm {
-  background-color: #d0e8bc;
-  color: #479607;
+  background-color: #bedad6;
+  color: #4e7570;
+}
+
+.btn-accept {
+  background-color: #BFACD3;
+  color: #451F6A;
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+.btn-decline {
+  background-color: #F3D8D8;
+  color: #894949;
+  margin: 0px 5px;
+  font-weight: 600;
+}
+
+.btn-accept:hover {
+  background-color: #BFACD3;
+  color: #FFF;
+}
+
+.btn-decline:hover {
+  background-color: #F3D8D8;
+  color: #FFF;
 }/*# sourceMappingURL=chat.css.map */

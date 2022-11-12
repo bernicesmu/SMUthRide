@@ -63,6 +63,40 @@ form {
     transition: 0.2s 0.7s ease-in-out;
 }
 
+.test-register{
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 350px;
+    width: 452px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* .test-register::-webkit-scrollbar {
+    display: none;
+} */
+
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #4e7570;
+}
+
 form.sign-in-form {
     z-index: 2;
 
@@ -88,15 +122,19 @@ form.register-form {
     left:5px;
 }
 
+.fa-eye, .fa-eye-slash{
+    position: absolute;
+    left: 95%;
+} 
 
 form .txt_field{
     position: relative;
     border-bottom: 2px solid #4e7570 ;
-    margin: 15px 0;
+    margin: 20px 0;
     width: 100%;
     max-width: 380px;
 }
-.txt_field input{
+.txt_field input, .txt_field select, .txt_field option{
     width: 100%;
     max-width: 380px;
     padding: 0 5px;
@@ -107,6 +145,8 @@ form .txt_field{
     outline: none;
     padding-left: 30px;
 }
+
+
 .txt_field label{
     position: absolute;
     top: 50%;
@@ -128,7 +168,9 @@ form .txt_field{
     transition: .5s;
 }
 .txt_field input:focus ~ label,
-.txt_field input:valid ~ label{
+.txt_field input:valid ~ label,
+.txt_field select:focus ~ label,
+.txt_field select:valid ~ label{
     top: -5px;
     color: #987d4d;
 }
@@ -430,6 +472,16 @@ img {
         width: 50%;
         height: 50px;
         margin-top: 2rem;
+    }
+
+    .test-register{
+        width: 100%;
+        max-height: 350px;
+    }
+
+    form .txt_field{
+        width: 90%;
+        max-width: 390px;
     }
 }
 
