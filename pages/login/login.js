@@ -138,11 +138,13 @@ const registration_check = Vue.createApp({
                 register: [],
             },
             all_usernames: [],
-            registration_confirmation: "",
-
+            errorCheck: false ,
+            all_emails: [],
         };
     },
     methods: {
+
+
         check_username() {
             this.errorMessages.username = [];
             if (this.username.includes(";") | this.username.includes(",")) {
@@ -205,16 +207,35 @@ const registration_check = Vue.createApp({
                 this.errorMessages.register = [];
             }
         },
+
+        async check_similar_username_email() {
+
+            for (let i = 0; i < this.all_usernames.length; i++) {
+
+                if ( this.all_usernames[i] == this.username.toLowerCase()) {
+                    if (this.errorMessages.username.includes("Username already exists") === false) {
+                        this.errorMessages.username.push("Username already exists");
+                    }
+                    return
+                }
+            }
+            if (this.errorMessages.username.includes("Username already exists") === true) {
+                this.errorMessages.username.pop();
+            }
+
+        },
+
         async register_user() {
 
             this.check_empty();
+            await this.check_similar_username_email();
             var valid = true;
             for (let checks of Object.values(this.errorMessages)) {
                 if (checks.length > 0) {
                     valid = false;
+
                 }
             }
-
             if (valid) {
                 await this.create_user(this.email,this.password);
                 await this.sleep(0.3 * 1000);
@@ -235,17 +256,30 @@ const registration_check = Vue.createApp({
                 console.log("wiufhewuf");
                 window.location.href = "../../index.html";
             }
+            if (valid == false) {
+                this.errorCheck = true;
+            }
         },
 
-        get_all_usernames() {
+        async get_all_usernames() {
             const db = getDatabase();
             const users = ref(db, `users`);
             onValue(users, (snapshot) => {
                 const data = snapshot.val();
+
                 this.all_usernames = Object.keys(data);
+                for (let i = 0; i < this.all_usernames.length; i++) {
+                   this.all_usernames[i] = this.all_usernames[i].toLowerCase();
+                }
+
+                for (let hehe of Object.values(data)) {
+                    this.all_emails.push(hehe.email);
+                }
                 //   localStorage.setItem("all_usernames", Object.keys(data))
             });
         },
+
+
 
         async create_user(email, password) {
             console.log("create userwereewfw");
@@ -260,6 +294,11 @@ const registration_check = Vue.createApp({
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorCode, errorMessage);
+                    if (errorCode == "auth/email-already-in-use") {
+                        this.errorMessages.email.push("Email already in use");
+                    } else if (errorCode == "auth/invalid-email") {
+                        this.errorMessages.email.push("Invalid email");
+                    }
                     // ..
                 });
         },
@@ -307,6 +346,10 @@ const registration_check = Vue.createApp({
         },
     },
 
+    mounted() {
+        this.get_all_usernames();
+    },
+
     watch: {
         age(newValue, oldValue) {
             console.log( newValue);
@@ -323,7 +366,7 @@ const registration_check = Vue.createApp({
                 this.errorMessages.age = [];
             }
         },
-        username(oldValue, newValue) {
+        username(newValue, oldValue) {
 
             if (oldValue == "" || oldValue != newValue) {
                 this.check_username();
@@ -334,27 +377,19 @@ const registration_check = Vue.createApp({
                 this.check_email();
             }
         },
-        password(oldValue, newValue) {
+        password(newValue, oldValue) {
             if (oldValue == "" || newValue != "") {
                 this.check_password();
             }
         },
-        cfmpassword(oldValue, newValue) {
+        cfmpassword(newValue, oldValue) {
             if (oldValue == "" || newValue != "") {
 
                 this.check_password_match();
             }
 
         },
-        display_name(newValue, oldValue) {
-            if (oldValue != "" && newValue == "") {
-                this.errorMessages.display_name.push(
-                    "Display name cannot be empty"
-                );
-            } else{
-                this.errorMessages.display_name = [];
-            }
-        }
+
     },
 });
 
