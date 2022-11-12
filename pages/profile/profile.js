@@ -88,6 +88,7 @@ Vue.createApp({
                 "ISFP",
                 "ESTP",
                 "ESFP",
+                "Not declared",
             ],
             picture_link: "",
             username: "",

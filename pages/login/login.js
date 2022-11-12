@@ -286,7 +286,7 @@ const registration_check = Vue.createApp({
                 year: year,
                 gender: gender,
                 location_user: "Singapore",
-                mbti: "ABCD",
+                mbti: "Not declared",
                 age: age,
                 bio: "I have no bio",
                 price: 0,
