@@ -27,7 +27,7 @@ const chat_left = Vue.createApp({
             counter : 0,
             selected_room: "",
             last_room : "",
-            position : ""
+            position : "absolute"
          
         }
     },
