@@ -92,7 +92,7 @@ const app = Vue.createApp({
                 this.unformatted_date = details.date
                 this.date = format_date(this.unformatted_date)
                 this.smu_location = details.smu_location
-                this.to_from = details.smu_to_from // tocheck if buggy
+                this.to_from = details.to_from 
                 this.user_address = details.user_address
 
                 var map;
