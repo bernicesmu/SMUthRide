@@ -30,70 +30,42 @@
             <div class="profile text-center justify-content-center">
                 <img
                     id="profile-picture"
-                    
-                    class="profile-pic img-fluid rounded-circle rounded-circle-dp"
-                    style="object-fit: contain; height: 200px; width: 200px; object-position: 50% 50%;border:black solid 1px" 
+                    class="profile-pic img-fluid rounded-circle rounded-circle-dp border border-dark"
                     :src="profile_url"
                     alt="profile picture"
                 />
-                <h2 class="name"><strong>{{ displayname }}</strong></h2>
-                <p class="degree-text">{{ degree }}, {{ yearOfStudy }}</p>
-                <div class="additional-profile">
+                <h2 class="name">
+                    <strong>{{ displayname }}</strong>, {{ age }}
+                </h2>
+                <p class="degree-text">{{ gender }}</p>
+                <p class="degree-text">
+                    {{ degree }}, {{ yearOfStudy }}
+                </p>
+                <!-- <p class="degree-text">
+                    {{ degree }}
+                </p> -->
+                <!-- <h6 class="degree-text">School of Information Systems</h6> -->
+                <!-- <h6 class="degree-text">{{ school }}</h6> -->
+                <p class="degree-text">
+                    <strong>MBTI</strong>:
+                    <a
+                        :href="'https://www.16personalities.com/' + mbti.toLowerCase() + '-personality'"
+                        class="personality"
+                        target="_blank"
+                        >{{ mbti }}</a
+                    >
+                </p>
+                <!-- <p class="degree-text">{{ degree }}, {{ yearOfStudy }}</p> -->
+
+                <!-- <div class="additional-profile">
                     <div>
                         <p class=""><strong>Age</strong>:</p>
                         <p class="add-profile-fields">{{ age }}</p>
                     </div>
                     <div>
-                        <p class=""><strong>Status</strong>:</p>
-                        <p class="add-profile-fields">{{ status }}</p>
+                        <p class=""><strong>Gender</strong>:</p>
+                        <p class="add-profile-fields">{{ gender }}</p>
                     </div>
-                    <div>
-                        <p class=""><strong>Location</strong>:</p>
-                        <p id='hsdf' class="add-profile-fields">{{ location_user }}</p>
-                    </div>
-                        <!-- <div id="map" style="width: 300px; height:300px;" class="mx-auto m-2 rounded-3"></div>
-                            <script
-                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&callback=initMap"
-                                type="text/javascript" async defer></script>
-                            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
-                            <script>
-                                var map;
-                                var chosenloc = document.getElementById("hsdf").value;
-                                var prof_loc = encodeURI(chosenloc);
-
-                                var url =
-                                "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                                prof_loc +
-                                "&key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q";
-
-                                axios.get(url)
-                                .then(response => {
-                                    console.log(response.data)
-                                })
-                                coords = [1.296568, 103.852119]
-                                
-                                function initMap() {
-                                    map = new google.maps.Map(
-                                        document.getElementById("map"),
-                                        {
-                                            center: { lat: coords[0], lng: coords[1] },
-                                            zoom: 17,
-                                            mapTypeControl: false,
-                                            //mapTypeID: google.maps.mapTypeID
-                                        }
-                                    );
-                                    marker = new google.maps.Marker({
-                                        map,
-                                        draggable: true,
-                                        animation: google.maps.Animation.DROP,
-                                        position: { lat: coords[0], lng: coords[1]},
-                                        preserveViewport: true,
-                                    });
-                                }
-                                initMap()
-                            </script> -->
                     <div>
                         <p class=""><strong>MBTI</strong>:</p>
                         <a
@@ -103,17 +75,20 @@
                             >{{ mbti }}</a
                         >
                     </div>
-                    <!-- the link can jus change the intp part to any other personality, eg infj etc -->
-                </div>
+                    the link can jus change the intp part to any other personality, eg infj etc
+                </div> -->
                 <div class="edit-profile" id="edit-profile">
                     <a href="./profile_edit.html"
-                        ><button class="btn btn-edit-profile w-100">
+                        ><button class="btn btn-edit-profile">
                             Edit profile
                         </button></a
                     >
-                    <br><br>
+                    <br /><br />
                     <a href="../login/login.html">
-                        <button class="btn btn-logout w-100" onclick="localStorage.clear()">
+                        <button
+                            class="btn btn-logout"
+                            onclick="localStorage.clear()"
+                        >
                             Logout
                         </button>
                     </a>
@@ -123,11 +98,11 @@
             <main>
                 <div class="card profile-card p-1">
                     <div class="card-body">
-                        <h5 class="card-title">Bio</h5>
+                        <h5 class="card-title">About Me</h5>
                         <p class="card-text ps-0">{{ bio }}</p>
                     </div>
                 </div>
-                <div class="card profile-card p-1">
+                <!-- <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title preferences">Preferences</h5>
                         <h6>Price</h6>
@@ -159,14 +134,14 @@
                             ></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title">CCAs</h5>
                         <!-- <p class="card-text ps-0"> -->
                         <ul class="cca">
                             <li
-                                v-for=" cca in ccas.slice(0, -1) "
+                                v-for=" cca in ccas"
                                 class="rounded-pill"
                             >
                                 {{ cca }}
@@ -178,7 +153,41 @@
                 <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title">Socials</h5>
-                        <ul class="socials-ul" v-if=" showSocials ">
+
+                        <div class="socials-ul" v-if=" showSocials ">
+                            <div v-if=" linkedinLinkInput !== '' ">
+                                <a
+                                    :href="linkedinLink + linkedinLinkInput"
+                                    target="_blank"
+                                    ><i
+                                        class="fab fa-linkedin fa-2x profile-fab"
+                                    ></i
+                                    >{{ fullLinkedinLink }}</a
+                                >
+                            </div>
+                            <div v-if=" facebookLinkInput !== '' ">
+                                <a
+                                    :href="facebookLink + facebookLinkInput"
+                                    target="_blank"
+                                    ><i
+                                        class="fab fa-facebook-square fa-2x profile-fab"
+                                    ></i
+                                    >{{ fullFacebookLink }}</a
+                                >
+                            </div>
+                            <div v-if=" instagramLinkInput !== '' ">
+                                <a
+                                    :href="instagramLink + instagramLinkInput"
+                                    target="_blank"
+                                    ><i
+                                        class="fab fa-instagram fa-2x profile-fab"
+                                    ></i
+                                    >{{ fullInstagramLink }}</a
+                                >
+                            </div>
+                        </div>
+
+                        <!-- <ul class="socials-ul" v-if=" showSocials ">
                             <li v-if=" linkedinLinkInput !== '' ">
                                 <a
                                     :href="linkedinLink + linkedinLinkInput"
@@ -209,21 +218,20 @@
                                     >{{ fullInstagramLink }}</a
                                 >
                             </li>
-                        </ul>
+                        </ul> -->
                         <p v-else>No socials added!!!</p>
                     </div>
                 </div>
             </main>
         </div>
-
         <script src="https://unpkg.com/vue@next"></script>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"
         ></script>
-        <script type="module" src="../../navbar/navbar.js"></script>
-        <script src="./profile_mod.js" type="module"></script>
-        <script src="./profile.js"></script>
+        <script src="../../navbar/navbar.js" type="module"></script>
+        <script src="./profile.js" type="module"></script>
+        <!-- <script src="./profile_mod.js" type="module"></script> -->
     </body>
 </html>

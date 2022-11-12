@@ -22,9 +22,11 @@ h2 {
     color: #4e7570;
 }
 
-.card:hover {
+.card-body:hover {
+    border-radius: 20px;
+    background-color: rgba(255,255,255,0.8);
+    color: #4e7570;
     transition: all 0.2s ease-in-out;
-    transform: scale(1.1);
 }
 
 .rounded-circle-dp {
@@ -39,6 +41,38 @@ h2 {
     left: 25px;
 }
 
+.toggle.toggle-group.toggle-handle{
+    width: 36px;
+    border-radius: 50%;
+}
+
+.neighbourhood > .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+
+    /* Position the tooltip */
+    position: absolute;
+    top: 40px;
+    left: 26px;
+    z-index: 1;
+}
+
+.neighbourhood:hover > .tooltiptext {
+    visibility: visible;
+}
+
+.neighbourhood {
+    position: relative;
+    z-index: 2;
+}
+
+.formatted-address {
+    color: #451F6A;
+    margin: 0;
+}
 
 
 @media only screen and (max-width: 768px) {

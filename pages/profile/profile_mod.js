@@ -39,14 +39,13 @@ if (url.includes("profile_edit.html")) {
     let queryString = window.location.search;
     let urlParams = new URLSearchParams(queryString);
     var username = urlParams.get("user");
-    console.log(username, "wfiuhgreuh");
     GetProfilePicUrl(username);
     if (username != localStorage.getItem("username_x")) {
         document.getElementById("edit-profile").innerHTML = "";
     }
 }
 
-console.log(username, "oiewfjewo");
+// console.log(username, "oiewfjewo");
 find_user_profile(username);
 find_name_from_username(username);
 
@@ -64,17 +63,17 @@ function update_user_database() {
     var displayname = inputs.displayname.value;
     var age = String(inputs.age.value);
     var bio = inputs.bio.value;
-    var comfort = inputs.prefComfort.value;
-    var convenience = inputs.prefConvenience.value;
+    // var price = inputs.prefPrice.value;
+    // var speed = inputs.prefSpeed.value;
+    // var comfort = inputs.prefComfort.value;
+    // var convenience = inputs.prefConvenience.value;
     var degree = inputs.degree.value;
     var facebook = inputs.facebook.value;
     var instagram = inputs.instagram.value;
     var linkedin = inputs.linkedin.value;
-    var location_user = inputs.location_user.value; //hardcoded. softcode after regine is done
+    // var location_user = inputs.location_user.value;
     var mbti = inputs.mbti.value;
-    var price = inputs.prefPrice.value;
-    var speed = inputs.prefSpeed.value;
-    var rs_status = inputs.status.value;
+    var gender = inputs.gender.value;
     var year = inputs.year.value;
 
     var cca = [];
@@ -94,17 +93,17 @@ function update_user_database() {
         age,
         bio,
         cca,
-        comfort,
-        convenience,
+        // price,
+        // speed,
+        // comfort,
+        // convenience,
         degree,
         facebook,
         instagram,
         linkedin,
-        location_user,
+        // location_user,
         mbti,
-        price,
-        speed,
-        rs_status,
+        gender,
         year
     );
 

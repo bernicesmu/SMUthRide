@@ -19,6 +19,13 @@
 
         .username {
             font-weight: 300;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .name { 
+            margin-top: auto;
+            margin-bottom: auto;
         }
 
         .degree {
@@ -42,6 +49,62 @@
         .details {
             text-align: left;
         }
+
+        #map{
+            height: 100%;
+            width: 100%;
+            margin-left: 10% !important;
+        }
+
+        @media (max-width: 768px) {
+            #map{
+                height: 100%;
+                width: 100%;
+                margin-left: 0 !important;
+            }
+            #map-div { 
+                height: 400px;
+                margin-bottom: 3rem !important;
+            }
+        }
+
+        .profileinfo { 
+            text-decoration: none;
+        }
+
+        .chat-button { 
+            background-color: #BFACD3;
+            color: #451F6A;
+            font-weight: 600;
+        }
+
+        .chat-button:hover { 
+            background-color: #BFACD3;
+            color: #FFF;
+            font-weight: 600;
+        }
+
+        .chat-button:disabled { 
+            background-color: #BDBDBD;
+            color: #888888;
+            font-weight: 600;
+        }
+
+        .my-offer-button { 
+            color: #8A6F42;
+            background-color: #d8c7a3;
+            font-weight: 600;
+        }
+
+        .my-offer-button:hover { 
+            color: #FFF;
+            background-color: #d8c7a3;
+            font-weight: 600;
+        }
+
+        .valid-message { 
+            color: #BFACD3;
+        }
     </style>
 
     <link rel="stylesheet" href="../../../main.css" />
@@ -55,7 +118,7 @@
 <div id="main">
     <div class="trip text-center my-5">
         <h1 class="d-inline" v-if="to_from == from">{{ smu_location }}</h1>
-        <h1 class="d-inline" v-else>{{ address }}</h1>
+        <h1 class="d-inline" v-else>{{ neighbourhood }}</h1>
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"
@@ -69,15 +132,15 @@
                 d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
             />
         </svg>
-        <h1 class="d-inline" v-if="to_from == from">{{ address }}</h1>
+        <h1 class="d-inline" v-if="to_from == from">{{ neighbourhood }}</h1>
         <h1 class="d-inline" v-else>{{ smu_location }}</h1>
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 d-flex">
+            <div class="col-md-6 d-flex" id="map-div">
                 <!-- <p>test</p> -->
                 <!-- <div class="block-placeholder"></div> -->
-                <div id="map" style="width: 90%; height:90%" class="mx-auto m-2 rounded-3"></div>
+                <div id="map" class="mx-auto m-2 rounded-3"></div>
                         <script
                             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&callback=initMap"
                             type="text/javascript" async defer></script>
@@ -127,23 +190,29 @@
                 </div> -->
             </div>
             <div class="col-md-6 text-center">
-                <div class="user d-flex">
-                    <a v-bind:href="'../../profile/profile.html?user=' + driver_username" style="text-decoration: none;">
+                <div class="user d-flex pt-3">
+                    <a v-bind:href="'../../profile/profile.html?user=' + driver_username" class="profileinfo">
                     <!-- need to customise photo? -->
                     <div class="profilepic d-inline me-2">
-                        <img class="user-pic" :src="picture_url" />
+                        <img
+                    id="profile-picture"
+                    class="profile-pic img-fluid rounded-circle rounded-circle-dp border border-dark"
+                    style="object-fit:cover; object-position: 50% 50%;width: 60px; height: 60px;"
+                    :src="picture_url"
+                    alt="profile picture"
+                />
                     </div>
                     <div class="usertext d-block my-auto">
-                        <div class="userinfo d-flex">
-                            <h4 class="name me-2" id="displayname">
+                        <div class="userinfo d-flex my-auto">
+                            <h2 class="name me-2" id="displayname">
                                 {{ driver_name }}
                                 
-                            </h4>
+                            </h2>
                             <h4 class="username" id="username">@{{ driver_username }}</h4>
                         </div>
                         <div class="degree">
                             <h6 class="degree" id="year_degree" v-if="degree.length > 0">
-                                Year 2, Information Systems
+                                {{year}}, {{degree}}
                             </h6>
                         </div>
                     </a>
@@ -209,7 +278,7 @@
                             />
                         </svg>
                         <h4 class="d-inline" id="capacity">
-                            {{ max_capacity - current_riders.length }} / {{ max_capacity }} seats available
+                            {{ max_capacity - current_riders.length + 1 }} / {{ max_capacity }} seats available
                         </h4>
                     </div>
                     <div class="datetime mb-4">
@@ -231,7 +300,7 @@
                         <h4 class="d-inline" id="date_time">
                             {{ date[1]}} ({{date[0]}})
                             {{ time }}
-                        
+                           
                         </h4>
                     </div>
                 </div>
@@ -239,15 +308,19 @@
                     <!-- <button type="button" class="btn button btn-lg me-2">
                         Make an offer
                     </button> -->
-                    <form
-                        id="gotochat"
-                        method="post"
-                        action="../../chats/chat.html"
-                    >
-                        <button type="submit" class="btn button btn-lg" v-on:click="gotochat">
+                        <!-- <button type="submit" class="btn button btn-lg" v-on:click="gotochat">
                             Chat for more
-                        </button>
-                    </form>
+                        </button> -->
+                        <send-button 
+                            :driver="driver_username" 
+                            :user="user" 
+                            v-on:gotochat="gotochat" 
+                            :msg_length="msg_length" 
+                            :avail_capacity="max_capacity - current_riders.length + 1"
+                            :date="unformatted_date"
+                            :time="unformatted_time"
+                            :current_riders="current_riders"
+                        ></send-button>
                 </div>
                 <!-- <div class="details d-inline-block align-middle">
                 </div> -->

@@ -3,6 +3,9 @@ $medium-green: #bedad6;
 $light-green: #e3f1ef;
 $dark-blue: #4c86a2; 
 $light-blue: #a7c7d6; 
+$lilac : #BFACD3;
+$dark-purple : #451F6A;
+$light-red : #F3D8D8;
 
 html { 
   height: 100%;
@@ -70,7 +73,7 @@ a:link{
 li span {
   
   font-weight: bolder;
-  color: #b5b0b9;
+  // color: #b5b0b9;
 }
 
 .ride_url { 
@@ -142,9 +145,7 @@ input {
   color: $dark-green;
   background-color: $medium-green;
   margin: 0px;
-  word-break: break-all;
   // padding: 10px;
-  
   
 }
 
@@ -170,7 +171,6 @@ input {
     margin-left: 5px;
     background-color: #d8c7a3;
     margin: 0px;
-    word-break: break-all;
     // padding: 10px;
     color: #8A6F42;
     
@@ -259,7 +259,7 @@ p{
 }
 
 #photo{
-  background-color: grey;
+  // background-color: grey;
   border-radius: 50%;
  
   height: 50px;
@@ -331,11 +331,11 @@ button{
   top: 50%;
   left: 50%;
   width: 400px;
-  color: white;
+  color:$dark-purple !important;
   transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
     height: 600px;
-  background-color:$light-blue;
+  background-color:$lilac;
   border-radius: 30px;
   padding: 20px;
   // padding-top: 120px;
@@ -425,6 +425,45 @@ hr {
 #back-button { 
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.offer-status { 
+  border-radius: 20px;
+  text-align: center;
+  padding: 5px 0px 5px 0px;
+  width: 80%;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+.offer-status > span { 
+  text-align: center;
+}
+
+.overlay{
+  color:$dark-purple;
+}
+
+.cancel{
+  background-color: $light-red;
+  color:red;
+}
+
+.cancel:hover, .confirm:hover{
+  color: $dark-purple
+}
+
+.confirm:disabled{
+  background-color: #d0e8bc;
+  color: #479607
+  opacity($color: #000000);
+  border:none
+}
+
+.confirm{
+  background-color: #d0e8bc;
+  color:#479607
 }
 
 // #BobTan123\;madonna { 

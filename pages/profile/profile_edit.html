@@ -70,13 +70,12 @@
                 <!-- <div style="border-radius: 50%;border:blueviolet 3px solid;width: 100px;height:100px;"> -->
                 <img
                     id="profile-picture"
-                    class="profile-pic img-fluid rounded-circle rounded-circle-dp mb-2"
+                    class="profile-pic img-fluid rounded-circle rounded-circle-dp mb-2 border border-dark"
                     style="
-                        object-fit: contain;
-                        height: 200px;
-                        width: 200px;
+                        object-fit: cover;
                         object-position: 50% 50%;
-                        border: black solid 1px;
+                        width: 200px;
+                        height: 200px;
                     "
                     :src="profile_url"
                 />
@@ -90,6 +89,7 @@
                         ref="fileInput"
                         style="display: none"
                         accept="image/*"
+                        @change=" uploadImage "
                     />
                     <button
                         class="btn btn-sm bg-secondary text-white"
@@ -168,38 +168,53 @@
                         />
                     </div>
                     <div class="">
-                        <strong>Status</strong>:
+                        <strong>Gender</strong>:
                         <select
                             type="dropdown"
                             class="form-select text-center d-inline target-input add-profile-fields"
-                            id="status"
-                            name="status"
+                            id="gender"
+                            name="gender"
                         >
                             <option
-                                v-for="statusChoice in statusList"
-                                :value="statusChoice"
-                                :selected=" statusChoice === status "
+                                v-for="genderChoice in genderList"
+                                :value="genderChoice"
+                                :selected=" genderChoice === gender "
                             >
-                                {{ statusChoice }}
+                                {{ genderChoice }}
                             </option>
                         </select>
                     </div>
-                    <div class="">
-                        <strong>Location</strong>: 
-                        <input id="location_user" class="form-control text-center d-inline target-input add-profile-fields" type="text" :value="location_user"></div>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&region=SG&callback=initAutocomplete&libraries=places&v=weekly" async defer></script>
-                    
+                    <!-- <div class="">
+                        <strong>Location</strong>:
+                        <input
+                            id="location_user"
+                            class="form-control text-center d-inline target-input add-profile-fields"
+                            type="text"
+                            :value="location_user"
+                        />
+                    </div> -->
+                    <!-- <script
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4TSlT_Tm-4Pi6x6_bkUZKgsfr_iFe5Q&region=SG&callback=initAutocomplete&libraries=places&v=weekly"
+                        async
+                        defer
+                    ></script>
+
                     <script>
                         function initAutocomplete() {
-                            const input = document.getElementById('location_user')
+                            const input =
+                                document.getElementById("location_user");
                             const options = {
-                                componentRestrictions: { country: "SG" },  
-                                strictBounds: true, 
-                            } 
-                            const autocomplete = new google.maps.places.Autocomplete(input, options);
-                            autocomplete.setTypes(['neighborhood'])
+                                componentRestrictions: { country: "SG" },
+                                strictBounds: true,
+                            };
+                            const autocomplete =
+                                new google.maps.places.Autocomplete(
+                                    input,
+                                    options
+                                );
+                            autocomplete.setTypes(["neighborhood"]);
                         }
-                    </script>
+                    </script> -->
 
                     <div class="">
                         <strong>MBTI</strong>:
@@ -226,6 +241,7 @@
                             type="submit"
                             class="btn btn-edit-profile w-100 edit-profile-button"
                             value="Save edits"
+                            @click=" update_user_database "
                         />
                     </form>
                 </div>
@@ -247,7 +263,7 @@
                         >
                     </div>
                 </div>
-                <div class="card profile-card p-1">
+                <!-- <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title preferences">Preferences</h5>
                         <h6>Price</h6>
@@ -283,7 +299,7 @@
                             v-model="prefSpeed"
                         />
                     </div>
-                </div>
+                </div> -->
                 <div class="card profile-card p-1">
                     <div class="card-body">
                         <h5 class="card-title">CCAs</h5>
@@ -388,9 +404,9 @@
             crossorigin="anonymous"
         ></script>
         <script src="https://unpkg.com/vue@next"></script>
-        <script type="module" src="../../navbar/navbar.js"></script>
-        <script src="./profile.js"></script>
-        <script src="./profile_mod.js" type="module"></script>
+        <script src="../../navbar/navbar.js" type="module"></script>
+        <script src="./profile.js" type="module"></script>
+        <!-- <script src="./profile_mod.js" type="module"></script> -->
         <script>
             // function create_new_cca() {
             //     document.getElementById('cca-input').innerHTML += `

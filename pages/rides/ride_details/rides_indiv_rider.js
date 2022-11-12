@@ -52,12 +52,18 @@ const app = Vue.createApp({
             current_riders : [],
             max_capacity : "",
             address : "",
-            degree :"",
+            neighbourhood: "",
+            degree :"Information Systems",
+            year: "Year 1",
             time: "",
             date : "",
             to_from : "",
             smu_location: "",
-            new_mid: 0
+            new_mid: 0,
+            user: "",
+            msg_length: 0,
+            unformatted_date: "",
+            unformatted_time: "",
         }
     },
     computed:{
@@ -76,12 +82,13 @@ const app = Vue.createApp({
                 this.cost_per_pax = details.cost
                 this.current_riders = details.users_offered
                 this.max_capacity = details.max_capacity
-                this.address = details.user_address
+                this.address = details.formatted_address
+                this.neighbourhood = details.neighbourhood
                 console.log(this.address)
-                this.time = details.time
-                this.time = formatAMPM(this.time)
-                this.date = details.date
-                this.date = format_date(this.date)
+                this.unformatted_time = details.time
+                this.time = formatAMPM(this.unformatted_time)
+                this.unformatted_date = details.date
+                this.date = format_date(this.unformatted_date)
                 this.smu_location = details.smu_location
                 this.to_from = details.to_from
 
@@ -106,8 +113,12 @@ const app = Vue.createApp({
             })
         },
 
-        gotochat() { 
-            var your_username = localStorage.getItem("username_x")
+        gotochat(driver,user,length) { 
+
+            console.log(driver)
+            console.log(user)
+            console.log(length)
+            // var your_username = localStorage.getItem("username_x")
             if (this.to_from == 'from') { 
                 var chat_message_details = `Hello! I am interested in a ride <a class="ride_url" href="../rides/ride_details/rides_indiv_rider.html?rideid=${this.rideid}">from ${this.smu_location} to ${this.address} on ${this.date[1]} (${this.date[0]}), ${this.time}!</a>`
             }
@@ -115,9 +126,19 @@ const app = Vue.createApp({
                 var chat_message_details = `Hello! I am interested in a ride <a class="ride_url" href="../rides/ride_details/rides_indiv_rider.html?rideid=${this.rideid}">from ${this.address} to ${this.smu_location} on ${this.date[1]} (${this.date[0]}), ${this.time}!</a>`
             }
             // create_chat(this.driver_username, your_username)
-            this.send_message(`${this.driver_username};${your_username}`, your_username, chat_message_details)
-            localStorage.setItem("aaa", "ewfiuewiuefiu")
-            localStorage.setItem("driver_username", driver_username)
+            if(driver != user){
+                var list_for_chatid = [driver, user]
+                list_for_chatid = list_for_chatid.sort().join(";")
+                console.log(list_for_chatid)
+                this.send_message(list_for_chatid, user, chat_message_details, length)
+
+                
+                // console.log(chatid)
+                // var chatid = `${list_for_chatid[0]};${list_for_chatid[1]}`
+                // this.send_message(chatid, your_username, chat_message_details)
+                // localStorage.setItem("driver_username", driver_username)
+            }
+           
         },
         
         initMap(coords) {
@@ -150,40 +171,212 @@ const app = Vue.createApp({
                 this.picture_url = details[this.driver_username]['profile_url']
 
                 // year 2 information systems NOT in
+                this.year = details[this.driver_username]['userprofile']['year']
+                this.degree = details[this.driver_username]['userprofile']['degree']
                
             })
         },
 
-        send_message(chat_id, user, message){
+        send_message(chat_id, user, message,length){
             // console.log("hello")
             const db = getDatabase()
             
-            const reference = ref(db, 'messages/' + chat_id)
-            onValue(reference, (snapshot) => {
-                var all_messages = snapshot.val()
-                this.new_mid = all_messages.length
-                localStorage.setItem("aaa", this.new_mid)
-            })
+            // const reference = ref(db, 'messages/' + chat_id)
+            // onValue(reference, (snapshot) => {
+            //     var all_messages = snapshot.val()
+            //     console.log(all_messages.length)
+            //     this.new_mid = all_messages.length
+            //     // localStorage.setItem("aaa", this.new_mid)
+                
+            // })
 
             if(message.trim().length > 0){
-                set(ref(db, `messages/${chat_id}/${this.new_mid}`), {
+                console.log(length)
+               console.log("YES")
+               let time = Date.now()
+                set(ref(db, `messages/${chat_id}/${length}`), {
                     message: message,
-                    username: user   
+                    username: user,
+                    type: "message",
+                    accepted : "message",
+                    message_time : time,
+                    mid : length
+                    
                   })
 
             }
         },
+
+
+
+        // get_length(){
+        //     var you = localStorage.getItem("username_x")
+        //     let driver = this.driver_username
+        //     let list = [driver, you]
+        //     let chat_id = list.sort().join(";")
+        //     console.log(chat_id)
+        //     const db = getDatabase()
+            
+        //     const reference = ref(db,`messages/${chat_id}`)
+        //     onValue(reference, (snapshot) => {
+        //         var all_messages = snapshot.val()
+        //         console.log(all_messages)
+        //         if(all_messages != null){
+        //             this.msg_length = all_messages.length
+        //         }
+        //         else{
+        //             this.msg_length = 0
+        //         }
+        //         // console.log(all_messages.length)
+        //         // this.new_mid = all_messages.length
+        //         // localStorage.setItem("aaa", this.new_mid)
+                
+        //     })
+
+            
+        // },
         
     },
     created(){
         // console.log(window.location.href)
+        this.user = localStorage.getItem("username_x")
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const rideid = urlParams.get('rideid')
         this.rideid = rideid
         this.getData()
         this.getName()
+        // this.get_length()
     }
 });
+
+
+app.component('send-button',{
+    data(){
+        return{
+            length : 0,
+            // chatid : "",
+            user : "",
+        }
+    },
+
+    props: ['driver','user', 'avail_capacity', 'date', 'time', 'current_riders'],
+
+    emits: ['gotochat'],
+
+    template: ` <form
+                    id="gotochat"
+                    method="post"
+                    :action="find_action_path()"
+                >
+                    <div v-if="!driver_is_user() && user_is_offered()" > 
+                        <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length" disabled>
+                            Ride accepted
+                        </button>
+                        <p class='valid-message'>You have already accepted this ride!</p>
+                    </div> 
+                    <button v-else-if="!driver_is_user() && avail_capacity > 0 && expired_check()" type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length">
+                        Chat for more
+                    </button>
+                    <div v-else-if="!driver_is_user()"> 
+                        <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length" disabled>
+                            Chat for more
+                        </button>
+                        <p class='valid-message'>This ride is no longer available!</p>
+                    </div>
+                    <button v-else class="btn btn-lg my-offer-button">
+                        My offers
+                    </button>
+                </form>`,
+
+    methods: {
+     
+        get_length(){
+            var you = this.user
+            let driver = this.driver
+            console.log(driver)
+            let list = [driver, you]
+            let chat_id = list.sort().join(";")
+            console.log(chat_id)
+            const db = getDatabase()
+            
+            const reference = ref(db,`messages/${chat_id}`)
+            onValue(reference, (snapshot) => {
+                var all_messages = snapshot.val()
+                console.log(all_messages)
+                if(all_messages != null){
+                    this.length = all_messages.length
+                }
+                else{
+                    this.length = 0
+                }
+                // console.log(all_messages.length)
+                // this.new_mid = all_messages.length
+                // localStorage.setItem("aaa", this.new_mid)
+                
+            })
+        },
+
+        driver_is_user() { 
+            if (this.driver == this.user) { 
+                return true
+            }
+            else { 
+                return false
+            }
+        },
+
+        find_action_path() { 
+            if (this.driver == this.user) { 
+                return "../../offers/offers.html"
+            }
+            else { 
+                return "../../chats/chat.html"
+            }
+        },
+
+        expired_check(){
+            var today = new Date();
+            var local_date = today.toLocaleDateString().split("/")
+            var local_date_formatted = local_date[2] + '-' + local_date[1] + '-' + local_date[0]
+            console.log(today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))
+            if (this.date < local_date_formatted || (this.date == local_date_formatted && this.time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))){
+                console.log("expired")
+                return false            
+            } 
+            console.log("not expired")
+            return true
+        },
+
+        user_is_offered() { 
+            var offered_users = Object.values(this.current_riders)
+            if (offered_users.includes(this.user)) { 
+                return true
+            }
+            return false
+        }
+
+       
+
+        
+    },
+    created(){
+        // get the chat id out first
+    
+        this.user = localStorage.getItem("username_x")
+        // this.get_length()
+
+        if (this.driver_is_user()) { 
+            this.driver_user = true 
+        }
+        else { 
+            this.driver_user = false 
+        }
+
+        console.log(this.driver_user)
+    }
+})
+
+
 
 app.mount('#main')
