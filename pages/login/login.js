@@ -200,11 +200,31 @@ const registration_check = Vue.createApp({
             var age = inputs.age.value;
             var gender = document.getElementById("gender").value;
 
-            for (alertt of this.errorMessages){
-                if (alertt.length != 0){
+            var valid = true;
+            if (!email.includes("smu.edu.sg")) {
+                alert(
+                    "You must have a valid SMU email address to register on SMUth Ride."
+                );
+                valid = false;
+            }
 
-                    return;
-                }
+            if (password != cfmpassword) {
+                alert("The passwords do not match! Please try again.");
+                valid = false;
+            }
+
+            if (username.includes(";") | username.includes(",")) {
+                alert("Username cannot contain comma (,) or semicolon (;).");
+                valid = false;
+            }
+
+            this.get_all_usernames();
+            // var all_usernames = localStorage.getItem("all_usernames")
+            if (this.all_usernames.includes(username)) {
+                alert(
+                    "Someone else has the same username! Please choose another one."
+                );
+                valid = false;
             }
 
             if (valid) {

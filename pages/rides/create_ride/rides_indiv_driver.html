@@ -9,6 +9,12 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link
+    rel="icon"
+    type="image/x-icon"
+    href="../../../favicon_io/favicon.ico"
+/>
     <!-- <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -379,7 +385,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            z-index: 99;
+            z-index: 9;
           }
           
           /* The actual popup */
@@ -491,6 +497,11 @@
 
             position: absolute;
             left: 0px;
+        }
+        .change_date {
+            position: absolute;
+            top: -30px;
+            right: 0px
         }
 
         .rotate-forward {
@@ -1077,8 +1088,15 @@
 
                 v-if="check_date()"
             >
-                Please select a date not more than 1 year from today *
+                Please select a date not more than 1 year from today or before today *
             </label>
+            <label
+                        class="change_date text-danger"
+                        role="alert"
+                        v-if="change_date"
+                    >
+                        Please input a date*
+                    </label>
         </div>
         <div class="group">
             <!-- <input
@@ -1091,28 +1109,29 @@
                 required
                 step= "300"
             /> -->
-            <time-input></time-input>
+            <time-input @change='check_time()'></time-input>
             <span class="highlight"></span>
             <label class="date-label" id="time-label">Time</label>
-            <label
+            <!-- <label
                     class="date_alert text-danger w-75"
                     role="alert"
 
                     v-if="check_time()"
             >
                 You cant time travel.. Please choose a later timing *
-            </label>
+            </label> -->
         </div>
         <button
             type="submit"
             class="btn button d-block mx-auto mt-5 w-100 mb-5"
             id="rides"
-            v-bind:disabled="(date.length == '')"
+            v-bind:disabled="(date.length == '') || (location_input == '') || (just_stop =='no')"
         >
+        <!-- this disable button needs to be modified as well -->
             Get in loser, we're going shopping.
         </button>
 <!--            </form>-->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true"
+        <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true"
             role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -1128,7 +1147,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="modal-backdrop fade show" id="backdrop" style="display: none; width:100%; height: 100%"></div>
         </div>
     </div>

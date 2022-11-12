@@ -1,34 +1,12 @@
 import {
-    find_name_from_username,
-    find_user_profile,
-    write_user_profile,
-} from "../../index.js";
+    getDatabase,
+    ref,
+    set,
+    onValue,
+    update,
+} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 
-import { GetProfilePicUrl, UploadProcess } from "./profile_mod_2.js";
-
-// firebase storage
-// import {
-//     getStorage,
-//     ref as sRef,
-//     uploadBytesResumable,
-//     getDownloadURL,
-// } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
-
-// database
-// import {
-//     getDatabase,
-//     ref,
-//     set,
-//     child,
-//     get,
-//     update,
-//     remove,
-//     onValue,
-// } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
-
-// var username = localStorage.getItem("username_x");
-
-// console.log(username, "oiewfjewo");
+import { UploadProcess } from "./profile_mod_2.js";
 
 const url = window.location.href;
 
@@ -48,10 +26,6 @@ if (url.includes("profile_edit.html")) {
         document.getElementById("edit-profile").innerHTML = "";
     }
 }
-
-GetProfilePicUrl(username);
-find_user_profile(username);
-find_name_from_username(username);
 
 Vue.createApp({
     data() {
@@ -84,10 +58,8 @@ Vue.createApp({
                 "Information Systems",
                 "Computer Science",
                 "Computing & Law",
-                "Software Engineer",
                 "Law",
                 "CIS",
-                "Bachelor",
             ],
             yearOfStudyList: [
                 "Year 1",
@@ -96,7 +68,6 @@ Vue.createApp({
                 "Year 4",
                 "Year 5",
                 "Alumni",
-                "Year X",
             ],
             genderList: ["Male", "Female"],
             mbtiList: [
@@ -116,15 +87,9 @@ Vue.createApp({
                 "ISFP",
                 "ESTP",
                 "ESFP",
-                "ABCD",
             ],
             picture_link: "",
-
-            // location_user: "lalaland",
-            // prefPrice: "70",
-            // prefComfort: "40",
-            // prefConvenience: "60",
-            // prefSpeed: "90",
+            username: "",
         };
     },
     computed: {
@@ -166,8 +131,6 @@ Vue.createApp({
             if (index !== -1) {
                 this.ccas.splice(index, 1);
             }
-            var cca_options = document.getElementsByClassName("cca_options");
-            console.log(cca_options);
         },
         auto_grow() {
             element = this.$refs.bio;
@@ -194,25 +157,28 @@ Vue.createApp({
                     cca.push(cca_op.value);
                 }
             }
+            cca.push("")
 
-            if (cca.length == 0) {
-                cca = [""];
-            }
+            // if (cca.length == 0) {
+            //     cca = [""];
+            // }
 
-            write_user_profile(
-                username,
-                displayname,
-                age,
-                bio,
-                cca,
-                degree,
-                facebook,
-                instagram,
-                linkedin,
-                mbti,
-                gender,
-                year
-            );
+            const db = getDatabase();
+            set(ref(db, `users/${username}/userprofile`), {
+                degree: degree,
+                year: year,
+                gender: gender,
+                mbti: mbti,
+                age: age,
+                bio: bio,
+                cca: cca,
+                linkedin: linkedin,
+                facebook: facebook,
+                instagram: instagram,
+            });
+            const updates = {};
+            updates[`users/${username}/name`] = displayname;
+            return update(ref(db), updates);
         },
         uploadImage(event) {
             let files = [];
@@ -227,92 +193,81 @@ Vue.createApp({
             UploadProcess(files);
         },
 
-        // onFileSelect(event){
-        //     console.log(event.target.files[0])
-        //     this.selectedFile= event.target.files[0]
-        // },
-        // uploadImage(){
-        //     const ref = firebase.storage().ref()
+        find_user_profile(username) {
+            const db = getDatabase();
+            const userprof = ref(db, `users/${username}/userprofile`);
+            onValue(userprof, (snapshot) => {
+                const data = snapshot.val();
+                this.age = data.age;
+                this.bio = data.bio;
+                this.ccas = data.cca;
+                // if (this.ccas.length != 0) {
+                //     console.log(this.ccas)
+                //     this.ccas = Object.values(this.ccas);
+                //     console.log(this.ccas);
+                //     this.ccas.push("");
+                //     console.log(this.ccas);
+                // } else {
+                //     console.log(this.ccas)
+                //     this.ccas = [""];
+                // }
 
-        //     const file = document.querySelector("#photo").files[0]
+                if (this.ccas.length == 0) {
+                    console.log(this.ccas)
+                    this.ccas = [""];
+                }
+                console.log(this.ccas);
+                this.degree = data.degree;
+                this.facebookLinkInput = data.facebook;
+                this.instagramLinkInput = data.instagram;
+                this.linkedinLinkInput = data.linkedin;
+                this.gender = data.gender;
+                this.mbti = data.mbti;
+                this.yearOfStudy = data.year;
+            });
+        },
 
-        //     const name = new Date() + '-' + file.name
+        find_name_from_username(username) {
+            const db = getDatabase();
+            const userprof = ref(db, `users/${username}/name`);
+            onValue(userprof, (snapshot) => {
+                const data = snapshot.val();
+                this.displayname = data;
+            });
+        },
 
-        //     const metadata = {
-        //         contentType:file.type
-        //     }
+        GetProfilePicUrl(username) {
+            const db = getDatabase();
 
-        //     const task = ref.child(name).put(file,metadata)
-
-        //     task
-        //     .then(snapshot => {
-        //         snapshot.ref.getDownloadURL()
-        //     })
-        //     .then(url => {
-        //         console.log(url)
-        //     })
-        // }
+            const data = ref(db, "users/" + username);
+            onValue(data, (snapshot) => {
+                var profile = snapshot.val();
+                var profileurl = profile.profile_url;
+                this.profile_url = profileurl;
+            });
+        },
     },
     created() {
-        // @bernice I have temporarily hardcoded values
-        // can you connect to database here and get all the values in the data
-        // you can refer to the pseudocode in this site https://www.w3docs.com/snippets/vue-js/what-is-the-difference-between-the-created-and-mounted-hooks-in-vue-js.html
-        // feel free to change all the values to null if needed
-        // let price = localStorage.getItem("price");
-        // let speed = localStorage.getItem("speed");
-        // let comfort = localStorage.getItem("comfort");
-        // let convenience = localStorage.getItem("convenience");
-        // let location_user = localStorage.getItem("location_user");
-        // console.log(location_user);
-        // console.log(facebook);
-        // console.log(this.fullFacebookLink);
+        const url = window.location.href;
 
-        this.username = localStorage.getItem("username_x");
-        this.displayname = localStorage.getItem("displayname");
-        this.age = String(localStorage.getItem("age"));
-        this.bio = localStorage.getItem("bio");
-        this.ccas = localStorage.getItem("cca");
-        this.degree = localStorage.getItem("degree");
-        this.linkedinLinkInput = localStorage.getItem("linkedin");
-        this.facebookLinkInput = localStorage.getItem("facebook");
-        this.instagramLinkInput = localStorage.getItem("instagram");
-        this.mbti = localStorage.getItem("mbti");
-        this.gender = localStorage.getItem("gender");
-        this.yearOfStudy = localStorage.getItem("year");
-
-        if (this.ccas != "") {
-            this.ccas = this.ccas.split(",");
-            this.ccas.push("");
+        if (url.includes("profile_edit.html")) {
+            this.username = localStorage.getItem("username_x");
         } else {
-            this.ccas = [""];
+            let queryString = window.location.search;
+            let urlParams = new URLSearchParams(queryString);
+            this.username = urlParams.get("user");
         }
 
-        let db_profile_url = localStorage.getItem("profile_url");
+        // these 3 functions are asynchronous. MUST CHANGE TO SYNCHRONOUS
+        this.find_user_profile(this.username);
+        this.find_name_from_username(this.username);
+        this.GetProfilePicUrl(this.username);
+
+        let db_profile_url = this.profile_url;
         if (db_profile_url != "undefined") {
             this.profile_url = db_profile_url;
         }
-        // this.prefPrice = price;
-        // this.prefComfort = comfort;
-        // this.prefConvenience = convenience;
-        // this.prefSpeed = speed;
-        // this.location_user = location_user;
-        // this.username = username;
-        // this.displayname = displayname;
-        // this.degree = degree;
-        // this.yearOfStudy = year;
-        // this.age = age;
-        // this.gender = gender;
-        // this.mbti = mbti;
-        // this.bio = bio;
-        // this.ccas = cca;
-        // this.linkedinLinkInput += linkedin;
-        // this.facebookLinkInput += facebook;
-        // this.instagramLinkInput += instagram;
     },
     // mounted() {
-    //     for (let element of document.getElementsByClassName("preference")) {
-    //         console.log(element.classList[1].slice(1));
-    //         element.style.width = element.classList[1].slice(1) + "%";
-    //     }
     // },
 }).mount("#profileVue");

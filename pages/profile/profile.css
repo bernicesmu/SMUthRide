@@ -73,6 +73,7 @@ main {
 .btn-edit-profile {
     color: #8a6f42;
     background-color: #d8c7a3;
+    min-width: 30%;
 }
 
 .btn-edit-profile:hover {
@@ -90,7 +91,6 @@ main {
     background-color: #bfacd3;
 }
 
-.btn-edit-profile,
 .btn-logout {
     min-width: 50%;
 }
@@ -104,8 +104,8 @@ main {
     margin: 0.5rem 0 0.5rem;
 }
 
-.socials-ul a:link {
-    color: #4e7570;
+a:link {
+    color: #451f6a;
     text-decoration: none;
 }
 
@@ -114,8 +114,8 @@ main {
     text-decoration: none;
 }
 
-.socials-ul a:hover {
-    color: #4c86a2;
+a:hover {
+    color: #bfacd3;
     text-decoration: none;
 }
 
@@ -130,6 +130,10 @@ main {
 
 .card-title {
     margin-bottom: 1rem;
+}
+
+.card-text {
+    color: #451f6a;
 }
 
 .preferences {
@@ -168,13 +172,45 @@ main {
     padding: 0.2rem 1rem;
     margin: 5px;
     list-style: none;
-    background-color: #4e7570;
-    color: #bedad6;
+    background-color: #451f6a;
+    color: #bfacd3;
 }
 
 .profile-fab {
-    color: #4e7570;
+    color: #451f6a;
     margin-right: 1rem;
+}
+
+/* input[type="range"] {
+    height: 1rem;
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 90%;
+    background-color: #e3f1ef;
+}
+input[type="range"]::-webkit-slider-thumb {
+    height: 1rem;
+    width: 1rem;
+    border-radius: 1rem;
+    background: #4e7570;
+    cursor: pointer;
+    -webkit-appearance: none;
+} */
+
+.plus-minus-button {
+    display: inline-block;
+    padding: 0;
+    border: transparent;
+    background-color: transparent;
+}
+.bio-input {
+    resize: none;
+    overflow-y: scroll;
+    min-height: 5rem !important;
+    max-height: 10rem;
+}
+.ccaDiv {
+    display: flex;
 }
 
 @media (max-width: 768px) {
@@ -185,6 +221,7 @@ main {
     .additional-profile {
         display: flex;
         justify-content: center;
+        margin: 0 20%;
     }
     .additional-profile div {
         flex-direction: column;
@@ -193,12 +230,13 @@ main {
         margin-right: 1rem;
     }
     .add-profile-fields {
-        margin: 0;
-        text-align: start;
+        max-width: 100%;
+        margin: auto;
     }
     main {
-        margin-top: 1rem;
+        margin-top: 0;
         padding: 2rem;
+        padding-top: 0;
         width: auto;
     }
     .profile {
@@ -207,6 +245,10 @@ main {
     }
     .btn-edit-profile {
         background-position: 30%;
+    }
+    .main-info {
+        width: 50%;
+        margin: auto;
     }
 }
 @media (max-height: 740px) {
@@ -221,9 +263,14 @@ main {
     .additional-profile p {
         margin-right: 1rem;
     }
+    .add-profile-fields {
+        max-width: 100%;
+        margin: auto;
+    }
     main {
-        margin-top: 1rem;
+        margin-top: 0;
         padding: 2rem;
+        padding-top: 0;
         width: auto;
     }
     .profile {
@@ -232,10 +279,20 @@ main {
     .btn-edit-profile {
         background-position: 30%;
     }
+    .main-info {
+        width: 50%;
+        margin: auto;
+    }
 }
 
 @media (max-width: 992px) {
     body {
         padding: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .add-profile-fields {
+        max-width: 60%;
     }
 }

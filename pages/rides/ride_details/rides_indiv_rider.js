@@ -113,13 +113,14 @@ const app = Vue.createApp({
             })
         },
 
-        gotochat(driver,user,length) { 
+        gotochat(driver,user,length, to_from) { 
 
             console.log(driver)
             console.log(user)
             console.log(length)
             // var your_username = localStorage.getItem("username_x")
-            if (this.to_from == 'from') { 
+            console.log(this.to_from)
+            if (to_from == 'from') { 
                 var chat_message_details = `Hello! I am interested in a ride <a class="ride_url" href="../rides/ride_details/rides_indiv_rider.html?rideid=${this.rideid}">from ${this.smu_location} to ${this.address} on ${this.date[1]} (${this.date[0]}), ${this.time}!</a>`
             }
             else { 
@@ -257,12 +258,14 @@ app.component('send-button',{
             length : 0,
             // chatid : "",
             user : "",
+            to_from : ""
         }
     },
 
-    props: ['driver','user', 'avail_capacity', 'date', 'time', 'current_riders'],
+    props: ['driver','user', 'avail_capacity', 'date', 'time', 'current_riders','rideid'],
 
     emits: ['gotochat'],
+    
 
     template: ` <form
                     id="gotochat"
@@ -270,16 +273,16 @@ app.component('send-button',{
                     :action="find_action_path()"
                 >
                     <div v-if="!driver_is_user() && user_is_offered()" > 
-                        <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length" disabled>
+                        <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length,to_from)" v-on:mouseover="get_length" disabled>
                             Ride accepted
                         </button>
                         <p class='valid-message'>You have already accepted this ride!</p>
                     </div> 
-                    <button v-else-if="!driver_is_user() && avail_capacity > 0 && expired_check()" type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length">
+                    <button v-else-if="!driver_is_user() && avail_capacity > 0 && expired_check()" type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length,to_from)" v-on:mouseover="get_length">
                         Chat for more
                     </button>
                     <div v-else-if="!driver_is_user()"> 
-                        <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length)" v-on:mouseover="get_length" disabled>
+                        <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length,to_from)" v-on:mouseover="get_length" disabled>
                             Chat for more
                         </button>
                         <p class='valid-message'>This ride is no longer available!</p>
@@ -287,17 +290,19 @@ app.component('send-button',{
                     <button v-else class="btn btn-lg my-offer-button">
                         My offers
                     </button>
-                </form>`,
+                    </form>`,
 
     methods: {
      
         get_length(){
             var you = this.user
             let driver = this.driver
-            console.log(driver)
+            let ride_id = this.rideid
+            // console.log(ride_id)
+            // console.log(driver)
             let list = [driver, you]
             let chat_id = list.sort().join(";")
-            console.log(chat_id)
+            // console.log(chat_id)
             const db = getDatabase()
             
             const reference = ref(db,`messages/${chat_id}`)
@@ -315,6 +320,15 @@ app.component('send-button',{
                 // localStorage.setItem("aaa", this.new_mid)
                 
             })
+            const to_from = ref(db,`rides/${ride_id}`)
+            onValue(to_from,(snapshot)=>{
+                var ride_details = snapshot.val()
+                // console.log(ride_details)
+                this.to_from = ride_details.smu_to_from
+
+                // console.log(this.to_from)
+            })
+
         },
 
         driver_is_user() { 
