@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="../rides/rides_list/card.css" />
         <style>
         tbody > tr:hover{
-            background-color: #BEDAD6;
+            background-color: white;
         }
         .nav-link::selection{
             color:  #e3f1ef;
@@ -102,7 +102,6 @@
 
         .riders-num {
             position: relative;
-            z-index: 1;
         }
 
         .location-details > .tooltiptext {
@@ -125,7 +124,16 @@
 
         .location-details {
             position: relative;
-            z-index: 1;
+        }
+
+        .table thead {
+            background-color: #d8c7a3;
+            color: #8A6F42;
+        }
+
+        .table tbody td {
+            border-bottom-width: 2px;
+            border-color: #d8c7a3;
         }
         </style>
 
@@ -134,8 +142,6 @@
     <body>
         <div id="navbarVue">
             <div
-                v-html="navbar_html"
-                @scroll="nav_animation"
                 data-page="offers"
             ></div>
         </div>
