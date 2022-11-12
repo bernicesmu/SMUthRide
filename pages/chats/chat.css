@@ -59,7 +59,8 @@ li span {
 }
 
 #send-button {
-  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
 }
 
 #send-label {
@@ -145,7 +146,9 @@ p {
   bottom: 0px;
   width: 100%;
   background-color: #4e7570;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #leftbar, #no_chat {
@@ -206,12 +209,18 @@ p {
   top: 0px;
   width: 100%;
   background-color: #4e7570;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 30px 30px 0px 0px;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #photo {
@@ -238,7 +247,9 @@ p {
 }
 
 button {
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 5px;
   margin-top: 5px;
 }
@@ -256,11 +267,15 @@ button {
   outline: none;
 }
 
-#message-input::-moz-placeholder {
+#message-input::-webkit-input-placeholder {
   color: #FFFFFF;
 }
 
 #message-input:-ms-input-placeholder {
+  color: #FFFFFF;
+}
+
+#message-input::-ms-input-placeholder {
   color: #FFFFFF;
 }
 
@@ -289,7 +304,8 @@ button {
   left: 50%;
   width: 400px;
   color: #451F6A !important;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   height: 600px;
   background-color: #BFACD3;
@@ -333,6 +349,7 @@ button {
   color: #4e7570;
   background: rgba(0, 0, 0, 0);
   opacity: 1;
+  -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }
 
@@ -349,6 +366,8 @@ button {
 }
 
 .chat-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   height: 80%;
   padding-left: 0;
@@ -380,7 +399,9 @@ hr {
   text-align: center;
   padding: 5px 0px 5px 0px;
   width: 80%;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: auto;
   margin-bottom: 5px;
 }
@@ -441,4 +462,9 @@ hr {
 .btn-decline:hover {
   background-color: #F3D8D8;
   color: #FFF;
-}/*# sourceMappingURL=chat.css.map */
+}
+
+.go-to-profile {
+  text-decoration: none;
+}
+/*# sourceMappingURL=chat.css.map */

@@ -22,20 +22,23 @@ const form_alerts = Vue.createApp({
             just_stop: '',
             change_date: false,
             school_input: "",
-            formatted_address : ""
+            formatted_address : "",
+            allowable_date: true,
+            allowable_time : true,
+            testing_time : true
         }
     },
     methods:{
-        check_time(){
-            var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
+        // check_time(){
+        //     var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
 
-            console.log(time)
-            console.log(this.time)
-            console.log(this.time < time)
-            if (this.time < time){
-                return true
-            } return false
-        },
+        //     console.log(time)
+        //     console.log(this.time)
+        //     console.log(this.time < time)
+        //     if (this.time < time){
+        //         return true
+        //     } return false
+        // },
 
         check_date(){
             if (this.date===""){return false}
@@ -46,11 +49,36 @@ const form_alerts = Vue.createApp({
             const today = new Date()
             let verify_year = today.getFullYear()
 
+            let year = today.getFullYear()
+            let month = today.getMonth() + 1
+            let day = today.getDate()
+            let formatted = [year,month, day]
+            let formatted_date = formatted.join("-")
+            console.log(formatted_date)
+            if(formatted_date == this.date){
+                this.allowable_date = false
+                if(this.testing_time != true){
+                    this.allowable_time = false
+                }
+                
+            }
+            else{
+                this.allowable_date = true
+                this.allowable_time = true
+            }
             let res = (selected_date - today >= 1000 * 60 * 60 * 24 * 365) || (selected_date - today <= 1000 * 60 * 60 * 24 * -1) || (selected_year - verify_year < 0)
 
             // i apologise for the naming convention, just_stop is for disabling the button should the conditions not be fulfilled
-            if (res){this.just_stop = 'no'}
-            else {this.just_stop = ''}
+            if (res){
+                this.just_stop = 'no'
+                
+            }
+            else {
+                this.just_stop = ''
+                
+                
+            }
+            // if(this.date == )
 
             return res
         },
@@ -58,11 +86,78 @@ const form_alerts = Vue.createApp({
             if (this.drop_off===""){return true}
             return false;
         },
+        checking_time(date,time_hour,time_minute, time_ampm){
+            console.log('===CHECKINGGGGGG THE TIME===')
+            var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
+            let now_date = new Date()
+            let now_month = now_date.getMonth() + 1
+            let now_day = now_date.getDate()
+            let now_year = now_date.getFullYear()
+            // console.log(now_day)
+            // console.log(now_month)
+            // console.log(time)
+            // console.log(this.verified_time)
 
+            let selected_date = date.split("-")
+            let selected_month = selected_date[1]
+            let selected_year = selected_date[0]
+            let selected_day = selected_date[2]
+
+            // if(this.allowable_date && !(now_month == selected_month && now_day == selected_day && now_year == selected_year)){
+            //     this.correct_time = true
+            // }
+            if(now_month == selected_month && now_day == selected_day && now_year == selected_year){
+                console.log(time)
+                // check if hour is less 
+                if(time_ampm == "pm"){
+                    var hour = parseInt(time_hour)
+                    hour += 12
+                    
+                    // console.log(this.time_hour)
+                }
+                else{
+                    var hour = parseInt(time_hour)
+                    
+                }
+
+                let time_now = new Date().toLocaleTimeString('en-GB')
+                time_now = time_now.split(":")
+                let hour_now = Number(time_now[0])
+                let minute_now = Number(time_now[1])
+                console.log(hour)
+                console.log(hour_now)
+                if(hour < hour_now){
+                    this.allowable_time = false
+                    this.testing_time = false
+                }
+                else if(hour == hour_now){
+                    let minute = parseInt(time_minute)
+                    console.log(minute)
+                    if(minute < minute_now){
+                        this.allowable_time = false
+                        this.testing_time = false
+                    }
+                    else{
+                        this.allowable_time = true
+                        this.testing_time = true
+                    }
+                }
+                else{
+                    this.allowable_time = true
+                    this.testing_time = true
+                }
+
+                
+            }
+            else{
+                this.allowable_time = true
+            }
+        }
         
-        // addHoursToDate(date, hours) {
-        //     return new Date(new Date(date).setHours(date.getHours() + hours));
-        //   }
+    //     // addHoursToDate(date, hours) {
+    //     //     return new Date(new Date(date).setHours(date.getHours() + hours));
+    //     //   }
+    // },
     },
        
     watch: {
@@ -99,27 +194,46 @@ form_alerts.component('time-input', {
             time_minute: '',
             time_ampm: '',
             verified_time: '',
+            correct_time : true,
+            hours: 12,
+            hour_24 : ""
         }
     },
+    props : ["date","allowable_date", "allowable_time"],
+    emits : ['checking_time'],
 
     template: ` <div class='time-input'> 
                 <select
                     name="time_hour"
                     id="time_hour"
                     class="dropdowns dropdown-time"
-                    v-html="get_hour()"
+                    
                     v-model='time_hour'
                     @change='check_time()'
+                    @change="$emit('checking_time',date,time_hour,time_minute,time_ampm)"
                 >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
                 </select>
                 :
                 <select
                     name="time_minute"
                     id="time_min"
                     class="dropdowns dropdown-time"
-                    v-html="get_minute()"
+                    
                     v-model='time_minute'
                     @change='check_time()'
+                    @change="$emit('checking_time')"
                 >
                     <option value='00'>00</option>
                     <option value='05'>05</option>
@@ -139,24 +253,28 @@ form_alerts.component('time-input', {
                     name="time_ampm"
                     id="time_ampm"
                     class="dropdowns dropdown-time"
-                    v-html="get_ampm()"
+                    
                     v-model='time_ampm'
                     @change='check_time()'
+                    @change="$emit('checking_time')"
                 >
+                    <option value="am">AM</option>
+                    <option value="pm">PM</option>
                 </select>
-                    <label
+                    <span
                         class="wrong_time text-danger w-75"
                         role="alert"
-                        hidden
-                        v-if="check_time()">
+                        
+                        v-show="correct_time == false && allowable_date == false">
                     You can't time travel! Please choose a later timing *
-                </label>
+                </span>
                 </div>`,
 
     methods: { 
         get_hour() { 
             var today = new Date()
             var now_hour = today.getHours()
+            // console.log(now_hour)
             var next_hour = now_hour + 1
             var selected = ""
             var to_return = ""
@@ -172,7 +290,7 @@ form_alerts.component('time-input', {
                 selected = ""
             }
             this.time_hour = next_hour
-            return to_return
+            // return to_return
         },
 
         get_minute() { 
@@ -200,7 +318,7 @@ form_alerts.component('time-input', {
                 to_return += `<option value="${min_list[i]}" ${selected}>${min_list[i]}</option>`
                 selected = ""
             }
-            return to_return
+            // return to_return
         },
 
         get_ampm() {
@@ -217,47 +335,111 @@ form_alerts.component('time-input', {
                 ampm = 'pm'
             }
              
-            for (var i of ['am', 'pm']) { 
-                if (i == ampm) { 
-                    selected = "selected"
-                }
-                to_return += `<option value="${i}" ${selected}>${i.toUpperCase()}</option>`
-                selected = ""
-            }
+            // for (var i of ['am', 'pm']) { 
+            //     if (i == ampm) { 
+            //         selected = "selected"
+            //     }
+            //     to_return += `<option value="${i}" ${selected}>${i.toUpperCase()}</option>`
+            //     selected = ""
+            // }
             console.log(ampm)
             this.time_ampm = ampm
-            return to_return
+            // return to_return
         },
 
         // this needs to be fixed
         async check_time(){
             console.log('===CHECKING THE TIME===')
             var time = new Date().toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":")
-            console.log(this.verified_time)
+            let now_date = new Date()
+            let now_month = now_date.getMonth() + 1
+            let now_day = now_date.getDate()
+            let now_year = now_date.getFullYear()
+            // console.log(now_day)
+            // console.log(now_month)
+            // console.log(time)
+            // console.log(this.verified_time)
 
-            var selected_hour = parseInt(this.time_hour.value)
+            let selected_date = this.date.split("-")
+            let selected_month = selected_date[1]
+            let selected_year = selected_date[0]
+            let selected_day = selected_date[2]
 
-            if (this.time_ampm.value == 'pm'){
-                selected_hour = selected_hour + 12
-                selected_hour.toString
+           if(now_month == selected_month && now_day == selected_day && now_year == selected_year){
+                console.log(time)
+                
+                // check if hour is less 
+                if(this.time_ampm == "pm"){
+                    var hour = parseInt(this.time_hour)
+                    hour += 12
+                    // this.hour_24 = hour
+                    // console.log(this.time_hour)
+                }
+                else{
+                    var hour = parseInt(this.time_hour)
+                    // this.hour_24 = hour
+                }
+
+                let time_now = new Date().toLocaleTimeString('en-GB')
+                time_now = time_now.split(":")
+                let hour_now = Number(time_now[0])
+                let minute_now = Number(time_now[1])
+                console.log(hour)
+                console.log(hour_now)
+                if(hour < hour_now){
+                    this.correct_time = false
+                }
+                else if(hour == hour_now){
+                    let minute = parseInt(this.time_minute)
+                    console.log(minute)
+                    if(minute < minute_now){
+                        this.correct_time = false
+                    }
+                    else{
+                        this.correct_time = true
+                        // this.allowable_time = "yes"
+                    }
+                }
+                else{
+                    this.correct_time = true
+                    // this.allowable_time = "yes"
+                }
+
+                
             }
-            else {
-                selected_hour = '0' + selected_hour.toString()
-            }
+            // else{
+            //     this.correct_time = true
+            // }
+            // console.log(selected_month)
 
-            var selected_time = selected_hour + ':' + this.time_minute.value + this.time_ampm.value
-            console.log(selected_time)
-            console.log(selected_time < time)
+            // var selected_hour = parseInt(this.time_hour.value)
+
+            // if (this.time_ampm.value == 'pm'){
+            //     selected_hour = selected_hour + 12
+            //     selected_hour.toString
+            // }
+            // else {
+            //     selected_hour = '0' + selected_hour.toString()
+            // }
+
+            // var selected_time = selected_hour + ':' + this.time_minute.value + this.time_ampm.value
+            // console.log(selected_time)
+            // console.log(selected_time < time)
             
-            if (selected_time < time){
-                this.verified_time = 'nope'
-                return document.querySelector('.wrong_time').removeAttribute('hidden')
-            }
-            else {
-                this.verified_time = ''
-                return document.querySelector('.wrong_time').setAttribute('hidden', true)
-            }
+            // if (selected_time < time){
+            //     this.verified_time = 'nope'
+            //     return document.querySelector('.wrong_time').removeAttribute('hidden')
+            // }
+            // else {
+            //     this.verified_time = ''
+            //     return document.querySelector('.wrong_time').setAttribute('hidden', true)
+            // }
         },
+    },
+    created(){
+        this.get_hour()
+        this.get_minute()
+        this.get_ampm()
     }
 })
 
