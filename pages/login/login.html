@@ -68,7 +68,7 @@
                         id="registration"
                     >
                         <h2 class="title">Register</h2>
-                        <div class="test-register" id="style-1">
+                        <div class="test-register" id="style-1" style="position: relative">
                             <div class="txt_field">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <input
@@ -222,25 +222,29 @@
                                 <span></span>
                                 <label> Gender </label>
                             </div>
-                        </div>
 
+                        </div>
+                        <p
+                                class="alert text-danger"
+
+                               >
+                            hihihi
+                        </p>
+                        <p  class="alert text-danger"
+                            style="position:relative;
+                            left: 0%;"
+                        >
+                            Please resolve all errors
+                        </p>
                         <input
                             type="submit"
                             value="Register"
                             @click="register_user()"
                         />
 
-                        <p>
-                        <text
-                                class="alert text-danger"
-                                style="position: absolute;
-                                top: 25rem;
-                                left: 0;"
-                                v-if="errorMessages.register.length>0"
-                                v-for="msg of errorMessages.register">
-                            {{msg}}
-                        </text>
-                        </p>
+
+
+
                     </form>
                 </div>
                 <div class="panels-container">
