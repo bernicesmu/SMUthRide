@@ -560,14 +560,17 @@ p {
         background-color: #4e7570;
         -webkit-mask-image: url(./homepage_images/skyline_edit.png);
         mask-image: url(./homepage_images/skyline_edit.png);
-        background-size: 130rem;
+        mask-position: 0;
+        -webkit-mask-size: 120rem 400px;
+        mask-size: 120rem;
+        background-size: 120rem;
         background-position: left bottom;
         width: 800%;
         height: 400px;
         position: absolute;
         bottom: 0;
         background-repeat: repeat-x;
-        animation: moveRight 40s linear infinite;
+        animation: moveRight 10s linear infinite;
     }
     @keyframes moveRight {
         0% {
@@ -587,7 +590,7 @@ p {
         }
         100% {
             background-color: #4e7570;
-            transform: translateX(-2080px);
+            transform: translateX(-1925px);
         }
     }
 
