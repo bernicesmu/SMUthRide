@@ -60,7 +60,7 @@
       }
 
       .price {
-        /* flex-direction: column; */
+        flex-direction: column;
       }
 
       .drivers p, .rides p, .price p {
@@ -81,23 +81,13 @@
       }
 
       #offer_price {
-        max-width: 210px;
+        max-width: 250px;
       }
 
-      .rides select, .drivers select, #offer_price {
+      .rides select, .drivers select {
         background-color: transparent;
-        border: none;
-        border-radius: 0;
-        border-bottom: 3px solid #451f6a;
-        width: 100%;
+        border-bottom: 3px solid #4e7570;
       }
-
-      option {
-        max-width: 40px;
-      }
-
-
-
     </style>
 </head>
 <body>
@@ -146,24 +136,21 @@
                   <p class="overlay">
                     Rides:
                   </p>
-                  <div class="container p-0 m-0 w-50">
-                    <select class="form-select mb-3" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" style="background-color:transparent;">
-                      <!-- v-bind:value="address[1]" -->
-                      <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
-                        {{ address[0] }}
-                      </option>
-                      <!-- <option v-else selected>There are no available rides under this driver</option> -->
-                    </select>
-                  </div>
-
+                  <select class="form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" >
+                    <!-- v-bind:value="address[1]" -->
+                    <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
+                      {{ address[0] }}
+                    </option>
+                    <!-- <option v-else selected>There are no available rides under this driver</option> -->
+                  </select>
                 </div>
-                <p v-show="0 >= relevant_rides.length" style="font-size:15px; color:#894949; margin-left: 35px; margin-top: -15px;"> There are no available rides under this driver </p>
+                <p v-show="0 >= relevant_rides.length" style="font-size:15px; color:red; margin-left: 35px; margin-top: -15px;"> There are no available rides under this driver </p>
                 <div class="price" v-show='relevant_rides.length > 0' >
-                  <!-- <p class="overlay">
-                    Price
-                  </p> -->
-                  <span style="display: flex; justify-content: center; align-items: center;">
-                    <p style="color:#451F6A;">Price: S$</p>
+                  <p class="overlay">
+                    You are offering:
+                  </p>
+                  <span style="display: flex; justify-content: center; align-items: center; color: #4e7570; margin-top: -20px;">
+                    <p>S$</p>
                     <input type="number" id = "offer_price" @change="setTwoNumberDecimal()" name='cost' min="0.00" step="0.01" class="text-input cost-input text-label overlay w-50" v-model="offer_price" oninput="validity.valid||(value='');" required>
                   </span>
                 </div>
@@ -193,16 +180,8 @@
                   <h3 class="text-center d-block chat-label">Chats</h3>
                   <hr>
                 </div>
-                  <chat-box 
-                    v-for="chat_id of chat_array" 
-                    :chat_id="chat_id.chat_id" 
-                    v-on:get_chat="retreive_chat" 
-                    :key="counter" 
-                    v-on:selected_chatroom="selected_chatroom" 
-                    v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" 
-                    @height_checker="height_checker"
-                  ></chat-box>             
-               </div>
+                <chat-box v-for="chat_id of chat_array" :chat_id="chat_id.chat_id" v-on:get_chat="retreive_chat" :key="counter" v-on:selected_chatroom="selected_chatroom" v-bind:class="{selected : chat_id.chat_id == selected_room, last : chat_id.chat_id == last_room}" @height_checker="height_checker"></chat-box> 
+              </div>
 
               <!-- if no chats, will display the following -->
               <div style="height:min-content; min-height: 70vh;" id="no_chat" class="hidden-md" v-else>
@@ -233,18 +212,9 @@
                         <!-- <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i> -->
                       <!-- </button> -->
                       
-                      <a 
-                        :href="'../profile/profile.html?user=' + other_user " 
-                        class="d-flex go-to-profile"
-                        >
-                        <div id="photo" v-if="image_url != ''"><img :src="image_url" class="img-fluid rounded-circle"
-                          style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> </div>
-                        <div class="d-block"> 
-                          <span id="other-user" class="font-weight-bolder" style="padding-right:0px; padding-bottom: 0px; padding-top: 0px; font-size: calc(1rem + .6vw); top: -10px">{{other_user_name}}</span> 
-                          <br>
-                          <span id="other-user" style="font-weight:300; padding:0px; padding-left:10px">@{{ other_user }}</span>
-                        </div>
-                      </a>
+                      <div id="photo" v-if="image_url != ''" style="min-height: 60px"><img :src="image_url" class="img-fluid rounded-circle"
+                        style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> </div>
+                      <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
                     </div>
                     <div>
                       <button

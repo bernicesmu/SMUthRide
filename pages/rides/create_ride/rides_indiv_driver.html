@@ -128,7 +128,7 @@
 
         #info_hover > .tooltiptext { 
             visibility: hidden;
-            max-width: 300px;
+            width: 300px;
             background-color: #BFACD3;
             color: #451F6A;
             text-align: center;
@@ -146,9 +146,16 @@
             visibility: visible;
         }
 
+        @media only screen and (max-width: 414px) {
+            .tooltiptext {
+                display: none;
+            }
+          }
+
         .group {
             position: relative;
-            margin-bottom: 60px;
+            margin-bottom: 65px;
+            max-width: 75%;
         }
 
         .other-group {
@@ -220,8 +227,10 @@
             font-weight: 500;
             height: 37px;
             display: block;
-            width: 100%;
+            min-width: 65%;
             border: none;
+            left: 0px;
+            position: absolute;
             outline: none;
             border-bottom: 1px solid #4e7570;
             color: #4e7570;
@@ -391,6 +400,7 @@
           /* The actual popup */
           .popup .popuptext {
             visibility: hidden;
+            width: 300px;
             max-width: 300px;
             background-color: #BFACD3;
             color: #451F6A;
@@ -409,6 +419,12 @@
             animation: fadeIn 1s;
             z-index: 99;
           }
+
+        @media only screen and (max-width: 414px) {
+        .popup .popuptext {
+            width: 200px;
+            }
+        }
 
         /* ANIMATIONS ================ */
         @-webkit-keyframes inputHighlighter {
@@ -561,7 +577,7 @@
         }
 
         .inputs-div { 
-            width: 60%;
+            width: 50%;
             margin-left: auto;
             margin-right: auto;
         }
@@ -577,7 +593,7 @@
         
         
         <div class="offer d-flex justify-content-evenly">
-            <h1 class="mb-0 pb-3">Offer a ride</h1>
+            <h1 class="mb-2 pb-3">Offer a ride</h1>
             <!--            <button></button>-->
             <!-- <button
                 type="button"
@@ -623,7 +639,7 @@
         <!--       -->
 
         <!--    </div>-->
-        <div class="d-flex row mb-2 justify-content-evenly inputs-div">
+        <div class="d-flex row my-2 mb-4 justify-content-evenly inputs-div">
             <div class="col-xs-12 col-md-5 d-block justify-content-center py-4 smu-location mx-auto" style="position: relative; width: 20%; margin-right: 0px;">
                 <label for="smubuildings" id="SMU_label">School</label>
                 <select
@@ -677,8 +693,9 @@
                     />
                 </svg>
             </div>
-            <div class="col-xs-12 col-md-5 py-4 d-block justify-content-center" style="position: relative; width: 70%px;  margin-right: 0px;">
-                <div class="justify-content-center" >
+
+            <div class="col-xs-12 col-md-5 py-4 d-block justify-content-center" style="position: relative;  margin-right: 0px;">
+                <div class="d-block-inline justify-content-center">
                     <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required="false" v-model="location_input"/>
                     <span class="highlight"></span>
                     <label class="text-label" id="address-text"
@@ -1035,7 +1052,7 @@
         </script>
     </div>
     <div class="container text-center inputs-div">
-        <div class="group" id="cost_group">
+        <div class="group mx-auto" id="cost_group">
             <span class="currencyinput" id="dollarsign"></span>
             <input
                 id="inputMoney"
@@ -1050,7 +1067,7 @@
             <span class="highlight"></span>
             <label for="inputMoney" class="bottom_text-label">Cost per person</label>
         </div>
-        <div class="group">
+        <div class="group mx-auto">
             <input
                 type="number"
                 name="capacity"
@@ -1063,7 +1080,7 @@
             <span class="highlight"></span>
             <label class="bottom_text-label">Seat capacity per ride</label>
         </div>
-        <div class="group">
+        <div class="group mx-auto">
             <input type="hidden" id="hidden_formatted_address">
             <input type="hidden" id="hidden_neighbourhood">
             <input
@@ -1094,7 +1111,7 @@
                         Please input a date*
                     </label>
         </div>
-        <div class="group">
+        <div class="group mx-auto">
             <!-- <input
                 type="time"
                 name="time"
@@ -1120,7 +1137,7 @@
         <!-- {{allowable_time}} -->
         <button
             type="submit"
-            class="btn button d-block mx-auto mt-5 w-100 mb-5"
+            class="btn button d-block mx-auto mt-5 w-75 mb-5"
             id="rides"
             v-bind:disabled="(date.length == '') || (location_input == '') || (just_stop =='no') || (allowable_time == false)"
         >
