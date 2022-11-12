@@ -146,11 +146,13 @@
 
 .navbar-toggler:focus {
     background: #e3f1ef;
-    box-shadow: inset 9px 9px 40px #dae7e5, inset -9px -10px 40px #ecfbf9;
+    box-shadow: inset 9px 9px 35px #dae7e5, inset -9px -10px 35px #ecfbf9;
+    border: var(--bs-border-width) solid var(--bs-navbar-toggler-border-color);
 }
 
 .navbar-toggler-icon {
     z-index: 10 !important;
+    filter: invert(43%) sepia(28%) saturate(380%) hue-rotate(123deg) brightness(91%) contrast(93%);
 }
 
 @-moz-keyframes tyre-rotate {

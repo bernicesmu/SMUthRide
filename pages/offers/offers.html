@@ -72,6 +72,11 @@
             color: #FFF;
             background-color: #d8c7a3;
         }
+
+        div {
+            margin-left: 6px;
+            margin-top: 15px;
+        }
         </style>
 
         <title>Offers</title>
@@ -107,7 +112,7 @@
                     <div v-else-if="current_drives.length==0">
                         No scheduled drives 
                         <br>
-                        <button class="btn btn-offer" onclick="location.href='../rides/create_ride/rides_indiv_driver.html'"> 
+                        <button class="btn btn-offer" onclick="location.href='../rides/create_ride/rides_indiv_driver.html'" style="margin-top: 10px;"> 
                             Offer a ride
                         </button>
                         <br><br>
@@ -118,7 +123,7 @@
                     <div v-else-if="current_rides.length==0">
                         No scheduled rides 
                         <br>
-                        <button class="btn btn-find" onclick="location.href='../rides/rides_list/rides_listing.html'"> 
+                        <button class="btn btn-find" onclick="location.href='../rides/rides_list/rides_listing.html'" style="margin-top: 10px;"> 
                             Find a ride
                         </button>
                     </div>

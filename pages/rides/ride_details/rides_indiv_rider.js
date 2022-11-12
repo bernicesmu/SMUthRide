@@ -272,22 +272,22 @@ app.component('send-button',{
                     method="post"
                     :action="find_action_path()"
                 >
-                    <div v-if="!driver_is_user() && user_is_offered()" > 
+                    <div v-if="!driver_is_user() && user_is_offered()" class="accepted-div"> 
                         <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length,to_from)" v-on:mouseover="get_length" disabled>
                             Ride accepted
                         </button>
                         <p class='valid-message'>You have already accepted this ride!</p>
                     </div> 
-                    <button v-else-if="!driver_is_user() && avail_capacity > 0 && expired_check()" type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length,to_from)" v-on:mouseover="get_length">
+                    <button v-else-if="!driver_is_user() && avail_capacity > 0 && expired_check()" type="submit" class="btn btn-lg chat-button accepted-div" v-on:click="$emit('gotochat',driver, user,length,to_from)" v-on:mouseover="get_length">
                         Chat for more
                     </button>
-                    <div v-else-if="!driver_is_user()"> 
+                    <div v-else-if="!driver_is_user()" class="accepted-div"> 
                         <button  type="submit" class="btn btn-lg chat-button" v-on:click="$emit('gotochat',driver, user,length,to_from)" v-on:mouseover="get_length" disabled>
                             Chat for more
                         </button>
                         <p class='valid-message'>This ride is no longer available!</p>
                     </div>
-                    <button v-else class="btn btn-lg my-offer-button">
+                    <button v-else class="btn btn-lg my-offer-button accepted-div">
                         My offers
                     </button>
                     </form>`,

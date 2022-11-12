@@ -134,7 +134,8 @@ const chat_left = Vue.createApp({
             let scroll_height = document.getElementById('messages').scrollHeight
             let client_height = document.getElementById('chat').clientHeight
             let contact_height = document.getElementById('contact').scrollHeight
-            if(scroll_height + 30 > client_height - contact_height){
+            console.log("Height checker")
+            if(scroll_height + 100 > client_height - contact_height){
                 // console.log(scroll_height)
                 // console.log(client_height - contact_height)
                 this.position = "sticky"
@@ -220,6 +221,9 @@ const chat_left = Vue.createApp({
             this.message_to_send = ""
               
             this.retreive_chat(this.current_chatid)
+            this.height_checker()
+            var element = document.getElementById("chat");
+            element.scrollTop = element.scrollHeight;
 
         },
         // USE FORMATTED ADDRESS
@@ -274,7 +278,9 @@ const chat_left = Vue.createApp({
             this.offer_price = ""
             this.selected_driver = ""
             this.selected_ride = ""
-
+            this.height_checker()
+            var element = document.getElementById("chat");
+            element.scrollTop = element.scrollHeight;
 
            
 
@@ -453,15 +459,27 @@ const chat_left = Vue.createApp({
             }
             return text
         },
-        accept(selected_ride,user,length,mid){
+        accept(selected_ride,you, other_user,length,mid,driver){
             console.log(length + "YYY")
             const db = getDatabase()
             // set(ref(db, `rides/${selected_ride}/users_offered/${length}`), {
             //     person : user
             //  })
+            // return the driver
+            let to_add = ""
+            
+           if(driver == you){
+               to_add = other_user
+           }
+           else{
+               to_add = you
+           }
+           console.log(to_add)
+
+
             const updates = {};
             updates[`messages/${this.current_chatid}/${mid}/accepted`] = "accepted"
-            updates[`rides/${selected_ride}/users_offered/${length}`] = user
+            updates[`rides/${selected_ride}/users_offered/${length}`] = to_add
             return update(ref(db), updates)
         },
         decline(mid) { 
@@ -481,7 +499,8 @@ const chat_left = Vue.createApp({
         selected_chatroom(chat_id){
             // this.position = "absolute"
             this.selected_room = chat_id
-        }
+        },
+        
      
 
     },
@@ -556,16 +575,17 @@ chat_left.component('offer-button',{
     data(){
         return{
             length : 0,
+            driver : ""
         }
     },
 
-    props: ["message", "selected_ride", "user", "message_status"],
+    props: ["message", "selected_ride", "user", "message_status", "other_user","you"],
 
     emits: ['accept', 'decline'],
 
     template: `<b>{{ message.username }}</b>: <span v-html='message.message' style="font-weight: normal;"></span><br>
     <div id="acc_dec_buttons" v-if="message_status == 'pending'">
-        <button class="btn btn-accept" v-on:click="$emit('accept',selected_ride, user,length, message.mid)">
+        <button class="btn btn-accept" v-on:click="$emit('accept',selected_ride, you, other_user,length, message.mid,driver)">
             Accept Offer
         </button>
         <button class="btn btn-decline" v-on:click="$emit('decline',message.mid)">
@@ -616,11 +636,25 @@ chat_left.component('offer-button',{
                 return "color: #894949"
             }
         },
+        get_driver(ride_id){
+            const db = getDatabase()
+            const reference = ref(db, `rides/${ride_id}`)
+
+            onValue(reference, (snapshot) => {
+                // console.log(snapshot.val())
+                // console.log(snapshot.val())
+                let ride_details = snapshot.val()
+                console.log(ride_details)
+                console.log(ride_details.driver_username)
+                this.driver = ride_details.driver_username
+            })
+        }
 
         
     },
     created(){
         this.get_length(this.selected_ride) 
+        this.get_driver(this.selected_ride)
     }
 })
 
@@ -782,6 +816,9 @@ chat_left.component('chat-box', {
         message_formatted(sender, message) { 
             return `${sender}: ${message}`
         },
+        setTwoNumberDecimal() {
+            this.value = parseFloat(this.value).toFixed(2);
+        }
     }
 })
 
