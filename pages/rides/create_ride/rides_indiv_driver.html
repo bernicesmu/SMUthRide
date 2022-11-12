@@ -1105,7 +1105,7 @@
                 required
                 step= "300"
             /> -->
-            <time-input  :date="date" :allowable_date="allowable_date"></time-input>
+            <time-input  :date="date" :allowable_date="allowable_date" :allowable_time="allowable_time" @checking_time = "checking_time"></time-input>
             <span class="highlight"></span>
             <label class="date-label" id="time-label">Time</label>
             <!-- <label
@@ -1117,11 +1117,12 @@
                 You cant time travel.. Please choose a later timing *
             </label> -->
         </div>
+        <!-- {{allowable_time}} -->
         <button
             type="submit"
             class="btn button d-block mx-auto mt-5 w-100 mb-5"
             id="rides"
-            v-bind:disabled="(date.length == '') || (location_input == '') || (just_stop =='no')"
+            v-bind:disabled="(date.length == '') || (location_input == '') || (just_stop =='no') || (allowable_time == false)"
         >
         <!-- this disable button needs to be modified as well -->
             Create your SMUth Ride!
