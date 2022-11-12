@@ -92,7 +92,7 @@ listings.component('drive', {
         format_date(date){
             date = date.split("-")
             let day = new Date(date[0], date[1]-1, date[2]).toDateString().split(" ")
-            return [day[0],`${day[1]} ${day[2]} ${day[3]}`]
+            return [day[0],`${day[2]} ${day[1]} ${day[3]}`]
         },
         formatAMPM(date){
 
@@ -122,18 +122,16 @@ listings.component('drive', {
           <th scope="col">Time</th>
           <th scope="col">From</th>
           <th scope="col">To</th>
-          <th scope="col">Capacity</th>
-          <th scope="col">Price</th>
+          <th scope="col">Filled seats</th>
         </tr>
         </thead>
         <tbody>
         <tr v-if="this.list.length>0" v-for="listing in this.list" v-on:click="this.redirect(listing.ride_id)" >
-          <td style="">{{format_date(listing.date)[1]}}</td>
+          <td>{{format_date(listing.date)[1]}}</td>
           <td>{{formatAMPM(listing.time)}}</td>
           <td >{{listing.smu_to_from =="from"? listing.smu_location: listing.neighbourhood}}</td>
           <td >{{listing.smu_to_from =="to"? listing.smu_location: listing.neighbourhood}}</td>
           <td>{{listing.users_offered.length-1}} / {{listing.max_capacity}}</td>
-          <td>$ {{listing.cost}}</td>
         </tr>
         <tr v-else>
             <td colspan="6">No drives</td>

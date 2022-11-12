@@ -262,6 +262,8 @@ button {
   background-color: #BFACD3;
   border-radius: 30px;
   padding: 20px;
+  padding-top: 110px;
+  margin-top: 5%;
 }
 
 #text span {
@@ -273,7 +275,7 @@ button {
 
 #text input {
   display: block;
-  margin: auto;
+  margin: 0;
   margin-bottom: 10px;
 }
 
