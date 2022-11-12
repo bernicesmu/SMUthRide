@@ -88,7 +88,7 @@
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <input type="text" name="name"  v-model="display_name"/>
                                 <span></span>
-                                <label> Display Name </label>
+                                <label> Full Name </label>
                                 <text class="alert text-danger" v-if="errorMessages.display_name.length>0"
                                       v-for="msg of errorMessages.display_name">
                                     {{msg}}
@@ -102,12 +102,11 @@
                                 <input type="text" name="email"  v-model="email"/>
                                 <span></span>
                                 <label> Email </label>
-                                <text class="alert text-danger" v-if="errorMessages.email.length>0"
+                                <text class="alert2 text-danger" v-if="errorMessages.email.length>0"
                                       v-for="msg of errorMessages.email">
                                     {{msg}}
                                 </text>
                             </div>
-
                             <div class="txt_field">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                                 <input
@@ -119,7 +118,7 @@
                                 />
                                 <span></span>
                                 <label> Password </label>
-                                <text class="alert text-danger" v-if="errorMessages.password.length>0"
+                                <text class="alert2 text-danger" v-if="errorMessages.password.length>0"
                                       v-for="msg of errorMessages.password">
                                     {{msg}}
                                 </text>
@@ -135,7 +134,7 @@
                                 />
                                 <span></span>
                                 <label> Confirm Password </label>
-                                <text class="alert text-danger" v-if="errorMessages.cfmpassword.length>0"
+                                <text class="alert2 text-danger" v-if="errorMessages.cfmpassword.length>0"
                                       v-for="msg of errorMessages.cfmpassword">
                                     {{msg}}
                                 </text>
@@ -199,7 +198,7 @@
                                 />
                                 <span></span>
                                 <label> Age </label>
-                                <text class="alert text-danger" v-if="errorMessages.age.length>0"
+                                <text class="alert2 text-danger" v-if="errorMessages.age.length>0"
                                       v-for="msg of errorMessages.age">
                                     {{msg}}
                                 </text>
@@ -224,18 +223,15 @@
                             </div>
 
                         </div>
-                        <p
-                                class="alert text-danger"
+                        <div class="alert_container">
+                            <p class="alert text-danger" v-if="errorMessages.register.length>0">
+                                {{errorMessages.register[0]}}
+                            </p>
+                            <p  class="alert text-danger" v-if="errorCheck">
+                                Please resolve all errors
+                            </p>
+                        </div>
 
-                               >
-                            hihihi
-                        </p>
-                        <p  class="alert text-danger"
-                            style="position:relative;
-                            left: 0%;"
-                        >
-                            Please resolve all errors
-                        </p>
                         <input
                             type="submit"
                             value="Register"
