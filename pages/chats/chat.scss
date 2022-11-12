@@ -100,7 +100,7 @@ li span {
 
 #message-form {
   text-align: center;
-  position: sticky;
+  // position: sticky;
 
   
  
@@ -193,8 +193,9 @@ p{
   // width: 70%;
   // need to make more dynamic??
   height: 80%;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-top: 0;
+  // position: relative;
   position: relative;
   scroll-behavior: smooth;
   z-index: inherit;
@@ -203,7 +204,7 @@ p{
   
 }
 .sub_div {
-  position: absolute;
+  position: sticky;
   bottom: 0px;
   width: 100%;
   // padding-top: 10px;

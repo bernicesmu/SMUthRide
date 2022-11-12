@@ -6,7 +6,7 @@
     /* background-color: #d8c7a3 !important; */
     background-color: #e3f1ef !important;
     transition: top 0.8s ease !important;
-    padding: 1rem 4rem !important;
+    padding: 1rem 1rem 1rem 4rem !important;
     z-index: 10 !important;
 }
 
@@ -141,6 +141,12 @@
 
 .navbar-toggler {
     z-index: 5 !important;
+    border: none;
+}
+
+.navbar-toggler:focus {
+    background: #e3f1ef;
+    box-shadow: inset 9px 9px 40px #dae7e5, inset -9px -10px 40px #ecfbf9;
 }
 
 .navbar-toggler-icon {

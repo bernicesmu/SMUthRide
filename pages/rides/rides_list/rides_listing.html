@@ -1,9 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+    rel="icon"
+    type="image/x-icon"
+    href="../../../favicon_io/favicon.ico"
+/>
         <title>Ride Listings</title>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <link
@@ -312,7 +318,7 @@
                     <hr class="mb-1 mt-2" />
                     <div>
 
-                        <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-if="to_from == `from`" style="color: #BFACD3">
+                        <h2 class="card-title fw-bold text-center mb-3 neighbourhood" v-if="to_from == `from`" style="overflow: hidden;  color: #BFACD3">
                             <i class="bi bi-geo-alt-fill"></i>{{listing.neighbourhood}}
                                 <span class="tooltiptext" style="background-color: #BFACD3; color: #451F6A;">
                                     <h6 class="formatted-address" style="color: #451F6A;">{{listing.formatted_address}}</h6>

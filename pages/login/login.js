@@ -229,7 +229,7 @@ const registration_check = Vue.createApp({
 
             if (valid) {
                 await this.create_user(email, password);
-                await this.sleep(0.25 * 1000);
+                await this.sleep(0.3 * 1000);
                 await this.writeUserData(
                     username,
                     name,
@@ -239,13 +239,13 @@ const registration_check = Vue.createApp({
                     age,
                     gender
                 );
-                await this.sleep(0.5 * 1000);
+                await this.sleep(0.6 * 1000);
                 localStorage.clear();
                 localStorage.setItem("username_x", username);
                 this.registration_confirmation =
                     "Registration successful! Please log in to your account.";
                 console.log("wiufhewuf");
-                window.location.href = "../home/home.html";
+                window.location.href = "../../index.html";
             }
         },
 
