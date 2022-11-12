@@ -84,12 +84,13 @@
         max-width: 250px;
       }
 
-      .rides select, .drivers select, .drivers select:disabled {
+      .rides select, .drivers select {
         background-color: transparent;
         border: none;
         border-radius: 0;
         border-bottom: 3px solid #4e7570;
       }
+
     </style>
 </head>
 <body>
@@ -138,7 +139,7 @@
                   <p class="overlay">
                     Rides:
                   </p>
-                  <select class="form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" >
+                  <select class="form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" style="background-color:transparent;">
                     <!-- v-bind:value="address[1]" -->
                     <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
                       {{ address[0] }}
