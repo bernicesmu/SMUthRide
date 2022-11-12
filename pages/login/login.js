@@ -171,7 +171,7 @@ const registration_check = Vue.createApp({
             } else{ this.errorMessages.password = []}
         },
 
-        register_user() {
+        async register_user() {
             var inputs = document.getElementsByTagName('input')
             var name = inputs.name.value
             var username = inputs.username.value
@@ -203,8 +203,10 @@ const registration_check = Vue.createApp({
             }
         
             if (valid) {
-                this.create_user(email, password)
-                this.writeUserData(username, name, email)
+                await this.create_user(email, password)
+                await this.sleep(0.25 * 1000);
+                await this.writeUserData(username, name, email)
+                await this.sleep(0.25 * 1000);
                 localStorage.clear()
                 localStorage.setItem("username_x", username)
                 this.registration_confirmation = "Registration successful! Please log in to your account."
@@ -222,7 +224,7 @@ const registration_check = Vue.createApp({
             });
         },
 
-        create_user(email, password) { 
+        async create_user(email, password) { 
             console.log("create userwereewfw")
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, email, password)
@@ -239,7 +241,7 @@ const registration_check = Vue.createApp({
             });
         },
 
-        writeUserData(username, name, email) {
+        async writeUserData(username, name, email) {
             const db = getDatabase();
             set(ref(db, `users/${username}`), {
                 name: name,
@@ -274,6 +276,10 @@ const registration_check = Vue.createApp({
             } else {
                 input.setAttribute("type", "password");
             }
+        },
+
+        sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
         },
     },
 
