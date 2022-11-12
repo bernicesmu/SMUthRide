@@ -134,7 +134,7 @@ const chat_left = Vue.createApp({
             let scroll_height = document.getElementById('messages').scrollHeight
             let client_height = document.getElementById('chat').clientHeight
             let contact_height = document.getElementById('contact').scrollHeight
-            if(scroll_height > client_height - contact_height){
+            if(scroll_height + 30 > client_height - contact_height){
                 // console.log(scroll_height)
                 // console.log(client_height - contact_height)
                 this.position = "sticky"
