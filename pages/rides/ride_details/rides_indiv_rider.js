@@ -269,7 +269,6 @@ app.component('send-button',{
 
     template: ` <form
                     id="gotochat"
-                    method="post"
                     :action="find_action_path()"
                 >
                     <div v-if="!driver_is_user() && user_is_offered()" class="accepted-div"> 
