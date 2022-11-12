@@ -56,7 +56,7 @@ h2 {
     /* Position the tooltip */
     position: absolute;
     top: 40px;
-    left: 26px;
+    left: calc((100% - 200px)/2);
     z-index: 1;
 }
 
