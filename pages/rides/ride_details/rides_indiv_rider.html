@@ -137,6 +137,22 @@
             background-color: #BFACD3 !important;
             color: #FFF !important;
         }
+
+        .table {
+            color: #4e7570;
+            /* background-color: #bedad6; */
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .table tbody td {
+            border-bottom-width: 3px;
+        }
+
+        .table thead {
+            /* background-color: #4e7570;
+            color: white; */
+        }
     </style>
 
     <link rel="stylesheet" href="../../../main.css" />
@@ -313,11 +329,6 @@
                             {{ max_capacity - current_riders.length + 1 }} / {{ max_capacity }} seats available
                         </h4>
                     </div>
-                    <riders-table
-                        :driver="driver_username" 
-                        :user="user" 
-                        :rideid = "rideid"
-                    ></riders-table>
                     <div class="datetime mb-4">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -340,6 +351,11 @@
                            
                         </h4>
                     </div>
+                    <riders-table
+                        :driver="driver_username" 
+                        :user="user" 
+                        :rideid = "rideid"
+                    ></riders-table>
                 </div>
                 <div class="user-buttons">
                     <!-- <button type="button" class="btn button btn-lg me-2">
