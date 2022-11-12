@@ -115,7 +115,7 @@ form_alerts.component('time-input', {
                 :
                 <select
                     name="time_minute"
-                    id="time_minute"
+                    id="time_min"
                     class="dropdowns dropdown-time"
                     v-model='time_minute'
                     @change='check_time()'
@@ -229,6 +229,8 @@ form_alerts.mount('#form_alerts')
 document.getElementById('rides').addEventListener('click',event => {
     event.preventDefault()
     write_ride_local()
+    sleep(0.25 * 1000)
+    window.location.href = "./../rides_list/rides_listing.html"
 })
 
 find_rid()
@@ -262,10 +264,14 @@ async function write_ride_local() {
     console.log(check)
     if (check){
         console.log("success")
-        document.getElementById("backdrop").style.display = "block"
-        document.getElementById("exampleModal").style.display = "block"
-        document.getElementById("exampleModal").classList.add("show")
+        // document.getElementById("backdrop").style.display = "block"
+        // document.getElementById("exampleModal").style.display = "block"
+        // document.getElementById("exampleModal").classList.add("show")
     }
     // window.location.href = "./../rides_list/rides_list.html"
 
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
