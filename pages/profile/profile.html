@@ -105,8 +105,11 @@
                     <div class="card-body">
                         <h5 class="card-title">CCAs</h5>
                         <ul class="cca">
-                            <li v-for=" cca in ccas" class="rounded-pill">
-                                {{ cca }} {{ ccas }}
+                            <li
+                                v-for=" cca in ccas.slice(0,-1)"
+                                class="rounded-pill"
+                            >
+                                {{ cca }}
                             </li>
                         </ul>
                     </div>
