@@ -102,7 +102,6 @@
 
         .riders-num {
             position: relative;
-            z-index: 1;
         }
 
         .location-details > .tooltiptext {
@@ -125,7 +124,16 @@
 
         .location-details {
             position: relative;
-            z-index: 1;
+        }
+
+        .table thead {
+            background-color: #BFACD3;
+            color: #451F6A;
+        }
+
+        .table tbody td {
+            border-bottom-width: 2px;
+            border-color: #BFACD3;
         }
         </style>
 
@@ -134,8 +142,6 @@
     <body>
         <div id="navbarVue">
             <div
-                v-html="navbar_html"
-                @scroll="nav_animation"
                 data-page="offers"
             ></div>
         </div>
