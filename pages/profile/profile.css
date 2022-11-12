@@ -89,15 +89,12 @@ main {
 .btn-logout {
     color: #451f6a;
     background-color: #bfacd3;
+    min-width: 30%;
 }
 
 .btn-logout:hover {
     color: white;
     background-color: #bfacd3;
-}
-
-.btn-logout {
-    min-width: 50%;
 }
 
 .socials-ul {
