@@ -180,13 +180,21 @@ form_alerts.component('time-input', {
             var now_minute = today.getMinutes()
             var difference = now_minute % 5
             var next_min = (now_minute - difference)
-            this.time_minute = next_min.toString()
+
+            if ((next_min === 0) || (next_min === 5)){
+                this.time_minute = '0' + next_min.toString()
+            }
+            else {
+                this.time_minute = next_min.toString()
+            }
+
             var to_return = ''
             var selected = ''
             let min_list = ['00','05','10','15','20','25','30','35','40','45','50','55']
-
             for (var i of Array(12).keys()) { 
-                if (min_list[i] === next_min) { 
+                if (min_list[i] === next_min) {
+                    console.log(min_list[i])
+                    console.log(next_min) 
                     selected = "selected"
                 }
                 to_return += `<option value="${min_list[i]}" ${selected}>${min_list[i]}</option>`
