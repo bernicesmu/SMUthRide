@@ -6,7 +6,7 @@
     /* background-color: #d8c7a3 !important; */
     background-color: #e3f1ef !important;
     transition: top 0.8s ease !important;
-    padding: 1rem 4rem !important;
+    padding: 1rem 1rem 1rem 4rem !important;
     z-index: 10 !important;
 }
 
@@ -141,10 +141,18 @@
 
 .navbar-toggler {
     z-index: 5 !important;
+    border: none;
+}
+
+.navbar-toggler:focus {
+    background: #e3f1ef;
+    box-shadow: inset 9px 9px 35px #dae7e5, inset -9px -10px 35px #ecfbf9;
+    border: var(--bs-border-width) solid var(--bs-navbar-toggler-border-color);
 }
 
 .navbar-toggler-icon {
     z-index: 10 !important;
+    filter: invert(43%) sepia(28%) saturate(380%) hue-rotate(123deg) brightness(91%) contrast(93%);
 }
 
 @-moz-keyframes tyre-rotate {
