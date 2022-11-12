@@ -17,7 +17,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-
 var locations = ['Mountbatten','Kembangan','Outram Park','Tiong Bahru','Queenstown','Boat Quay', 'Raffles Place', 'Marina', 'Chinatown', 'Tanjong Pagar', 'Alexandra', 'Commonwealth', 'Harbourfront', 'Telok Blangah', 'Buona Vista', 'West Coast', 'Clementi New Town', 'City Hall', 'Clarke Quay', 'Beach Road', 'Bugis', 'Rochor', 'Farrer Park', 'Serangoon', 'Orchard', 'River Valley', 'Tanglin', 'Holland', 'Bukit Timah', 'Newton', 'Novena', 'Balestier', 'Toa Payoh','Lorong Chuan','Marymount', 'Macpherson', 'Potong Pasir', 'Eunos','Yew Tee','Chinese Garden', 'Bartley','Lakeside','Kovan', 'Kranji','Geylang','Bendemeer', 'Paya Lebar','Kaki Bukit', 'East Coast', 'Marine Parade','Jalan Besar', 'Bedok', 'Upper East Coast','Kallang', 'Changi', 'Pasir Ris', 'Tampines', 'Hougang', 'Punggol', 'Sengkang', 'Ang Mo Kio','Botanic Gardens', 'Bishan', 'Boon Keng','Thomson', 'Clementi', 'Upper Bukit Timah', 'Boon Lay', 'Jurong', 'Tuas', 'Dairy Farm', 'Bukit Panjang', 'Choa Chu Kang', 'Lim Chu Kang', 'Tengah', 'Admiralty', 'Woodlands', 'Mandai', 'Upper Thomson', 'Sembawang', 'Yishun', 'Seletar', 'Yio Chu Kang', 'Downtown', 'Simei','Bukit Batok' ]
 
 const listings = Vue.createApp({
@@ -38,12 +37,9 @@ const listings = Vue.createApp({
             var today = new Date();
             var local_date = today.toLocaleDateString('en-GB').split("/")
             var local_date_formatted = local_date[2] + '-' + local_date[1] + '-' + local_date[0]
-            console.log(today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))
             if (date < local_date_formatted || (date == local_date_formatted && time < today.toLocaleTimeString('en-GB').split(":").slice(0, 2).join(":"))){
-                console.log("expired")
                 return false
             }
-            console.log("not expired")
             return true
         },
 
@@ -123,8 +119,8 @@ const listings = Vue.createApp({
         onValue(rides, (snapshot) => {
             this.listings = snapshot.val();
             this.listings = this.listings.filter(x => this.expired_check(x.date, x.time)).sort((a, b) => ((a.date > b.date)|| (a.date == b.date && a.time >b.time)) ? 1 :  -1)
-            console.log(snapshot.val())
-            console.log(this.listings)
+
+
             this.check_and_populate()
         })
 
