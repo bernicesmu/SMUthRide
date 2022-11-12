@@ -58,6 +58,7 @@ Vue.createApp({
                 "Information Systems",
                 "Computer Science",
                 "Computing & Law",
+                "Sofware Engineering",
                 "Law",
                 "CIS",
             ],
