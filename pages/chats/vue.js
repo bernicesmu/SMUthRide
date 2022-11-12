@@ -255,6 +255,8 @@ const chat_left = Vue.createApp({
                 let smu_location = ride_details.smu_location
                 let to_from = ride_details.smu_to_from
                 let formatted_address = ride_details.formatted_address
+                // let date = ride_details.date
+                // let time = ride_details.time
                 let ride_string = ""
                 let ride_id = ride_details.ride_id
                 if(to_from.toLowerCase() == "to"){
@@ -456,11 +458,11 @@ const chat_left = Vue.createApp({
         to_from(to_from, ride){
             let text = ""
             if(to_from == "from"){
-                text = `${ride.smu_location} to ${ride.neighbourhood}`
+                text = `${ride.smu_location} to ${ride.neighbourhood} on ${ride.date} at ${ride.time}`
 
             }
             else{
-                text = `${ride.neighbourhood} to ${ride.smu_location}`
+                text = `${ride.neighbourhood} to ${ride.smu_location} on ${ride.date} at ${ride.time}`
             }
             return text
         },

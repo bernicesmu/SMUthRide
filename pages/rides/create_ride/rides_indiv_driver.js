@@ -475,10 +475,20 @@ async function write_ride_local() {
     var time_min = document.getElementById("time_min").value
     var time_ampm = document.getElementById("time_ampm").value
 
-    if (time_ampm == "pm") { 
+    if (time_ampm == "pm" && parseInt(time_hour) != 12) { 
         time_hour = parseInt(time_hour) + 12 
     }
-    var time = String(time_hour) + ":" + time_min
+    else if(time_ampm == "am" && parseInt(time_hour) == 12){
+        time_hour = "0"
+    }
+
+    if(String(time_hour).length == 2){
+        var time = String(time_hour) + ":" + time_min
+    }
+    else{
+        var time = "0" + String(time_hour) + ":" + time_min
+    }
+    
 
     let check = await write_ride(smu_location,smu_position,username,rideid,user_address,cost,max_capacity,date,time,users_offered,area,neighbourhood)
     console.log(check)
