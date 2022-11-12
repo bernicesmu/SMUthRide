@@ -411,7 +411,7 @@ app.component("riders-table", {
                         <tr v-for="rider of list_riders">
                             <td scope="row">{{rider}}</td>
                             <td>
-                                <span @click="remove_rider(rider)">🗑</span>
+                                <span class="trashcan" @click="remove_rider(rider)">🗑</span>
                             </td>
                         </tr>
                     </tbody>
