@@ -76,7 +76,7 @@ const login_check = Vue.createApp({
                         console.log("user login success")
                         localStorage.clear()
                         localStorage.setItem("username_x", this.username)
-                        window.location.href = '../rides/rides_list/rides_listing.html'
+                        window.location.href = '../home/home.html'
                     }
                     else { 
                         console.log("user login fail")
@@ -178,6 +178,10 @@ const registration_check = Vue.createApp({
             var email = inputs.email.value
             var password = inputs.pw.value
             var cfmpassword = inputs.cfmpassword.value
+            var degree = document.getElementById('degree').value
+            var year = document.getElementById('year').value
+            var age = inputs.age.value
+            var gender = document.getElementById('gender').value
         
             var valid = true
             if (!email.includes('smu.edu.sg')) {
@@ -205,12 +209,13 @@ const registration_check = Vue.createApp({
             if (valid) {
                 await this.create_user(email, password)
                 await this.sleep(0.25 * 1000);
-                await this.writeUserData(username, name, email)
-                await this.sleep(0.25 * 1000);
+                await this.writeUserData(username, name, email, degree, year, age, gender)
+                await this.sleep(0.5 * 1000);
                 localStorage.clear()
                 localStorage.setItem("username_x", username)
                 this.registration_confirmation = "Registration successful! Please log in to your account."
                 console.log("wiufhewuf")
+                window.location.href = '../home/home.html'
             }
         },
 
@@ -241,7 +246,7 @@ const registration_check = Vue.createApp({
             });
         },
 
-        async writeUserData(username, name, email) {
+        async writeUserData(username, name, email, degree, year, age, gender) {
             const db = getDatabase();
             set(ref(db, `users/${username}`), {
                 name: name,
@@ -249,12 +254,12 @@ const registration_check = Vue.createApp({
                 profile_url: "https://firebasestorage.googleapis.com/v0/b/wad2-smuth-ride.appspot.com/o/Users%2FFrame%2031.png?alt=media&token=6fe4afa6-2c7d-4a44-b5a6-706a33ac17ca"
             });
             set(ref(db, `users/${username}/userprofile`), {
-              degree: "Bachelor",
-              year: "Year X",
-              status: "It's Complicated",
+              degree: degree,
+              year: year,
+              gender: gender,
               location_user: "Singapore", 
               mbti: "ABCD",
-              age: 0,
+              age: age,
               bio: "I have no bio", 
               price: 0,
               comfort: 0,
