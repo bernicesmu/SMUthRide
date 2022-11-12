@@ -446,24 +446,53 @@ hr {
 }
 
 .cancel{
-  background-color: $light-red;
-  color:red;
+  background-color: #F3D8D8;
+  color:#894949;
 }
 
-.cancel:hover, .confirm:hover{
-  color: $dark-purple
+.cancel:hover {
+  background-color: #F3D8D8;
+  color:#FFF;
+}
+
+.confirm:hover{
+  background-color: #bedad6;
+  color:#FFF;
 }
 
 .confirm:disabled{
-  background-color: #d0e8bc;
-  color: #479607
-  opacity($color: #000000);
-  border:none
+  background-color: #bdbdbd;
+  color: #888888;
+  border: none;
 }
 
 .confirm{
-  background-color: #d0e8bc;
-  color:#479607
+  background-color: #bedad6;
+  color:#4e7570;
+}
+
+.btn-accept { 
+  background-color: #BFACD3;
+  color: #451F6A;
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+.btn-decline { 
+  background-color: #F3D8D8;
+  color: #894949;
+  margin: 0px 5px;
+  font-weight: 600;
+}
+
+.btn-accept:hover { 
+  background-color: #BFACD3;
+  color: #FFF;
+}
+
+.btn-decline:hover { 
+  background-color: #F3D8D8;
+  color: #FFF;
 }
 
 // #BobTan123\;madonna { 
