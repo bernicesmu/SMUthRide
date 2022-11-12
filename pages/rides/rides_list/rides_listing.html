@@ -301,9 +301,21 @@
                             </div>
                             <div class="col-8">
                                 <div class="text-center overflow-visible">
-                                    <h5 class="mb-0 py-2">
-                                        {{get_user_name(listing.driver_username)}}
-                                    </h5>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <h5 class="mb-0 py-2 px-1 d-inline">
+                                            {{get_user_name(listing.driver_username)}}
+                                        </h5>
+                                        <span v-if=" get_user_gender(listing.driver_username) === 'Male' ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-male" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2H9.5zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke="#4e7570" stroke-width="1"/>
+                                            </svg>
+                                        </span>
+                                        <span v-if=" get_user_gender(listing.driver_username) === 'Female' ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z" stroke="#4e7570" stroke-width="1"/>
+                                            </svg>
+                                        </span>
+                                    </div>
                                     <h5 class="my-0 fw-bold">
                                         {{format_date(listing.date)[1]}}
                                     </h5>
