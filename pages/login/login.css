@@ -495,3 +495,15 @@ img {
     left: 2rem;
     text-align: center;
 }
+
+.alert2{
+    position: absolute;
+    
+    font-size: 0.7rem;
+    font-weight: normal;
+    opacity: 0.5;
+    color: red;
+    top: 2.7rem;
+    left: 2rem;
+    text-align: center;
+}

@@ -305,6 +305,9 @@ listings.component('ride', {
                 console.log("from")
                 this.display_listings = this.list.filter(listing => listing.smu_to_from === "from")
             }
+        },
+        get_user_gender(username){
+            return this.users[username]['userprofile']['gender']
         }
     },
     mounted() {

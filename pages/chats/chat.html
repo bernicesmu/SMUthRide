@@ -34,9 +34,9 @@
         display: flex;
       }
 
-      .last{
+      /* .last{
         border-radius: 0px 0px 30px 30px;
-      }
+      } */
 
       #text {
         max-height: 450px;
@@ -81,15 +81,12 @@
       }
 
       #offer_price {
-        max-width: 210px;
+        max-width: 250px;
       }
 
-      .rides select, .drivers select, #offer_price {
+      .rides select, .drivers select {
         background-color: transparent;
-        border: none;
-        border-radius: 0;
-        border-bottom: 3px solid #451f6a;
-        width: 100%;
+        border-bottom: 3px solid #4e7570;
       }
 
       option {
@@ -110,6 +107,10 @@
       }
 
       .chat-list::-webkit-scrollbar {
+        display: none;
+      }
+
+      #chat::-webkit-scrollbar {
         display: none;
       }
 
@@ -143,7 +144,7 @@
             <div id="overlay" class="my-auto">
               <div id="text" class="mb-6">
                 <!-- <img src="./6-2-taxi-cab-png-images.png" alt="" class="img-fluid"> -->
-                <h1 class="text-center mb-5 overlay">Make an Offer</h1>
+                <h1 class="text-center mb-5 overlay">Make an offer</h1>
                 
                 <div class="drivers">
                   <p class="overlay">
@@ -162,24 +163,21 @@
                   <p class="overlay">
                     Rides:
                   </p>
-                  <div class="container p-0 m-0 w-50">
-                    <select class="form-select mb-3" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" style="background-color:transparent;">
-                      <!-- v-bind:value="address[1]" -->
-                      <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
-                        {{ address[0] }}
-                      </option>
-                      <!-- <option v-else selected>There are no available rides under this driver</option> -->
-                    </select>
-                  </div>
-
+                  <select class="form-select mb-3 w-50" aria-label=".form-select example" v-model="selected_ride" v-on:change="get_price" :disabled="relevant_rides.length > 0 ? disabled : ''" >
+                    <!-- v-bind:value="address[1]" -->
+                    <option v-if="relevant_rides.length > 0" v-for="address of relevant_rides" v-bind:value="address[1]">
+                      {{ address[0] }}
+                    </option>
+                    <!-- <option v-else selected>There are no available rides under this driver</option> -->
+                  </select>
                 </div>
-                <p v-show="0 >= relevant_rides.length" style="font-size:15px; color:#894949; margin-left: 35px; margin-top: -15px;"> There are no available rides under this driver </p>
+                <p v-show="0 >= relevant_rides.length" style="font-size:15px; color:red; margin-left: 35px; margin-top: -15px;"> There are no available rides under this driver </p>
                 <div class="price" v-show='relevant_rides.length > 0' >
-                  <!-- <p class="overlay">
-                    Price
-                  </p> -->
-                  <span style="display: flex; justify-content: center; align-items: center;">
-                    <p style="color:#451F6A;">Price: S$</p>
+                  <p class="overlay">
+                    You are offering:
+                  </p>
+                  <span style="display: flex; justify-content: center; align-items: center; color: #4e7570; margin-top: -20px;">
+                    <p>S$</p>
                     <input type="number" id = "offer_price" @change="setTwoNumberDecimal()" name='cost' min="0.00" step="0.01" class="text-input cost-input text-label overlay w-50" v-model="offer_price" oninput="validity.valid||(value='');" required>
                   </span>
                 </div>
@@ -251,18 +249,9 @@
                         <!-- <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i> -->
                       <!-- </button> -->
                       
-                      <a 
-                        :href="'../profile/profile.html?user=' + other_user " 
-                        class="d-flex go-to-profile"
-                        >
-                        <div id="photo" v-if="image_url != ''"><img :src="image_url" class="img-fluid rounded-circle"
-                          style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> </div>
-                        <div class="d-block"> 
-                          <span id="other-user" class="font-weight-bolder" style="padding-right:0px; padding-bottom: 0px; padding-top: 0px; font-size: calc(1rem + .6vw); top: -10px">{{other_user_name}}</span> 
-                          <br>
-                          <span id="other-user" style="font-weight:300; padding:0px; padding-left:10px">@{{ other_user }}</span>
-                        </div>
-                      </a>
+                      <div id="photo" v-if="image_url != ''" style="min-height: 60px"><img :src="image_url" class="img-fluid rounded-circle"
+                        style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> </div>
+                      <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
                     </div>
                     <div>
                       <button
@@ -277,9 +266,9 @@
                   </div>
 
                   <!-- messages will display here -->
-                  <ul id="messages">
+                  <ul id="messages" style="margin-bottom: 20px;">
                       <li v-for="message of messages" :class="{sent: user == message.username, receive: user != message.username}">
-                        <p v-if="message.type != 'offer'" v-html="message_formatted(message)"></p>
+                        <p v-if="message.type != 'offer'" v-html="message_formatted(message)" style="max-width: 200px;overflow-wrap:break-word;"></p>
                         <p v-else-if="message.type == 'offer' && user!= message.username">
                           <offer-button :message="message" :selected_ride="message.selected_ride" :user="message.username" :you="user" :other_user="other_user" :message_status="message.accepted" v-on:accept="accept" v-on:decline="decline"></offer-button>
                         </p>
@@ -303,6 +292,7 @@
                               placeholder="Type Message..."
                               v-model="message_to_send"
                               @keyup.enter="send_message"
+                              autocomplete="off"
                           />
 
                           <button

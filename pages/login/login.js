@@ -251,8 +251,7 @@ const registration_check = Vue.createApp({
                 await this.sleep(0.6 * 1000);
                 localStorage.clear();
                 localStorage.setItem("username_x", this.username);
-                this.registration_confirmation =
-                    "Registration successful! Please log in to your account.";
+                localStorage.setItem("alert", "logged in");
                 console.log("wiufhewuf");
                 window.location.href = "../../index.html";
             }
@@ -380,10 +379,11 @@ const registration_check = Vue.createApp({
         password(newValue, oldValue) {
             if (oldValue == "" || newValue != "") {
                 this.check_password();
+                this.check_password_match();
             }
         },
         cfmpassword(newValue, oldValue) {
-            if (oldValue == "" || newValue != "") {
+            if ((oldValue == "" || newValue != "") ) {
 
                 this.check_password_match();
             }

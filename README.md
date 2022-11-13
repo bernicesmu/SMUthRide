@@ -1,38 +1,91 @@
 # SMUthRide
 AY22/23 Sem 1 WAD2 Project
+- Group members: Adrianus, Bernice, Keith, Ken Ming, Regine, Zhe Xiang
 
-Step 1: Visiting the website 
+Visiting the website 
+- User is brought to the home page of the webpage on first load. This is also the landing page. 
+- User is not logged in yet. Click on the login tab in the navbar to navigate to the Registration / Login page
 
-On first load you will be brought to the home page of our app. However, at this juncture, you will not be logged in. Click on the log in tab in the nav bar which will lead you to the registration/log in page
+Login and Registration
+- Register for an account with any username and password, as long as the username is unique. Should there be an error in the input of the registration fields, appropriate error messages will be shown. 
+- Email needs to include "smu.edu.sg" as all users on SMUth Ride should have registered SMU email accounts.
+- Should you want to use an existing user in the database, please use the following credentials: 
+    - Username: bernice 
+    - Password: 12345678
+- The login page has validation for username and password and will warn the user if incorrect inputs were supplied
 
-Step 2: Login and Registration
-- Register for an account with any username and password, as long as the username is unique. The system will tell you if there are already users in the database with the same username
-- Email needs to include "smu.edu.sg"
-- Should you want to use an existing user in the database, use XXXXX
-- Login will have validation for username and password and will warn the user if an incorrect input was supplied
-
-Step 3: Home Page
+Home Page
 - Landing page for the app 
-- From the home page, you can access SMUthRides multiple functions, namely "Rides", "Offers", "Chat" and "Profile"
+- From the home page, you can access SMUth Ride's functions from the navbar, namely "Rides", "Offers", "Chat" and "Profile"
 
-Step 4: Rides Listing
-- From the home page, by clicking into the "Rides" tab, you will be brought to a listing of rides
-- Firstly, decide whether you are looking for a ride offered by other users, or whether you want to offer a ride yourself 
-- If you 
+Rides Listing
+- Clicking into the "Rides" tab, will bring the users to a listing of all the rides available 
+- User should decide if he is looking for a ride offered by other users, or if he wants to offer a ride himself  
+- Looking for a ride offered by others 
+    - Use the search bar to search for rides within a specific neighbourhood 
+    - Hover over any of the card's neighbourhood and a pop-up detailing the full address will appear 
+    - Click into any of the rides to know more details about it
+    - User is brought to the ride details page, where user can see the following items of the ride: 
+        - Google Maps visualisation of the location 
+        - Driver's details (clicking into this will redirect user to the driver profile) 
+        - Address
+        - Price
+        - Capacity available
+        - Date / time 
+    - If user is interested in the ride, user should click into the "Chat for more" button, where he will be redirected to the chat page, and an automatic message detailing the rides details will be sent to the driver
+    - If ride has already expired, or has reached its maximum capacity, the chat for more button will be disabled 
+    - If user is seeing his own ride
+        - The "Chat for more" button will change to a "My offers" button, which will redirect users to the Offers page when clicked 
+        - If there are confirmed riders for that particular ride, the riders' name, username, gender will be displayed. A corresponding trash can icon also allows the user (i.e. the driver) to remove any riders from the ride. 
+- Offer a ride himself 
+    - Click into the plus sign near the top right corner of the page 
+    - User is brought to the create ride page, where user is required to key in the necessary information to offer a ride 
+    - Specific instructions on each of the field is documented in chronological order as below: 
+        - User can click on the "Switch directions!" button to decide if he want to pick up or drop off from SMU 
+        - After keying in the SMU location and the pick up / drop off location, user should click on "Find route!" which will trigger the Google Map to visualise the path taken by car 
+        - After Google Maps have calculated and visualised the route, an "i" icon will appear, which when hovered / click will display more information about the ride to the user 
+        - User would key in the cost that he is roughly expecting, though this can be further negotiated in the chat 
+        - User can also key in the maximum seat capacity based on his car size and comfort level  
+        - User can set a date / time based on his trip schedule, though he is unable to set a date / time that is already in the past 
+    - For any invalid input, error messages will appear in the respective fields 
 
-
-Rides 
-- A listing of all the rides that you can take to and from SMU 
-- Click into any one of the listing to know more details about the specific ride 
-    - Click chat for more to further negotiate and have a conversation with your SMU driver
-- Click into the plus sign to offer a ride
-
-Offers 
+Offers page 
+- The rides which are related to the user will be shown in this page 
+- The rides are preliminarily filtered based on upcoming or past rides, in the respective "Upcoming" and "Past" tabs 
+- The rides are then filtered based on whether the user is a driver or a rider
+- Rides where user is a driver 
+    - The rides are shown in a table
+    - When user hover over the user-input location (i.e. the location that is not SMU), they are able to see the full address of the location 
+    - When user hover over the "Filled seats" column, user is able to see the usernames of those who are riding on that ride 
+    - Upon clicking the row, the user is redirected to the rides details page where he can view the specific details of his ride 
+- Rides where user is a rider 
+    - The rides are shown in individual cards, similarly to how it is shown in the rides listing page
+    - The card operates similarly to the cards in the rides listing page as well 
 
 Chat
-- Chat with anyone who you have interacted with before 
-- Make offer for rides which you would like to offer (as a driver), or ride on (as a rider)
+- User can come into the chat from the "Chat" tab in the navbar, or from the "Chat for more" button in the ride details page 
+- User can chat with anyone who he has interacted with previously 
+- User can also click into the user particulars at the top of the chat to be redirected to the user's profile page 
+- For any chat, user can make offer with the other party via the "Make offer" button on the top right corner of the chat view 
+
+Make offer 
+- When user choose to make offer, he would first have to select the driver. This is because both parties may be SMUth Drivers, and both parties are allowed to make offer for any valid rides. 
+- Subsequently, rides that were created by the selected driver will be populated as options in the Rides dropdown field. User should choose the ride which he is interested in making an offer for. 
+- User can then select a price which he would want to pay / receive for that particular ride. The price which the driver has originally set is the default value of the price. 
+- User is unable to confirm the offer until user fills in all the fields with valid input 
 
 Profile
-- Edit your profile to show your personality 
-- Change the GET parameter to see other users' profiles! 
+- The profile page will allow the user to showcase any quirky character traits which they may have! 
+- After clicking the "Edit profile" button, users are able to edit their profile to show their personality via the following fields:
+    - Profile picture  
+    - Full name 
+    - Degree 
+    - Year 
+    - Age 
+    - Gender 
+    - MBTI 
+    - About me (bio)
+    - CCAs 
+    - Social media accounts (LinkedIn, Facebook, Instagram)
+- User is also able to logout after clicking the "Logout" button
+- Users are able to search other user's profile page if they get the GET parameters accordingly 
