@@ -25,7 +25,8 @@ const form_alerts = Vue.createApp({
             formatted_address : "",
             allowable_date: true,
             allowable_time : true,
-            testing_time : true
+            testing_time : true,
+            cost: "initial"
         }
     },
     methods:{

@@ -410,11 +410,39 @@ const chat_left = Vue.createApp({
                                         }
                                         else if(Number(ride_day) == current_day){
                                             // ok
-                                            console.log("HI")
-                                            let result = this.to_from(to_from,ride)
-                                            let final_output = [result, ride_id]
-                                            this.relevant_rides.push(final_output)
+                                            // console.log("HI")
+                                            // let result = this.to_from(to_from,ride)
+                                            // let final_output = [result, ride_id]
+                                            // this.relevant_rides.push(final_output)
                                             // this.offer_price = ride.cost
+                                            // check time now
+                                            let ride_time = ride.time
+                                            let time_now = new Date().toLocaleTimeString('en-GB')
+                                            console.log(time_now)
+                                            let time_hour = parseInt(time_now.split(":")[0])
+                                            let time_minute = parseInt(time_now.split(":")[1])
+                                            // console.log(time_hour)
+                                            // console.log(time_minute)
+                                            console.log(ride_time.split(":"))
+                                            let ride_hour = parseInt(ride_time.split(":")[0])
+                                            let ride_minute = parseInt(ride_time.split(":")[1])
+                                            // console.log(ride_hour)
+                                            // console.log(ride_minute)
+                                            if(ride_hour > time_hour){
+                                                let result = this.to_from(to_from,ride)
+                                                let final_output = [result, ride_id]
+                                                this.relevant_rides.push(final_output)
+                                            }
+                                            else if(ride_hour == time_hour){
+                                                if(ride_minute >= time_minute){
+
+                                                    let result = this.to_from(to_from,ride)
+                                                    let final_output = [result, ride_id]
+                                                    this.relevant_rides.push(final_output)
+
+                                                }
+                                            }
+
                                         }
                                     }
                                 }
