@@ -326,8 +326,8 @@ button {
 }
 
 @media only screen and (max-width: 414px) {
-  .popup .popuptext {
-      width: 200px;
+  #no_chat {
+      display: none;
       }
   }
 
