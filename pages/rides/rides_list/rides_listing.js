@@ -118,7 +118,7 @@ const listings = Vue.createApp({
 
         onValue(rides, (snapshot) => {
             this.listings = snapshot.val();
-            this.listings = this.listings.filter(x => this.expired_check(x.date, x.time)).sort((a, b) => ((a.date > b.date)|| (a.date == b.date && a.time >b.time)) ? 1 :  -1)
+            // this.listings = this.listings.filter(x => this.expired_check(x.date, x.time)).sort((a, b) => ((a.date > b.date)|| (a.date == b.date && a.time >b.time)) ? 1 :  -1)
 
 
             this.check_and_populate()
