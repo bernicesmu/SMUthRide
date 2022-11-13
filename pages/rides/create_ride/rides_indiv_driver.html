@@ -1064,10 +1064,20 @@
                 class="bottom_text-input cost-input"
                 oninput="cost_click(); validity.valid||(value='');"
                 required
+                v-model="cost"
             />
             <span class="highlight"></span>
             <label for="inputMoney" class="bottom_text-label">Cost per person</label>
+            <span
+                class="date_alert text-danger"
+                role="alert"
+                v-if="cost == '' && cost != 'initial' || cost == 0"
+            >
+                Cost per person should not be empty or $0 *
+        </span>
+        
         </div>
+        
         <div class="group mx-auto">
             <input
                 type="number"
