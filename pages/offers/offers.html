@@ -202,9 +202,9 @@
             ></div>
         </div>
 
-        <div id="populate_listings" style="margin-top: 15px;">
+        <div id="populate_listings" class="mx-auto" style="margin-top: 15px;">
 
-            <div id="top_row sticky" class="my-3" style="text-align: center; background-color: #e3f1ef;margin-top:15px">
+            <div id="top_row" class="my-3 sticky" style="text-align: center; background-color: #e3f1ef;margin-top:15px">
                         <h1 class="">Offers</h1>
             </div>
 
@@ -217,13 +217,13 @@
                 </li>
             </ul>
             <div class="tab-content col-11 col-md-10 mx-auto" id="myTabContent" style="margin-top: 15px;">
-                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0" style="margin-top: 15px;">
-                    <div v-if="current_drives.length>0" style="margin-top: 15px;">
+                <div class="tab-pane fade show active mx-auto" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0" style="margin-top: 15px;">
+                    <div v-if="current_drives.length>0" style="margin-top: 15px">
                         <drive :list="current_drives"></drive>
                     </div>
-                    <div v-else-if="current_drives.length==0" style="margin-top: 15px;">
+                    <div v-else-if="current_drives.length==0" class="mx-auto" style="margin-top: 15px;">
                         <h4>My upcoming drives</h4>
-                        <div class="no-drive" style="margin-top: 15px;">
+                        <div class="no-drive mx-auto" style="margin-top: 15px;">
                             <img src="steering-wheel.png">
                             <h5>No scheduled drives </h5>
                             <button class="btn btn-offer" onclick="location.href='../rides/create_ride/rides_indiv_driver.html'" style="margin-top: 10px;"> 
@@ -235,9 +235,9 @@
                     <div v-if="current_rides.length>0" style="margin-top: 15px;">
                         <ride :list="current_rides" :users="users" :past_present="present"></ride>
                     </div>
-                    <div v-else-if="current_rides.length==0" style="margin-top: 15px;">
+                    <div v-else-if="current_rides.length==0" class="mx-auto" style="margin-top: 15px;">
                         <h4>My upcoming rides</h4>
-                        <div class="no-ride" style="margin-top: 15px;">
+                        <div class="no-ride mx-auto" style="margin-top: 15px;">
                             <img src="horse-car.png">
                             <h5>No scheduled rides</h5>
                             <button class="btn btn-find" onclick="location.href='../rides/rides_list/rides_listing.html'" style="margin-top: 10px;"> 
@@ -248,13 +248,13 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0" style="margin-top: 15px;">
-                    <div v-if="expired_drives.length>0" style="margin-top: 15px;">
+                <div class="tab-pane fade mx-auto" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0" style="margin-top: 15px;">
+                    <div v-if="expired_drives.length>0" style="margin-top: 15px; margin-left: 0">
                         <drive :list="expired_drives"></drive>
                     </div>
-                    <div v-else style="margin-top: 15px;">
+                    <div v-else style="margin-top: 15px" class="mx-auto">
                         <h4>My past drives</h4>
-                        <div class="no-drive" style="margin-top: 15px;">
+                        <div class="no-drive mx-auto" class="mx-auto" style="margin-top: 15px;">
                             <img src="steering-wheel.png">
                             <h5>No driving history </h5>
                             <button class="btn btn-offer" onclick="location.href='../rides/create_ride/rides_indiv_driver.html'" style="margin-top: 10px;"> 
@@ -262,12 +262,12 @@
                             </button>
                         </div>
                     </div>
-                    <div v-if="expired_rides.length>0" style="margin-top: 15px;">
+                    <div v-if="expired_rides.length>0" class="mx-auto" style="margin-top: 15px;">
                         <ride :list="expired_rides" :users="users", :past_present="expired"></ride>
                     </div>
-                    <div v-else style="margin-top: 15px;">
+                    <div v-else class="mx-auto" style="margin-top: 15px;">
                         <h4>My past rides</h4>
-                        <div class="no-ride" style="margin-top: 15px;">
+                        <div class="no-ride mx-auto" style="margin-top: 15px;">
                             <img src="horse-car.png">
                             <h5>No riding history</h5>
                             <button class="btn btn-find" onclick="location.href='../rides/rides_list/rides_listing.html'" style="margin-top: 10px;"> 

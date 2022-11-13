@@ -139,8 +139,8 @@ listings.component('drive', {
       <div class="col mx-auto mt-2 text-start " >
 
       <h4>My upcoming drives</h4>
-      <div class="overflow-md-hidden">
-      <table class="table text-center mx-3" >
+      <div class="overflow-md-hidden mx-auto">
+      <table class="table text-center mx-auto rounded" >
         <thead>
         <tr>
           <th scope="col">Date</th>
@@ -294,7 +294,7 @@ listings.component('ride', {
     // `,
     template: `
     <div class="mx-auto mt-2 text-start">
-            <div class="d-flex justify-content-between" style="">
+            <div class="d-flex justify-content-between">
 
                 <div class="py-auto sticky" v-if="past_present == 'present'">
                     <h4 class="my-auto">My upcoming rides</h4>
