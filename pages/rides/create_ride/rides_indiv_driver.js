@@ -238,7 +238,7 @@ form_alerts.component('time-input', {
                     
                     v-model='time_minute'
                     @change='check_time()'
-                    @change="$emit('checking_time')"
+                    @change="$emit('checking_time',date,time_hour,time_minute,time_ampm)"
                 >
                     <option value='00'>00</option>
                     <option value='05'>05</option>
@@ -261,7 +261,7 @@ form_alerts.component('time-input', {
                     
                     v-model='time_ampm'
                     @change='check_time()'
-                    @change="$emit('checking_time')"
+                    @change="$emit('checking_time',date,time_hour,time_minute,time_ampm)"
                 >
                     <option value="am">AM</option>
                     <option value="pm">PM</option>
