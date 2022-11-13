@@ -116,6 +116,10 @@
                                     v-model="password"
                                     required
                                 />
+                                <i
+                                toggle="#pwd-field"
+                                class="fa fa-fw fa-eye toggle-password" @click= "eyeicon_toggle('.toggle-password', '#pwd-field')"
+                                ></i>
                                 <span></span>
                                 <label> Password </label>
                                 <text class="alert2 text-danger" v-if="errorMessages.password.length>0"
@@ -132,6 +136,10 @@
                                     v-model="cfmpassword"
                                     required
                                 />
+                                <i
+                                toggle="#cfm-pwd-field"
+                                class="fa fa-fw fa-eye cfm-toggle-password" @click= "eyeicon_toggle('.cfm-toggle-password', '#cfm-pwd-field')"
+                                ></i>
                                 <span></span>
                                 <label> Confirm Password </label>
                                 <text class="alert2 text-danger" v-if="errorMessages.cfmpassword.length>0"
