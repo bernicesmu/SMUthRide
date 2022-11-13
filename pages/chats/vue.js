@@ -212,7 +212,6 @@ const chat_left = Vue.createApp({
                     username: this.user,
                     type : "message",
                     accepted : "message",
-                    offer_price : "",
                     message_time : this.message_time,
                     mid : this.new_mid
                   })
@@ -277,7 +276,6 @@ const chat_left = Vue.createApp({
                 username: this.user,
                 type : "offer",
                 accepted : "pending",
-                offer_price : this.offer_price,
                 message_time : Date.now(),
                 selected_ride : this.selected_ride,
                 mid : this.new_mid
@@ -496,7 +494,7 @@ const chat_left = Vue.createApp({
             }
             return text
         },
-        accept(selected_ride,you, other_user,length,mid,driver,offer_price){
+        accept(selected_ride,you, other_user,length,mid,driver){
             console.log(length + "YYY")
             const db = getDatabase()
             // set(ref(db, `rides/${selected_ride}/users_offered/${length}`), {
@@ -512,13 +510,11 @@ const chat_left = Vue.createApp({
                to_add = you
            }
            console.log(to_add)
-           // WE NEED THE OFFER PRICE
-           let final = [to_add,offer_price]
 
 
             const updates = {};
             updates[`messages/${this.current_chatid}/${mid}/accepted`] = "accepted"
-            updates[`rides/${selected_ride}/users_offered/${length}`] = final
+            updates[`rides/${selected_ride}/users_offered/${length}`] = to_add
             return update(ref(db), updates)
         },
         decline(mid) { 
