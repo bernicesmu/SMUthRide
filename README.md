@@ -1,6 +1,6 @@
 # SMUthRide
 AY22/23 Sem 1 WAD2 Project
-Preferrably to use on Macbook with Google Chrome
+Preferrably to use a Macbook with Google Chrome
 - Group members: Adrianus, Bernice, Keith, Ken Ming, Regine, Zhe Xiang
 
 Visiting the website 
