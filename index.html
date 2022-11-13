@@ -42,6 +42,11 @@
               <span class="word red">for SMU</span>
             </p>
           </div>
+          <div id="app">
+            <button class="btn btn-login" v-if="!loggedin"> 
+              Login here
+            </button>
+          </div>
 
           <div class="skyline">
           </div>
@@ -103,6 +108,7 @@
         </script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="./home.js"></script>
+        <script src="./home_vue.js"></script>
         <script type="module" src="navbar/navbar.js"></script>
     </body>
 </html>
