@@ -33,7 +33,7 @@
                         <h2 class="title">Login</h2>
                         <div class="txt_field">
                             <i class="fa fa-user" aria-hidden="true"></i>
-                            <input type="text" name="useroremail"  />
+                            <input type="text" name="useroremail" required />
                             <span></span>
                             <label> Username </label>
                         </div>
@@ -43,7 +43,7 @@
                                 type="password"
                                 name="password"
                                 id="login-pwd-field"
-
+                                required
                             />
                             <i
                                 toggle="#login-pwd-field"
@@ -74,8 +74,8 @@
                                 <input
                                     type="text"
                                     name="username"
-
                                     v-model="username"
+                                    required
                                 />
                                 <span></span>
                                 <label> Username </label>
@@ -86,7 +86,7 @@
                             </div>
                             <div class="txt_field">
                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                <input type="text" name="name"  v-model="display_name"/>
+                                <input type="text" name="name"  v-model="display_name" required/>
                                 <span></span>
                                 <label> Full Name </label>
                                 <text class="alert text-danger" v-if="errorMessages.display_name.length>0"
@@ -99,7 +99,7 @@
                                     class="fa fa-envelope"
                                     aria-hidden="true"
                                 ></i>
-                                <input type="text" name="email"  v-model="email"/>
+                                <input type="text" name="email"  v-model="email" required/>
                                 <span></span>
                                 <label> Email </label>
                                 <text class="alert2 text-danger" v-if="errorMessages.email.length>0"
@@ -114,7 +114,7 @@
                                     name="pw"
                                     id="pwd-field"
                                     v-model="password"
-
+                                    required
                                 />
                                 <span></span>
                                 <label> Password </label>
@@ -130,7 +130,7 @@
                                     name="cfmpassword"
                                     id="cfm-pwd-field"
                                     v-model="cfmpassword"
-
+                                    required
                                 />
                                 <span></span>
                                 <label> Confirm Password </label>
@@ -144,7 +144,7 @@
                                     class="fa fa-graduation-cap"
                                     aria-hidden="true"
                                 ></i>
-                                <select name="degree" id="degree" v-model="degree" >
+                                <select name="degree" id="degree" v-model="degree" required >
                                     <option
                                         disabled
                                         selected
@@ -167,7 +167,7 @@
                             </div>
                             <div class="txt_field">
                                 <i class="fa fa-child" aria-hidden="true"></i>
-                                <select name="year" id="year" v-model="year" >
+                                <select name="year" id="year" v-model="year" required>
                                     <option
                                         disabled
                                         selected
@@ -196,6 +196,7 @@
                                     v-model="age"
                                     min = "0"
                                     max = "99"
+                                    required
                                 />
                                 <span></span>
                                 <label> Age </label>
@@ -209,7 +210,7 @@
                                     class="fa fa-transgender"
                                     aria-hidden="true"
                                 ></i>
-                                <select name="gender" id="gender" v-model="gender" >
+                                <select name="gender" id="gender" v-model="gender" required>
                                     <option
                                         disabled
                                         selected
