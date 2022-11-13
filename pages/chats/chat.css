@@ -304,6 +304,33 @@ button {
   padding-right: 0;
 }
 
+#empty_chat {
+  background-color: #FFF;
+  min-height: 60vh;
+  max-height: 70vh;
+  border-radius: 20px;
+}
+
+#cabmissing {
+  width: 127px;;
+}
+
+.button-ride {
+  background-color: #bedad6;
+  color: white;
+}
+
+.button-ride:hover {
+  background-color: #bedad6;
+  color: black;
+}
+
+@media only screen and (max-width: 414px) {
+  .popup .popuptext {
+      width: 200px;
+      }
+  }
+
 .chat-label {
   padding-top: 12px;
   color: #FFF;
