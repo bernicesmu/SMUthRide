@@ -247,10 +247,14 @@
                         <!-- <i class="fa-solid fa-arrow-left fa-2xl d-block d-md-none" style="margin-top: 20px;" @click="swap"></i> -->
                       <!-- </button> -->
                       
-                      <div id="photo" v-if="image_url != ''" style="min-height: 60px"><img :src="image_url" class="img-fluid rounded-circle"
-                        style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> </div>
-                      <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
-                    </div>
+                      <a :href="profile_url" class="profile-url-design d-flex">
+                        <div id="photo" v-if="image_url != ''" style="min-height: 60px">
+                          <img :src="image_url" class="img-fluid rounded-circle"
+                          style="object-fit:cover;height: 50px; width: 50px; object-position: 50% 50%"> 
+                        </div>
+                        <h3 id="other-user" class="font-weight-bolder">{{ other_user }}</h3>
+                      </div>
+                      </a>
                     <div>
                       <button
                       type="button"
