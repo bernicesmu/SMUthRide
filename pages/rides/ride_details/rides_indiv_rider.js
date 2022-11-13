@@ -510,13 +510,12 @@ app.component("riders-table", {
     methods: { 
         driver_is_user() { 
             this.riders_list()
-            console.log(this.list_riders)
             if (this.driver == this.user) { 
-                console.log("true")
+
                 return true
             }
             else { 
-                console.log("false")
+
                 return false
             }
         },

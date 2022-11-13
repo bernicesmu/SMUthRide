@@ -100,7 +100,6 @@
         #info_hover {
             /* display: block; */
             justify-content: right;
-            position: relative;
             display: inline-block;
         }
 
@@ -213,7 +212,8 @@
             padding-top: 2px;
         }
 
-        .map-buttons { 
+        .map-buttons {
+            position: relative;
             display: inline-flex !important;
             width: 60%;
         }
@@ -328,7 +328,7 @@
             font-size: 1rem;
             font-weight: normal;
             position: absolute;
-            opacity: 0.5;
+            opacity: 0.7;
             left: 0px;
             bottom: -22px;
         }
@@ -557,10 +557,12 @@
             text-align: left;
         }
         .location_alert {
-
+            opacity: 0.7;
             position: absolute;
-            left: 0px;
+            bottom: 0;
+            left: 0;
         }
+
         .change_date {
             position: absolute;
             bottom: -20px;
@@ -687,7 +689,7 @@
 
         <!--    </div>-->
         <div class="d-flex row my-2 mb-4 justify-content-evenly inputs-div">
-            <div class="col-xs-12 col-md-5 d-block justify-content-center py-4 smu-location mx-auto" style="position: relative; width: 20%; margin-right: 0px;">
+            <div class="col-xs-12 col-md-5 py-4 d-block justify-content-center" style="position: relative;  margin-right: 0px;">
                 <label for="smubuildings" id="SMU_label">School</label>
                 <select
                     name="smubuildings"
@@ -742,26 +744,28 @@
             </div>
 
             <div class="col-xs-12 col-md-5 py-4 d-block justify-content-center" style="position: relative;  margin-right: 0px;">
-                <div class="d-block-inline justify-content-center">
+                <div class="d-block-inline justify-content-center" >
                     <input type="text" class="location-input text-input" name="location-input" id="location_field" onclick="frequency_click()" required="false" v-model="location_input"/>
                     <span class="highlight"></span>
                     <label class="text-label" id="address-text"
                         >Drop off address</label
                     >
                     <label
-                        class="location_alert text-danger"
-                        role="alert"
-                        v-if="location_alert"
-                    >
-                        Please input an address
-                    </label>
+                                                class="location_alert text-danger"
+                                                id="loc_alert"
+                                                role="alert"
+                                                v-if="location_alert"
+                                        >
+                                            Please input an address
+                                        </label>
                 </div>
+
             </div>
         </div>
 
     <div class="text-center container">
-        <div class="row d-flex justify-content-center" style="position: relative;">
-            <div class="w-50 map-buttons mb-4 mx-auto text-center d-block-inline justify-content-center">
+        <div class="row d-flex justify-content-center " style="position: relative;">
+            <div class="w-50 map-buttons mt-3 mb-4 mx-auto text-center d-block-inline justify-content-center">
                 <button
                     type="button"
                     class="btn button w-50 d-block text-center getRoute-buttons justify-content-center mx-2"
@@ -779,7 +783,8 @@
                     class="btn button w-50 d-block text-center getRoute-buttons justify-content-center mx-2"
                     onclick="calcRoute()"
                 >Find route!</button>
-                <div id="info_hover" class="my-auto popup"></div>
+                <div id="info_hover" class="my-auto popup"
+                     ></div>
             </div>
             <!-- <div id="info_hover"></div> -->
         </div>
@@ -963,7 +968,7 @@
                                 console.log(is_sg)
                                 if (!is_sg){
                                     document.getElementById('rides').setAttribute('disabled', true)
-                                    return info_hover.innerHTML = `<div class='wrong_loc text-danger'>Invalid Location</div>`;
+                                    return info_hover.innerHTML = `<div class='wrong_loc text-danger' >Invalid Location</div>`;
                                 }
 
                                 console.log(formatted_address)
@@ -1097,7 +1102,7 @@
                             map.setCenter(coords[0], coords[1]);
 
                             // error message for invalid address
-                            info_hover.innerHTML = `<div class='wrong_loc text-danger mx-2' style='opacity: 0.5'>Invalid location</div>`;
+                            info_hover.innerHTML = `<div class='wrong_loc text-danger mx-2 text-nowrap' style='opacity: 0.8'>Invalid location</div>`;
                         }
                     }
                 );
