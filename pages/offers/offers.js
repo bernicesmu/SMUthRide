@@ -60,19 +60,22 @@ const listings = Vue.createApp({
 
             for (let value of Object.values(db_listings)){
                 console.log(value)
-                let users_offered = value.users_offered
+                // let users_offered = value.users_offered
                 if (this.expired_check(value.date, value.time)){
                     //current
                     if (value.driver_username === this.user){
                         this.current_drives.push(value)
                     } else{
                         let users_offered = value.users_offered
-                        for(user of users_offered){
-                            console.log(user)
-                            if(user[0] == this.user){
-                                this.current_rides.push(value)
-                            }
+                        if(users_offered.includes(this.user)){
+                            this.current_rides.push(value)
                         }
+                        // for(user of users_offered){
+                        //     console.log(user)
+                        //     if(user[0] == this.user){
+                        //         this.current_rides.push(value)
+                        //     }
+                        // }
                     }
                 } else {
                     //expired
@@ -80,11 +83,14 @@ const listings = Vue.createApp({
                         this.expired_drives.push(value)
                     } else{
                         let users_offered = value.users_offered
-                        for(var user of users_offered){
-                            console.log(user)
-                            if(user[0] == this.user){
-                                this.expired_rides.push(value)
-                            }
+                        // for(var user of users_offered){
+                        //     console.log(user)
+                        //     if(user[0] == this.user){
+                        //         this.expired_rides.push(value)
+                        //     }
+                        // }
+                        if(users_offered.includes(this.user)){
+                            this.expired_rides.push(value)
                         }
                         
                     }
@@ -283,10 +289,19 @@ listings.component('ride', {
     // <div v-else class="text-center mt-3"><h4>No rides found </h4> </div>
     // `,
     template: `
-    
+    <div class="mx-auto mt-2 text-start">
+            <div class="d-flex justify-content-between" style="">
+
+                <div class="py-auto sticky">
+                    <h4 class="my-auto">My upcoming rides</h4>
+                </div>
+                
+            </div>
+        </div>
     <div class="d-flex flex-wrap justify-content-center" v-if="display_listings.length>0">
     <div class="card col-sm-6 col-md-4 col-lg-3" v-for="listing in display_listings">
-    <span class="badge badge-pill badge-primary">{{text_transform(listing.smu_to_from)}}</span>
+    <span class="badge badge-pill" v-if="listing.smu_to_from == 'from'" style="background-color:#BFACD3">{{text_transform(listing.smu_to_from)}}</span>
+    <span class="badge badge-pill" v-else style="background-color:#d8c7a3">{{text_transform(listing.smu_to_from)}}</span>
                 <div class="card-body col py-0">
 
                     <a class="stretched-link" v-bind:href="'./../../pages/rides/ride_details/rides_indiv_rider.html?rideid=' + listing.ride_id"></a>
@@ -371,7 +386,7 @@ listings.component('ride', {
 
                         <div class="d-flex my-2">
 
-                            <h1 class="me-auto">\${{get_cost(listing.users_offered)}}</h1>
+                            <h1 class="me-auto">\${{listing.cost}}</h1>
 
                             <h1>{{listing.max_capacity - listing.users_offered.length+ 1}}<i class="bi bi-person-fill"></i></h1>
 
@@ -388,20 +403,20 @@ listings.component('ride', {
     `,
 
     methods: {
-        get_cost(users_offered){
-            for(var user of users_offered){
-                if(user != ""){
-                    if(user[0] == localStorage.getItem("username_x")){
-                        return user[1]
-                    }
+        // get_cost(users_offered){
+        //     for(var user of users_offered){
+        //         if(user != ""){
+        //             if(user[0] == localStorage.getItem("username_x")){
+        //                 return user[1]
+        //             }
 
-                }
-                // let details = users_offered[user]
-                // if(details[0] == localStorage.getItem("username_x")){
-                //     return details[1]
-                // }
-            }
-        },
+        //         }
+        //         // let details = users_offered[user]
+        //         // if(details[0] == localStorage.getItem("username_x")){
+        //         //     return details[1]
+        //         // }
+        //     }
+        // },
         text_transform(text){
             let first_letter = text.charAt(0)
             first_letter = first_letter.toUpperCase()
