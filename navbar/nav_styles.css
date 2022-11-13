@@ -49,7 +49,8 @@
     font-size: 1.2rem !important;
     font-weight: 700 !important;
     min-width: 6rem !important;
-    text-align: end !important;
+    text-align: end; 
+    /* i removed the important for text-align end */
 }
 
 .nav-item a:link,

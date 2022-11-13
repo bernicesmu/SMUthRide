@@ -31,6 +31,118 @@ body {
     font-size: 1.5rem;
 } */
 
+#app {
+    position: absolute;
+    top: 43%;
+    left: 5%;
+    z-index: 4;
+}
+
+/* ~~~~~~~ INIT. BTN ~~~~~~~ */
+
+.btn {		
+	position: relative;	
+	padding: 1.4rem 4.2rem;
+	padding-right: 3.1rem;
+	font-size: 1.4rem;
+	color: white;
+	letter-spacing: 1.1rem;
+	text-transform: uppercase;
+	transition: all 500ms cubic-bezier(0.77, 0, 0.175, 1);	
+	cursor: pointer;
+	user-select: none;
+    margin-top: 20px;
+}
+
+.btn h4 {
+    animation: word-effect 2s linear infinite;
+    color: transparent;
+    font-weight: 700;
+}
+
+@keyframes word-effect {
+    0% {
+        background: #4e7570;
+        -webkit-background-clip: text;
+    }
+    20% {
+        background: #8a6f42;
+        -webkit-background-clip: text;
+    }
+    40% {
+        background: #451f6a;
+        -webkit-background-clip: text;
+    }
+    60% {
+        background: #894949;
+        -webkit-background-clip: text;
+    }
+    80% {
+        background: #8a6f42 ;
+        -webkit-background-clip: text;
+    }
+    100% {
+        background: #4e7570;
+        -webkit-background-clip: text;
+    }
+}
+
+/* #4e7570 #8a6f42 #451f6a #894949 #8a6f42 */
+
+.btn:before, .btn:after {
+	content: '';
+	position: absolute;	
+	transition: inherit;
+	z-index: -1;
+}
+
+.btn:hover {
+	color: #4e7570;
+	transition-delay: .5s;
+}
+
+.btn:hover:before {
+	transition-delay: 0s;
+}
+
+.btn:hover:after {
+	background: #fff;
+	transition-delay: .35s;
+}
+
+/* From center */
+
+.from-center:before {
+	top: 0;
+	left: 50%;
+	height: 100%;
+	width: 0;
+	border: 1px solid #fff;
+	border-left: 0;
+	border-right: 0;
+}
+
+.from-center:after {
+	bottom: 0;
+	left: 0;
+	height: 0;
+	width: 100%;
+	background: white;
+}
+
+.from-center:hover:before {
+	left: 0;
+	width: 100%;
+}
+
+.from-center:hover:after {
+	top: 0;
+	height: 100%;
+}
+
+
+
+
 .skyline {
     /* background: url(./homepage_images/skyline_edit.png); */
     background-color: #4e7570;
@@ -551,6 +663,11 @@ p {
 }
 
 @media (max-width: 570px) {
+
+    .btn {
+        margin-top: 20px ;
+        margin-left: 60px;
+    }
     .text {
         display: flex;
         flex-direction: column;
