@@ -28,7 +28,8 @@ const chat_left = Vue.createApp({
             counter : 0,
             selected_room: "",
             last_room : "",
-            position : "absolute"
+            position : "absolute",
+            profile_url: "",
          
         }
     },
@@ -164,6 +165,7 @@ const chat_left = Vue.createApp({
             for(var user of users){
                 if(user != this.user){
                     this.other_user = user
+                    this.profile_url = `../profile/profile.html?user=${this.other_user}`
                     this.get_userimage()
                 }
             }
