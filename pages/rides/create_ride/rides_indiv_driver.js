@@ -267,7 +267,7 @@ form_alerts.component('time-input', {
                         role="alert"
                         
                         v-show="correct_time == false && allowable_date == false">
-                    You can't time travel! Please choose a later timing *
+                        <br>You can't time travel! Please choose a later timing *
                 </span>
                 </div>`,
 
