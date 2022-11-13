@@ -452,6 +452,8 @@ document.getElementById('rides').addEventListener('click',event => {
     sleep(0.25 * 1000)
     localStorage.setItem('ridecreated', 'yes')
     window.location.href = "./../rides_list/rides_listing.html"
+
+    
 })
 
 find_rid()
