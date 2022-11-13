@@ -130,11 +130,12 @@ form.register-form {
 
 form .txt_field{
     position: relative;
-    border-bottom: 2px solid #4e7570 ;
+    border-bottom: 2px solid #987d4d ;
     margin: 20px 0;
     width: 100%;
     max-width: 380px;
 }
+
 .txt_field input, .txt_field select, .txt_field option{
     width: 100%;
     max-width: 380px;
@@ -146,7 +147,6 @@ form .txt_field{
     outline: none;
     padding-left: 30px;
 }
-
 
 .txt_field label{
     position: absolute;
