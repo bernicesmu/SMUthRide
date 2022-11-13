@@ -323,6 +323,43 @@ p {
         font-size: 3rem;
         top: 22%;
     }
+    .skyline {
+        /* background: url(./homepage_images/skyline_edit.png); */
+        background-color: #4e7570;
+        -webkit-mask-image: url(./homepage_images/skyline_edit.png);
+        mask-image: url(./homepage_images/skyline_edit.png);
+        -webkit-mask-size: 180rem 400px;
+        background-size: 180rem;
+        background-position: left bottom;
+        width: 500%;
+        height: 400px;
+        position: absolute;
+        bottom: 0;
+        background-repeat: repeat-x;
+        animation: moveRight 27s linear infinite;
+    }
+
+    @keyframes moveRight {
+        0% {
+            background-color: #4e7570;
+        }
+        20% {
+            background-color: #8a6f42;
+        }
+        40% {
+            background-color: #451f6a;
+        }
+        60% {
+            background-color: #894949;
+        }
+        80% {
+            background-color: #8a6f42;
+        }
+        100% {
+            background-color: #4e7570;
+            transform: translateX(-2875px);
+        }
+    }
 }
 
 .canvas {
