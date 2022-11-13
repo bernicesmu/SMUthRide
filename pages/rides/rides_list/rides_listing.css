@@ -61,3 +61,14 @@ input[type=text]:focus {
     z-index: 5;
     color: #4e7570;
 }
+#dateInput{
+    background: none;
+    border: none;
+    border-bottom: #4e7570 1px solid;
+    height: 30px;
+    width: 120px;
+    color: #4e7570;
+}
+#dateInput::-webkit-calendar-picker-indicator {
+    color: #4e7570;
+}
