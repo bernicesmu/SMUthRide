@@ -121,13 +121,17 @@ a.personality:active {
     margin: 0.5rem 0 0.5rem;
 }
 
+.socials-ul label {
+    width: 210px;
+}
+
 .socials-input {
     width: 40%;
     min-width: 130px;
 }
 
 a:link {
-    color: #451f6a;
+    color: #8a6f42;
     text-decoration: none;
 }
 
@@ -196,12 +200,12 @@ a:hover {
     padding: 0.2rem 1rem;
     margin: 5px;
     list-style: none;
-    background-color: #451f6a;
-    color: #bfacd3;
+    background-color: #8a6f42;
+    color: #d8c7a3;
 }
 
 .profile-fab {
-    color: #451f6a;
+    color: #8a6f42;
     margin-right: 1rem;
 }
 
@@ -315,3 +319,8 @@ a:hover {
         max-width: 100%;
     }
 }
+/* @media (max-width: 860px) {
+    .socials-input {
+        display: block;
+    }
+} */

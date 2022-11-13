@@ -623,12 +623,28 @@ chat_left.component('offer-button',{
 
     template: `<b>{{ message.username }}</b>: <span v-html='message.message' style="font-weight: normal;"></span><br>
     <div id="acc_dec_buttons" v-if="message_status == 'pending'">
-        <button class="btn btn-accept" v-on:click="$emit('accept',selected_ride, you, other_user,length, message.mid,driver, message.offer_price)">
-            Accept Offer
-        </button>
-        <button class="btn btn-decline" v-on:click="$emit('decline',message.mid)">
-            Decline Offer
-        </button>
+        <div class="row d-flex justify-content-evenly">
+           <div class="col col-md-12 col-lg-6 text-center">
+                <button class="btn btn-accept" v-on:click="$emit('accept',selected_ride, you, other_user,length, message.mid,driver, message.offer_price)">
+                    Accept Offer
+                </button>
+           
+           </div>
+           <div class="col col-md-12 col-lg-6 text-center">
+           <button class="btn btn-decline" v-on:click="$emit('decline',message.mid)">
+                   Decline Offer
+               </button>
+           
+           
+           </div>
+
+                
+           
+            
+        </div>
+
+       
+    
     </div>
     <div v-else class="offer-status" :style="result_status_bg_colour(message_status)"> 
         <span :style="result_status_colour(message_status)">
