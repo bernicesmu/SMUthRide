@@ -71,6 +71,20 @@ main {
     text-align: end;
 }
 
+a.personality:link,
+a.personality:visited {
+    color: #bfacd3;
+    text-decoration: none;
+}
+a.personality:hover {
+    color: #451f6a;
+    text-decoration: none;
+}
+a.personality:active {
+    color: #451f6a;
+    text-decoration: none;
+}
+
 .edit-profile {
     margin: 2rem 1rem 0;
 }
@@ -134,14 +148,16 @@ a:hover {
 
 .card {
     border: none;
+    background-color: #d8c7a3;
 }
 
 .card-title {
     margin-bottom: 1rem;
 }
 
-.card-text {
-    color: #451f6a;
+.card-body h5,
+.card-body p {
+    color: #8a6f42;
 }
 
 .preferences {
@@ -202,13 +218,9 @@ a:hover {
     max-height: 10rem;
 }
 
-
-#profileVue::-webkit-scrollbar
-{
-	display: none;
+#profileVue::-webkit-scrollbar {
+    display: none;
 }
-
-
 
 .ccaDiv {
     display: flex;

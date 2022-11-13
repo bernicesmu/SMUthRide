@@ -118,9 +118,10 @@
                 width: 36px;
                 border-radius: 50%;
             }
+
             #top_row {
                 width: 100%;
-                height: 170px;
+                height: 203px;
                 margin-bottom: 50px;
                 position: fixed;
                 z-index: 3;
@@ -128,6 +129,11 @@
                 /* top: 17vh; */
                 top: 97px;
             }
+
+            .all_listings{
+                margin-top: 300px;
+            }
+
             @media only screen and (max-width: 768px) {
                 .card {
                     border: none;
@@ -139,13 +145,6 @@
                     max-height: 300px;
                     transition: all 0.2s ease-in-out;
                 }
-            }
-            #top_row{
-                width:100%;
-                position: fixed;
-                z-index: 3;
-                background-color:#e3f1ef;
-                
             }
 
      </style>
@@ -161,7 +160,14 @@
         <div class="alert message" role="alert" >
             <h6 style="margin: 0">Ride Created!</h6>
         </div>
-
+        <a
+                href="./../create_ride/rides_indiv_driver.html"
+                id="add_ride_icon"
+        >
+            <i
+                    class="bi bi-plus-circle-fill d-flex overflow-hidden"
+            ></i>
+        </a>
         <div id="populate_listings" style="position: relative">
             <div
                 class="col px-md-5 p-1 d-flex flex-wrap justify-content-center"
@@ -231,15 +237,17 @@
 
                 <div
                     class="col-4 col-md-3 order-md-3 my-2 lh-lg d-flex flex-wrap justify-content-center"
+
                 >
-                    <a
-                        href="./../create_ride/rides_indiv_driver.html"
-                        id="add_ride_icon"
-                    >
-                        <i
-                            class="bi bi-plus-circle-fill d-flex overflow-hidden"
-                        ></i>
-                    </a>
+                    <input
+                            type="date"
+                            id="dateInput"
+                            ref="dateInput"
+                            style="display: block"
+                            v-model="selected_date"
+
+                    />
+
                 </div>
 
                 <div
@@ -271,7 +279,7 @@
                     </div>
                 </div>
         </div>
-        <div class="" style="margin-top: 17rem;">
+        <div class="all_listings">
             <div class="row g-3">
             <!-- card starts here -->
             <div class="card col-sm-6 col-md-4 col-lg-3" v-for="listing in display_listings">

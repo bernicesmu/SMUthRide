@@ -17,7 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-var locations = ['Mountbatten','Kembangan','Outram Park','Tiong Bahru','Queenstown','Boat Quay', 'Raffles Place', 'Marina', 'Chinatown', 'Tanjong Pagar', 'Alexandra', 'Commonwealth', 'Harbourfront', 'Telok Blangah', 'Buona Vista', 'West Coast', 'Clementi New Town', 'City Hall', 'Clarke Quay', 'Beach Road', 'Bugis', 'Rochor', 'Farrer Park', 'Serangoon', 'Orchard', 'River Valley', 'Tanglin', 'Holland', 'Bukit Timah', 'Newton', 'Novena', 'Balestier', 'Toa Payoh','Lorong Chuan','Marymount', 'Macpherson', 'Potong Pasir', 'Eunos','Yew Tee','Chinese Garden', 'Bartley','Lakeside','Kovan', 'Kranji','Geylang','Bendemeer', 'Paya Lebar','Kaki Bukit', 'East Coast', 'Marine Parade','Jalan Besar', 'Bedok', 'Upper East Coast','Kallang', 'Changi', 'Pasir Ris', 'Tampines', 'Hougang', 'Punggol', 'Sengkang', 'Ang Mo Kio','Botanic Gardens', 'Bishan', 'Boon Keng','Thomson', 'Clementi', 'Upper Bukit Timah', 'Boon Lay', 'Jurong', 'Tuas', 'Dairy Farm', 'Bukit Panjang', 'Choa Chu Kang', 'Lim Chu Kang', 'Tengah', 'Admiralty', 'Woodlands', 'Mandai', 'Upper Thomson', 'Sembawang', 'Yishun', 'Seletar', 'Yio Chu Kang', 'Downtown', 'Simei','Bukit Batok' ]
+var locations = ['Western Water Catchment','Mountbatten','Kembangan','Outram Park','Tiong Bahru','Queenstown','Boat Quay', 'Raffles Place', 'Marina', 'Chinatown', 'Tanjong Pagar', 'Alexandra', 'Commonwealth', 'Harbourfront', 'Telok Blangah', 'Buona Vista', 'West Coast', 'Clementi New Town', 'City Hall', 'Clarke Quay', 'Beach Road', 'Bugis', 'Rochor', 'Farrer Park', 'Serangoon', 'Orchard', 'River Valley', 'Tanglin', 'Holland', 'Bukit Timah', 'Newton', 'Novena', 'Balestier', 'Toa Payoh','Lorong Chuan','Marymount', 'Macpherson', 'Potong Pasir', 'Eunos','Yew Tee','Chinese Garden', 'Bartley','Lakeside','Kovan', 'Kranji','Geylang','Bendemeer', 'Paya Lebar','Kaki Bukit', 'East Coast', 'Marine Parade','Jalan Besar', 'Bedok', 'Upper East Coast','Kallang', 'Changi', 'Pasir Ris', 'Tampines', 'Hougang', 'Punggol', 'Sengkang', 'Ang Mo Kio','Botanic Gardens', 'Bishan', 'Boon Keng','Thomson', 'Clementi', 'Upper Bukit Timah', 'Boon Lay', 'Jurong', 'Tuas', 'Dairy Farm', 'Bukit Panjang', 'Choa Chu Kang', 'Lim Chu Kang', 'Tengah', 'Admiralty', 'Woodlands', 'Mandai', 'Upper Thomson', 'Sembawang', 'Yishun', 'Seletar', 'Yio Chu Kang', 'Downtown', 'Simei','Bukit Batok' ]
 
 const listings = Vue.createApp({
     data() {
@@ -29,7 +29,7 @@ const listings = Vue.createApp({
             search: '',
             results: [],
             possible_locations: locations,
-
+            selected_date: '',
         }
     },
     methods: {
@@ -63,6 +63,13 @@ const listings = Vue.createApp({
             this.to_from = this.to_from === "to" ? "from" : "to";
             this.check_and_populate()
         },
+        time_filter(){
+            this.display_listings = this.display_listings.filter(listing => listing.date == this.selected_date)
+        },
+        search_filter(){
+            this.display_listings = this.display_listings.filter(x =>x.neighbourhood.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+                x.formatted_address.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
+        },
         check_and_populate(){
 
             this.listings = Object.values(this.listings)
@@ -72,12 +79,14 @@ const listings = Vue.createApp({
             } else if (this.to_from === "from"){
                 this.display_listings = this.listings.filter(x => x.smu_to_from.toLowerCase() == "from" &&(x.users_offered.length - x.max_capacity<1) );
             }
+            console.log("filtering")
             if (this.search != ''){
-                this.display_listings = this.display_listings.filter(x => x.smu_to_from == this.to_from &&
-
-                    (x.users_offered.length - x.max_capacity<1) &&
-                    (x.neighbourhood.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-                        x.formatted_address.toLowerCase().indexOf(this.search.toLowerCase()) > -1));
+                console.log("search")
+                this.search_filter()
+            }
+            if (this.selected_date != ""){
+                console.log("time")
+                this.time_filter()
             }
         },
         formatAMPM(date) {
@@ -97,7 +106,7 @@ const listings = Vue.createApp({
             return [day[0],`${day[2]} ${day[1]} ${day[3]}`]
         },
         get_user_name(username){
-            console.log(this.users)
+
             return this.users[username].name
         },
         get_url(username){
@@ -118,7 +127,8 @@ const listings = Vue.createApp({
 
         onValue(rides, (snapshot) => {
             this.listings = snapshot.val();
-            // this.listings = this.listings.filter(x => this.expired_check(x.date, x.time)).sort((a, b) => ((a.date > b.date)|| (a.date == b.date && a.time >b.time)) ? 1 :  -1)
+            this.listings = Object.values(this.listings)
+            this.listings = this.listings.filter(x => this.expired_check(x.date, x.time)).sort((a, b) => ((a.date > b.date)|| (a.date == b.date && a.time >b.time)) ? 1 :  -1)
 
 
             this.check_and_populate()
@@ -136,18 +146,14 @@ const listings = Vue.createApp({
                 document.getElementsByClassName('dropdown')[0].classList.add("dropdown_ani_forward");
             }
         },
+        selected_date(value,oldValue){
+            console.log(value)
+                this.check_and_populate()
+        },
         search:{
             handler(value,oldValue) {
-                if (value !== '') {
 
-                    this.display_listings = this.display_listings.filter(x => x.smu_to_from == this.to_from &&
-
-                        (x.users_offered.length - x.max_capacity<1) &&
-                        (x.neighbourhood.toLowerCase().indexOf(value.toLowerCase()) > -1 ||
-                        x.formatted_address.toLowerCase().indexOf(value.toLowerCase()) > -1));
-                }else if (oldValue !== '' && value === ''){
                     this.check_and_populate()
-                }
             },
             deep: true
         }
