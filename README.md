@@ -23,6 +23,8 @@ Rides Listing
 - User should decide if he is looking for a ride offered by other users, or if he wants to offer a ride himself  
 - Looking for a ride offered by others 
     - Use the search bar to search for rides within a specific neighbourhood 
+    - User can also filter the ride listings by date so that they are able to get the rides that they want at a specific day 
+    - Search bar filtering and date filtering work together. i.e. users can first search locations they want to go to before further filtering down this search result by date of ride
     - Hover over any of the card's neighbourhood and a pop-up detailing the full address will appear 
     - Click into any of the rides to know more details about it
     - User is brought to the ride details page, where user can see the following items of the ride: 
@@ -38,7 +40,7 @@ Rides Listing
         - The "Chat for more" button will change to a "My offers" button, which will redirect users to the Offers page when clicked 
         - If there are confirmed riders for that particular ride, the riders' name, username, gender will be displayed. A corresponding trash can icon also allows the user (i.e. the driver) to remove any riders from the ride. 
 - Offer a ride himself 
-    - Click into the plus sign near the top right corner of the page 
+    - Click into the plus sign near the bottom right corner of the page 
     - User is brought to the create ride page, where user is required to key in the necessary information to offer a ride 
     - Specific instructions on each of the field is documented in chronological order as below: 
         - User can click on the "Switch directions!" button to decide if he want to pick up or drop off from SMU 
@@ -89,3 +91,6 @@ Profile
     - Social media accounts (LinkedIn, Facebook, Instagram)
 - User is also able to logout after clicking the "Logout" button
 - Users are able to search other user's profile page if they get the GET parameters accordingly 
+
+End of user journey: 
+- Users can log out from 2 places, the first of which is the log out button on the navbar. The second of which is in the profile page itself.
