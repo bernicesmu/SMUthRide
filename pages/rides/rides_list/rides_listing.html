@@ -170,11 +170,11 @@
         </a>
         <div id="populate_listings" style="position: relative">
             <div
-                class="col px-md-5 p-1 d-flex flex-wrap justify-content-center"
+                class=" px-md-5 p-1 d-flex flex-wrap justify-content-center mb-0 w-100"
                 id="top_row"
             >
                 <div
-                    class="col-4 col-md-3 order-md-1 my-2 lh-lg d-flex justify-content-center"
+                    class="col-4 col-md-3 order-md-1 mt-4 py-2 py-md-0 mt-md-0 d-flex flex-wrap justify-content-center my-0"
                 >
                     <label class="switch">
                         <input
@@ -236,22 +236,24 @@
                 </div>
 
                 <div
-                    class="col-4 col-md-3 order-md-3 my-2 lh-lg d-flex flex-wrap justify-content-center"
+                    class="col-4 col-md-3 order-md-3 my-4 py-3 py-md-0 mt-md-1 d-flex flex-wrap justify-content-center"
 
                 >
                     <input
                             type="date"
                             id="dateInput"
-                            ref="dateInput"
+
                             style="display: block"
+                            v-bind:min = "new Date().toISOString().split('T')[0]"
                             v-model="selected_date"
+
 
                     />
 
                 </div>
 
                 <div
-                    class="inputs col-12 col-md-6 order-md-2 my-2 justify-content-center"
+                    class="inputs col-11 col-md-6 order-md-2 my-0 justify-content-center"
                 >
                     <i class="bi bi-search"></i>
                     <input

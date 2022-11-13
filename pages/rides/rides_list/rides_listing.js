@@ -152,7 +152,9 @@ const listings = Vue.createApp({
         },
         search:{
             handler(value,oldValue) {
-
+                    if (value == ''){
+                        this.check_and_populate()
+                    }
                     this.check_and_populate()
             },
             deep: true

@@ -11,10 +11,10 @@
     position: fixed;
     top: 7vh;
     left: 50%;
-    width: 116px ;
-    height: 33px;
-    margin-top: -16px;
     margin-left: -58px;
+    width: 116px ;
+
+
 
     ;
     /* bring your own prefixes */
