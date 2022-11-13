@@ -25,6 +25,8 @@ const listings = Vue.createApp({
             user: localStorage.getItem('username_x'),
             to_from : "From",
             users: [],
+            present : "present",
+            expired : "expired"
 
         }
     },
@@ -64,7 +66,9 @@ const listings = Vue.createApp({
                 if (this.expired_check(value.date, value.time)){
                     //current
                     if (value.driver_username === this.user){
-                        this.current_drives.push(value)
+                        if (!this.current_drives.includes(value)) { 
+                            this.current_drives.push(value)
+                        }
                     } else{
                         let users_offered = value.users_offered
                         if(users_offered.includes(this.user)){
@@ -180,7 +184,7 @@ listings.component('drive', {
 })
 
 listings.component('ride', {
-    props: ['list', 'users'],
+    props: ['list', 'users','past_present'],
     data() {
         return{
             to_from : "from",
@@ -292,9 +296,13 @@ listings.component('ride', {
     <div class="mx-auto mt-2 text-start">
             <div class="d-flex justify-content-between">
 
-                <div class="py-auto sticky">
+                <div class="py-auto sticky" v-if="past_present == 'present'">
                     <h4 class="my-auto">My upcoming rides</h4>
                 </div>
+                <div class="py-auto sticky" v-else>
+                <h4 class="my-auto">My past rides</h4>
+                </div>
+
                 
             </div>
         </div>

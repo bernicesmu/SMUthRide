@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="../rides/rides_list/card.css" />
         <style>
         tbody > tr:hover{
-            background-color: rgb(255,255,255,0.5);
+            background-color: rgb(216, 199, 163, 0.3);
         }
         .nav-link::selection{
             color:  #e3f1ef;
@@ -150,6 +150,15 @@
         .table tbody td {
             border-bottom-width: 2px;
             border-color: #d8c7a3;
+            color: #8A6F42;
+        }
+
+        .table tbody { 
+            background-color: #FFF;
+        }
+
+        .table { 
+            margin: 0px !important;
         }
 
         .no-drive, .no-ride {
@@ -224,7 +233,7 @@
                         
                     </div>
                     <div v-if="current_rides.length>0" style="margin-top: 15px;">
-                        <ride :list="current_rides" :users="users"></ride>
+                        <ride :list="current_rides" :users="users" :past_present="present"></ride>
                     </div>
                     <div v-else-if="current_rides.length==0" class="mx-auto" style="margin-top: 15px;">
                         <h4>My upcoming rides</h4>
@@ -254,7 +263,7 @@
                         </div>
                     </div>
                     <div v-if="expired_rides.length>0" class="mx-auto" style="margin-top: 15px;">
-                        <ride :list="expired_rides" :users="users"></ride>
+                        <ride :list="expired_rides" :users="users", :past_present="expired"></ride>
                     </div>
                     <div v-else class="mx-auto" style="margin-top: 15px;">
                         <h4>My past rides</h4>

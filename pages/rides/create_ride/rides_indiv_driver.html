@@ -215,6 +215,7 @@
 
         .map-buttons { 
             display: inline-flex !important;
+            width: 60%;
         }
 
         .location {
@@ -482,7 +483,49 @@
             #arrow {
                 transform: rotate(90deg);
             }
+            .inputs-div { 
+                width: 100% !important;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .location-input {
+                font-size: calc(1.275rem + 0.3vw);
+                font-weight: 500;
+                width: calc(100% - 24px) !important;
+                padding-left: 12px;
+                padding-right: 12px;
+                height: 37px;
+                display: block;
+                border: none;
+                left: 0px;
+                position: absolute;
+                outline: none;
+                border-bottom: 1px solid #4e7570;
+                color: #4e7570;
+                background: rgba(0, 0, 0, 0);
+                opacity: 1;
+                transition: 0.2s ease;
+                margin-left: 12px;
+            }
+            .date_alert_overflow { 
+                top: 25px;
+            }
+            .getRoute-buttons {
+                width: 80%;
+                border-radius: 10px;
+                background-color: #4e7570;
+                color: #b1b1b1;
+                border-color: #b1b1b1;
+                display: inline-block;
+                padding-top: 2px;
+            }
+        }
 
+        @media (max-width: 992px) {
+            .map-buttons { 
+                display: inline-flex !important;
+                width: 75% !important;
+            }
         }
         .dropdowns {
             font-size: calc(1.275rem + 0.3vw);
@@ -499,8 +542,11 @@
             transition: 0.2s ease;
         }
 
-        .smu-location { 
-            width: 100px;
+        @media (min-width: 768px) {
+            .smu-location { 
+                width: 150px !important;
+                margin-right: 0px !important;
+            }
         }
         .dropdown-time { 
             width: 60px;
@@ -707,7 +753,7 @@
                         role="alert"
                         v-if="location_alert"
                     >
-                        Please input an address*
+                        Please input an address
                     </label>
                 </div>
             </div>
@@ -906,11 +952,35 @@
                             .then(response => { 
                                 address_details = response.data.results[0]
                                 formatted_address = address_details.formatted_address
+
+                                // Singapore Validation
+                                var is_sg = false
+                                var split_formatted_add = formatted_address.split(" ")
+                                if (split_formatted_add.includes('Singapore') || split_formatted_add.includes('Singapore,')){
+                                    is_sg = true
+                                }
+
+                                console.log(is_sg)
+                                if (!is_sg){
+                                    document.getElementById('rides').setAttribute('disabled', true)
+                                    return info_hover.innerHTML = `<div class='wrong_loc text-danger'>Invalid Location</div>`;
+                                }
+
                                 console.log(formatted_address)
+                                if (formatted_address.includes("+")) { 
+                                    address_details = response.data.results[1]
+                                    formatted_address = address_details.formatted_address
+                                    console.log(formatted_address)
+                                }
                                 var neighbourhood = formatted_address
+                                var country = "SG"
+                                console.log(address_details.address_components)
                                 for (var add of address_details.address_components) { 
                                     if (add.types.includes('neighborhood')) { 
                                         neighbourhood = add.long_name
+                                    }
+                                    if (add.types.includes('country')) { 
+                                        country = add.short_name
                                     }
                                 }
                                 document.getElementById("hidden_formatted_address").value = formatted_address
@@ -1027,7 +1097,7 @@
                             map.setCenter(coords[0], coords[1]);
 
                             // error message for invalid address
-                            info_hover.innerHTML = `<div class='wrong_loc text-danger mx-2'>Invalid locations.</div>`;
+                            info_hover.innerHTML = `<div class='wrong_loc text-danger mx-2' style='opacity: 0.5'>Invalid location</div>`;
                         }
                     }
                 );
@@ -1069,11 +1139,11 @@
             <span class="highlight"></span>
             <label for="inputMoney" class="bottom_text-label">Cost per person</label>
             <span
-                class="date_alert text-danger"
+                class="date_alert date_alert_overflow text-danger"
                 role="alert"
                 v-if="cost == '' && cost != 'initial' || cost == 0"
             >
-                Cost per person should not be empty or $0 *
+                Cost per person should be larger than $0
         </span>
         
         </div>
@@ -1107,15 +1177,15 @@
 
             <label class="date-label" id="date-label">Date</label>
             <label
-                class="date_alert text-danger"
+                class="date_alert date_alert_overflow text-danger"
                 role="alert"
 
                 v-if="check_date()"
             >
-                Please select a date not more than 1 year from today or before today *
+                Please select a date not more than 1 year from today
             </label>
             <label
-                        class="change_date text-danger"
+                        class="change_date date_alert text-danger"
                         role="alert"
                         v-if="change_date"
                     >
