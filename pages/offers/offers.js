@@ -112,7 +112,7 @@ const listings = Vue.createApp({
 
 
 listings.component('drive', {
-    props: ['list'],
+    props: ['list', 'past_present'],
     methods: {
         format_date(date){
             date = date.split("-")
@@ -137,8 +137,13 @@ listings.component('drive', {
 
     template: `
       <div class="col mx-auto mt-2 text-start " >
-
-      <h4>My upcoming drives</h4>
+        <div v-if="past_present == 'present'">
+            <h4>My upcoming drives</h4>
+        </div>
+        <div v-else>
+            <h4>My past drives</h4>
+        </div>
+      
       <div class="overflow-md-hidden mx-auto">
       <table class="table text-center mx-auto rounded" >
         <thead>
@@ -294,18 +299,18 @@ listings.component('ride', {
     // `,
     template: `
     <div class="mx-auto mt-2 text-start">
-            <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between">
 
-                <div class="py-auto sticky" v-if="past_present == 'present'">
-                    <h4 class="my-auto">My upcoming rides</h4>
-                </div>
-                <div class="py-auto sticky" v-else>
-                <h4 class="my-auto">My past rides</h4>
-                </div>
-
-                
+            <div class="py-auto sticky" v-if="past_present == 'present'">
+                <h4 class="my-auto">My upcoming rides</h4>
             </div>
+            <div class="py-auto sticky" v-else>
+                <h4 class="my-auto">My past rides</h4>
+            </div>
+
+            
         </div>
+    </div>
     <div class="d-flex flex-wrap justify-content-center" v-if="display_listings.length>0">
     <div class="card col-sm-6 col-md-4 col-lg-3" v-for="listing in display_listings">
     <span class="badge badge-pill" v-if="listing.smu_to_from == 'from'" style="background-color:#BFACD3">{{text_transform(listing.smu_to_from)}}</span>
