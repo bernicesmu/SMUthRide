@@ -1,6 +1,7 @@
 # SMUthRide
 AY22/23 Sem 1 WAD2 Project
 - Group members: Adrianus, Bernice, Keith, Ken Ming, Regine, Zhe Xiang
+- It is recommended to use a Macbook / macOS and Chrome browser to view our platform
 
 Visiting the website 
 - User is brought to the home page of the webpage on first load. This is also the landing page. 
