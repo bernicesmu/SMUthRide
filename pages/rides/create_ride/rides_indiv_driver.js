@@ -110,20 +110,26 @@ const form_alerts = Vue.createApp({
             if(now_month == selected_month && now_day == selected_day && now_year == selected_year){
                 console.log(time)
                 // check if hour is less 
-                if(time_ampm == "pm"){
+                console.log(time_ampm)
+                if(time_ampm == "pm" && parseInt(time_hour) != 12){
                     var hour = parseInt(time_hour)
                     hour += 12
                     
                     // console.log(this.time_hour)
                 }
+                else if(time_ampm == "am" && parseInt(time_hour) == 12){
+                    
+                    var hour = parseInt(time_hour)
+                    hour = 0
+                }
                 else{
                     var hour = parseInt(time_hour)
-                    
                 }
-
+                console.log(hour)
                 let time_now = new Date().toLocaleTimeString('en-GB')
                 time_now = time_now.split(":")
                 let hour_now = Number(time_now[0])
+                console.log(hour_now)
                 let minute_now = Number(time_now[1])
                 console.log(hour)
                 console.log(hour_now)
@@ -234,7 +240,7 @@ form_alerts.component('time-input', {
                     
                     v-model='time_minute'
                     @change='check_time()'
-                    @change="$emit('checking_time')"
+                    @change="$emit('checking_time', date,time_hour,time_minute,time_ampm)"
                 >
                     <option value='00'>00</option>
                     <option value='05'>05</option>
@@ -257,7 +263,7 @@ form_alerts.component('time-input', {
                     
                     v-model='time_ampm'
                     @change='check_time()'
-                    @change="$emit('checking_time')"
+                    @change="$emit('checking_time', date,time_hour,time_minute,time_ampm)"
                 >
                     <option value="am">AM</option>
                     <option value="pm">PM</option>
@@ -370,11 +376,15 @@ form_alerts.component('time-input', {
                 console.log(time)
                 
                 // check if hour is less 
-                if(this.time_ampm == "pm"){
+                if(this.time_ampm == "pm" && parseInt(this.time_hour)!= 12){
                     var hour = parseInt(this.time_hour)
                     hour += 12
                     // this.hour_24 = hour
                     // console.log(this.time_hour)
+                }
+                else if(this.time_ampm == "am" && parseInt(this.time_hour) == 12){
+                    var hour = parseInt(this.time_hour)
+                    hour = 0
                 }
                 else{
                     var hour = parseInt(this.time_hour)
