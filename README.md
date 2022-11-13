@@ -6,6 +6,7 @@ AY22/23 Sem 1 WAD2 Project
 Visiting the website 
 - User is brought to the home page of the webpage on first load. This is also the landing page. 
 - User is not logged in yet. Click on the login tab in the navbar to navigate to the Registration / Login page
+- Alternatively, you can hover over the button "Start your Journey" to access the Registration / Login page
 
 Login and Registration
 - Register for an account with any username and password, as long as the username is unique. Should there be an error in the input of the registration fields, appropriate error messages will be shown. 
@@ -13,11 +14,14 @@ Login and Registration
 - Should you want to use an existing user in the database, please use the following credentials: 
     - Username: bernice 
     - Password: 12345678
+    - Username : suzy
+    - Password : 12345678
 - The login page has validation for username and password and will warn the user if incorrect inputs were supplied
 
 Home Page
 - Landing page for the app 
 - From the home page, you can access SMUth Ride's functions from the navbar, namely "Rides", "Offers", "Chat" and "Profile"
+- When logged in clicking "Start your Journey" will lead you to the Rides Listing page
 
 Rides Listing
 - Clicking into the "Rides" tab, will bring the users to a listing of all the rides available 
@@ -64,16 +68,20 @@ Offers page
 - Rides where user is a rider 
     - The rides are shown in individual cards, similarly to how it is shown in the rides listing page
     - The card operates similarly to the cards in the rides listing page as well 
+    - Additionally each card shows a pill classifying each ride as either to SMU or from SMU
+- Riders and drivers can also see past/expired transactions by clicking on the "Past" tabs 
 
 Chat
 - User can come into the chat from the "Chat" tab in the navbar, or from the "Chat for more" button in the ride details page 
-- User can chat with anyone who he has interacted with previously 
+- User can chat with anyone who he has interacted with previously
+- For users that you have not interacted previously, you need to click on their ride listings before a new chat will be initalised between you and the other user
 - User can also click into the user particulars at the top of the chat to be redirected to the user's profile page 
 - For any chat, user can make offer with the other party via the "Make offer" button on the top right corner of the chat view 
 
 Make offer 
 - When user choose to make offer, he would first have to select the driver. This is because both parties may be SMUth Drivers, and both parties are allowed to make offer for any valid rides. 
 - Subsequently, rides that were created by the selected driver will be populated as options in the Rides dropdown field. User should choose the ride which he is interested in making an offer for. 
+- Not all rides will be shown in the drop down list. For rides that are full, expired or already in your offers, these rides will not be populated.
 - User can then select a price which he would want to pay / receive for that particular ride. The price which the driver has originally set is the default value of the price. 
 - User is unable to confirm the offer until user fills in all the fields with valid input 
 
