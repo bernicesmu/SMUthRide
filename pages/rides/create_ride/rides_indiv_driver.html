@@ -215,7 +215,7 @@
 
         .map-buttons { 
             display: inline-flex !important;
-            width: 50%;
+            width: 60%;
         }
 
         .location {
@@ -520,11 +520,48 @@
                 padding-top: 2px;
             }
         }
+            .inputs-div { 
+                width: 100% !important;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .location-input {
+                font-size: calc(1.275rem + 0.3vw);
+                font-weight: 500;
+                width: calc(100% - 24px) !important;
+                padding-left: 12px;
+                padding-right: 12px;
+                height: 37px;
+                display: block;
+                border: none;
+                left: 0px;
+                position: absolute;
+                outline: none;
+                border-bottom: 1px solid #4e7570;
+                color: #4e7570;
+                background: rgba(0, 0, 0, 0);
+                opacity: 1;
+                transition: 0.2s ease;
+                margin-left: 12px;
+            }
+            .date_alert_overflow { 
+                top: 25px;
+            }
+            .getRoute-buttons {
+                width: 80%;
+                border-radius: 10px;
+                background-color: #4e7570;
+                color: #b1b1b1;
+                border-color: #b1b1b1;
+                display: inline-block;
+                padding-top: 2px;
+            }
+        }
 
         @media (max-width: 992px) {
             .map-buttons { 
                 display: inline-flex !important;
-                width: 80% !important;
+                width: 75% !important;
             }
         }
         .dropdowns {
@@ -761,7 +798,7 @@
 
     <div class="text-center container">
         <div class="row d-flex justify-content-center" style="position: relative;">
-            <div class="map-buttons mb-4 mx-auto text-center d-block-inline justify-content-center">
+            <div class="w-50 map-buttons mb-4 mx-auto text-center d-block-inline justify-content-center">
                 <button
                     type="button"
                     class="btn button w-50 d-block text-center getRoute-buttons justify-content-center mx-2"
@@ -1189,7 +1226,7 @@
                         role="alert"
                         v-if="change_date"
                     >
-                        Please input a date
+                        Please input a date*
                     </label>
         </div>
         <div class="group mx-auto">
