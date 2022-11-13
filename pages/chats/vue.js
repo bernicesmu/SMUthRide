@@ -212,6 +212,7 @@ const chat_left = Vue.createApp({
                     username: this.user,
                     type : "message",
                     accepted : "message",
+                    offer_price : "",
                     message_time : this.message_time,
                     mid : this.new_mid
                   })
@@ -276,6 +277,7 @@ const chat_left = Vue.createApp({
                 username: this.user,
                 type : "offer",
                 accepted : "pending",
+                offer_price : this.offer_price,
                 message_time : Date.now(),
                 selected_ride : this.selected_ride,
                 mid : this.new_mid
@@ -494,7 +496,7 @@ const chat_left = Vue.createApp({
             }
             return text
         },
-        accept(selected_ride,you, other_user,length,mid,driver){
+        accept(selected_ride,you, other_user,length,mid,driver,offer_price){
             console.log(length + "YYY")
             const db = getDatabase()
             // set(ref(db, `rides/${selected_ride}/users_offered/${length}`), {
@@ -510,11 +512,13 @@ const chat_left = Vue.createApp({
                to_add = you
            }
            console.log(to_add)
+           // WE NEED THE OFFER PRICE
+           let final = [to_add,offer_price]
 
 
             const updates = {};
             updates[`messages/${this.current_chatid}/${mid}/accepted`] = "accepted"
-            updates[`rides/${selected_ride}/users_offered/${length}`] = to_add
+            updates[`rides/${selected_ride}/users_offered/${length}`] = final
             return update(ref(db), updates)
         },
         decline(mid) { 
@@ -623,7 +627,7 @@ chat_left.component('offer-button',{
 
     template: `<b>{{ message.username }}</b>: <span v-html='message.message' style="font-weight: normal;"></span><br>
     <div id="acc_dec_buttons" v-if="message_status == 'pending'">
-        <button class="btn btn-accept" v-on:click="$emit('accept',selected_ride, you, other_user,length, message.mid,driver)">
+        <button class="btn btn-accept" v-on:click="$emit('accept',selected_ride, you, other_user,length, message.mid,driver, message.offer_price)">
             Accept Offer
         </button>
         <button class="btn btn-decline" v-on:click="$emit('decline',message.mid)">
