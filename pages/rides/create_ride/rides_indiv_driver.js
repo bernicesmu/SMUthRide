@@ -110,11 +110,15 @@ const form_alerts = Vue.createApp({
             if(now_month == selected_month && now_day == selected_day && now_year == selected_year){
                 console.log(time)
                 // check if hour is less 
-                if(time_ampm == "pm"){
+                if(time_ampm == "pm" && parseInt(time_hour) != 12){
                     var hour = parseInt(time_hour)
                     hour += 12
                     
                     // console.log(this.time_hour)
+                }
+                else if(time_ampm == "am" && parseInt(time_hour) == 12){
+                    var hour = parseInt(time_hour)
+                    hour = 0
                 }
                 else{
                     var hour = parseInt(time_hour)
@@ -370,11 +374,15 @@ form_alerts.component('time-input', {
                 console.log(time)
                 
                 // check if hour is less 
-                if(this.time_ampm == "pm"){
+                if(this.time_ampm == "pm" && parseInt(this.time_hour) != 12){
                     var hour = parseInt(this.time_hour)
                     hour += 12
                     // this.hour_24 = hour
                     // console.log(this.time_hour)
+                }
+                else if(this.time_ampm == "am" && parseInt(this.time_hour) == 12){
+                    var hour = parseInt(this.time_hour)
+                    hour = 0
                 }
                 else{
                     var hour = parseInt(this.time_hour)
