@@ -64,7 +64,9 @@ const listings = Vue.createApp({
                 if (this.expired_check(value.date, value.time)){
                     //current
                     if (value.driver_username === this.user){
-                        this.current_drives.push(value)
+                        if (!this.current_drives.includes(value)) { 
+                            this.current_drives.push(value)
+                        }
                     } else{
                         let users_offered = value.users_offered
                         for(user of users_offered){
