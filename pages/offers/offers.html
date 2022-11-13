@@ -46,7 +46,24 @@
         }
         .nav-tabs > li.active {
             margin-bottom: -1px;
+            background-color: #b3dad6;
         }
+
+        .nav-tabs .nav-item .nav-link.active { 
+            background-color: #b3dad6; 
+            
+        }
+
+        .nav-link { 
+            color: #b3dad6; 
+
+        } 
+
+        .nav-link:hover { 
+            color: #FFF; 
+
+        } 
+
         div.sticky {
             position: -webkit-sticky;
             position: sticky;
@@ -57,23 +74,23 @@
             margin-top: 10px;
         }
 
-        .btn-offer { 
-            background-color: #BFACD3;
-            color: #451F6A;
-        }
-
-        .btn-offer:hover { 
-            background-color: #BFACD3;
-            color: #FFF;
-        }
-
         .btn-find { 
-            color: #8A6F42;
-            background-color: #d8c7a3;
+            background-color: #bfacd3;
+            color: #FFF;
         }
 
         .btn-find:hover { 
-            color: #FFF;
+            color: #451f6a;
+            background-color: #bfacd3;
+        }
+
+        .btn-offer { 
+            color: #fff;
+            background-color: #d8c7a3;
+        }
+
+        .btn-offer:hover { 
+            color: #8a6f42;
             background-color: #d8c7a3;
         }
 
@@ -127,6 +144,37 @@
             position: relative;
             z-index: 1;
         }
+
+        .no-drive, .no-ride {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border-radius: 20px;
+            
+        }
+
+        .no-drive, .no-ride {
+            /* background-color: rgba(216,199,163,0.5); */
+            background-color: #fff;
+            /* opacity: 0.5; */
+        }
+
+        .no-drive h5 {
+            color:#d8c7a3;
+        }
+        .no-ride h5 {
+            color:#bfacd3;
+        }
+
+
+        .no-drive img, .no-ride img {
+            width: 100px;
+        }
+
         </style>
 
         <title>Offers</title>
@@ -160,22 +208,29 @@
                         <drive :list="current_drives"></drive>
                     </div>
                     <div v-else-if="current_drives.length==0">
-                        No scheduled drives 
-                        <br>
-                        <button class="btn btn-offer" onclick="location.href='../rides/create_ride/rides_indiv_driver.html'" style="margin-top: 10px;"> 
-                            Offer a ride
-                        </button>
-                        <br><br>
+                        <h4>My Drives</h4>
+                        <div class="no-drive">
+                            <img src="steering-wheel.png">
+                            <h5>No scheduled drives </h5>
+                            <button class="btn btn-offer" onclick="location.href='../rides/create_ride/rides_indiv_driver.html'" style="margin-top: 10px;"> 
+                                Offer a ride
+                            </button>
+                        </div>
+                        
                     </div>
                     <div v-if="current_rides.length>0">
                         <ride :list="current_rides" :users="users"></ride>
                     </div>
                     <div v-else-if="current_rides.length==0">
-                        No scheduled rides 
-                        <br>
-                        <button class="btn btn-find" onclick="location.href='../rides/rides_list/rides_listing.html'" style="margin-top: 10px;"> 
-                            Find a ride
-                        </button>
+                        <h4>My Rides</h4>
+                        <div class="no-ride">
+                            <img src="horse-car.png">
+                            <h5>No scheduled rides</h5>
+                            <button class="btn btn-find" onclick="location.href='../rides/rides_list/rides_listing.html'" style="margin-top: 10px;"> 
+                                Find a ride
+                            </button>
+                        </div>
+
                     </div>
 
                 </div>
@@ -184,22 +239,27 @@
                         <drive :list="expired_drives"></drive>
                     </div>
                     <div v-else>
-                        No driving history
-                        <br>
-                        <button class="btn btn-offer" onclick="location.href='../rides/create_ride/rides_indiv_driver.html'"> 
-                            Offer a ride
-                        </button>
-                        <br><br>
+                        <h4>My Drives History</h4>
+                        <div class="no-drive">
+                            <img src="steering-wheel.png">
+                            <h5>No driving history </h5>
+                            <button class="btn btn-offer" onclick="location.href='../rides/create_ride/rides_indiv_driver.html'" style="margin-top: 10px;"> 
+                                Offer a ride
+                            </button>
+                        </div>
                     </div>
                     <div v-if="expired_rides.length>0">
                         <ride :list="expired_rides" :users="users"></ride>
                     </div>
                     <div v-else>
-                        No riding history
-                        <br>
-                        <button class="btn btn-find" onclick="location.href='../rides/rides_list/rides_listing.html'"> 
-                            Find a ride
-                        </button>
+                        <h4>My Rides History</h4>
+                        <div class="no-ride">
+                            <img src="horse-car.png">
+                            <h5>No riding history</h5>
+                            <button class="btn btn-find" onclick="location.href='../rides/rides_list/rides_listing.html'" style="margin-top: 10px;"> 
+                                Find a ride
+                            </button>
+                        </div>
                     </div>
                 </div>
 
