@@ -214,7 +214,7 @@
                         <drive :list="current_drives"></drive>
                     </div>
                     <div v-else-if="current_drives.length==0">
-                        <h4>My Drives</h4>
+                        <h4>My upcoming drives</h4>
                         <div class="no-drive">
                             <img src="steering-wheel.png">
                             <h5>No scheduled drives </h5>
@@ -228,7 +228,7 @@
                         <ride :list="current_rides" :users="users"></ride>
                     </div>
                     <div v-else-if="current_rides.length==0">
-                        <h4>My Rides</h4>
+                        <h4>My upcoming rides</h4>
                         <div class="no-ride">
                             <img src="horse-car.png">
                             <h5>No scheduled rides</h5>
@@ -245,7 +245,7 @@
                         <drive :list="expired_drives"></drive>
                     </div>
                     <div v-else>
-                        <h4>My Drives History</h4>
+                        <h4>My past drives</h4>
                         <div class="no-drive">
                             <img src="steering-wheel.png">
                             <h5>No driving history </h5>
@@ -258,7 +258,7 @@
                         <ride :list="expired_rides" :users="users"></ride>
                     </div>
                     <div v-else>
-                        <h4>My Rides History</h4>
+                        <h4>My past rides</h4>
                         <div class="no-ride">
                             <img src="horse-car.png">
                             <h5>No riding history</h5>

@@ -113,7 +113,7 @@ listings.component('drive', {
     template: `
       <div class="col mx-auto mt-2 text-start " >
 
-      <h4>My Drives</h4>
+      <h4>My upcoming drives</h4>
       <div class="overflow-md-hidden">
       <table class="table text-center mx-3" >
         <thead>
@@ -173,7 +173,7 @@ listings.component('ride', {
             <div class="d-flex justify-content-between" style="">
 
                 <div class="py-auto sticky">
-                    <h4 class="my-auto">My Rides</h4>
+                    <h4 class="my-auto">My upcoming rides</h4>
                 </div>
                 <div class="me-2">
                     <label class="switch">
